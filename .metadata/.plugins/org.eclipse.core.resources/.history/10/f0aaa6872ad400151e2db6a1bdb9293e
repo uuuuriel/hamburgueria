@@ -1,7 +1,0 @@
-package br.com.hamburgueria.objs;
-
-import java.util.Date;
-
-public class Usuario {
-
-}

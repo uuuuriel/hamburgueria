@@ -1,5 +1,0 @@
-INDEX VERSION 1.126
-H:\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3690436118.index
-\exemploREST\src
-H:\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2258137415.index
-\exemploREST\src
