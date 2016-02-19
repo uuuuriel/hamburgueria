@@ -1,0 +1,20 @@
+package br.com.hamburgueria.jdbcinterface;
+
+import java.util.List;
+
+import br.com.hamburgueria.exception.NoResultException;
+import br.com.hamburgueria.objs.Produto;
+
+public interface ProdutoDAO {
+
+	public Produto buscarId(int id);
+
+	public List<Produto> buscarNome(String nome) throws NoResultException;
+
+	public void inserir(Produto prod);
+
+	public boolean deletar(int cod) throws NoResultException;
+
+	public boolean atualizar(Produto prod);
+
+}

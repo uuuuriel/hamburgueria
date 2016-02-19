@@ -1,0 +1,35 @@
+<script type="text/javascript" src="resources/usuario/js/gerenciaUsuario.js"></script>
+<div class="container administrarPedidoDiv col-sm-12 row">
+	<div class="content">
+		<h3>Gerenciar Usuários</h3>
+		<button class='btn btn-primary cadastrarFuncBtn' onclick="carregar('resources/cadastroUsuario.html')">Cadastrar Usuário</button>
+		<div class="">
+			<div class="input-group col-sm-6">
+				<input type="text" class="form-control" placeholder="Procure pelo Usuário...">
+				<span class="input-group-btn">
+					<button class="btn btn-success" type="button">Search</button>
+				</span>
+			</div>
+		</div>
+		<table class='table col-sm-12'>
+			<thead>
+				<tr>
+					<th><strong>Cód. Usuário</strong></th>
+					<th>Nome</th>
+					<th>Endereço</th>
+					<th>Última compra</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>35</td>
+					<td>Uriel Augusto Hass</td>
+					<td>Rua aqui da ban Número 666, Onde judas perdeu as botas</td>
+					<td>30/11/2015</td>
+					<td><a href='#' onclick="carregarPedido('resources/cadastroUser.html')"><i class="glyphicon glyphicon-edit editUser" aria-hidden="true"></i></a>      <a href='#'><i class="glyphicon glyphicon-remove-sign deletUser" aria-hidden="true"></i></a>  </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,76 @@
+	<script type='text/javascript' src='resources/usuario/js/cadastroUsuario.js'></script>
+	<<script type="text/javascript" src="assets/js/cidade.js"><script>
+	<div class='divForm'>
+	<h1>Formulário de Cadastro</h1>
+	<form method='POST' role='form' class='row form-group' action=''>
+		<div class='col-sm-6 cadastroUserLeft'>
+			<div class="form-group">
+			    <label for='txtnome'>Nome e Sobrenome:</label>
+			    <input type="text" class="form-control" id="txtnome" name="nome" />
+			</div>
+			<div class="form-group col-xs-6 bugcol1">
+			    <label for='nmbrcpf'>CPF:</label>
+			    <input type="text" class="form-control" id="nmbrcpf" name="cpf" />
+			</div>
+			<div class="form-group col-xs-6 bugcol2">
+				<label for='nmbrrg'>RG:</label>
+				<input type='text' class='form-control' id='nmbrrg' name='rg' />
+			</div>
+			<div class='form-group col-xs-6 bugcol1'>
+				<label for='nmbrdata-nascimento'>Data de nascimento:</label>
+				<input type='text' class='form-control' id='nmbrdatanascimento' name='data_nascimento' />
+			</div>
+			<div class='form-group col-xs-6 bugcol2'>
+				<label for='nmbrfone'>Telefone:</label>
+				<input type='text' class='form-control' id='nmbrfone' name='telefone' />
+			</div>
+			<div class="form-group">
+			    <label for='txtemail'>Email:</label>
+			    <input type="text" class="form-control" id="txtemail" name='email' />
+			</div>
+			<div class="form-group">
+			    <label for='pass'>Senha:</label>
+			    <input type="password" class="form-control" id="pass" name='senha' />
+			</div>
+			<div class="form-group">
+				<label for='confirmPass'>Confirmar senha:</label>
+			    <input type="password" class="form-control" id="confirmPass" name='confirmaSenha' />
+			</div>
+		</div>
+		<div class='col-sm-6 cadastroUserRight'>
+			<div class="form-group">
+				<label for="cep">CEP:</label>
+				<input type="text" class="form-control" id="nmbrcep" name="cep" />
+			</div>
+			<div class="form-group">
+			    <label for='txtcidade'>Cidade:</label>
+			    <select id='txtcidade' name='cidade' class='form-control'>
+			    	
+			    </select>
+			</div>
+			<div class="form-group">
+			    <label for='txtbairro'>Bairro:</label>
+			    <select class="form-control" id="txtbairro" name='bairro'></select>
+			</div>
+			<div class="form-group col-sm-9 bugcol1">
+			    <label for='txtrua'>Rua:</label>
+			    <input type="text" class="form-control" id="txtrua" name='rua' />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for='nmbrcasa'>Número:</label>
+			    <input type="text" class="form-control" id="nmbrcasa" name='numero' />
+			</div>
+			<div class='form-group'>
+				<label for='txtcomplemento'>Complemento:</label>
+				<input type='text' class='form-control' id='txtcomplemento' name='complemento' />
+			</div>
+			<div class="checkbox">
+			  	<label><input type="checkbox" id='aceitatermos' name='aceitatermos'>Aceito os termos de uso.</label>
+			</div>
+			<div class='form-group'>
+				<input type='button' class='btn btn-primary' id="cadastrarUsuario" value='Cadastrar'/>
+				<input type='reset' class='btn btn-default' value='Limpar'/> 
+			</div>
+		</div>
+	</form>
+</div>

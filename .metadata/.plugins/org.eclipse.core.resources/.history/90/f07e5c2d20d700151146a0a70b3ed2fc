@@ -1,0 +1,19 @@
+package br.com.hamburgueria.jdbcinterface;
+
+import java.util.List;
+
+import br.com.hamburgueria.objs.Produto;
+
+public interface ProdutoDAO {
+
+	public Produto buscarId(int id);
+
+	public List<Produto> buscarNome(String nome);
+
+	public void inserir(Produto prod);
+
+	public void deletar(int id);
+
+	public List<Produto> atualizar(Produto prod);
+
+}

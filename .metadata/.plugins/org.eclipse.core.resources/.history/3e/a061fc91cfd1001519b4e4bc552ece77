@@ -1,0 +1,9 @@
+package br.com.hamburgueria.jdbcinterface;
+
+import java.util.List;
+
+import br.com.hamburgueria.objs.Bairro;
+
+public interface BairroDAO {
+	public List<Bairro> listarBairros(int cod);
+}

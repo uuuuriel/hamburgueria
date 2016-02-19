@@ -1,0 +1,104 @@
+package br.com.hamburgueria.service;
+import java.sql.Connection;
+import java.util.List;
+
+import br.com.hamburgueria.bd.conexao.Conexao;
+import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
+import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
+import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.validacoes.ValidaUsuario;
+
+
+public class UsuarioService {
+
+	public Usuario buscarUsuarioPorId(int id) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {			
+			Connection conexao = conec.abrirConexao();
+			UsuarioDAO jdbcFuncionario = new JDBCUsuarioDAO(conexao);
+			return jdbcUsuario.buscarPorId(id);
+		}catch(HamburgueriaException e){
+			throw e;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new HamburgueriaException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public List<Usuario> buscarUsuarioPorNome(String nome) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {
+			Connection conexao = conec.abrirConexao();
+			UsuarioDAO jdbcFuncionario = new JDBCUsuarioDAO(conexao);
+			return jdbcUsuario.buscarPorNome(nome);
+		}catch(HamburgueriaException e){
+			throw e;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new HamburgueriaException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public void adicionarUsuario(Usuario user) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {
+			Connection conexao = conec.abrirConexao();
+			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			//ADICIONAR VALIDAÇÃO USUÁRIO
+				jdbcUsuario.inserir(user);
+			}else{
+				throw new HamburgueriaException("Campos vazios, por favor preencha todos.");
+			}
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
+			throw e;			
+		}catch (Exception e){
+			throw new HamburgueriaException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public void deletarUsuario(int id) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			UsuarioDAO jdbcFuncionario = new JDBCUsuarioDAO(conexao);
+			jdbcUsuario.deletarUsuario(id);
+		} catch (HamburgueriaException e) {
+			throw e;			
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new HamburgueriaException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public void atualizarFuncionario(Funcionario func) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
+			ValidaFuncionario validaFuncionario = new ValidaFuncionario();
+			boolean isvazio = validaFuncionario.funcionario(func);
+			if(isvazio == true){
+				jdbcFuncionario.atualizar(func);
+			}else{
+				throw new HamburgueriaException("Campos vazios, por favor preencha todos.");
+			}
+		} catch (HamburgueriaException e) {
+			throw e;			
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new HamburgueriaException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+}

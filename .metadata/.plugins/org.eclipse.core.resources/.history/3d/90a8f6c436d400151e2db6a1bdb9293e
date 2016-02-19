@@ -1,0 +1,23 @@
+$("#cadastrarUsuario").on('click', function(){
+	console.log($("form").serialize());
+})
+
+$(document).ready(function(){
+		HM.cidade.listar({
+			async : false,
+			success : function(data) {
+				var html = "";
+				for ( var i = 0; i < data.length; i++) {
+					html += "<option value='"
+							+ data[i].cod
+							+ "'>"
+							+ data[i].cidade
+							+ "</option>";
+				}
+				$("#txtcidade").append(html);
+			},
+			error:function(err){
+				console.log(err)
+			}
+		});
+});

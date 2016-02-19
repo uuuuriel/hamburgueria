@@ -1,0 +1,11 @@
+package br.com.hamburgueria.service;
+
+public class BairroService {
+
+	public Object buscarPorId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

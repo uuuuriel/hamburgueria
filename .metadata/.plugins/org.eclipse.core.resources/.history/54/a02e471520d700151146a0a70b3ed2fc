@@ -1,0 +1,14 @@
+package br.com.hamburgueria.jdbc;
+
+import br.com.hamburgueria.jdbcinterface.ProdutoDAO;
+import br.com.hamburgueria.objs.Produto;
+
+public class JDBCProdutoDAO implements ProdutoDAO{
+
+	@Override
+	public Produto buscarId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

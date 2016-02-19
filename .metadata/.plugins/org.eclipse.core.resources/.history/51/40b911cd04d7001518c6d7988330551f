@@ -1,0 +1,35 @@
+$(document).ready(function() {
+	HM.Taxa = {
+		listar : function(cfg) {
+			HM.ajax.get({
+				url : "rest/BairroRest/buscarPorId/"+cfg.data,
+				success : function(listaDeBairro) {
+					if (cfg && cfg.success) {
+						cfg.success(listaDeBairro);
+					}
+				},
+				error : function(error) {
+					if (cfg && cfg.error) {
+						cfg.error(error);
+					}
+				}
+			});
+		}
+	};	
+	HM.taxa = {
+		buscar : function(cfg){
+			HM.ajax.get({
+				url: "rest/TaxaRest/buscar/"+cfg.data,
+				success:function(list){
+					if (cfg && cfg.success){
+						cfg.success(list);
+					}
+				},
+				error: function(err){
+					cfg.error(err);
+				}
+			})
+		}
+	}
+	
+});

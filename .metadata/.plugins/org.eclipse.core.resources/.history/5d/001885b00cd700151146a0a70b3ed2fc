@@ -1,0 +1,55 @@
+<script type="text/javascript" src="js/gerenciaTaxa.js"></script>
+<div class="container administrarPedidoDiv col-sm-12 row">
+	<div class="content">
+		<h3>Gerenciar Taxas</h3>
+		<div class="">
+			<div class="input-group col-sm-6">
+				<input type="text" class="form-control" placeholder="Procure pela taxa...">
+				<span class="input-group-btn">
+					<button class="btn btn-success" type="button">Search</button>
+				</span>
+			</div>
+		</div>
+		<table class='table col-sm-6'>
+			<thead>
+				<tr>
+					<th class='center'><strong>Cód. Taxa</strong></th>
+					<th>Nome</th>
+					<th>Descrição</th>
+					<th class='col-sm-2 center'>Valor</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class='center'>
+						<span><strong id='cod1'></strong></span>
+					</td>
+					<td>
+						<span id='nome1'></span>
+					</td>
+					<td>
+						<span id='descricao1'></span>
+					</td>
+					<td>
+						<input id='valor1' value='R$ 50,00' name='valor2' class='form-control'/>
+					</td>
+				</tr>
+				<tr>
+					<td class='center'>
+						<span><strong id='cod2'></strong></span>
+					</td>
+					<td>
+						<span id='nome2'></span>
+					</td>
+					<td>
+						<span id='descricao2'></span>
+					</td>
+					<td>
+						<input id='valor2' name='valor2' class='form-control'/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<input type='button' class='btn btn-primary' value='Atualizar' id='btnAttTaxa'/>
+	</div>
+</div>

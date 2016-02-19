@@ -1,0 +1,39 @@
+package br.com.hamburgueria.rest;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import br.com.hamburgueria.rest.UtilRest;
+
+import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.service.TaxaService;
+
+@Path("TaxaRest")
+public class TaxaRest extends UtilRest{
+	
+	public TaxaRest() {
+	}
+	
+	@GET
+	@Path("buscar/{nome}")
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response buscar(@PathParam("nome") String nome) {
+		try {
+			TaxaService service = new TaxaService();
+			if(nome.equals("null")){
+				nome = "";
+			}
+			System.out.println(nome);
+			return this.buildResponse(service.buscar(nome));
+
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}		
+	}
+
+}

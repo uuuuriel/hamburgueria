@@ -1,0 +1,17 @@
+package br.com.hamburgueria.service;
+
+import java.util.List;
+
+import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.objs.Bairro;
+import br.com.hamburgueria.objs.Cidade;
+
+public class BairroService {
+
+	public List<Bairro> buscarPorId(int id) throws HamburgueriaException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}
