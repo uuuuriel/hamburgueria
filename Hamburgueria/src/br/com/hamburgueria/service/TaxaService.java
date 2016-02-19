@@ -11,16 +11,15 @@ import br.com.hamburgueria.objs.Taxa;
 
 public class TaxaService {
 
-	public List<Taxa> buscar(String list) throws HamburgueriaException{
+	public List<Taxa> buscar(String nome) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
 			
-			return jdbcTaxa.buscar(list);
+			return jdbcTaxa.buscar(nome);
 		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}finally{
 			conec.fecharConexao();
 		}

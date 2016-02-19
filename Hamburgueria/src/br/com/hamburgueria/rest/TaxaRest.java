@@ -32,7 +32,6 @@ public class TaxaRest extends UtilRest{
 			if(nome.equals("null")){
 				nome = "";
 			}
-			System.out.println(nome);
 			return this.buildResponse(service.buscar(nome));
 
 		} catch (HamburgueriaException e) {
