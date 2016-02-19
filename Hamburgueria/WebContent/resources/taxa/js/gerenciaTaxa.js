@@ -7,7 +7,12 @@ $(document).ready(function(){
 		HM.taxa.buscar({
 			data: ok,
 			success:function(resp){
-				console.log(resp);
+				for ( var i = 0; i < resp.length; i++) {
+					$("#cod"+(i+1)).text(resp[i].cod);
+					$("#nome"+(i+1)).text(resp[i].nome);
+					$("#descricao"+(i+1)).text(resp[i].descricao);
+					$("#valor"+(i+1)).val(resp[i].valor);
+				}
 			},
 			error:function(err){
 				console.log(err.responseText());

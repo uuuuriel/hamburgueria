@@ -22,7 +22,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 	public List<Taxa> buscar(String nome) throws NoResultException  {
 		String comando = "select * from taxas";
 		if (!nome.equals("")) {
-			comando += "where nometaxa like '" + nome + "%'";
+			comando += "where nometaxa like '%" + nome + "%'";
 		}
 		List<Taxa> list = new ArrayList<Taxa>();
 		Taxa taxa = null;
