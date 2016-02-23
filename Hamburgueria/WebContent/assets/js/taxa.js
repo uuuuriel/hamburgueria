@@ -16,7 +16,8 @@ $(document).ready(function() {
 		
 		atualizar : function(cfg){
 			HM.ajax.put({
-				url: "rest/TaxaRest/editar/"+cfg.data,
+				url: "rest/TaxaRest/atualizar/",
+				data: cfg.data,
 				success:function(cod){
 					if(cfg && cfg.success){
 						cfg.success(cod);

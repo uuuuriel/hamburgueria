@@ -41,9 +41,9 @@ public class TaxaRest extends UtilRest{
 	}
 	
 	@PUT
-	@Path("/editar")
+	@Path("/atualizar")
 	@Consumes("application/*")
-	public Response editar(String taxa){
+	public Response atualizar(String taxa){
 		try{
 			Taxa taxas = new ObjectMapper().readValue(taxa, Taxa.class);
 			TaxaService service = new TaxaService();
