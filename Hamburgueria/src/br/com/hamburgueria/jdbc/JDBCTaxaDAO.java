@@ -46,6 +46,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 		return list;
 	}
 	
+	@Override
 	public boolean editar(Taxa taxa) throws ValueZException{
 		if(taxa == null){
 			throw new ValueZException("Erro ao atualizar os valores.");

@@ -13,7 +13,7 @@ $(document).ready(function(){
 							+ "<td><span id='nome" + i + "'>" + resp[i].nome + "</span></td>"
 							+ "<td><span id='descricao" + i + "'>" + resp[i].descricao + "</span></td>"
 							+ "<td><input id='valor" + i + "' class='form-control' value='" + resp[i].valor + "'/></td>"
-							+ "<td><button type='button' class='btn btn-primary' onclick='HM.taxa.atualize(" + i + ")'>atualizar</button></td></tr>"; 
+							+ "<td><button type='button' class='btn btn-primary' onclick='HM.taxa.atualize(" + i  + ")'>atualizar</button></td></tr>";
 				}
 				$("table tbody").append(html);
 			},
@@ -25,7 +25,7 @@ $(document).ready(function(){
 	
 	HM.taxa.atualize = function(cod){
 		HM.taxa.atualizar({
-			data: JSON.stringify({'cod': cod , 'nome': $("#valor"+cod).val()}),
+			data: JSON.stringify({'cod': cod , 'valor': $("#valor"+cod).val()}),
 			success:function(succ){
 				console.log(succ);
 			},
@@ -38,10 +38,5 @@ $(document).ready(function(){
 	$('#buttonSearch').on('click', function(){
 		HM.taxa.busca();
 	});
-	
-	$("#buttonUpdate").on('click', function(){
-		HM.taxa.atualize();
-	});
-
 	HM.taxa.busca();
 });
