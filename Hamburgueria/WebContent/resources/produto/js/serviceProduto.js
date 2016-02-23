@@ -1,58 +1,94 @@
-$(document).ready(function() {
-	if(HM.produto == undefined){
-		HM.produto = {};
-	}
-	
-	HM.produto.cfgDefault = function(cfg) {
-		var url = "rest/s";
-		if(cfg && cfg.url){
-			url = cfg.url;
-		}
-		var data = undefined;
-		if(cfg && cfg.data){
-			data = cfg.data;
-		}
-		return {
-			'url': url,
-			'data' : data,
-			success: function(data){
-				if (cfg && cfg.success) {
-					cfg.success(data);
+$(document).ready(
+		function() {
+			HM.produto = new Object();
+			HM.produto = {
+				exibir : function(cfg) {
+					var busca = cfg.data;
+					if (busca == "") {
+						busca = "null";
+					}
+					HM.ajax.get({
+						url : "rest/ProdutoRest/buscarNome/"
+								+ busca,
+						success : function(list) {
+							if (cfg && cfg.success) {
+								cfg.success(list);
+							}
+						},
+						error : function(err) {
+							if (cfg && cfg.error) {
+								cfg.error(error);
+							}
+						}
+					})
+				},
+				deletar : function(cfg) {
+					var cod = cfg.cod;
+					HM.ajax.DELETE({
+						url : "rest/ProdutoRest/deletar/" + cod,
+						success : function(cod) {
+							if (cfg && cfg.success) {
+								cfg.success(cod);
+							}
+						},
+						error : function(err) {
+							if (cfg && cfg.error) {
+								cfg.error(error);
+							}
+						}
+					});
+
+				},
+				adicionar : function(cfg) {
+					var newData = cfg.data;
+					HM.ajax.post({
+						url : "rest/ProdutoRest/adicionar",
+						data : JSON.stringify(newData),
+						success : function(data) {
+							if (cfg && cfg.success) {
+								cfg.success(data);
+							}
+						},
+						error : function(error) {
+							if (cfg && cfg.error) {
+								cfg.error(error);
+							}
+						}
+					});
+				},
+				popular : function(cfg) {
+					var cod = cfg.data;
+					HM.ajax.get({
+						url : "rest/ProdutoRest/buscarId/"
+								+ cod,
+						async : false,
+						success : function(user) {
+							if (cfg && cfg.success) {
+								cfg.success(user);
+							}
+						},
+						error : function(err) {
+							if (cfg && cfg.error) {
+								cfg.error(error);
+							}
+						}
+					});
+				},
+				editar : function(cfg) { 
+					HM.ajax.put({
+						url : "rest/ProdutoRest/editar",
+						data : JSON.stringify(cfg.data),
+						success : function(succ) {
+							if (cfg && cfg.success) {
+								cfg.success(succ);
+							}
+						},
+						error : function(err) {
+							if (cfg && cfg.error) {
+								cfg.error(error);
+							}
+						}
+					});
 				}
-			},
-			error: function(error){
-				if (cfg && cfg.error) {
-					cfg.error(error);
-				}
-			}
-		};
-	};
-	
-	BRIGADERIA.clienteService.listar = function(cfg){
-		cfg.url = "rest/clientes/buscarClientes/" + cfg.valorBusca;
-		BRIGADERIA.ajax.get(BRIGADERIA.clienteService.defaultCfg(cfg));
-	};
-	
-	BRIGADERIA.clienteService.adicionar = function(cliente) {
-		cfg = {
-			url: "rest/clientes/adicionar",
-			data: cliente,
-			success : function (sucesso) {
-				bootbox.alert(sucesso);
-				carregarConteudo ('resources/gerenciar/gerenciarClientes.html');
-			}
-		};
-		BRIGADERIA.ajax.post(BRIGADERIA.clienteService.defaultCfg(cfg));
-	};
-	
-	BRIGADERIA.clienteService.deletar = function(cfg) {
-		cfg.url = "rest/clientes/deletar/" + cfg.codigo;
-		
-		BRIGADERIA.ajax.del(BRIGADERIA.clienteService.defaultCfg(cfg));
-	};
-	
-	BRIGADERIA.clienteService.buscarClientePeloCodigo = function(cfg) {
-		cfg.url = "rest/clientes/buscarClientePeloCodigo/" + cfg.codigo;
-		BRIGADERIA.ajax.get(BRIGADERIA.clienteService.defaultCfg(cfg));
-	};
-});
+			};
+		});

@@ -8,7 +8,7 @@ public class Produto {
 	private String cancelamento;
 	private String observacao;
 	private int valor;
-	private int categoria;
+	private String categoria;
 	
 	public int getCod() {
 		return cod;
@@ -52,10 +52,10 @@ public class Produto {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-	public int getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(int categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 }

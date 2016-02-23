@@ -39,7 +39,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setCancelamento(rs.getString("cancelamento"));
 				prod.setObservacao(rs.getString("observacao"));
 				prod.setValor(rs.getInt("valor"));
-				prod.setCategoria(rs.getInt("categoria_codcategoria1"));
+				prod.setCategoria(rs.getString("categoria"));
 				list.add(prod);
 			}
 			if(list.isEmpty()){
@@ -76,7 +76,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 		}
 		String comando = "UPDATE produto SET nomeproduto=?,"
 				+ " descricao=?, anexo=?, cancelamento=?,"
-				+ " observacao=?, valor=?, categoria_codcategoria1=? WHERE codproduto="+prod.getCod();
+				+ " observacao=?, valor=?, =? WHERE codproduto="+prod.getCod();
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
@@ -86,7 +86,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p.setString(4, prod.getCancelamento());
 			p.setString(5, prod.getObservacao());
 			p.setInt(6, prod.getValor());
-			p.setInt(7, prod.getCategoria());
+			p.setString(7, prod.getCategoria());
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,17 +100,15 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 		if(prod == null){
 			throw new ValueZException("Produto não foi adicionado no banco de dados.");
 		}
-		String comando = "insert into produto (nomeproduto, descricao,anexo,observacao,valor,categoria_codcategoria1)"
-				+ " values (?, ?, ?, ?, ?, ?);";
+		String comando = "insert into produto (nomeproduto, descricao, categoria,valor,)"
+				+ " values (?, ?, ?, ?);";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, prod.getNome());
 			p.setString(2, prod.getDescricao());
-			p.setString(3, prod.getAnexo());
-			p.setString(4, prod.getObservacao());
-			p.setInt(5, prod.getValor());
-			p.setInt(6, prod.getCategoria());
+			p.setString(3, prod.getCategoria());
+			p.setInt(4, prod.getValor());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,7 +133,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setCancelamento(rs.getString("cancelamento"));
 				prod.setObservacao(rs.getString("observacao"));
 				prod.setValor(rs.getInt("valor"));
-				prod.setCategoria(rs.getInt("categoria_codcategoria1"));
+				prod.setCategoria(rs.getString("categoria"));
 			}
 			if(prod == null){
 				throw new NoResultException();
