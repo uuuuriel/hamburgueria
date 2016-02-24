@@ -16,6 +16,14 @@ body{
 	color: #fff;
 }
 
+.sugestao-cristica a{
+	margin-top: 0.5%;
+	text-decoration: none;
+	float: right;
+	color: #fff;
+}
+
+
 .menu-link a{
 	text-decoration: none;
 	color: #fff;
@@ -34,7 +42,7 @@ body{
 	background-color: #0284CA;
 	color: #fff;
 }
-#myModal{
+#myModal, #myModal2{
 	color: white;
 }
 .ofertaDia{
