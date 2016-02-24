@@ -34,7 +34,7 @@ $(document).ready(function(){
 							+ "<td> R$ " + data[i].valor + "</td>"
 							+ "<td><a href='#' onclick='HM.produto.edit(" + data[i].cod + ")'"
 							+ "<i class='glyphicon glyphicon-edit editProduto' aria-hidden='true'></i></a>    "
-							+ "   <a href='#' onclick='HM.produto.delet(" + data[i].cod + "'>"
+							+ "   <a href='#' onclick='HM.produto.delet(" + data[i].cod + ")'>"
 							+ "<i class='glyphicon glyphicon-remove-sign deletProduto' aria-hidden='true'></i></a></td></tr>";
 				}
 				$("tbody").html(html);
@@ -49,12 +49,20 @@ $(document).ready(function(){
 		$.ajax({
 			url : "resources/produto/formularioProduto.html",
 			success : function(dat) {
-				$("#conteudo").html(dat);
-				$("#titleChange").text("Editar Produto");
-				$("#cadastrarProduto").attr('onclick', "HM.produto.edit();");
-				$("form input, form select").each(function(){
-					$(this).val(resp[this.id]);
-				});
+				HM.produto.popular({
+					data: cod,
+					success: function(resp){
+						$("#conteudo").html(dat);
+						$("#titleChange").text("Editar Produto");
+						$("#cadastrarProduto").attr('onclick', "HM.produto.edite();");
+						$("form input, form select").each(function(){
+							$(this).val(resp[this.id]);
+						});
+					},
+					error: function(err){
+						console.log(err);
+					}
+				})
 			},error:function(err){console.log(err.responseText());}
 		})
 	}

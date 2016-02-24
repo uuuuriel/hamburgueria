@@ -12,7 +12,7 @@ $(document).ready(function(){
 			}
 		});
 	};
-	HM.produto.edit = function(){
+	HM.produto.edite = function(){
 		HM.produto.editar({
 			data:HM.produto.getValor(),
 			success : function(data) {
@@ -26,7 +26,7 @@ $(document).ready(function(){
 	};
 	HM.produto.getValor = function(value){
 		var newProduto = new Object();
-		$("form div input, form div select").each(function(){
+		$("form input, form select").each(function(){
 			newProduto[this.name]=this.value;
 			});
 		return newProduto;

@@ -75,18 +75,14 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			throw new ValueZException("Erro ao atualizar os dados do Produto");
 		}
 		String comando = "UPDATE produto SET nomeproduto=?,"
-				+ " descricao=?, anexo=?, cancelamento=?,"
-				+ " observacao=?, valor=?, =? WHERE codproduto="+prod.getCod();
+				+ " descricao=?, categoria=?, valor=? WHERE codproduto="+prod.getCod();
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, prod.getNome());
 			p.setString(2, prod.getDescricao());
-			p.setString(3, prod.getAnexo());
-			p.setString(4, prod.getCancelamento());
-			p.setString(5, prod.getObservacao());
-			p.setInt(6, prod.getValor());
-			p.setString(7, prod.getCategoria());
+			p.setString(3, prod.getCategoria());
+			p.setInt(4, prod.getValor());
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,7 +96,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 		if(prod == null){
 			throw new ValueZException("Produto não foi adicionado no banco de dados.");
 		}
-		String comando = "insert into produto (nomeproduto, descricao, categoria,valor,)"
+		String comando = "insert into produto (nomeproduto, descricao, categoria,valor)"
 				+ " values (?, ?, ?, ?);";
 		PreparedStatement p;
 		try {
