@@ -99,4 +99,21 @@ public class FuncionarioRest extends UtilRest {
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
+	
+	@GET
+	@Path("buscarLogin/{email}")
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response buscarLogin(@PathParam("email") String email) {
+		try {
+			FuncionarioService service = new FuncionarioService();
+			if(email.equals("null")){
+				email = "";
+			}
+			return this.buildResponse(service.buscarFuncionarioPorNome(email));
+
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}		
+	}
 }
