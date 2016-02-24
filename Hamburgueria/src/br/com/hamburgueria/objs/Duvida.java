@@ -3,7 +3,7 @@ package br.com.hamburgueria.objs;
 public class Duvida {
 	
 	private int cod;
-	private String duvida;
+	private String mensagem;
 	private String nome;
 	private String email;
 	private int telefone;
@@ -13,11 +13,11 @@ public class Duvida {
 	public void setCod(int cod) {
 		this.cod = cod;
 	}
-	public String getDuvida() {
-		return duvida;
+	public String getMensagem() {
+		return mensagem;
 	}
-	public void setDuvida(String duvida) {
-		this.duvida = duvida;
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 	public String getNome() {
 		return nome;

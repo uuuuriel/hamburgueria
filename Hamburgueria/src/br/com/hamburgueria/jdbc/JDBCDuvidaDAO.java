@@ -34,8 +34,9 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 				duv = new Duvida();
 				duv.setCod(rs.getInt("codsugestao_criticas"));
 				duv.setNome(rs.getString("nome"));
-				duv.setDuvida(rs.getString("sugestao_criticas"));
+				duv.setMensagem(rs.getString("mensagem"));
 				duv.setTelefone(rs.getInt("telefone"));
+				duv.setEmail(rs.getString("email"));
 				list.add(duv);
 			}
 			if (list.isEmpty()) {
@@ -53,13 +54,13 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 			throw new ValueZException("Erro, valores negativos.");
 		}
 		String comando = "insert into sugestoes_criticas ("
-				+ "sugestao_criticas, nome, email, telefone)"
+				+ "mensagem, nome, email, telefone)"
 				+ " values"
 				+ "(?, ?, ?, ?)";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setString(1, duv.getDuvida());
+			p.setString(1, duv.getMensagem());
 			p.setString(2, duv.getNome());
 			p.setString(3, duv.getEmail());
 			p.setInt(4, duv.getTelefone());
