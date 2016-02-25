@@ -18,6 +18,6 @@ public interface FuncionarioDAO {
 	
 	public Funcionario buscarPorId(int id) throws NoResultException;
 
-	public List<Funcionario> buscarEmail(String email) throws NoResultException;
+	public List<Funcionario> buscarEmail(Funcionario func) throws NoResultException;
 
 }
