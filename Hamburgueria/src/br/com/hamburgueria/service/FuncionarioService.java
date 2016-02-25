@@ -103,4 +103,20 @@ public class FuncionarioService {
 			conec.fecharConexao();
 		}
 	}
+	
+	public List<Funcionario> buscarLogin(String email) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {
+			Connection conexao = conec.abrirConexao();
+			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
+			return jdbcFuncionario.buscarEmail(email);
+		}catch(HamburgueriaException e){
+			throw e;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new HamburgueriaException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
 }

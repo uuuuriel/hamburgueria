@@ -194,4 +194,10 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		}
 		return func;
 	}
+
+	@Override
+	public List<Funcionario> buscarEmail(String email) throws NoResultException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

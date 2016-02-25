@@ -109,7 +109,7 @@ public class FuncionarioRest extends UtilRest {
 			if(email.equals("null")){
 				email = "";
 			}
-			return this.buildResponse(service.buscarFuncionarioPorNome(email));
+			return this.buildResponse(service.buscarLogin(email));
 
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();
