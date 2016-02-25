@@ -4,8 +4,11 @@ import java.util.List;
 
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
 import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
+import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
+import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.Usuario;
 
 
@@ -86,6 +89,22 @@ public class UsuarioService {
 
 		} catch (Exception e){
 			e.printStackTrace();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+
+	public List<Usuario> buscarLogin(Usuario user) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {
+			Connection conexao = conec.abrirConexao();
+			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			return jdbcUsuario.buscarEmail(user);
+		}catch(HamburgueriaException e){
+			throw e;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}

@@ -12,6 +12,7 @@ import java.util.List;
 import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
+import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.Usuario;
 
 public class JDBCUsuarioDAO implements UsuarioDAO {
@@ -184,5 +185,30 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			e.printStackTrace();
 		}
 		return user;
+	}
+
+	@Override
+	public List<Usuario> buscarEmail(Usuario user) throws NoResultException {
+		String comando = "select email, senha from cliente where email ='" + user.getEmail() + "'";
+		List<Usuario> list = new ArrayList<Usuario>();
+		Usuario usi = null;
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				usi = new Usuario();
+				if((user.getEmail() == rs.getString("email")) && (user.getSenha() == rs.getString("senha"))){
+					list.add(usi);
+				}
+				
+			}
+			if(list.isEmpty()){
+				throw new NoResultException("null");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

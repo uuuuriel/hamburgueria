@@ -18,4 +18,6 @@ public interface UsuarioDAO {
 	
 	public Usuario buscarPorId(int id) throws NoResultException;
 
+	public List<Usuario> buscarEmail(Usuario user) throws NoResultException;
+
 }

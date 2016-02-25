@@ -197,10 +197,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 
 	@Override
 	public List<Funcionario> buscarEmail(Funcionario func) throws NoResultException {
-		String comando = "select email, senha from funcionario  ";
-		if (!func.getEmail().equals("")) {
-			comando += "where email ='" + func.getEmail() + "'";
-		}
+		String comando = "select email, senha from funcionario where email ='" + func.getEmail() + "'";
 		List<Funcionario> listFunc = new ArrayList<Funcionario>();
 		Funcionario funci = null;
 		try {
