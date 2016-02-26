@@ -2,13 +2,11 @@ package br.com.hamburgueria.service;
 import java.sql.Connection;
 import java.util.List;
 
+import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
-import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
 import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
-import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
-import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.Usuario;
 
 
@@ -52,6 +50,8 @@ public class UsuarioService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			Crip crip = new Crip();
+			user.setSenha(crip.cripto(user.getSenha()));
 			//ADICIONAR VALIDAÇÃO USUÁRIO
 			jdbcUsuario.inserir(user);
 		
@@ -84,6 +84,8 @@ public class UsuarioService {
 		try{
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			Crip crip = new Crip();
+			user.setSenha(crip.cripto(user.getSenha()));
 			//ADICIONAR VALIDAÇÃO USUÁRIO
 			jdbcUsuario.atualizar(user);
 
@@ -94,11 +96,13 @@ public class UsuarioService {
 		}
 	}
 
-	public List<Usuario> buscarLogin(Usuario user) throws HamburgueriaException{
+	public boolean buscarLogin(Usuario user) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			Crip crip = new Crip();
+			user.setSenha(crip.cripto(user.getSenha()));
 			return jdbcUsuario.buscarEmail(user);
 		}catch(HamburgueriaException e){
 			throw e;

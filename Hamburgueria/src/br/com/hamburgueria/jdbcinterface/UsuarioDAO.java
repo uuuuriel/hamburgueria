@@ -2,6 +2,8 @@ package br.com.hamburgueria.jdbcinterface;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.objs.Usuario;
@@ -18,6 +20,6 @@ public interface UsuarioDAO {
 	
 	public Usuario buscarPorId(int id) throws NoResultException;
 
-	public List<Usuario> buscarEmail(Usuario user) throws NoResultException;
+	public boolean buscarEmail(Usuario user,  HttpServletRequest request) throws NoResultException;
 
 }

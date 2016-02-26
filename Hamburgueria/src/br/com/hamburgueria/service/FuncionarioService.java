@@ -2,6 +2,7 @@ package br.com.hamburgueria.service;
 import java.sql.Connection;
 import java.util.List;
 
+import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
@@ -48,6 +49,8 @@ public class FuncionarioService {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
+			Crip crip = new Crip();
+			func.setSenha(crip.cripto(func.getSenha()));
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			ValidaFuncionario validaFuncionario = new ValidaFuncionario();
 			boolean isvazio = validaFuncionario.funcionario(func);
@@ -88,6 +91,8 @@ public class FuncionarioService {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			ValidaFuncionario validaFuncionario = new ValidaFuncionario();
+			Crip crip = new Crip();
+			func.setSenha(crip.cripto(func.getSenha()));
 			boolean isvazio = validaFuncionario.funcionario(func);
 			if(isvazio == true){
 				jdbcFuncionario.atualizar(func);
@@ -104,12 +109,14 @@ public class FuncionarioService {
 		}
 	}
 	
-	public List<Funcionario> buscarLogin(Funcionario func) throws HamburgueriaException{
+	public boolean buscarLogin(Funcionario func) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
-			return jdbcFuncionario.buscarEmail(func);
+			Crip crip = new Crip();
+			func.setSenha(crip.cripto(func.getSenha()));
+			return jdbcFuncionario.buscarEmail(func, null);
 		}catch(HamburgueriaException e){
 			throw e;
 		}catch(Exception e){

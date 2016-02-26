@@ -15,6 +15,7 @@ import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.service.FuncionarioService;
 import br.com.hamburgueria.service.UsuarioService;
 
+@Path("LoginRest")
 public class LoginRest extends UtilRest {
 	
 	public LoginRest() {
@@ -28,15 +29,14 @@ public class LoginRest extends UtilRest {
 			Funcionario funcionario = new ObjectMapper().readValue(user, Funcionario.class);
 			FuncionarioService serviceFunc = new FuncionarioService();
 			
-			if(serviceFunc.buscarLogin(funcionario) != null){
-				return this.buildResponse(funcionario);
-			}
 			Usuario usuario = new ObjectMapper().readValue(user, Usuario.class);
 			UsuarioService serviceCli = new UsuarioService();
-			if(serviceCli.buscarLogin(usuario) != null){
-				return this.buildResponse(usuario);
+			if(serviceFunc.buscarLogin(funcionario)){
+				return this.buildResponse("success");
+			}else if(serviceCli.buscarLogin(usuario)){
+				return this.buildResponse("success");
 			}else{
-				return this.buildResponse("Email ou senha estão incorretos!");
+				return this.buildResponse("Dados não conferem!");
 			}
 		} catch (HamburgueriaException | IOException e) {
 			e.printStackTrace();

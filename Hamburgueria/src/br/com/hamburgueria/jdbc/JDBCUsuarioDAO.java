@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
-import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.Usuario;
 
 public class JDBCUsuarioDAO implements UsuarioDAO {
@@ -145,7 +147,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.setDouble(11, user.getTelefone());
 			p.setDate(12, new java.sql.Date( d.getTime()));
 			p.setString(13, user.getEmail());
-
+			p.setString(14, user.getSenha());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -187,28 +189,27 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		return user;
 	}
 
-	@Override
-	public List<Usuario> buscarEmail(Usuario user) throws NoResultException {
+	public boolean buscarEmail(Usuario user, HttpServletRequest request) throws NoResultException {
 		String comando = "select email, senha from cliente where email ='" + user.getEmail() + "'";
-		List<Usuario> list = new ArrayList<Usuario>();
-		Usuario usi = null;
+		boolean retun = false;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				usi = new Usuario();
-				if((user.getEmail() == rs.getString("email")) && (user.getSenha() == rs.getString("senha"))){
-					list.add(usi);
-				}
-				
-			}
-			if(list.isEmpty()){
-				throw new NoResultException("null");
-			}
-			
+				if((user.getEmail().equals(rs.getString("email"))) && (user.getSenha().equals(rs.getString("senha")))){
+					HttpSession sessao = request.getSession(true);
+					sessao.setAttribute("nome", rs.getString("nomecliente"));
+					sessao.setAttribute("cod", rs.getInt("codcliente"));
+					retun = true;
+				}				
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return list;
+		if(retun){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

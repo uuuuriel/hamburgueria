@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
@@ -195,27 +198,29 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		return func;
 	}
 
-	@Override
-	public List<Funcionario> buscarEmail(Funcionario func) throws NoResultException {
-		String comando = "select email, senha from funcionario where email ='" + func.getEmail() + "'";
-		List<Funcionario> listFunc = new ArrayList<Funcionario>();
-		Funcionario funci = null;
+	public boolean buscarEmail(Funcionario func, HttpServletRequest request) throws NoResultException {
+		String comando = "select * from funcionario where email ='" + func.getEmail() + "'";
+		boolean retun = false;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				funci = new Funcionario();
-				funci.setEmail(rs.getString("email"));
-				funci.setSenha(rs.getString("senha"));
-				listFunc.add(funci);
-			}
-			if(listFunc.isEmpty()){
-				throw new NoResultException();
+				if((func.getEmail().equals(rs.getString("email"))) && (func.getSenha().equals(rs.getString("senha")))){
+					HttpSession sessao = request.getSession(true);
+					sessao.setAttribute("nome", rs.getString("nomefuncionario"));
+					sessao.setAttribute("administrador", rs.getInt("administrador"));
+					sessao.setAttribute("cod", rs.getInt("codfuncionario"));
+					retun = true;
+				}	
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return listFunc;
+		if(retun){
+			return true;
+		}else{			
+			return false;
+		}
 	}
 }
