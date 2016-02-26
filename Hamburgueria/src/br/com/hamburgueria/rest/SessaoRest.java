@@ -13,7 +13,7 @@ import javax.ws.rs.core.Context;
 
 import com.google.gson.Gson;
 
-@Path("/privado/sessao")
+@Path("Sessao")
 public class SessaoRest {
 
 	@Context

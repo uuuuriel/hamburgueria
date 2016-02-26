@@ -13,6 +13,7 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.service.FuncionarioService;
+import br.com.hamburgueria.service.LoginService;
 import br.com.hamburgueria.service.UsuarioService;
 
 @Path("LoginRest")
@@ -30,10 +31,10 @@ public class LoginRest extends UtilRest {
 			FuncionarioService serviceFunc = new FuncionarioService();
 			
 			Usuario usuario = new ObjectMapper().readValue(user, Usuario.class);
-			UsuarioService serviceCli = new UsuarioService();
+			LoginService serviceCli = new LoginService(null);
 			if(serviceFunc.buscarLogin(funcionario)){
 				return this.buildResponse("success");
-			}else if(serviceCli.buscarLogin(usuario)){
+			}else if(serviceCli.buscarLogin(usuario, null)){
 				return this.buildResponse("success");
 			}else{
 				return this.buildResponse("Dados não conferem!");
