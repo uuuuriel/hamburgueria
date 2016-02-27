@@ -208,8 +208,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				if((func.getEmail().equals(rs.getString("email"))) && (func.getSenha().equals(rs.getString("senha")))){
 					HttpSession sessao = request.getSession(true);
 					sessao.setAttribute("nome", rs.getString("nomefuncionario"));
-					sessao.setAttribute("administrador", rs.getInt("administrador"));
-					sessao.setAttribute("cod", rs.getInt("codfuncionario"));
+					sessao.setAttribute("administrador", rs.getString("administrador"));
+					sessao.setAttribute("cod", rs.getString("codfuncionario"));
 					retun = true;
 				}	
 			}

@@ -38,9 +38,9 @@ public class LoginServlet extends HttpServlet {
     	 	
     	try{
     		LoginService service = new LoginService(request);
-    		if(service.buscarLoginFuncionario(func)){
+    		if(service.buscarLoginUsuario(usuario)){
     			response.getOutputStream().println("Funcionário");
-    		}else if(service.buscarLoginUsuario(usuario)){
+    		}else if(service.buscarLoginFuncionario(func)){
     			response.getOutputStream().println("Usuário");
     		} else{
     			response.getOutputStream().println("Olá");

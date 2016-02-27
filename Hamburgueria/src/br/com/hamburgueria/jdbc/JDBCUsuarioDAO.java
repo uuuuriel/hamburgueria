@@ -190,7 +190,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	public boolean buscarEmail(Usuario user, HttpServletRequest request) throws NoResultException {
-		String comando = "select email, senha from cliente where email ='" + user.getEmail() + "'";
+		String comando = "select * from cliente where email ='" + user.getEmail() + "'";
 		boolean retun = false;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
