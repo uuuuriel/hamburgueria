@@ -199,7 +199,8 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 				if((user.getEmail().equals(rs.getString("email"))) && (user.getSenha().equals(rs.getString("senha")))){
 					HttpSession sessao = request.getSession(true);
 					sessao.setAttribute("nome", rs.getString("nomecliente"));
-					sessao.setAttribute("cod", rs.getInt("codcliente"));
+					sessao.setAttribute("cod", rs.getString("codcliente"));
+					sessao.setAttribute("administrador", "0");
 					retun = true;
 				}				
 			}			
