@@ -45,7 +45,7 @@ public class FuncionarioFiltro implements Filter {
 				adm = (String) session.getAttribute("administrador");
 			}
 			
-			if(adm != "1"){
+			if(adm == "0"){
 				((HttpServletResponse) response).sendRedirect(context + "/error.html");
 			}else{
 				chain.doFilter(request, response);

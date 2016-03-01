@@ -6,3 +6,16 @@ HM.login = function() {
 		$("#div-menu-login").attr('onclick', 'HM.logout();');
 		$("#div-menu-login").css('cursor', 'pointer');
 };
+HM.logout = function(){
+	var toma = 'destroi';
+	$.ajax({
+		url: "logout/DestroiSessao",
+		data: toma,
+		success:function(succ){
+			console.log(succ);
+		},
+		error:function(error){
+			console.log(error);
+		}
+	});
+};
