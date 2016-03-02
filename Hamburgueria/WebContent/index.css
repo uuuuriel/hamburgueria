@@ -8,22 +8,25 @@ body{
 .imgLogo{
 	width: 12%;
 	float: left;
+	position:absolute;
+	z-index: 1;
 }
-.menu-login a{
-	margin-top: 0.5%;
-	text-decoration: none;
-	float: right;
-	color: #fff;
-}
-
 .sugestao-cristica a{
 	margin-top: 0.5%;
 	text-decoration: none;
 	float: right;
 	color: #fff;
 }
-
-
+.marginll{
+	margin-left:10%;
+}
+.navbar-nav li {
+	margin-left: 10px;
+}
+.div-menu-login{
+	float:right;
+	right: 0px;
+}
 .menu-link a{
 	text-decoration: none;
 	color: #fff;

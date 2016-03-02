@@ -1,0 +1,33 @@
+.divGallery{
+	text-align: center !important; 
+	color: #fff !important;
+	border-radius-top: 0.5em;
+}
+.caption h3{
+	color: black;
+	margin-top: 
+}
+.divDelivery{
+	margin-top: 2%;
+	margin-left: 20%;
+}
+.divGallery{
+	margin-top: 2%;
+	border: 2px;
+	border-style: solid;
+	border-color: rgba(255,255,255,0.6);
+	/*background-color: rgba(255,255,255,0.6); */
+}
+.textoDivGallery{
+	color: white;
+}
+.valorDivGallery{
+	margin-top: 10px;
+	margin-right: 3px;
+	color: white;
+}
+.divGallery [type='button']{
+	margin-top: 2px;
+	margin-left: -2px;
+	color: black;
+}

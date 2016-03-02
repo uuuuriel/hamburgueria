@@ -1,0 +1,8 @@
+.carrinhoCompra{
+	width: 100px;
+	height: auto;
+	position: absolute;
+	background-color: #fff;
+	margin-top: -40%;
+	margin-left: 92%;
+}
