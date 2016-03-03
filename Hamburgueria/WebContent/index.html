@@ -22,7 +22,6 @@
 	<script type="text/javascript" src="assets/js/taxa.js"></script>
 </head>
 <body>
-	<a href='index.html'><img class='imgLogo' src="assets/imagem/johnny-rockets.png"/></a>
 	<div class="col-sm-12 navbar-default">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
@@ -39,18 +38,8 @@
 						<li class="menu-link"><a onclick="carregar('resources/usuario/gerenciaUsuario.html')" href='#' ><strong>USUÁRIOS</strong></a></li>
 						<li class="menu-link"><a onclick="carregar('resources/produto/gerenciaProduto.html')" href='#'><strong>PRODUTO</strong></a></li>
 						<li class="menu-link"><a onclick="carregar('resources/funcionario/controleVendas.html')" href='#' ><strong>Controle de Vendas</strong></a></li>
+						<li class="menu-link"><a href="resources/login/login.html" data-toggle="modal" data-target="#myModal" id='div-menu-login'><strong>Login</strong></a></li>
 					</ul>
-					<div class="menu-login">
-						<div class="bs-example">
-							<a href="resources/login/login.html" data-toggle="modal" data-target="#myModal" id='div-menu-login'><strong>Login</strong></a>
-							<div id="myModal" class="modal fade">
-								<div class="modal-dialog">
-									<div class="modal-content">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div><!--/.nav-collapse -->
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
@@ -61,16 +50,22 @@
 					</button>
 				</div><!--/.container-fluid -->
 			</nav>
+			<a href='index.html'><img class='imgLogo' src="assets/imagem/johnny-rockets.png"/></a>
 		</div>
-					<div class="sugestao-critica">
-				<div class="bs-example">
-					<a href="resources/sugestaocritica/sugestaocritica.html" data-toggle="modal" data-target="#myModal2">
-						<strong>Envie nos suas dicas ou sugestões!</strong>
-					</a>
-					<div id="myModal2" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-							</div>
+		<div class="menu-login">
+			<div class="bs-example">
+				<div id="myModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="bs-example">
+				<div id="myModal2" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
 						</div>
 					</div>
 				</div>
@@ -78,8 +73,15 @@
 		<div class="conteudo col-sm-10 " id="conteudo">
 			<div class='conteudoIndex' id='conteudoIndex'></div>
 		</div>
-		<div class="footer col-sm-12">
-			<p>2016 © Todos os direitos reservados.</p>
+		<div class="footer col-sm-12 row">
+			<div class="sugestao-critica">
+				<a href="resources/sugestaocritica/sugestaocritica.html" data-toggle="modal" data-target="#myModal2">
+					<strong>Envie nos suas dicas ou sugestões!</strong>
+				</a>
+			</div>
+			<div class="copyrights col-sm-12 row">
+				<p>2016 © Todos os direitos reservados.</p>
+			</div>
 		</div>
 	</body>
 	</html>

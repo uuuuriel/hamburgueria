@@ -11,15 +11,6 @@ body{
 	position:absolute;
 	z-index: 1;
 }
-.sugestao-cristica a{
-	margin-top: 0.5%;
-	text-decoration: none;
-	float: right;
-	color: #fff;
-}
-.marginll{
-	margin-left:10%;
-}
 .navbar-nav li {
 	margin-left: 10px;
 }
@@ -41,12 +32,16 @@ body{
 	margin-bottom:-10px;
 	margin-left: 22%;
 }
+.copyrights{
+	background-color: #0284CA !important;
+	color: #fff;
+	padding-right: 0px;
+}
 .footer{
 	bottom: 0;
 	margin-top: 19%;
 	position: fixed;
-	background-color: #0284CA;
-	color: #fff;
+	padding-right: 0px;
 }
 #myModal, #myModal2{
 	color: white;
@@ -77,14 +72,18 @@ body{
 .sugestao-critica{
 	text-decoration:none;
 	color: #fff;
-	margin-top: 15%;
 	margin-right: 5px;
+	margin-bottom: 10px;
 	float: right;
 	width: 100px;
 	height: 105px;
 	background-color: #7F2020;
 	text-align: center;
 	box-shadow: 5px 5px 20px black !important;
+}
+.sugestao-critica a{
+	text-decoration:none;
+	color:#fff;
 }
 .modales{
 	margin: 10% 20%;
