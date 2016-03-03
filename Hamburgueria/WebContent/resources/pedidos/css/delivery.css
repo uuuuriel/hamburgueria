@@ -1,4 +1,4 @@
-.divGallery{
+	.divGallery{
 	text-align: center !important; 
 	color: #fff !important;
 	border-radius-top: 0.5em;
@@ -30,4 +30,9 @@
 	margin-top: 2px;
 	margin-left: -2px;
 	color: black;
+}
+.tamanhoGallery{
+	width:150px;
+	height: auto;
+	background-color: rgba(0,0,0,0.3);
 }

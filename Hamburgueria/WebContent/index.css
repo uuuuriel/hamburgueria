@@ -23,10 +23,6 @@ body{
 .navbar-nav li {
 	margin-left: 10px;
 }
-.div-menu-login{
-	float:right;
-	right: 0px;
-}
 .menu-link a{
 	text-decoration: none;
 	color: #fff;
@@ -35,8 +31,15 @@ body{
 
 }
 .menu{
-	height: 40px;
+	padding: 5 px;
+	height: 30px;
 	background-color: #0284CA;
+}
+.bs-example a:link{
+	text-decoration: none;
+	color: #fff;
+	margin-bottom:-10px;
+	margin-left: 22%;
 }
 .footer{
 	bottom: 0;
@@ -71,7 +74,8 @@ body{
 	margin-top: -6%;
 	margin-left: -3%;
 }
-.criticaOuSugestao{ 
+.sugestao-critica{
+	text-decoration:none;
 	color: #fff;
 	margin-top: 15%;
 	margin-right: 5px;

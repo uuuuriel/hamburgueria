@@ -23,23 +23,34 @@
 </head>
 <body>
 	<a href='index.html'><img class='imgLogo' src="assets/imagem/johnny-rockets.png"/></a>
-	<div class="menu col-sm-12 navbar-default">
-		<nav class="navbar navbar-default row">
-			<div class="container-fluid marginll">
-				<div id="navbar" class="navbar-collapse collapse in marginl" aria-expanded="true">
+	<div class="col-sm-12 navbar-default">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div id="navbar" class="navbar-collapse collapse in" aria-expanded="true">
 					<ul class="nav navbar-nav">
-						<li role="presentation" class=""><div class="menu-link"><a onclick="carregar('resources/pedidos/delivery.html')" href='#' class="hvr-bounce-in"><strong>DELIVERY</strong></a></div>	</li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/contato.html')" href='#' class="hvr-bounce-in"><strong>CONTATO</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/usuario/cadastroUsuario.html')" href='#' class="hvr-bounce-in"><strong>CADASTRO</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/pedidos/administrarPedido.html')" href='#' class="hvr-bounce-in"><strong>TESTE1</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/pedidos/listarPedidoUsuario.html')" href='#' class="hvr-bounce-in"><strong>TESTE2</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/pedidos/acompanharPedidoUsuario.html')" href='#' class="hvr-bounce-in"><strong>TESTE3</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/funcionario/gerenciaFuncionario.html')" href='#' class="hvr-bounce-in"><strong>FUNCONÁRIO</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/taxa/gerenciaTaxa.html')" href='#' class="hvr-bounce-in"><strong>TAXAS</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/usuario/gerenciaUsuario.html')" href='#' class="hvr-bounce-in"><strong>USUÁRIOS</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/produto/gerenciaProduto.html')" href='#' class="hvr-bounce-in"><strong>PRODUTO</strong></a></div></li>
-						<li role="presentation"><div class="menu-link"><a onclick="carregar('resources/funcionario/controleVendas.html')" href='#' class="hvr-bounce-in"><strong>Controle de Vendas</strong></a></div></li>
+						<li class="menu-link"><a onclick="carregar('resources/pedidos/delivery.html')" href='#'><strong>DELIVERY</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/contato.html')" href='#'><strong>CONTATO</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/usuario/cadastroUsuario.html')" href='#' ><strong>CADASTRO</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/pedidos/administrarPedido.html')" href='#' ><strong>TESTE1</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/pedidos/listarPedidoUsuario.html')" href='#' ><strong>TESTE2</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/pedidos/acompanharPedidoUsuario.html')" href='#'><strong>TESTE3</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/funcionario/gerenciaFuncionario.html')" href='#'><strong>FUNCONÁRIO</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/taxa/gerenciaTaxa.html')" href='#'><strong>TAXAS</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/usuario/gerenciaUsuario.html')" href='#' ><strong>USUÁRIOS</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/produto/gerenciaProduto.html')" href='#'><strong>PRODUTO</strong></a></li>
+						<li class="menu-link"><a onclick="carregar('resources/funcionario/controleVendas.html')" href='#' ><strong>Controle de Vendas</strong></a></li>
 					</ul>
+					<div class="menu-login">
+						<div class="bs-example">
+							<a href="resources/login/login.html" data-toggle="modal" data-target="#myModal" id='div-menu-login'><strong>Login</strong></a>
+							<div id="myModal" class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div><!--/.nav-collapse -->
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
@@ -50,18 +61,8 @@
 					</button>
 				</div><!--/.container-fluid -->
 			</nav>
-			<div class="menu-login">
-				<div class="bs-example">
-					<a href="resources/login/login.html" data-toggle="modal" data-target="#myModal" id='div-menu-login'><strong>Login</strong></a>
-					<div id="myModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="sugestao-critica">
+		</div>
+					<div class="sugestao-critica">
 				<div class="bs-example">
 					<a href="resources/sugestaocritica/sugestaocritica.html" data-toggle="modal" data-target="#myModal2">
 						<strong>Envie nos suas dicas ou sugestões!</strong>
@@ -74,7 +75,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<div class="conteudo col-sm-10 " id="conteudo">
 			<div class='conteudoIndex' id='conteudoIndex'></div>
 		</div>
