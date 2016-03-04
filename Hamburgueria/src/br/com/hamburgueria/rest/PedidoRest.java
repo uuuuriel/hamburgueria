@@ -21,23 +21,23 @@ import br.com.hamburgueria.objs.Pedido;
 import br.com.hamburgueria.service.FuncionarioService;
 import br.com.hamburgueria.service.PedidoService;
 
-@Path("funcionarioRest")
+
 public class PedidoRest extends UtilRest {
 	
 	public PedidoRest() {
 	}
+	/*public Response novoPedido(int[] pedido) {
 	@POST
 	@Path("/novo")
 	@Consumes("application/*")
-	public Response novoPedido(int[] pedido) {
 		try {
 			
 			/*PedidoService service = new PedidoService();
-			service.novoPedido(pede);*/
+			service.novoPedido(pede);
 			return this.buildResponse("Funcionário cadastrado com sucesso.");
 		} catch (HamburgueriaException | IOException e) {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
-	}
+	}*/
 }
