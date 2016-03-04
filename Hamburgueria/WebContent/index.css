@@ -10,6 +10,7 @@ body{
 	float: left;
 	position:absolute;
 	z-index: 1;
+	margin-top: -2%;
 }
 .navbar-nav li {
 	margin-left: 10px;
@@ -19,7 +20,6 @@ body{
 	color: #fff;
 	margin-top: 0.5%;
 	text-align: left;
-
 }
 .menu{
 	padding: 5 px;
@@ -35,13 +35,12 @@ body{
 .copyrights{
 	background-color: #0284CA !important;
 	color: #fff;
-	padding-right: 0px;
+	bottom:0;	
+	position: fixed;
 }
 .footer{
-	bottom: 0;
-	margin-top: 19%;
 	position: fixed;
-	padding-right: 0px;
+	bottom: 20px;
 }
 #myModal, #myModal2{
 	color: white;
@@ -76,7 +75,7 @@ body{
 	margin-bottom: 10px;
 	float: right;
 	width: 100px;
-	height: 105px;
+	height: 50px;
 	background-color: #7F2020;
 	text-align: center;
 	box-shadow: 5px 5px 20px black !important;

@@ -12,7 +12,10 @@
 	margin-left: 20%;
 }
 .divGallery{
-	margin-top: 2%;
+	width:150px;
+	height: auto;
+	background-color: rgba(0,0,0,0.3);
+	margin: 10px;
 	border: 2px;
 	border-style: solid;
 	border-color: rgba(255,255,255,0.6);
@@ -22,17 +25,8 @@
 	color: white;
 }
 .valorDivGallery{
-	margin-top: 10px;
-	margin-right: 3px;
 	color: white;
 }
 .divGallery [type='button']{
-	margin-top: 2px;
-	margin-left: -2px;
 	color: black;
-}
-.tamanhoGallery{
-	width:150px;
-	height: auto;
-	background-color: rgba(0,0,0,0.3);
 }
