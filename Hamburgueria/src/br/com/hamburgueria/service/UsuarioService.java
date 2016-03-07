@@ -3,19 +3,16 @@ package br.com.hamburgueria.service;
 import java.sql.Connection;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
 import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.validacoes.Valida;
 
 public class UsuarioService {
-
-	private HttpServletRequest request;
-
 	public Usuario buscarUsuarioPorId(int id) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
@@ -56,13 +53,15 @@ public class UsuarioService {
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
-			// ADICIONAR VALIDAÇÃO USUÁRIO
-			jdbcUsuario.inserir(user);
-
-			// throw new
-			// HamburgueriaException("Campos vazios, por favor preencha todos.");
+			Valida valida = new Valida();
+			if (valida.usuario(user)) {
+				jdbcUsuario.inserir(user);
+			} else {
+				throw new NoValueException();
+			}
+			;
 		} catch (Exception e) {
-			throw new HamburgueriaException(e.getMessage());
+			e.printStackTrace();
 		} finally {
 			conec.fecharConexao();
 		}
@@ -91,15 +90,17 @@ public class UsuarioService {
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
-			// ADICIONAR VALIDAÇÃO USUÁRIO
-			jdbcUsuario.atualizar(user);
-
+			Valida valida = new Valida();
+			if (valida.usuario(user)) {
+				jdbcUsuario.inserir(user);
+			} else {
+				throw new NoValueException();
+			};
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			conec.fecharConexao();
 		}
 	}
-
 
 }

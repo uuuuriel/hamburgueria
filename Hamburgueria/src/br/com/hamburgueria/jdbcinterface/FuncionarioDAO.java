@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.hamburgueria.exception.NoResultException;
+import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.objs.Funcionario;
 
@@ -14,12 +15,12 @@ public interface FuncionarioDAO {
 
 	public boolean deletarFuncionario(int id) throws NoResultException;
 
-	public boolean atualizar(Funcionario funcionario) throws ValueZException;
+	public boolean atualizar(Funcionario funcionario) throws NoValueException;
 
-	public boolean inserir(Funcionario funcionario) throws ValueZException;
+	public boolean inserir(Funcionario funcionario) throws NoValueException;
 	
 	public Funcionario buscarPorId(int id) throws NoResultException;
 
-	public boolean buscarEmail(Funcionario func, HttpServletRequest request) throws NoResultException;
+	public boolean buscarEmail(Funcionario func) throws NoResultException;
 
 }

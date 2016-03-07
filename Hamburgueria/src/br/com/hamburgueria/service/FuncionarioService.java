@@ -5,10 +5,11 @@ import java.util.List;
 import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.objs.Funcionario;
-import br.com.hamburgueria.validacoes.ValidaFuncionario;
+import br.com.hamburgueria.validacoes.Valida;
 
 
 public class FuncionarioService {
@@ -19,8 +20,6 @@ public class FuncionarioService {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			return jdbcFuncionario.buscarPorId(id);
-		}catch(HamburgueriaException e){
-			throw e;
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new HamburgueriaException();
@@ -35,8 +34,6 @@ public class FuncionarioService {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			return jdbcFuncionario.buscarPorNome(nome);
-		}catch(HamburgueriaException e){
-			throw e;
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new HamburgueriaException();
@@ -45,25 +42,23 @@ public class FuncionarioService {
 		}
 	}
 	
-	public void adicionarFuncionario(Funcionario func) throws HamburgueriaException{
+	public void adicionarFuncionario(Funcionario func) throws NoValueException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
-			ValidaFuncionario validaFuncionario = new ValidaFuncionario();
-			boolean isvazio = validaFuncionario.funcionario(func);
-			if(isvazio == true){
+			Valida valida = new Valida();
+			if(valida.funcionario(func)){
 				jdbcFuncionario.inserir(func);
 			}else{
-				throw new HamburgueriaException("Campos vazios, por favor preencha todos.");
+				throw new NoValueException();
 			}
-		} catch (HamburgueriaException e) {
+		}catch(NoValueException e){
 			e.printStackTrace();
-			throw e;			
 		}catch (Exception e){
-			throw new HamburgueriaException();
+			e.printStackTrace();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -85,25 +80,23 @@ public class FuncionarioService {
 		}
 	}
 	
-	public void atualizarFuncionario(Funcionario func) throws HamburgueriaException{
+	public void atualizarFuncionario(Funcionario func) throws NoValueException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
-			ValidaFuncionario validaFuncionario = new ValidaFuncionario();
+			Valida valida = new Valida();
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
-			boolean isvazio = validaFuncionario.funcionario(func);
-			if(isvazio == true){
+			if(valida.funcionario(func)){
 				jdbcFuncionario.atualizar(func);
 			}else{
-				throw new HamburgueriaException("Campos vazios, por favor preencha todos.");
+				throw new NoValueException("Campos vazios, por favor preencha todos.");
 			}
-		} catch (HamburgueriaException e) {
-			throw e;			
-		}catch (Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
+		} catch (NoValueException e) {
+			e.printStackTrace();		
+		}catch (Exception t){
+			t.printStackTrace();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -116,7 +109,7 @@ public class FuncionarioService {
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
-			return jdbcFuncionario.buscarEmail(func, null);
+			return jdbcFuncionario.buscarEmail(func);
 		}catch(HamburgueriaException e){
 			throw e;
 		}catch(Exception e){

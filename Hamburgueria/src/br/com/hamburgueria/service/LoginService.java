@@ -45,7 +45,7 @@ public class LoginService {
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
-			return jdbcFuncionario.buscarEmail(func, request);
+			return jdbcFuncionario.buscarEmail(func);
 		} catch (HamburgueriaException e) {
 			throw e;
 		} catch (Exception e) {
