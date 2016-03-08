@@ -26,7 +26,7 @@ public class Valida {
 	}
 
 	public boolean usuario(Usuario user) throws NoValueException {
-		if ((user.getData_nascimento().equals("") || (user.getCep()
+		if (((user.getCep()
 				- user.getCep() != 0))
 				|| (user.getEmail().equals(""))
 				|| (user.getSenha().equals(""))

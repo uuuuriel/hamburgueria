@@ -46,7 +46,7 @@ public class UsuarioService {
 		}
 	}
 
-	public void adicionarUsuario(Usuario user) throws HamburgueriaException {
+	public void adicionarUsuario(Usuario user) throws NoValueException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -58,9 +58,10 @@ public class UsuarioService {
 				jdbcUsuario.inserir(user);
 			} else {
 				throw new NoValueException();
-			}
-			;
-		} catch (Exception e) {
+			};
+		} catch (NoValueException e) {
+			throw e;
+		}catch(Exception e){
 			e.printStackTrace();
 		} finally {
 			conec.fecharConexao();
@@ -83,7 +84,7 @@ public class UsuarioService {
 		}
 	}
 
-	public void atualizarUsuario(Usuario user) throws HamburgueriaException {
+	public void atualizarUsuario(Usuario user) throws NoValueException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -96,6 +97,8 @@ public class UsuarioService {
 			} else {
 				throw new NoValueException();
 			};
+		}catch(NoValueException e){
+			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

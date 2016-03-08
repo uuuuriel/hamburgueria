@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.service.UsuarioService;
 
@@ -29,13 +30,11 @@ public class UsuarioRest extends UtilRest {
 	@Consumes("application/*")
 	public Response addUsuario(String UsuarioParam) {
 		try {
-			Usuario user = new ObjectMapper().readValue(UsuarioParam,
-					Usuario.class);
+			Usuario user = new ObjectMapper().readValue(UsuarioParam,Usuario.class);
 			UsuarioService service = new UsuarioService();
 			service.adicionarUsuario(user);
 			return this.buildResponse("Usuário cadastrado com sucesso.");
-		} catch (HamburgueriaException | IOException e) {
-			e.printStackTrace();
+		} catch (NoValueException | IOException e) {
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -95,7 +94,7 @@ public class UsuarioRest extends UtilRest {
 			UsuarioService service = new UsuarioService();
 			service.atualizarUsuario(user);			
 			return this.buildResponse("Usuário editado com sucesso.");
-		}catch(HamburgueriaException | IOException e){
+		}catch(NoValueException | IOException e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}

@@ -28,7 +28,7 @@ public class LoginService {
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
-			return jdbcUsuario.buscarEmail(user, request);
+			return jdbcUsuario.buscarEmail(user);
 		} catch (HamburgueriaException e) {
 			throw e;
 		} catch (Exception e) {

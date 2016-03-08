@@ -1,14 +1,19 @@
 $(document).ready(function(){
+	$("#cpf").mask("999.999.999-99");
+	$("#rg").mask("9.999.999");
+	$("#telefone").mask("(99)9999-9999");
+	$("#cep").mask("99999-999");
+	$("#data_nascimento").mask("99/99/9999");
+	$("#numero").mask("99999");
 	HM.usuario.cadastrar = function(){
 		HM.usuario.adicionar({
 			data:HM.usuario.getValor(),
 			success : function(data) {
-				console.log(data);
 				bootbox.alert(data);
 				carregar('resources/usuario/gerenciaUsuario.html');
 			},
 			error : function(error) {
-				console.log(error);
+				bootbox.alert(error.responseText);
 			}
 		});
 	};
@@ -21,11 +26,16 @@ $(document).ready(function(){
 				carregar('resources/usuario/gerenciaUsuario.html');
 			},
 			error : function(error) {
-				console.log(error);
+				bootbox.alert(error.responseText);
 			}
 		});
 	};
 	HM.usuario.getValor = function(value){
+		$("#cpf").unmask();
+		$("#rg").unmask();
+		$("#telefone").unmask();
+		$("#cep").unmask();
+		$("#data_nascimento").unmask();
 		var newUsuario = new Object();
 		$("form div input, form div select").each(function(){
 			newUsuario[this.name]=this.value;
@@ -47,7 +57,7 @@ $(document).ready(function(){
 					$("#cidade").append(html);
 				},
 				error:function(err){
-					console.log(err);
+					bootbox.alert(err.responseText);
 				}
 			});
 		});
@@ -66,7 +76,7 @@ $(document).ready(function(){
 					$("#bairro").html(html);
 				},
 				error:function(err){
-					console.log(err);
+					bootbox.alert(err.responseText);
 				}
 			});
 		});

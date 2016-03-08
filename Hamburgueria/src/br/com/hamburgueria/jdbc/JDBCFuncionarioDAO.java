@@ -203,8 +203,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
 				if((func.getEmail().equals(rs.getString("email"))) && (func.getSenha().equals(rs.getString("senha")))){
-					func.setEmail(rs.getString("email"));
-					func.setSenha(rs.getString("senha"));
 					func.setNomeFuncionario(rs.getString("nomefuncionario"));
 					func.setAdministrador(rs.getInt("administrador"));
 					func.setCodfuncionario(rs.getInt("codfuncionario"));
