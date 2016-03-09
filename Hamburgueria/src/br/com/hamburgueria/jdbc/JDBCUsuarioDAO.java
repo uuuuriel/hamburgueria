@@ -52,6 +52,8 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			if(list.isEmpty()){
 				throw new NoResultException();
 			}
+		}catch(NoResultException e){
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -59,9 +61,9 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public boolean deletarUsuario(int cod) throws NoResultException{
+	public void deletarUsuario(int cod) throws NoResultException{
 		if(cod == 0){
-			throw new NoResultException("Erro ao deletar.");
+			throw new NoResultException("Não foi achado nenhum registro com o CÓDIGO especificado.");
 		}
 		String comando = "delete from cliente where codcliente = "
 				+ cod;
@@ -71,13 +73,11 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.execute(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
 	}
 
 	@Override
-	public boolean atualizar(Usuario user) throws SQLException{
+	public void atualizar(Usuario user) throws SQLException{
 		boolean editSenha = false;
 		String comando = "UPDATE cliente SET nomecliente=?, data_nascimento=?, rg=?, cpf=?,"
 				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?";
@@ -110,13 +110,11 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
 	}
 
 	@Override
-	public boolean inserir(Usuario user) throws SQLException {
+	public void inserir(Usuario user) throws SQLException {
 		String comando = "insert into cliente (nomecliente, data_nascimento, rg, cpf, cidade"
 				+ ", bairro, rua, numero, complemento, cep, telefone, data_cadastro, email"
 				+ ", senha) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -141,9 +139,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
 	}
 
 	public Usuario buscarPorId(int cod) throws NoResultException {
@@ -173,6 +169,8 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			if(user == null){
 				throw new NoResultException();
 			}
+		} catch(NoResultException e){
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

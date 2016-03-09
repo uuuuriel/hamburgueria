@@ -16,8 +16,8 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.error) {
-								cfg.error(error);
+							if (cfg && cfg.err) {
+								cfg.error(err);
 							}
 						}
 					})
@@ -32,8 +32,8 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.error) {
-								cfg.error(error);
+							if (cfg && cfg.err) {
+								cfg.error(err);
 							}
 						}
 					});
@@ -68,8 +68,8 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.error) {
-								cfg.error(error);
+							if (cfg && cfg.err) {
+								cfg.error(err);
 							}
 						}
 					});
@@ -84,8 +84,8 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.error) {
-								cfg.error(error);
+							if (cfg && cfg.err) {
+								cfg.error(err);
 							}
 						}
 					});

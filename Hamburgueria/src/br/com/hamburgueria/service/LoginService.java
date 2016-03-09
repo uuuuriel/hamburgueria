@@ -1,5 +1,6 @@
 package br.com.hamburgueria.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
 import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
@@ -21,7 +23,7 @@ public class LoginService {
 		this.request = req;
 	}
 
-	public boolean buscarLoginUsuario(Usuario user)throws HamburgueriaException {
+	public boolean buscarLoginUsuario(Usuario user)throws NoResultException, NoSuchAlgorithmException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -29,16 +31,13 @@ public class LoginService {
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
 			return jdbcUsuario.buscarEmail(user);
-		} catch (HamburgueriaException e) {
+		} catch (NoResultException e) {
 			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		} finally {
 			conec.fecharConexao();
 		}
 	}
-	public boolean buscarLoginFuncionario(Funcionario func)throws HamburgueriaException {
+	public boolean buscarLoginFuncionario(Funcionario func)throws NoResultException, NoSuchAlgorithmException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -46,11 +45,8 @@ public class LoginService {
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
 			return jdbcFuncionario.buscarEmail(func);
-		} catch (HamburgueriaException e) {
+		} catch (NoResultException e) {
 			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		} finally {
 			conec.fecharConexao();
 		}

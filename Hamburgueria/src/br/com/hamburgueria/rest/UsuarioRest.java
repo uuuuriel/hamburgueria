@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.service.UsuarioService;
@@ -48,13 +49,12 @@ public class UsuarioRest extends UtilRest {
 			if(nome.equals("null")){
 				nome = "";
 			}
-			System.out.println(nome);
 			return this.buildResponse(service.buscarUsuarioPorNome(nome));
-
-		} catch (HamburgueriaException e) {
-			e.printStackTrace();
+		} catch (NoResultException e) {
 			return this.buildErrorResponse(e.getMessage());
-		}		
+		} catch(Exception e){
+			return this.buildErrorResponse(e.getMessage());
+		}
 	}
 	
 	
@@ -66,8 +66,7 @@ public class UsuarioRest extends UtilRest {
 			UsuarioService service = new UsuarioService();
 			service.deletarUsuario(id);			
 			return this.buildResponse("Usuário deletado com sucesso!");
-		}catch(HamburgueriaException e){
-			e.printStackTrace();
+		}catch(NoResultException e){
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -79,8 +78,7 @@ public class UsuarioRest extends UtilRest {
 		try{
 			UsuarioService service = new UsuarioService();
 			return this.buildResponse(service.buscarUsuarioPorId(id));
-		}catch(HamburgueriaException e){
-			e.printStackTrace();
+		}catch(NoResultException e){
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -95,7 +93,6 @@ public class UsuarioRest extends UtilRest {
 			service.atualizarUsuario(user);			
 			return this.buildResponse("Usuário editado com sucesso.");
 		}catch(NoValueException | IOException e){
-			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}

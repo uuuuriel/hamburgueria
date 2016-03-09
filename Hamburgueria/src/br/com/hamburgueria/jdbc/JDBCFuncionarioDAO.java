@@ -55,6 +55,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			if(listFunc.isEmpty()){
 				throw new NoResultException();
 			}
+		}catch(NoResultException e){
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

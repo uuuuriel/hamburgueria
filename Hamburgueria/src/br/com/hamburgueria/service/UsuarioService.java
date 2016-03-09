@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
@@ -13,34 +14,28 @@ import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.validacoes.Valida;
 
 public class UsuarioService {
-	public Usuario buscarUsuarioPorId(int id) throws HamburgueriaException {
+	public Usuario buscarUsuarioPorId(int id) throws NoResultException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			return jdbcUsuario.buscarPorId(id);
-		} catch (HamburgueriaException e) {
+		} catch (NoResultException e) {
 			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		} finally {
 			conec.fecharConexao();
 		}
 	}
 
 	public List<Usuario> buscarUsuarioPorNome(String nome)
-			throws HamburgueriaException {
+			throws NoResultException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			return jdbcUsuario.buscarPorNome(nome);
-		} catch (HamburgueriaException e) {
+		}catch(Exception e){
 			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		} finally {
 			conec.fecharConexao();
 		}
@@ -68,17 +63,14 @@ public class UsuarioService {
 		}
 	}
 
-	public void deletarUsuario(int id) throws HamburgueriaException {
+	public void deletarUsuario(int id) throws NoResultException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			jdbcUsuario.deletarUsuario(id);
-		} catch (HamburgueriaException e) {
+		} catch (NoResultException e) {
 			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		} finally {
 			conec.fecharConexao();
 		}
@@ -98,7 +90,7 @@ public class UsuarioService {
 				throw new NoValueException();
 			};
 		}catch(NoValueException e){
-			throw e;
+			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

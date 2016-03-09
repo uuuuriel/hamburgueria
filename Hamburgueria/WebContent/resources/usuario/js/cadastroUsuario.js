@@ -6,19 +6,30 @@ $(document).ready(function(){
 	$("#data_nascimento").mask("99/99/9999");
 	$("#numero").mask("99999");
 	HM.usuario.cadastrar = function(){
-		HM.usuario.adicionar({
-			data:HM.usuario.getValor(),
-			success : function(data) {
-				bootbox.alert(data);
-				carregar('resources/usuario/gerenciaUsuario.html');
-			},
-			error : function(error) {
-				bootbox.alert(error.responseText);
-			}
-		});
+		if(($("#nome").val() == "") || ($("#cpf").val() == "") || ($("#rg").val() == "")
+				|| ($("#data_nascimento").val() == "") ||($("#telefone").val() == "")
+				|| ($("#email").val() == "") || ($("#senha").val() == "") || ($("#confirmaSenha").val() == "") || ($("#cep").val() == "") 
+				|| ($("#cidade").val() == "") || ($("#bairro").val() == "") || ($("#rua").val() == "")
+				|| ($("#numero").val() == "")){
+			bootbox.alert("Campos obrigatórios.");
+			return false;
+		}else if($("#senha").val() != $("#confirmaSenha").val()){
+			bootbox.alert("Senhas não conferem.");
+			return false;
+		}else{
+			HM.usuario.adicionar({
+				data:HM.usuario.getValor(),
+				success : function(data) {
+					bootbox.alert(data);
+					carregar('resources/usuario/gerenciaUsuario.html');
+				},
+				error : function(error) {
+					bootbox.alert(error.responseText);
+				}
+			});
+		}
 	};
 	HM.usuario.edit = function(){
-		console.log(HM.usuario.getValor());
 		HM.usuario.editar({
 			data:HM.usuario.getValor(),
 			success : function(data) {
