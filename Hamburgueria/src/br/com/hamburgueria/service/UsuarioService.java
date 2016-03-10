@@ -22,28 +22,21 @@ public class UsuarioService {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			return jdbcUsuario.buscarPorId(id);
-		} catch (HamburgueriaException e) {
-			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw e;
 		} finally {
 			conec.fecharConexao();
 		}
 	}
 
-	public List<Usuario> buscarUsuarioPorNome(String nome)
-			throws HamburgueriaException {
+	public List<Usuario> buscarUsuarioPorNome(String nome) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			return jdbcUsuario.buscarPorNome(nome);
-		} catch (HamburgueriaException e) {
-			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw e;
 		} finally {
 			conec.fecharConexao();
 		}
@@ -56,13 +49,9 @@ public class UsuarioService {
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
-			// ADICIONAR VALIDAÇÃO USUÁRIO
 			jdbcUsuario.inserir(user);
-
-			// throw new
-			// HamburgueriaException("Campos vazios, por favor preencha todos.");
 		} catch (Exception e) {
-			throw new HamburgueriaException(e.getMessage());
+			e.printStackTrace();
 		} finally {
 			conec.fecharConexao();
 		}
