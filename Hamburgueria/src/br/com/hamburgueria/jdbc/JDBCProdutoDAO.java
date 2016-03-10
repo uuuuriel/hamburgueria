@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbcinterface.ProdutoDAO;
 import br.com.hamburgueria.objs.Produto;
 
@@ -20,7 +18,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 		this.conexao = conexao;
 	}
 	
-	public List<Produto> buscarNome(String nome) throws NoResultException  {
+	public List<Produto> buscarNome(String nome){
 		String comando = "select * from produto  ";
 		if (!nome.equals("")) {
 			comando += "where nomeproduto like '" + nome + "%'";
@@ -42,9 +40,6 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setCategoria(rs.getString("categoria"));
 				list.add(prod);
 			}
-			if(list.isEmpty()){
-				throw new NoResultException();
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,10 +47,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 	}
 
 	@Override
-	public boolean deletar(int cod) throws NoResultException{
-		if(cod == 0){
-			throw new NoResultException("Erro ao deletar Produto");
-		}
+	public boolean deletar(int cod){
 		String comando = "delete from produto where codproduto = "
 				+ cod;
 		Statement p;
@@ -70,10 +62,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 	}
 
 	@Override
-	public boolean atualizar(Produto prod) throws ValueZException{
-		if(prod == null){
-			throw new ValueZException("Erro ao atualizar os dados do Produto");
-		}
+	public boolean atualizar(Produto prod){
 		String comando = "UPDATE produto SET nomeproduto=?,"
 				+ " descricao=?, categoria=?, valor=? WHERE codproduto="+prod.getCod();
 		PreparedStatement p;
@@ -92,10 +81,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 	}
 
 	@Override
-	public boolean inserir(Produto prod) throws ValueZException {
-		if(prod == null){
-			throw new ValueZException("Produto não foi adicionado no banco de dados.");
-		}
+	public boolean inserir(Produto prod){
 		String comando = "insert into produto (nomeproduto, descricao, categoria,valor)"
 				+ " values (?, ?, ?, ?);";
 		PreparedStatement p;
@@ -113,7 +99,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 		return true;
 	}
 
-	public Produto buscarId(int cod) throws NoResultException {
+	public Produto buscarId(int cod){
 		String comando = "select * from produto where codproduto = "
 				+ cod;
 		Produto prod = null;
@@ -130,9 +116,6 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setObservacao(rs.getString("observacao"));
 				prod.setValor(rs.getInt("valor"));
 				prod.setCategoria(rs.getString("categoria"));
-			}
-			if(prod == null){
-				throw new NoResultException();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
 import br.com.hamburgueria.objs.Usuario;
 
@@ -56,10 +55,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void deletarUsuario(int cod) throws NoResultException{
-		if(cod == 0){
-			throw new NoResultException("Não foi achado nenhum registro com o CÓDIGO especificado.");
-		}
+	public void deletarUsuario(int cod){
 		String comando = "delete from cliente where codcliente = "
 				+ cod;
 		Statement p;
@@ -72,7 +68,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void atualizar(Usuario user) throws SQLException{
+	public void atualizar(Usuario user){
 		boolean editSenha = false;
 		String comando = "UPDATE cliente SET nomecliente=?, data_nascimento=?, rg=?, cpf=?,"
 				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?";
@@ -102,14 +98,13 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 				p.setString(13, user.getSenha());
 			};
 			p.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void inserir(Usuario user) throws SQLException {
+	public void inserir(Usuario user){
 		String comando = "insert into cliente (nomecliente, data_nascimento, rg, cpf, cidade"
 				+ ", bairro, rua, numero, complemento, cep, telefone, data_cadastro, email"
 				+ ", senha) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -137,7 +132,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		}
 	}
 
-	public Usuario buscarPorId(int cod) throws NoResultException {
+	public Usuario buscarPorId(int cod){
 		String comando = "select * from cliente where codcliente = "
 				+ cod;
 		Usuario user = null;
@@ -161,18 +156,13 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 				user.setTelefone(rs.getDouble("telefone"));
 				user.setCep(rs.getInt("cep"));
 			}
-			if(user == null){
-				throw new NoResultException();
-			}
-		} catch(NoResultException e){
-			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
 
-	public boolean buscarEmail(Usuario user) throws NoResultException {
+	public boolean buscarEmail(Usuario user){
 		String comando = "select * from cliente where email ='" + user.getEmail() + "'";
 		boolean retun = false;
 		try {

@@ -3,10 +3,12 @@ package br.com.hamburgueria.auxilia;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import br.com.hamburgueria.exception.CripException;
  
 public class Crip {
  
-    public String cripto(String password) throws NoSuchAlgorithmException {
+    public String cripto(String password) throws NoSuchAlgorithmException, CripException {
     	try{
 	        MessageDigest md = MessageDigest.getInstance("MD5");
 	 

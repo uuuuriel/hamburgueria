@@ -1,24 +1,21 @@
 package br.com.hamburgueria.jdbcinterface;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.objs.Usuario;
 
 public interface UsuarioDAO {
 
-	public List<Usuario> buscarPorNome(String nome) throws NoResultException;
+	public List<Usuario> buscarPorNome(String nome);
 
-	public void deletarUsuario(int id) throws NoResultException;
+	public void deletarUsuario(int id);
 
-	public void atualizar(Usuario user) throws SQLException;
+	public void atualizar(Usuario user);
 
-	public void inserir(Usuario user) throws SQLException;
+	public void inserir(Usuario user);
 	
-	public Usuario buscarPorId(int id) throws NoResultException;
+	public Usuario buscarPorId(int id);
 
-	public boolean buscarEmail(Usuario user) throws NoResultException;
+	public boolean buscarEmail(Usuario user);
 
 }

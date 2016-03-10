@@ -69,12 +69,9 @@ public class FuncionarioService {
 		try{
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
-			jdbcFuncionario.deletarFuncionario(id);
-		} catch (HamburgueriaException e) {
-			throw e;			
+			jdbcFuncionario.deletarFuncionario(id);	
 		}catch (Exception e){
 			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}

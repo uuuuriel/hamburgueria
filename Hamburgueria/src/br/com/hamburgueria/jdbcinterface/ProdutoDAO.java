@@ -2,20 +2,18 @@ package br.com.hamburgueria.jdbcinterface;
 
 import java.util.List;
 
-import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.objs.Produto;
 
 public interface ProdutoDAO {
 
-	public Produto buscarId(int id) throws NoResultException;
+	public Produto buscarId(int id);
 
-	public List<Produto> buscarNome(String nome) throws NoResultException;
+	public List<Produto> buscarNome(String nome);
 
-	public boolean inserir(Produto prod) throws ValueZException;
+	public boolean inserir(Produto prod);
 
-	public boolean deletar(int cod) throws NoResultException;
+	public boolean deletar(int cod);
 
-	public boolean atualizar(Produto prod) throws ValueZException;
+	public boolean atualizar(Produto prod);
 
 }

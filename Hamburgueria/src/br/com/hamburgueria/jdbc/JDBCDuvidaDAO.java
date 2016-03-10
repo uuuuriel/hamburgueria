@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbcinterface.DuvidaDAO;
 import br.com.hamburgueria.objs.Duvida;
 
@@ -20,7 +18,7 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 	}
 
 	@Override
-	public List<Duvida> buscarNome(String nome) throws NoResultException {
+	public List<Duvida> buscarNome(String nome){
 		String comando = "select * from sugestao_criticas  ";
 		if (!nome.equals("")) {
 			comando += "where sugestao_criticas like '" + nome + "%'";
@@ -39,9 +37,6 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 				duv.setEmail(rs.getString("email"));
 				list.add(duv);
 			}
-			if (list.isEmpty()) {
-				throw new NoResultException();
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -49,10 +44,7 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 	}
 
 	@Override
-	public boolean inserir(Duvida duv) throws ValueZException {
-		if (duv == null) {
-			throw new ValueZException("Erro, valores negativos.");
-		}
+	public boolean inserir(Duvida duv) {
 		String comando = "insert into sugestoes_criticas ("
 				+ "mensagem, nome, email, telefone)"
 				+ " values"

@@ -2,25 +2,20 @@ package br.com.hamburgueria.jdbcinterface;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.NoValueException;
-import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.objs.Funcionario;
 
 public interface FuncionarioDAO {
 
-	public List<Funcionario> buscarPorNome(String nome) throws NoResultException;
+	public List<Funcionario> buscarPorNome(String nome);
 
-	public boolean deletarFuncionario(int id) throws NoResultException;
+	public boolean deletarFuncionario(int id);
 
-	public boolean atualizar(Funcionario funcionario) throws NoValueException;
+	public boolean atualizar(Funcionario funcionario);
 
-	public boolean inserir(Funcionario funcionario) throws NoValueException;
+	public boolean inserir(Funcionario funcionario);
 	
-	public Funcionario buscarPorId(int id) throws NoResultException;
+	public Funcionario buscarPorId(int id);
 
-	public boolean buscarEmail(Funcionario func) throws NoResultException;
+	public boolean buscarEmail(Funcionario func);
 
 }

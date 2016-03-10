@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
+import br.com.hamburgueria.exception.CripException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
@@ -23,7 +24,7 @@ public class LoginService {
 		this.request = req;
 	}
 
-	public boolean buscarLoginUsuario(Usuario user)throws NoResultException, NoSuchAlgorithmException {
+	public boolean buscarLoginUsuario(Usuario user)throws NoResultException, NoSuchAlgorithmException, CripException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -31,13 +32,14 @@ public class LoginService {
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
 			return jdbcUsuario.buscarEmail(user);
-		} catch (NoResultException e) {
-			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		} finally {
 			conec.fecharConexao();
 		}
 	}
-	public boolean buscarLoginFuncionario(Funcionario func)throws NoResultException, NoSuchAlgorithmException {
+	public boolean buscarLoginFuncionario(Funcionario func)throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -45,8 +47,9 @@ public class LoginService {
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
 			return jdbcFuncionario.buscarEmail(func);
-		} catch (NoResultException e) {
-			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		} finally {
 			conec.fecharConexao();
 		}

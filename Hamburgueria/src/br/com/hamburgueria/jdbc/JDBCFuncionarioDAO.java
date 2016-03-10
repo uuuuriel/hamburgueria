@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.objs.Funcionario;
 
@@ -20,15 +19,13 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		this.conexao = conexao;
 	}
 
-	public List<Funcionario> buscarPorNome(String nome) throws NoResultException  {
+	public List<Funcionario> buscarPorNome(String nome) {
 		String comando = "select * from funcionario  ";
 		if (!nome.equals("")) {
 			comando += "where nomefuncionario like '" + nome + "%'";
 		}
 		List<Funcionario> listFunc = new ArrayList<Funcionario>();
-
 		Funcionario func = null;
-
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
@@ -52,11 +49,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				func.setCep(rs.getInt("cep"));
 				listFunc.add(func);
 			}
-			if(listFunc.isEmpty()){
-				throw new NoResultException();
-			}
-		}catch(NoResultException e){
-			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,10 +56,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 	}
 
 	@Override
-	public boolean deletarFuncionario(int cod) throws NoResultException{
-		if(cod == 0){
-			throw new NoResultException("Erro ao deletar funcionario");
-		}
+	public boolean deletarFuncionario(int cod){
 		String comando = "delete from funcionario where codfuncionario = "
 				+ cod;
 		Statement p;
@@ -82,10 +71,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 	}
 
 	@Override
-	public boolean atualizar(Funcionario func) throws NoValueException{
-		if(func == null){
-			throw new NoValueException("Não foram encontrados os dados para cadastramento.");
-		}
+	public boolean atualizar(Funcionario func){
 		boolean editSenha = false;
 		String comando = "UPDATE funcionario SET nomefuncionario=?, cpf=?, rg=?, data_nascimento=?,"
 				+ "fone=?, email=?, funcao=?, cidade=?, bairro=?, numero=?, rua=?, complemento=?,"
@@ -127,10 +113,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 	}
 
 	@Override
-	public boolean inserir(Funcionario func) throws NoValueException {
-		if(func == null){
-			throw new NoValueException("Não foram encontrados os dados para cadastramento.");
-		}
+	public boolean inserir(Funcionario func){
 		String comando = "insert into funcionario (nomefuncionario, cpf, rg"
 				+ ", data_nascimento, fone, email, senha, funcao, cidade, bairro"
 				+ ",numero, rua, complemento, administrador, cep) "
@@ -153,7 +136,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.setString(13, func.getComplemento());
 			p.setInt(14, func.getAdministrador());
 			p.setInt(15, func.getCep());
-
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,7 +144,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		return true;
 	}
 
-	public Funcionario buscarPorId(int cod) throws NoResultException {
+	public Funcionario buscarPorId(int cod){
 		String comando = "select * from funcionario where codfuncionario = "
 				+ cod;
 		Funcionario func = null;
@@ -188,16 +170,13 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				func.setFone(rs.getDouble("fone"));
 				func.setCep(rs.getInt("cep"));
 			}
-			if(func == null){
-				throw new NoResultException();
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return func;
 	}
 
-	public boolean buscarEmail(Funcionario func) throws NoResultException {
+	public boolean buscarEmail(Funcionario func){
 		String comando = "select * from funcionario where email ='" + func.getEmail() + "'";
 		boolean retun = false;
 		try {

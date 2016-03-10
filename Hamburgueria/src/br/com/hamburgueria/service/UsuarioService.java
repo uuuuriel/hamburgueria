@@ -62,13 +62,13 @@ public class UsuarioService {
 		}
 	}
 
-	public void deletarUsuario(int id) throws NoResultException {
+	public void deletarUsuario(int id) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			jdbcUsuario.deletarUsuario(id);
-		} catch (NoResultException e) {
+		} catch (Exception e) {
 			throw e;
 		} finally {
 			conec.fecharConexao();
@@ -84,7 +84,8 @@ public class UsuarioService {
 			user.setSenha(crip.cripto(user.getSenha()));
 			Valida valida = new Valida();
 			if (valida.usuario(user)) {
-				jdbcUsuario.inserir(user);
+				jdbcUsuario.atualizar(user);
+				
 			} else {
 				throw new NoValueException();
 			};

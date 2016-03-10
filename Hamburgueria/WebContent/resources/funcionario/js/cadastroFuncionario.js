@@ -3,6 +3,7 @@ $(document).ready(function() {
 					$("#nmbrrg").mask("9.999.999");
 					$("#nmbrfone").mask("(99)9999-9999");
 					$("#cep").mask("99999-999");
+					$("#nmbrdatanascimento").datepicker();
 					HM.cidade
 					.listar({
 						async : false,

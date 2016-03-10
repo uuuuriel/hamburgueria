@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbcinterface.TaxaDAO;
 import br.com.hamburgueria.objs.Taxa;
 
@@ -19,7 +17,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 	}
 	
 	@Override
-	public List<Taxa> buscar(String nome) throws NoResultException  {
+	public List<Taxa> buscar(String nome){
 		String comando = "select * from taxas";
 		if (!nome.equals("")) {
 			comando += "where nometaxa like '%" + nome + "%'";
@@ -37,9 +35,6 @@ public class JDBCTaxaDAO implements TaxaDAO {
 				taxa.setValor(rs.getInt("valor"));
 				list.add(taxa);
 			}
-			if(list.isEmpty()){
-				throw new NoResultException();
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -47,10 +42,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 	}
 	
 	@Override
-	public boolean editar(Taxa taxa) throws ValueZException{
-		if(taxa == null){
-			throw new ValueZException("Erro ao atualizar os valores.");
-		}
+	public boolean editar(Taxa taxa){
 		String comando = "UPDATE taxas SET valor=? WHERE codtaxas = " +taxa.getCod();
 		PreparedStatement p;
 		try {

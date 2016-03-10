@@ -16,11 +16,9 @@ public class BairroService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			BairroDAO jdbcBairro = new JDBCBairrosDAO(conexao);
-			
 			return jdbcBairro.buscarPorId(id);
 		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw e;
 		}finally{
 			conec.fecharConexao();
 		}
