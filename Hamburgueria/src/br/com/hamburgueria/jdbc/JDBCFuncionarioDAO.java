@@ -8,11 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.ValueZException;
+import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.objs.Funcionario;
 
@@ -58,6 +55,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			if(listFunc.isEmpty()){
 				throw new NoResultException();
 			}
+		}catch(NoResultException e){
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -83,9 +82,9 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 	}
 
 	@Override
-	public boolean atualizar(Funcionario func) throws ValueZException{
+	public boolean atualizar(Funcionario func) throws NoValueException{
 		if(func == null){
-			throw new ValueZException("Erro ao atualizar os dados do Funcionário");
+			throw new NoValueException("Não foram encontrados os dados para cadastramento.");
 		}
 		boolean editSenha = false;
 		String comando = "UPDATE funcionario SET nomefuncionario=?, cpf=?, rg=?, data_nascimento=?,"
@@ -128,9 +127,9 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 	}
 
 	@Override
-	public boolean inserir(Funcionario func) throws ValueZException {
+	public boolean inserir(Funcionario func) throws NoValueException {
 		if(func == null){
-			throw new ValueZException("Algo errado com Funcionário.");
+			throw new NoValueException("Não foram encontrados os dados para cadastramento.");
 		}
 		String comando = "insert into funcionario (nomefuncionario, cpf, rg"
 				+ ", data_nascimento, fone, email, senha, funcao, cidade, bairro"
@@ -198,7 +197,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		return func;
 	}
 
-	public boolean buscarEmail(Funcionario func, HttpServletRequest request) throws NoResultException {
+	public boolean buscarEmail(Funcionario func) throws NoResultException {
 		String comando = "select * from funcionario where email ='" + func.getEmail() + "'";
 		boolean retun = false;
 		try {
@@ -206,11 +205,10 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
 				if((func.getEmail().equals(rs.getString("email"))) && (func.getSenha().equals(rs.getString("senha")))){
-					HttpSession sessao = request.getSession(true);
-					sessao.setAttribute("nome", rs.getString("nomefuncionario"));
-					sessao.setAttribute("administrador", rs.getString("administrador"));
-					sessao.setAttribute("cod", rs.getString("codfuncionario"));
-					retun = true;
+					func.setNomeFuncionario(rs.getString("nomefuncionario"));
+					func.setAdministrador(rs.getInt("administrador"));
+					func.setCodfuncionario(rs.getInt("codfuncionario"));
+					retun =  true;
 				}	
 			}
 			

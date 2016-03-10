@@ -9,11 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
 import br.com.hamburgueria.objs.Usuario;
 
@@ -56,6 +52,8 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			if(list.isEmpty()){
 				throw new NoResultException();
 			}
+		}catch(NoResultException e){
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -63,9 +61,9 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public boolean deletarUsuario(int cod) throws NoResultException{
+	public void deletarUsuario(int cod) throws NoResultException{
 		if(cod == 0){
-			throw new NoResultException("Erro ao deletar Usuario");
+			throw new NoResultException("Não foi achado nenhum registro com o CÓDIGO especificado.");
 		}
 		String comando = "delete from cliente where codcliente = "
 				+ cod;
@@ -75,16 +73,11 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.execute(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
 	}
 
 	@Override
-	public boolean atualizar(Usuario user) throws ValueZException{
-		if(user == null){
-			throw new ValueZException("Erro ao atualizar os dados do Usuário");
-		}
+	public void atualizar(Usuario user) throws SQLException{
 		boolean editSenha = false;
 		String comando = "UPDATE cliente SET nomecliente=?, data_nascimento=?, rg=?, cpf=?,"
 				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?";
@@ -117,16 +110,11 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
 	}
 
 	@Override
-	public boolean inserir(Usuario user) throws ValueZException {
-		if(user == null){
-			throw new ValueZException("Valores não foram encontrados.");
-		}
+	public void inserir(Usuario user) throws SQLException {
 		String comando = "insert into cliente (nomecliente, data_nascimento, rg, cpf, cidade"
 				+ ", bairro, rua, numero, complemento, cep, telefone, data_cadastro, email"
 				+ ", senha) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -151,9 +139,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
 	}
 
 	public Usuario buscarPorId(int cod) throws NoResultException {
@@ -183,13 +169,15 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			if(user == null){
 				throw new NoResultException();
 			}
+		} catch(NoResultException e){
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
 
-	public boolean buscarEmail(Usuario user, HttpServletRequest request) throws NoResultException {
+	public boolean buscarEmail(Usuario user) throws NoResultException {
 		String comando = "select * from cliente where email ='" + user.getEmail() + "'";
 		boolean retun = false;
 		try {
@@ -197,10 +185,8 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
 				if((user.getEmail().equals(rs.getString("email"))) && (user.getSenha().equals(rs.getString("senha")))){
-					HttpSession sessao = request.getSession(true);
-					sessao.setAttribute("nome", rs.getString("nomecliente"));
-					sessao.setAttribute("cod", rs.getString("codcliente"));
-					sessao.setAttribute("administrador", "0");
+					user.setNome(rs.getString("nomecliente"));
+					user.setCod(rs.getInt("codcliente"));
 					retun = true;
 				}				
 			}			

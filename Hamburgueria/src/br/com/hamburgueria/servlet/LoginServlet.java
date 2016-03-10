@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.Usuario;
@@ -38,9 +39,16 @@ public class LoginServlet extends HttpServlet {
     	 	
     	try{
     		LoginService service = new LoginService(request);
+    		HttpSession sessao = request.getSession(true);
     		if(service.buscarLoginUsuario(usuario)){
+    			sessao.setAttribute("nome", usuario.getNome());
+				sessao.setAttribute("administrador", "0");
+				sessao.setAttribute("cod", usuario.getCod());
     			response.getOutputStream().println("Usuário");
     		}else if(service.buscarLoginFuncionario(func)){
+				sessao.setAttribute("nome", func.getNomeFuncionario());
+				sessao.setAttribute("administrador", func.getAdministrador());
+				sessao.setAttribute("cod", func.getCodfuncionario());
     			response.getOutputStream().println("Funcionário");
     		} else{
     			response.getOutputStream().println("Olá");
