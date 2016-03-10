@@ -1,7 +1,5 @@
 package br.com.hamburgueria.rest;
 
-import java.io.IOException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,7 +15,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.service.UsuarioService;
 
@@ -35,7 +32,9 @@ public class UsuarioRest extends UtilRest {
 			UsuarioService service = new UsuarioService();
 			service.adicionarUsuario(user);
 			return this.buildResponse("Usuário cadastrado com sucesso.");
-		} catch (NoValueException | IOException e) {
+		} catch (HamburgueriaException e) {
+			return this.buildErrorResponse(e.getMessage());
+		}catch (Exception e){
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -66,7 +65,7 @@ public class UsuarioRest extends UtilRest {
 			UsuarioService service = new UsuarioService();
 			service.deletarUsuario(id);			
 			return this.buildResponse("Usuário deletado com sucesso!");
-		}catch(NoResultException e){
+		}catch(HamburgueriaException e){
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -78,7 +77,7 @@ public class UsuarioRest extends UtilRest {
 		try{
 			UsuarioService service = new UsuarioService();
 			return this.buildResponse(service.buscarUsuarioPorId(id));
-		}catch(NoResultException e){
+		}catch(HamburgueriaException e){
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -92,7 +91,9 @@ public class UsuarioRest extends UtilRest {
 			UsuarioService service = new UsuarioService();
 			service.atualizarUsuario(user);			
 			return this.buildResponse("Usuário editado com sucesso.");
-		}catch(NoValueException | IOException e){
+		}catch(HamburgueriaException e){
+			return this.buildErrorResponse(e.getMessage());
+		}catch(Exception e){
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}

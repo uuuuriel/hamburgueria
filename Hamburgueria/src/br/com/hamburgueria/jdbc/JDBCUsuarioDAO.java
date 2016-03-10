@@ -20,7 +20,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		this.conexao = conexao;
 	}
 
-	public List<Usuario> buscarPorNome(String nome) throws NoResultException  {
+	public List<Usuario> buscarPorNome(String nome)  {
 		String comando = "select * from cliente  ";
 		if (!nome.equals("")) {
 			comando += "where nomecliente like '" + nome + "%'";
@@ -49,11 +49,6 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 				user.setCep(rs.getInt("cep"));
 				list.add(user);
 			}
-			if(list.isEmpty()){
-				throw new NoResultException();
-			}
-		}catch(NoResultException e){
-			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
