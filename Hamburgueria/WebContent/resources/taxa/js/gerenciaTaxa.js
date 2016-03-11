@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	$("#valor").mask('000.000.000.000.000,00', {reverse: true});
 	
 	HM.taxa.busca = function(){
 		var ok = $("#search").val();
@@ -14,10 +13,11 @@ $(document).ready(function(){
 					html += "<tr><td><span id='cod" + i + "'><strong>" + resp[i].cod + "</strong></span></td>"
 							+ "<td><span id='nome" + i + "'>" + resp[i].nome + "</span></td>"
 							+ "<td><span id='descricao" + i + "'>" + resp[i].descricao + "</span></td>"
-							+ "<td><input id='valor" + i + "' class='form-control' value='" + resp[i].valor + "'/></td>"
+							+ "<td><input id='valor" + i + "' class='form-control valor' value='" + resp[i].valor + "'/></td>"
 							+ "<td><button type='button' class='btn btn-primary' onclick='HM.taxa.atualize(" + i  + ")'>atualizar</button></td></tr>";
 				}
-				$("table tbody").append(html);
+				$("table tbody").html(html);
+				$(".valor").mask('000.000.000.000.000,00', {reverse: true});
 			},
 			error:function(err){
 				console.log(err.responseText());
@@ -27,7 +27,7 @@ $(document).ready(function(){
 	
 	HM.taxa.atualize = function(cod){
 		HM.taxa.atualizar({
-			data: JSON.stringify({'cod': cod , 'valor': $("#valor"+cod).val()}),
+			data: JSON.stringify({'cod': cod , 'valor': $("#valor"+cod).val().replace(",",".")}),
 			success:function(succ){
 				console.log(succ);
 			},

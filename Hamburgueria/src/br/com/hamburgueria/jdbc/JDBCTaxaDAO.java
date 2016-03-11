@@ -32,7 +32,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 				taxa.setCod(rs.getInt("codtaxas"));
 				taxa.setDescricao(rs.getString("descricao"));
 				taxa.setNome(rs.getString("nometaxa"));
-				taxa.setValor(rs.getInt("valor"));
+				taxa.setValor(rs.getDouble("valor"));
 				list.add(taxa);
 			}
 		} catch (SQLException e) {
@@ -47,7 +47,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setInt(1, taxa.getValor());
+			p.setDouble(1, taxa.getValor());
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

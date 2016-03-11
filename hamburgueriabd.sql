@@ -95,7 +95,7 @@ CREATE TABLE `cliente` (
   `email` varchar(70) NOT NULL,
   `senha` varchar(100) NOT NULL,
   PRIMARY KEY (`codcliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'123',123,'2010-10-08','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123','123'),(2,'123123123',123,'1969-12-30','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123','123'),(3,'Uriel Hass123111111',123456,'2010-10-07','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO `cliente` VALUES (1,'123',123,'2010-10-08','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123','123'),(2,'123123123',123,'1969-12-30','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123','123'),(3,'Uriel Hass123111111',123456,'2010-10-07','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','e10adc3949ba59abbe56e057f20f883e'),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e'),(7,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +274,7 @@ CREATE TABLE `produto` (
   `anexo` blob,
   `cancelamento` varchar(155) DEFAULT NULL,
   `observacao` varchar(155) DEFAULT NULL,
-  `valor` int(6) NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
   `categoria` varchar(45) NOT NULL,
   PRIMARY KEY (`codproduto`,`categoria`),
   KEY `fk_produto_categoria1_idx` (`categoria`)
@@ -287,7 +287,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (2,'123','123',NULL,NULL,NULL,123123,'Lanche'),(4,'suco','123',NULL,NULL,NULL,123,'Lanche');
+INSERT INTO `produto` VALUES (2,'123','123',NULL,NULL,NULL,123123.00,'Lanche'),(4,'suco','123',NULL,NULL,NULL,123.48,'Lanche');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +305,7 @@ CREATE TABLE `sugestoes_criticas` (
   `email` varchar(45) DEFAULT NULL,
   `telefone` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codsugestoes_criticas`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,6 +314,7 @@ CREATE TABLE `sugestoes_criticas` (
 
 LOCK TABLES `sugestoes_criticas` WRITE;
 /*!40000 ALTER TABLE `sugestoes_criticas` DISABLE KEYS */;
+INSERT INTO `sugestoes_criticas` VALUES (1,'sdasf','','hass.uriel','0');
 /*!40000 ALTER TABLE `sugestoes_criticas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,7 +340,7 @@ CREATE TABLE `taxas` (
 
 LOCK TABLES `taxas` WRITE;
 /*!40000 ALTER TABLE `taxas` DISABLE KEYS */;
-INSERT INTO `taxas` VALUES (1,'Entrega','Taxa de entrega',0),(2,'Taxa mínima','Haverá um valor mínimo para compra delivery',20);
+INSERT INTO `taxas` VALUES (0,'Entrega','Taxa de entrega',150),(1,'Taxa mínima','Haverá um valor mínimo para compra delivery',15000);
 /*!40000 ALTER TABLE `taxas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -352,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-10 19:10:17
+-- Dump completed on 2016-03-10 21:20:30
