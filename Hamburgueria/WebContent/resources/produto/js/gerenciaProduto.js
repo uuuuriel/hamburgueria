@@ -31,7 +31,7 @@ $(document).ready(function(){
 							+ "<td>" + data[i].nome + "</td>"
 							+ "<td>" + data[i].descricao + "</td>"
 							+ "<td>" + data[i].categoria + "</td>"
-							+ "<td> R$ " + data[i].valor + "</td>"
+							+ "<td> R$ " + data[i].valor.toString().replace(".", ",") + "</td>"
 							+ "<td><a href='#' onclick='HM.produto.edit(" + data[i].cod + ")'"
 							+ "<i class='glyphicon glyphicon-edit editProduto' aria-hidden='true'></i></a>    "
 							+ "   <a href='#' onclick='HM.produto.delet(" + data[i].cod + ")'>"

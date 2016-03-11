@@ -20,10 +20,11 @@ $(document).ready(function(){
 			if(($("#senha").val() == "") || ($("#confirmaSenha").val() == "")){
 				bootbox.alert("Preencha o campo senha");
 				return false;
-			}
-			if($("#senha").val() != $("#confirmaSenha").val()){
+			}else if($("#senha").val() != $("#confirmaSenha").val()){
 				bootbox.alert("Senhas não conferem");
 				return false;
+			}else{
+				return true;
 			}
 		}else if(acao == 'edit'){
 			if($("#senha").val() != ""){
@@ -31,10 +32,9 @@ $(document).ready(function(){
 					bootbox.alert("Senhas não conferem");
 					return false;
 				}
+			}else{
+				return true;
 			}
-		}
-		}else{
-			return true;
 		}
 	};
 	

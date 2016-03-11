@@ -36,7 +36,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setAnexo(rs.getString("anexo"));
 				prod.setCancelamento(rs.getString("cancelamento"));
 				prod.setObservacao(rs.getString("observacao"));
-				prod.setValor(rs.getInt("valor"));
+				prod.setValor(rs.getDouble("valor"));
 				prod.setCategoria(rs.getString("categoria"));
 				list.add(prod);
 			}
@@ -71,7 +71,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p.setString(1, prod.getNome());
 			p.setString(2, prod.getDescricao());
 			p.setString(3, prod.getCategoria());
-			p.setInt(4, prod.getValor());
+			p.setDouble(4, prod.getValor());
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,7 +90,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p.setString(1, prod.getNome());
 			p.setString(2, prod.getDescricao());
 			p.setString(3, prod.getCategoria());
-			p.setInt(4, prod.getValor());
+			p.setDouble(4, prod.getValor());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,7 +114,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setAnexo(rs.getString("anexo"));
 				prod.setCancelamento(rs.getString("cancelamento"));
 				prod.setObservacao(rs.getString("observacao"));
-				prod.setValor(rs.getInt("valor"));
+				prod.setValor(rs.getDouble("valor"));
 				prod.setCategoria(rs.getString("categoria"));
 			}
 		} catch (SQLException e) {

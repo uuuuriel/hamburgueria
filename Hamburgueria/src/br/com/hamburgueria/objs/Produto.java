@@ -7,7 +7,7 @@ public class Produto {
 	private String anexo;
 	private String cancelamento;
 	private String observacao;
-	private int valor;
+	private Double valor;
 	private String categoria;
 	
 	public int getCod() {
@@ -46,10 +46,10 @@ public class Produto {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public int getValor() {
+	public Double getValor() {
 		return valor;
 	}
-	public void setValor(int valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 	public String getCategoria() {
