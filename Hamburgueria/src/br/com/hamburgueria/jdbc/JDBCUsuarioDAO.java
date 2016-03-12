@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
 import br.com.hamburgueria.objs.Usuario;
 
@@ -19,7 +20,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		this.conexao = conexao;
 	}
 
-	public List<Usuario> buscarPorNome(String nome)  {
+	public List<Usuario> buscarPorNome(String nome)  throws HamburgueriaException{
 		String comando = "select * from cliente  ";
 		if (!nome.equals("")) {
 			comando += "where nomecliente like '" + nome + "%'";
@@ -50,6 +51,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return list;
 	}
@@ -104,7 +106,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void inserir(Usuario user){
+	public void inserir(Usuario user) throws HamburgueriaException{
 		String comando = "insert into cliente (nomecliente, data_nascimento, rg, cpf, cidade"
 				+ ", bairro, rua, numero, complemento, cep, telefone, data_cadastro, email"
 				+ ", senha) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -129,6 +131,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 	}
 

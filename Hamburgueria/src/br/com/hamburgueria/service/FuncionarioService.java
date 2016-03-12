@@ -9,7 +9,7 @@ import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.objs.Funcionario;
-import br.com.hamburgueria.validacoes.Valida;
+import br.com.hamburgueria.validacoes.ValidaFuncionario;
 
 
 public class FuncionarioService {
@@ -49,7 +49,7 @@ public class FuncionarioService {
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
-			Valida valida = new Valida();
+			ValidaFuncionario valida = new ValidaFuncionario();
 			if(valida.funcionario(func)){
 				jdbcFuncionario.inserir(func);
 			}else{
@@ -82,13 +82,13 @@ public class FuncionarioService {
 		try{
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
-			Valida valida = new Valida();
+			ValidaFuncionario valida = new ValidaFuncionario();
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
 			if(valida.funcionario(func)){
 				jdbcFuncionario.atualizar(func);
 			}else{
-				throw new NoValueException("Campos vazios, por favor preencha todos.");
+				throw new NoValueException();
 			}
 		} catch (NoValueException e) {
 			e.printStackTrace();		

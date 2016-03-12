@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
-import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.service.UsuarioService;
 
@@ -26,7 +25,7 @@ public class UsuarioRest extends UtilRest {
 	@POST
 	@Path("/addUsuario")
 	@Consumes("application/*")
-	public Response addUsuario(String UsuarioParam) {
+	public Response addUsuario(String UsuarioParam) throws HamburgueriaException{
 		try {
 			Usuario user = new ObjectMapper().readValue(UsuarioParam,Usuario.class);
 			UsuarioService service = new UsuarioService();
@@ -42,14 +41,14 @@ public class UsuarioRest extends UtilRest {
 	@GET
 	@Path("buscarUsuariosPorNome/{nome}")
 	@Produces({MediaType.APPLICATION_JSON })
-	public Response buscarUsuariosPorNome(@PathParam("nome") String nome) {
+	public Response buscarUsuariosPorNome(@PathParam("nome") String nome) throws HamburgueriaException {
 		try {
 			UsuarioService service = new UsuarioService();
 			if(nome.equals("null")){
 				nome = "";
 			}
 			return this.buildResponse(service.buscarUsuarioPorNome(nome));
-		} catch (NoResultException e) {
+		} catch (HamburgueriaException e) {
 			return this.buildErrorResponse(e.getMessage());
 		} catch(Exception e){
 			return this.buildErrorResponse(e.getMessage());

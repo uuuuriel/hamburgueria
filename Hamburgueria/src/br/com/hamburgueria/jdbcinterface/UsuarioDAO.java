@@ -2,20 +2,21 @@ package br.com.hamburgueria.jdbcinterface;
 
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.objs.Usuario;
 
 public interface UsuarioDAO {
 
-	public List<Usuario> buscarPorNome(String nome);
+	public List<Usuario> buscarPorNome(String nome) throws HamburgueriaException;
 
-	public void deletarUsuario(int id);
+	public void deletarUsuario(int id)  throws HamburgueriaException;
 
-	public void atualizar(Usuario user);
+	public void atualizar(Usuario user)  throws HamburgueriaException;
 
-	public void inserir(Usuario user);
+	public void inserir(Usuario user) throws HamburgueriaException;
 	
-	public Usuario buscarPorId(int id);
+	public Usuario buscarPorId(int id)  throws HamburgueriaException;
 
-	public boolean buscarEmail(Usuario user);
+	public boolean buscarEmail(Usuario user)  throws HamburgueriaException;
 
 }

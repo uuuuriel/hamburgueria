@@ -11,7 +11,7 @@ import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
 import br.com.hamburgueria.objs.Usuario;
-import br.com.hamburgueria.validacoes.Valida;
+import br.com.hamburgueria.validacoes.ValidaUsuario;
 
 public class UsuarioService {
 	public Usuario buscarUsuarioPorId(int id) throws HamburgueriaException {
@@ -47,16 +47,18 @@ public class UsuarioService {
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
-			Valida valida = new Valida();
+			ValidaUsuario valida = new ValidaUsuario();
 			if (valida.usuario(user)) {
 				jdbcUsuario.inserir(user);
 			} else {
 				throw new NoValueException();
 			};
-		} catch (NoValueException e) {
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
 			throw e;
 		}catch(Exception e){
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		} finally {
 			conec.fecharConexao();
 		}
@@ -68,31 +70,36 @@ public class UsuarioService {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			jdbcUsuario.deletarUsuario(id);
+		}catch(NoResultException e){
+			e.printStackTrace();
+			throw e;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		} finally {
 			conec.fecharConexao();
 		}
 	}
 
-	public void atualizarUsuario(Usuario user) throws NoValueException {
+	public void atualizarUsuario(Usuario user) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
-			Valida valida = new Valida();
+			ValidaUsuario valida = new ValidaUsuario();
 			if (valida.usuario(user)) {
 				jdbcUsuario.atualizar(user);
-				
 			} else {
 				throw new NoValueException();
 			};
 		}catch(NoValueException e){
 			e.printStackTrace();
+			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		} finally {
 			conec.fecharConexao();
 		}

@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.objs.Funcionario;
 
