@@ -8,7 +8,7 @@ import br.com.hamburgueria.exception.CripException;
  
 public class Crip {
  
-    public String cripto(String password) throws NoSuchAlgorithmException, CripException {
+    public String cripto(String password) throws  CripException {
     	try{
 	        MessageDigest md = MessageDigest.getInstance("MD5");
 	 
@@ -16,7 +16,7 @@ public class Crip {
 	 
 	        return String.format("%32x", hash);
     	}catch(Exception e){
-    		throw new NoSuchAlgorithmException();
+    		throw new CripException();
     	}
     }
  

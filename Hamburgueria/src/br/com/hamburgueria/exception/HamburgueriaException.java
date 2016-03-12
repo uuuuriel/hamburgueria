@@ -9,5 +9,9 @@ public class HamburgueriaException extends Exception {
 	}
 	public HamburgueriaException(Throwable t){
 		super(t);
-	}	
+	}
+	public HamburgueriaException(String arg0, Throwable arg1) {
+		super(arg0, arg1);
+	}
+	
 }

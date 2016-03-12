@@ -42,7 +42,7 @@ public class FuncionarioService {
 		}
 	}
 	
-	public void adicionarFuncionario(Funcionario func) throws NoValueException{
+	public void adicionarFuncionario(Funcionario func) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -55,10 +55,6 @@ public class FuncionarioService {
 			}else{
 				throw new NoValueException();
 			}
-		}catch(NoValueException e){
-			e.printStackTrace();
-		}catch (Exception e){
-			e.printStackTrace();
 		}finally{
 			conec.fecharConexao();
 		}
