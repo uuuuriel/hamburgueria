@@ -57,7 +57,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void deletarUsuario(int cod){
+	public void deletarUsuario(int cod) throws HamburgueriaException{
 		String comando = "delete from cliente where codcliente = "
 				+ cod;
 		Statement p;
@@ -66,11 +66,12 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.execute(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 	}
 
 	@Override
-	public void atualizar(Usuario user){
+	public void atualizar(Usuario user) throws HamburgueriaException{
 		boolean editSenha = false;
 		String comando = "UPDATE cliente SET nomecliente=?, data_nascimento=?, rg=?, cpf=?,"
 				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?";
@@ -102,6 +103,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 	}
 
@@ -135,7 +137,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		}
 	}
 
-	public Usuario buscarPorId(int cod){
+	public Usuario buscarPorId(int cod) throws HamburgueriaException{
 		String comando = "select * from cliente where codcliente = "
 				+ cod;
 		Usuario user = null;
@@ -161,11 +163,12 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return user;
 	}
 
-	public boolean buscarEmail(Usuario user){
+	public boolean buscarEmail(Usuario user) throws HamburgueriaException{
 		String comando = "select * from cliente where email ='" + user.getEmail() + "'";
 		boolean retun = false;
 		try {
@@ -180,6 +183,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		if(retun){
 			return true;

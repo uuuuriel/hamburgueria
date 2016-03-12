@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
 import br.com.hamburgueria.objs.Funcionario;
 
@@ -18,7 +19,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		this.conexao = conexao;
 	}
 
-	public List<Funcionario> buscarPorNome(String nome) {
+	public List<Funcionario> buscarPorNome(String nome) throws HamburgueriaException{
 		String comando = "select * from funcionario  ";
 		if (!nome.equals("")) {
 			comando += "where nomefuncionario like '" + nome + "%'";
@@ -50,12 +51,13 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return listFunc;
 	}
 
 	@Override
-	public boolean deletarFuncionario(int cod){
+	public boolean deletarFuncionario(int cod) throws HamburgueriaException{
 		String comando = "delete from funcionario where codfuncionario = "
 				+ cod;
 		Statement p;
@@ -64,13 +66,13 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.execute(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new HamburgueriaException();
 		}
 		return true;
 	}
 
 	@Override
-	public boolean atualizar(Funcionario func){
+	public boolean atualizar(Funcionario func) throws HamburgueriaException{
 		boolean editSenha = false;
 		String comando = "UPDATE funcionario SET nomefuncionario=?, cpf=?, rg=?, data_nascimento=?,"
 				+ "fone=?, email=?, funcao=?, cidade=?, bairro=?, numero=?, rua=?, complemento=?,"
@@ -106,13 +108,13 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new HamburgueriaException();
 		}
 		return true;
 	}
 
 	@Override
-	public boolean inserir(Funcionario func){
+	public boolean inserir(Funcionario func) throws HamburgueriaException{
 		String comando = "insert into funcionario (nomefuncionario, cpf, rg"
 				+ ", data_nascimento, fone, email, senha, funcao, cidade, bairro"
 				+ ",numero, rua, complemento, administrador, cep) "
@@ -138,12 +140,12 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new HamburgueriaException();
 		}
 		return true;
 	}
 
-	public Funcionario buscarPorId(int cod){
+	public Funcionario buscarPorId(int cod) throws HamburgueriaException{
 		String comando = "select * from funcionario where codfuncionario = "
 				+ cod;
 		Funcionario func = null;
@@ -171,11 +173,12 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return func;
 	}
 
-	public boolean buscarEmail(Funcionario func){
+	public boolean buscarEmail(Funcionario func) throws HamburgueriaException{
 		String comando = "select * from funcionario where email ='" + func.getEmail() + "'";
 		boolean retun = false;
 		try {
@@ -192,6 +195,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		if(retun){
 			return true;
