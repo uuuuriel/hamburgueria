@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.CidadeDAO;
 import br.com.hamburgueria.objs.Cidade;
 
@@ -17,12 +18,10 @@ public class JDBCCidadesDAO implements CidadeDAO {
 	}
 
 	@Override
-	public List<Cidade> listarTodas() {
+	public List<Cidade> listarTodas() throws HamburgueriaException{
 		String comando = "select * from cidades where estado_cod = 24";
 		List<Cidade> listCidade = new ArrayList<Cidade>();
-
 		Cidade cidade = null;
-
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
@@ -37,6 +36,7 @@ public class JDBCCidadesDAO implements CidadeDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return listCidade;
 	}

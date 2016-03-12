@@ -6,17 +6,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.BairroDAO;
 import br.com.hamburgueria.objs.Bairro;
 
 public class JDBCBairrosDAO implements BairroDAO {
 	private Connection conexao;
 
-	public JDBCBairrosDAO(Connection conexao) {
+	public JDBCBairrosDAO(Connection conexao){
 		this.conexao = conexao;
 	}
 	
-	public List<Bairro> buscarPorId(int cod){
+	public List<Bairro> buscarPorId(int cod) throws HamburgueriaException{
 		String comando = "select * from bairros where cidade ="+cod;
 		List<Bairro> listBairro = new ArrayList<Bairro>();
 		Bairro bairro = null;
@@ -32,6 +33,7 @@ public class JDBCBairrosDAO implements BairroDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return listBairro;
 		

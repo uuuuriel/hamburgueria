@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.ProdutoDAO;
 import br.com.hamburgueria.objs.Produto;
 
@@ -18,7 +19,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 		this.conexao = conexao;
 	}
 	
-	public List<Produto> buscarNome(String nome){
+	public List<Produto> buscarNome(String nome) throws HamburgueriaException{
 		String comando = "select * from produto  ";
 		if (!nome.equals("")) {
 			comando += "where nomeproduto like '" + nome + "%'";
@@ -42,12 +43,13 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return list;
 	}
 
 	@Override
-	public boolean deletar(int cod){
+	public boolean deletar(int cod) throws HamburgueriaException{
 		String comando = "delete from produto where codproduto = "
 				+ cod;
 		Statement p;
@@ -56,13 +58,13 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p.execute(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new HamburgueriaException();
 		}
 		return true;
 	}
 
 	@Override
-	public boolean atualizar(Produto prod){
+	public boolean atualizar(Produto prod) throws HamburgueriaException{
 		String comando = "UPDATE produto SET nomeproduto=?,"
 				+ " descricao=?, categoria=?, valor=? WHERE codproduto="+prod.getCod();
 		PreparedStatement p;
@@ -75,13 +77,13 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new HamburgueriaException();
 		}
 		return true;
 	}
 
 	@Override
-	public boolean inserir(Produto prod){
+	public boolean inserir(Produto prod) throws HamburgueriaException{
 		String comando = "insert into produto (nomeproduto, descricao, categoria,valor)"
 				+ " values (?, ?, ?, ?);";
 		PreparedStatement p;
@@ -94,12 +96,12 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new HamburgueriaException();
 		}
 		return true;
 	}
 
-	public Produto buscarId(int cod){
+	public Produto buscarId(int cod) throws HamburgueriaException{
 		String comando = "select * from produto where codproduto = "
 				+ cod;
 		Produto prod = null;
@@ -119,6 +121,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return prod;
 	}

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.TaxaDAO;
 import br.com.hamburgueria.objs.Taxa;
 
@@ -17,7 +18,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 	}
 	
 	@Override
-	public List<Taxa> buscar(String nome){
+	public List<Taxa> buscar(String nome) throws HamburgueriaException{
 		String comando = "select * from taxas";
 		if (!nome.equals("")) {
 			comando += "where nometaxa like '%" + nome + "%'";
@@ -37,12 +38,13 @@ public class JDBCTaxaDAO implements TaxaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return list;
 	}
 	
 	@Override
-	public boolean editar(Taxa taxa){
+	public boolean editar(Taxa taxa) throws HamburgueriaException{
 		String comando = "UPDATE taxas SET valor=? WHERE codtaxas = " +taxa.getCod();
 		PreparedStatement p;
 		try {
@@ -51,7 +53,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new HamburgueriaException();
 		}
 		return true;
 	}

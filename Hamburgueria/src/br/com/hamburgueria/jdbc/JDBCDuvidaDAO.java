@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.DuvidaDAO;
 import br.com.hamburgueria.objs.Duvida;
 
@@ -18,7 +19,7 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 	}
 
 	@Override
-	public List<Duvida> buscarNome(String nome){
+	public List<Duvida> buscarNome(String nome) throws HamburgueriaException{
 		String comando = "select * from sugestao_criticas  ";
 		if (!nome.equals("")) {
 			comando += "where sugestao_criticas like '" + nome + "%'";
@@ -39,6 +40,7 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new HamburgueriaException();
 		}
 		return list;
 	}

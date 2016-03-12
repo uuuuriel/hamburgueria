@@ -17,11 +17,7 @@ public class DuvidaService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			DuvidaDAO jdbcDuvida = new JDBCDuvidaDAO(conexao);
-			//VALIDAR
-				jdbcDuvida.inserir(duv);
-
-		} catch (Exception e){
-			throw new HamburgueriaException();
+			jdbcDuvida.inserir(duv);
 		}finally{
 			conec.fecharConexao();
 		}
@@ -32,11 +28,6 @@ public class DuvidaService {
 			Connection conexao = conec.abrirConexao();
 			DuvidaDAO jdbcDuvida = new JDBCDuvidaDAO(conexao);
 			return jdbcDuvida.buscarNome(nome);
-		}catch(HamburgueriaException e){
-			throw e;
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}

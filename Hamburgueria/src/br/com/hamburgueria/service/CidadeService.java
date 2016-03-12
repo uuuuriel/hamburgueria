@@ -16,11 +16,7 @@ public class CidadeService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			CidadeDAO jdbcCidade = new JDBCCidadesDAO(conexao);
-			
 			return jdbcCidade.listarTodas();
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}
