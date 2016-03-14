@@ -8,11 +8,12 @@ public class ValidaFuncionario {
 
 	public boolean funcionario(Funcionario func) throws HamburgueriaException {
 		ValidaCpf validcpf = new ValidaCpf();
+		ValidaEmail validemail = new ValidaEmail();
+		validemail.validarEmail(func.getEmail());
 		validcpf.validarCpf(String.valueOf(func.getCpf()));
 		if ((func.getBairro().equals(""))
 				|| (func.getCep() - func.getCep() != 0)
 				|| (func.getCidade().equals(""))
-				|| (func.getCodfuncionario() - func.getCodfuncionario() != 0)
 				|| (func.getDataNascimento().equals(""))
 				|| (func.getEmail().equals(""))
 				|| (func.getFone() - func.getFone() != 0)

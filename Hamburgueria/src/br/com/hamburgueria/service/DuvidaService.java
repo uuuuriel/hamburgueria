@@ -8,6 +8,7 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCDuvidaDAO;
 import br.com.hamburgueria.jdbcinterface.DuvidaDAO;
 import br.com.hamburgueria.objs.Duvida;
+import br.com.hamburgueria.validacoes.ValidaDuvida;
 
 public class DuvidaService {
 
@@ -17,6 +18,8 @@ public class DuvidaService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			DuvidaDAO jdbcDuvida = new JDBCDuvidaDAO(conexao);
+			ValidaDuvida valida = new ValidaDuvida();
+			valida.Duvida(duv);
 			jdbcDuvida.inserir(duv);
 		}finally{
 			conec.fecharConexao();

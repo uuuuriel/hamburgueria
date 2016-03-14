@@ -16,9 +16,6 @@ public class ProdutoService {
 			Connection conexao = conec.abrirConexao();
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
 			return jdbcProduto.buscarId(id);
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -30,9 +27,6 @@ public class ProdutoService {
 			Connection conexao = conec.abrirConexao();
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
 			return jdbcProduto.buscarNome(nome);
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -45,9 +39,6 @@ public class ProdutoService {
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
 			//ADICIONAR VALIDAÇÃO
 			jdbcProduto.inserir(prod);
-
-		} catch (Exception e){
-			throw new HamburgueriaException(e.getMessage());
 		}finally{
 			conec.fecharConexao();
 		}

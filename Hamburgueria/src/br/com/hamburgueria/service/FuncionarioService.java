@@ -66,14 +66,12 @@ public class FuncionarioService {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			jdbcFuncionario.deletarFuncionario(id);	
-		}catch (Exception e){
-			e.printStackTrace();
 		}finally{
 			conec.fecharConexao();
 		}
 	}
 	
-	public void atualizarFuncionario(Funcionario func) throws NoValueException{
+	public void atualizarFuncionario(Funcionario func) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -81,15 +79,8 @@ public class FuncionarioService {
 			ValidaFuncionario valida = new ValidaFuncionario();
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
-			if(valida.funcionario(func)){
-				jdbcFuncionario.atualizar(func);
-			}else{
-				throw new NoValueException();
-			}
-		} catch (NoValueException e) {
-			e.printStackTrace();		
-		}catch (Exception t){
-			t.printStackTrace();
+			valida.funcionario(func);
+			jdbcFuncionario.atualizar(func);
 		}finally{
 			conec.fecharConexao();
 		}
@@ -103,11 +94,6 @@ public class FuncionarioService {
 			Crip crip = new Crip();
 			func.setSenha(crip.cripto(func.getSenha()));
 			return jdbcFuncionario.buscarEmail(func);
-		}catch(HamburgueriaException e){
-			throw e;
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}
