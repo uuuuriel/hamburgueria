@@ -6,11 +6,11 @@ import br.com.hamburgueria.objs.Funcionario;
 
 public class ValidaFuncionario {
 
-	public boolean funcionario(Funcionario func) throws HamburgueriaException {
+	public void funcionario(Funcionario func) throws HamburgueriaException {
 		ValidaCpf validcpf = new ValidaCpf();
 		ValidaEmail validemail = new ValidaEmail();
 		validemail.validarEmail(func.getEmail());
-		validcpf.validarCpf(String.valueOf(func.getCpf()));
+		validcpf.validarCpf(func.getCpf());
 		if ((func.getBairro().equals(""))
 				|| (func.getCep() - func.getCep() != 0)
 				|| (func.getCidade().equals(""))
@@ -20,10 +20,8 @@ public class ValidaFuncionario {
 				|| (func.getFuncao().equals(""))
 				|| (func.getNomeFuncionario().equals(""))
 				|| (func.getNumero() - func.getNumero() != 0)
-				|| (func.getRg().equals("")) || (func.getRua().equals(""))) {
+				|| (func.getRg() == 0) || (func.getRua().equals(""))) {
 			throw new NoValueException();
-		} else {
-			return true;
 		}
 	}
 }

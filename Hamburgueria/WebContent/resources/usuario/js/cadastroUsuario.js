@@ -39,7 +39,7 @@ $(document).ready(function(){
 	};
 	
 	HM.usuario.cadastrar = function(){
-		if(HM.usuario.valida('new')){
+		if(true){
 			HM.usuario.adicionar({
 				data:HM.usuario.getValor(),
 				success : function(data) {
@@ -78,6 +78,7 @@ $(document).ready(function(){
 		$("form div input, form div select").each(function(){
 			newUsuario[this.name]=this.value;
 		});
+		console.log($("#cpf").val());
 		return newUsuario;
 	};
 	

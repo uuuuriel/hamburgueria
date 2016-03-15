@@ -87,7 +87,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, user.getNome());
 			p.setDate(2, new java.sql.Date( user.getData_nascimento().getTime()));
-			p.setInt(3, user.getRg());
+			p.setDouble(3, user.getRg());
 			p.setDouble(4, user.getCpf());
 			p.setInt(5, user.getCidade());
 			p.setInt(6, user.getBairro());
@@ -118,8 +118,8 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, user.getNome());
 			p.setDate(2, new java.sql.Date( user.getData_nascimento().getTime()));
-			p.setInt(3, user.getRg());
-			p.setInt(4, user.getCpf());
+			p.setDouble(3, user.getRg());
+			p.setDouble(4, user.getCpf());
 			p.setInt(5, user.getCidade());
 			p.setInt(6, user.getBairro());
 			p.setString(7, user.getRua());

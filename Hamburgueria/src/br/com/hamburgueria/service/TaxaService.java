@@ -8,6 +8,7 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCTaxaDAO;
 import br.com.hamburgueria.jdbcinterface.TaxaDAO;
 import br.com.hamburgueria.objs.Taxa;
+import br.com.hamburgueria.validacoes.ValidaTaxa;
 
 public class TaxaService {
 
@@ -16,10 +17,7 @@ public class TaxaService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
-			
 			return jdbcTaxa.buscar(nome);
-		}catch(Exception e){
-			throw new HamburgueriaException(e);
 		}finally{
 			conec.fecharConexao();
 		}
@@ -30,10 +28,9 @@ public class TaxaService {
 		try{
 			Connection conexao = conec.abrirConexao();
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
+			ValidaTaxa valid = new ValidaTaxa();
+			valid.validaTaxa(taxa);
 			jdbcTaxa.editar(taxa);
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}

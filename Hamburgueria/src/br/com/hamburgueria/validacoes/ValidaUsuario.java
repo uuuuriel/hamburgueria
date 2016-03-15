@@ -6,11 +6,11 @@ import br.com.hamburgueria.objs.Usuario;
 
 public class ValidaUsuario {
 
-	public boolean usuario(Usuario user) throws HamburgueriaException {
+	public void usuario(Usuario user) throws HamburgueriaException {
 		ValidaCpf validcpf = new ValidaCpf();
 		ValidaEmail validemail = new ValidaEmail();
 		validemail.validarEmail(user.getEmail());
-		validcpf.validarCpf(String.valueOf(user.getCpf()));
+		validcpf.validarCpf(user.getCpf());
 		if (((user.getCep()
 				- user.getCep() != 0))
 				|| (user.getEmail().equals(""))
@@ -24,8 +24,6 @@ public class ValidaUsuario {
 				|| (user.getNumero() == 0)
 				|| (user.getRua().equals(""))) {
 			throw new NoValueException();
-		} else {
-			return true;
 		}
 	}
 }

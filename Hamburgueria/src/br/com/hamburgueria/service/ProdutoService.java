@@ -7,6 +7,7 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCProdutoDAO;
 import br.com.hamburgueria.jdbcinterface.ProdutoDAO;
 import br.com.hamburgueria.objs.Produto;
+import br.com.hamburgueria.validacoes.ValidaProduto;
 
 public class ProdutoService {
 
@@ -37,7 +38,8 @@ public class ProdutoService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
-			//ADICIONAR VALIDAÇÃO
+			ValidaProduto valid = new ValidaProduto();
+			valid.produtoCadastro(prod);
 			jdbcProduto.inserir(prod);
 		}finally{
 			conec.fecharConexao();
@@ -50,9 +52,6 @@ public class ProdutoService {
 			Connection conexao = conec.abrirConexao();
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
 			jdbcProduto.deletar(id);
-		} catch (Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -63,7 +62,8 @@ public class ProdutoService {
 		try{
 			Connection conexao = conec.abrirConexao();
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
-			//ADICIONAR VALIDAÇÃO USUÁRIO
+			ValidaProduto valid = new ValidaProduto();
+			valid.produtoCadastro(prod);
 			jdbcProduto.atualizar(prod);
 
 		} catch (Exception e){

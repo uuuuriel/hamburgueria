@@ -20,9 +20,6 @@ public class FuncionarioService {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			return jdbcFuncionario.buscarPorId(id);
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -34,9 +31,6 @@ public class FuncionarioService {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			return jdbcFuncionario.buscarPorNome(nome);
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -50,11 +44,8 @@ public class FuncionarioService {
 			func.setSenha(crip.cripto(func.getSenha()));
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			ValidaFuncionario valida = new ValidaFuncionario();
-			if(valida.funcionario(func)){
-				jdbcFuncionario.inserir(func);
-			}else{
-				throw new NoValueException();
-			}
+			valida.funcionario(func);
+			jdbcFuncionario.inserir(func);
 		}finally{
 			conec.fecharConexao();
 		}

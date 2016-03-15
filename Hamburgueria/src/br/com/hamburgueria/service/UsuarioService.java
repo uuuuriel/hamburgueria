@@ -7,7 +7,6 @@ import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.exception.NoValueException;
 import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
 import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
 import br.com.hamburgueria.objs.Usuario;
@@ -20,8 +19,6 @@ public class UsuarioService {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			return jdbcUsuario.buscarPorId(id);
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			conec.fecharConexao();
 		}
@@ -33,8 +30,6 @@ public class UsuarioService {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			return jdbcUsuario.buscarPorNome(nome);
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			conec.fecharConexao();
 		}
@@ -48,17 +43,8 @@ public class UsuarioService {
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
 			ValidaUsuario valida = new ValidaUsuario();
-			if (valida.usuario(user)) {
-				jdbcUsuario.inserir(user);
-			} else {
-				throw new NoValueException();
-			};
-		} catch (HamburgueriaException e) {
-			e.printStackTrace();
-			throw e;
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			valida.usuario(user);
+			jdbcUsuario.inserir(user);
 		} finally {
 			conec.fecharConexao();
 		}
@@ -70,12 +56,7 @@ public class UsuarioService {
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			jdbcUsuario.deletarUsuario(id);
-		}catch(NoResultException e){
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+
 		} finally {
 			conec.fecharConexao();
 		}
@@ -89,17 +70,8 @@ public class UsuarioService {
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
 			ValidaUsuario valida = new ValidaUsuario();
-			if (valida.usuario(user)) {
-				jdbcUsuario.atualizar(user);
-			} else {
-				throw new NoValueException();
-			};
-		}catch(NoValueException e){
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			valida.usuario(user);
+			jdbcUsuario.atualizar(user);
 		} finally {
 			conec.fecharConexao();
 		}

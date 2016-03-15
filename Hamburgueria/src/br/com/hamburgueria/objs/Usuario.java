@@ -7,8 +7,8 @@ public class Usuario {
 	private int cod;
 	private String nome;
 	private Date data_nascimento;
-	private int rg;
-	private int cpf;
+	private double rg;
+	private double cpf;
 	private int cidade;
 	private int bairro;
 	private String rua;
@@ -45,16 +45,16 @@ public class Usuario {
 	public void setData_nascimento(Date data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
-	public int getRg() {
+	public double getRg() {
 		return rg;
 	}
-	public void setRg(int rg) {
+	public void setRg(double rg) {
 		this.rg = rg;
 	}
-	public int getCpf() {
+	public double getCpf() {
 		return cpf;
 	}
-	public void setCpf(int cpf) {
+	public void setCpf(double cpf) {
 		this.cpf = cpf;
 	}
 	public int getCidade() {

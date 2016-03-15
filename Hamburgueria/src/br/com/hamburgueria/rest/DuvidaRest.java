@@ -18,8 +18,8 @@ import br.com.hamburgueria.objs.Duvida;
 import br.com.hamburgueria.service.DuvidaService;
 
 @Path("DuvidaRest")
-public class DuvidaRest extends UtilRest{
-	
+public class DuvidaRest extends UtilRest {
+
 	public DuvidaRest() {
 	}
 
@@ -34,6 +34,8 @@ public class DuvidaRest extends UtilRest{
 			return buildResponse("Obrigado pela sua opinão, precisamos de mais pessoas como você!");
 		} catch (HamburgueriaException | IOException e) {
 			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		} catch (Exception e) {
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -50,6 +52,8 @@ public class DuvidaRest extends UtilRest{
 			return this.buildResponse(service.buscarNome(nome));
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		} catch (Exception e) {
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
