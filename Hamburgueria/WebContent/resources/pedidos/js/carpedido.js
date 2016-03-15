@@ -59,5 +59,16 @@ $(document).ready(function(){
 					}
 				});
 	};
+	HM.produto.finalizarPedido = function(){
+		HM.ajax.post({
+			url:"rest/Pedido/finalizar",
+			success:function(succ){
+				console.log(succ);
+			},
+			error:function(err){
+				console.log(err);
+			}
+	  	});
+	}
 	HM.produto.listar();
 });

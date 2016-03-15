@@ -1,5 +1,7 @@
 package br.com.hamburgueria.jdbc;
 
-public class JDBCPedidoDAO {
+import br.com.hamburgueria.jdbcinterface.PedidoDAO;
+
+public class JDBCPedidoDAO implements PedidoDAO {
 
 }
