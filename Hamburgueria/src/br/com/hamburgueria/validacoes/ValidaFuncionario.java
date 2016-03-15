@@ -20,7 +20,7 @@ public class ValidaFuncionario {
 				|| (func.getFuncao().equals(""))
 				|| (func.getNomeFuncionario().equals(""))
 				|| (func.getNumero() - func.getNumero() != 0)
-				|| (func.getRg() == 0) || (func.getRua().equals(""))) {
+				|| (func.getRg().equals("")) || (func.getRua().equals(""))) {
 			throw new NoValueException();
 		}
 	}

@@ -36,12 +36,12 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				func.setCidade(rs.getString("cidade"));
 				func.setCodfuncionario(rs.getInt("codfuncionario"));
 				func.setComplemento(rs.getString("complemento"));
-				func.setCpf(rs.getDouble("cpf"));
+				func.setCpf(rs.getString("cpf"));
 				func.setDataNascimento(rs.getDate("data_nascimento"));
 				func.setEmail(rs.getString("email"));
 				func.setNomeFuncionario(rs.getString("nomefuncionario"));
 				func.setNumero(rs.getInt("numero"));
-				func.setRg(rs.getDouble("rg"));
+				func.setRg(rs.getString("rg"));
 				func.setRua(rs.getString("rua"));
 				func.setFuncao(rs.getString("funcao"));
 				func.setSenha(rs.getString("senha"));
@@ -88,8 +88,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, func.getNomeFuncionario());
-			p.setDouble(2, func.getCpf());
-			p.setDouble(3, func.getRg());
+			p.setString(2, func.getCpf());
+			p.setString(3, func.getRg());
 			p.setDate(4, new java.sql.Date(func.getDataNascimento().getTime()));
 			p.setDouble(5, func.getFone());
 			p.setString(6, func.getEmail());
@@ -123,8 +123,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, func.getNomeFuncionario());
-			p.setDouble(2, func.getCpf());
-			p.setDouble(3, func.getRg());
+			p.setString(2, func.getCpf());
+			p.setString(3, func.getRg());
 			p.setDate(4, new java.sql.Date(func.getDataNascimento().getTime()));
 			p.setDouble(5, func.getFone());
 			p.setString(6, func.getEmail());
@@ -159,12 +159,12 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				func.setCidade(rs.getString("cidade"));
 				func.setCodfuncionario(rs.getInt("codfuncionario"));
 				func.setComplemento(rs.getString("complemento"));
-				func.setCpf(rs.getDouble("cpf"));
+				func.setCpf(rs.getString("cpf"));
 				func.setDataNascimento(rs.getDate("data_nascimento"));
 				func.setEmail(rs.getString("email"));
 				func.setNomeFuncionario(rs.getString("nomefuncionario"));
 				func.setNumero(rs.getInt("numero"));
-				func.setRg(rs.getDouble("rg"));
+				func.setRg(rs.getString("rg"));
 				func.setRua(rs.getString("rua"));
 				func.setFuncao(rs.getString("funcao"));
 				func.setSenha(rs.getString("senha"));

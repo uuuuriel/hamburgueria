@@ -6,8 +6,8 @@ public class Funcionario {
 	
 	private String nomeFuncionario;
 	private Date dataNascimento;
-	private double rg;
-	private double cpf;
+	private String rg;
+	private String cpf;
 	private int administrador;
 	private String cidade;
 	private String bairro;
@@ -57,16 +57,16 @@ public class Funcionario {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	public double getRg() {
+	public String getRg() {
 		return rg;
 	}
-	public void setRg(double rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
-	public double getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(double cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public String getCidade() {

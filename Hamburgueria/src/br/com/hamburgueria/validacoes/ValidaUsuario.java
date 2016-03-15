@@ -15,7 +15,7 @@ public class ValidaUsuario {
 				- user.getCep() != 0))
 				|| (user.getEmail().equals(""))
 				|| (user.getSenha().equals(""))
-				|| (user.getRg() - user.getRg() != 0)
+				|| (user.getRg().equals(""))
 				|| (user.getNome().equals(""))
 				|| (user.getTelefone() - user.getTelefone() != 0)
 				|| (user.getCidade() == 0)

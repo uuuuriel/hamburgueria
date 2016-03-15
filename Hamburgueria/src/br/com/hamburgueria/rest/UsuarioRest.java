@@ -35,6 +35,7 @@ public class UsuarioRest extends UtilRest {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}catch (Exception e){
+			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -53,6 +54,7 @@ public class UsuarioRest extends UtilRest {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		} catch(Exception e){
+			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -70,6 +72,7 @@ public class UsuarioRest extends UtilRest {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		} catch(Exception e){
+			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -85,6 +88,7 @@ public class UsuarioRest extends UtilRest {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		} catch(Exception e){
+			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -102,6 +106,7 @@ public class UsuarioRest extends UtilRest {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}catch(Exception e){
+			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
