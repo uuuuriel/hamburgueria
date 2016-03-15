@@ -33,8 +33,16 @@ $(document).ready(function(){
 							      label: "Adicionar ao Carrinho",
 							      className: "btn-success",
 							      callback: function() {
-							        alert("great success");
-							  	    	}
+							    	  	HM.ajax.post({
+							    			url:"rest/Pedido/listaPedido/"+ cod,
+							    			success:function(succ){
+							    				console.log(succ);
+							    			},
+							    			error:function(err){
+							    				console.log(err);
+							    			}
+							    	  	});
+							      	}
 							    	},
 							    	danger: {
 								      label: "Fechar",

@@ -39,7 +39,7 @@ $(document).ready(function(){
 	};
 	
 	HM.usuario.cadastrar = function(){
-		if(true){
+		if(HM.usuario.valida('new')){
 			HM.usuario.adicionar({
 				data:HM.usuario.getValor(),
 				success : function(data) {
