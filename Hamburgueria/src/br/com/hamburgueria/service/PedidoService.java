@@ -7,17 +7,21 @@ import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
+import br.com.hamburgueria.objs.Pedido;
 
 public class PedidoService {
 	
-	public void finalizarPedido (String array, int cod) throws HamburgueriaException{
+	public void finalizarPedido (String array, int codUser) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
-			PedidoDAO jdbcPedido = new JDBCPedidoDAO();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			String quebra[] = array.split(Pattern.quote(","));
+			Pedido pedido = new Pedido();
+			pedido.setCodcliente(codUser);
+			pedido = jdbcPedido.setPedidoCliente(pedido);
 			for (int i = 0; i < quebra.length; i++) {
-				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]) > 0 ? Integer.parseInt(quebra[i]) : 0);
+				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]) > 0 ? Integer.parseInt(quebra[i]) : 0, pedido.getCodpedido());
 			}
 		}finally{
 			conec.fecharConexao();

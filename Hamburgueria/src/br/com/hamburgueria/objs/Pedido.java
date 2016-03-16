@@ -1,5 +1,7 @@
 package br.com.hamburgueria.objs;
 
+import java.sql.Date;
+
 public class Pedido {
 	
 	private int codpedido;
@@ -7,7 +9,14 @@ public class Pedido {
 	private double valortotal;
 	private int codcliente;
 	private int codtaxa;
+	private Date data;
 	
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
 	public int getCodpedido() {
 		return codpedido;
 	}

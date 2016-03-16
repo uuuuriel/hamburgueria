@@ -1,9 +1,12 @@
 package br.com.hamburgueria.objs;
 
+import java.util.Arrays;
+
 public class PedidoProduto {
 	
 	private int pedido;
 	private int produto;
+	
 	public int getPedido() {
 		return pedido;
 	}
@@ -15,6 +18,5 @@ public class PedidoProduto {
 	}
 	public void setProduto(int produto) {
 		this.produto = produto;
-	}
-
+	}	
 }
