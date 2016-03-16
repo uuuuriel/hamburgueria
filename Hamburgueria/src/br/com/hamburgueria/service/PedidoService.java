@@ -10,14 +10,14 @@ import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 
 public class PedidoService {
 	
-	public void finalizarPedido (String array) throws HamburgueriaException{
+	public void finalizarPedido (String array, int cod) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO();
 			String quebra[] = array.split(Pattern.quote(","));
 			for (int i = 0; i < quebra.length; i++) {
-				jdbcPedido.
+				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]) > 0 ? Integer.parseInt(quebra[i]) : 0);
 			}
 		}finally{
 			conec.fecharConexao();

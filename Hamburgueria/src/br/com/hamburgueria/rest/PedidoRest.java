@@ -48,7 +48,7 @@ public class PedidoRest {
 		try{
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
-			pedido.finalizarPedido((String)sessao.getAttribute("produto"));
+			pedido.finalizarPedido((String)sessao.getAttribute("produto"), (int)sessao.getAttribute("cod"));
 			sessao.setAttribute("produto", null);
 		}catch(Exception e){
 			e.printStackTrace();
