@@ -207,10 +207,10 @@ DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `codpedido` int(11) NOT NULL,
   `estagio_pedido` varchar(45) DEFAULT NULL,
-  `valor_total` varchar(45) DEFAULT NULL,
   `estagio_pedido_codestagio_pedido` int(11) NOT NULL,
   `cliente_codcliente` int(11) NOT NULL,
   `taxas_codtaxas` int(6) NOT NULL,
+  `data` datetime DEFAULT NULL,
   PRIMARY KEY (`codpedido`,`cliente_codcliente`,`taxas_codtaxas`),
   KEY `fk_pedido_estagio_pedido1_idx` (`estagio_pedido_codestagio_pedido`),
   KEY `fk_pedido_cliente1_idx` (`cliente_codcliente`),
@@ -240,9 +240,6 @@ DROP TABLE IF EXISTS `pedido_produto`;
 CREATE TABLE `pedido_produto` (
   `pedido_codpedido` int(11) NOT NULL,
   `produto_codproduto` int(11) NOT NULL,
-  `quantidade` int(11) DEFAULT NULL,
-  `unitario` decimal(4,2) DEFAULT NULL,
-  `total` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`pedido_codpedido`,`produto_codproduto`),
   KEY `fk_pedido_has_produto_produto1_idx` (`produto_codproduto`),
   KEY `fk_pedido_has_produto_pedido1_idx` (`pedido_codpedido`),
@@ -353,4 +350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-10 21:20:30
+-- Dump completed on 2016-03-16 21:06:13

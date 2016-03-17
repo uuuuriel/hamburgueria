@@ -16,12 +16,12 @@ public class PedidoService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			String quebra[] = array.split(Pattern.quote(","));
 			Pedido pedido = new Pedido();
 			pedido.setCodcliente(codUser);
 			pedido = jdbcPedido.setPedidoCliente(pedido);
+			String quebra[] = array.split(Pattern.quote(","));
 			for (int i = 0; i < quebra.length; i++) {
-				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]) > 0 ? Integer.parseInt(quebra[i]) : 0, pedido.getCodpedido());
+				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), pedido.getCodpedido());
 			}
 		}finally{
 			conec.fecharConexao();
