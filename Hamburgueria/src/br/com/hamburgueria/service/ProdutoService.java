@@ -65,7 +65,6 @@ public class ProdutoService {
 			ValidaProduto valid = new ValidaProduto();
 			valid.produtoCadastro(prod);
 			jdbcProduto.atualizar(prod);
-
 		} catch (Exception e){
 			e.printStackTrace();
 		}finally{

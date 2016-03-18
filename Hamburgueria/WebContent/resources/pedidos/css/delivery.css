@@ -30,3 +30,12 @@
 .divGallery [type='button']{
 	color: black;
 }
+
+.addProduto{
+	background-color: #449d44;
+	height: 30px;
+	width: 100px;
+	margin-left: -20% !important;
+	margin-bottom: -10%;
+	cursor: pointer;
+}

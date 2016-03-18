@@ -1,6 +1,8 @@
 .carrinhoCompra{
-	width: 50px;
 	float:right;
+}
+.carrinhoCompra img{
+	width: 100px;
 	margin-top:-20px;
 	cursor:pointer;	
 }

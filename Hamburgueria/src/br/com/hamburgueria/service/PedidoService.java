@@ -18,7 +18,7 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			Pedido pedido = new Pedido();
 			pedido.setCodcliente(codUser);
-			pedido = jdbcPedido.setPedidoCliente(pedido);
+			pedido = jdbcPedido.setPedidoCliente(pedido);			
 			String quebra[] = array.split(Pattern.quote(","));
 			for (int i = 0; i < quebra.length; i++) {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), pedido.getCodpedido());
