@@ -1,4 +1,9 @@
 $(document).ready(function(){
+	var conta = HM.sessao("produto");
+	if(conta && conta != null && conta != undefined && conta != ""){
+		$("#carrinhoCompraTag").text(conta.split(",").length-1);
+		$("#carrinhoCompra").show();
+	}
 	HM.produto.listar = function(){
 		HM.produto.exibir({
 			data:"",
@@ -24,10 +29,8 @@ $(document).ready(function(){
 			url:"rest/Pedido/listaPedido/"+ cod,
 			success:function(succ){
 				if(succ){
-					var conta = parseInt($("#cont").val());
-					conta = conta + 1;
-					$("#cont").val(conta);
-					$("#carrinhoCompraTag").text(conta);
+					$("#carrinhoCompra").show();
+					$("#carrinhoCompraTag").text(HM.sessao("produto").split(",").length-1);
 				}
 			},
 			error:function(err){
@@ -73,7 +76,8 @@ $(document).ready(function(){
 		HM.ajax.post({
 			url:"rest/Pedido/finalizar",
 			success:function(succ){
-				console.log(succ);
+				$("#carrinhoCompraTag").text("");
+				$("#carrinhoCompraTag").hide();
 			},
 			error:function(err){
 				console.log(err);

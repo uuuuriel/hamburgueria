@@ -1,10 +1,11 @@
 <link rel="stylesheet" type="text/css" href="resources/pedidos/css/carrinhoCompra.css"/>
 <link rel="stylesheet" type="text/css" href="resources/pedidos/css/delivery.css"/>
 <a href="#codigouma" data-toggle="modal" data-target="#myModal3">
-	<span class="carrinhoCompra" id="carrinhoCompra">
+	<span class="carrinhoCompra" id="carrinhoCompra" style="display:none;">
 		<img src="assets/imagem/carrinho_compras.png">
 		<input type='text' id='cont' style="display:none;" value='0'/>
-		<span id='carrinhoCompraTag'></span>	
+		<span class='carrinhoCompraTag'><span id='carrinhoCompraTag'></span></span><br/>
+		<span class="finalizarPedidoTag" onclick="HM.produto.finalizarPedido();" id="codigouma">Finalizar Pedido!</span>	
 	</span>
 </a>
 <div class='divDelivery col-sm-12'>
@@ -12,7 +13,6 @@
     	
 	</div>
 </div>
-<button onclick="HM.produto.finalizarPedido();" style="margin-left:500px;" id="codigouma">FINALIZAR O PEDIDO</button>
 <div class="bs-example">
 	<div id="myModal3" class="modal fade">
 		<div class="modal-dialog">

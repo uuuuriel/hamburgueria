@@ -39,3 +39,19 @@
 	margin-bottom: -10%;
 	cursor: pointer;
 }
+
+#carrinhoCompraTag {
+	
+}
+
+.carrinhoCompraTag {
+	background-color: #fff;
+	width: 30px !important;
+	border-radius: 2em;;
+}
+
+.finalizarPedidoTag{
+	background-color: #449d44;
+	color: #fff;
+	padding: 5px;
+}
