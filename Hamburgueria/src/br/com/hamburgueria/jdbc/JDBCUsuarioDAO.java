@@ -47,6 +47,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 				user.setSenha(rs.getString("senha"));
 				user.setTelefone(rs.getDouble("telefone"));
 				user.setCep(rs.getInt("cep"));
+				user.setAtivo(rs.getInt("ativo"));
 				list.add(user);
 			}
 		} catch (SQLException e) {
@@ -57,13 +58,14 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void deletarUsuario(int cod) throws HamburgueriaException{
-		String comando = "delete from cliente where codcliente = "
-				+ cod;
-		Statement p;
+	public void deletarUsuario(Usuario user) throws HamburgueriaException{
+		String comando = "UPDATE cliente SET ativo = ? where codcliente = "
+				+ user.getCod();
+		PreparedStatement p;
 		try {
-			p = this.conexao.createStatement();
-			p.execute(comando);
+			p = this.conexao.prepareStatement(comando);
+			p.setInt(1, user.getAtivo());
+			p.executeUpdate(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new HamburgueriaException();
@@ -169,7 +171,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	public boolean buscarEmail(Usuario user) throws HamburgueriaException{
-		String comando = "select * from cliente where email ='" + user.getEmail() + "'";
+		String comando = "select * from cliente where email ='" + user.getEmail() + "' AND ativo = 1";
 		boolean retun = false;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();

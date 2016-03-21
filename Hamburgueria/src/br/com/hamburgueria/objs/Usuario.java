@@ -20,7 +20,14 @@ public class Usuario {
 	private String confirmaSenha;
 	private double telefone;
 	private int cep;
+	private int ativo;
 	
+	public int getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
+	}
 	public int getCep() {
 		return cep;
 	}

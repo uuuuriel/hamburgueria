@@ -53,10 +53,12 @@ public class UsuarioService {
 	public void deletarUsuario(int id) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
+			Usuario user = new Usuario();
+			user.setCod(id);
+			user.setAtivo(0);
 			Connection conexao = conec.abrirConexao();
 			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
-			jdbcUsuario.deletarUsuario(id);
-
+			jdbcUsuario.deletarUsuario(user);
 		} finally {
 			conec.fecharConexao();
 		}

@@ -9,7 +9,7 @@ public interface UsuarioDAO {
 
 	public List<Usuario> buscarPorNome(String nome) throws HamburgueriaException;
 
-	public void deletarUsuario(int id)  throws HamburgueriaException;
+	public void deletarUsuario(Usuario user) throws HamburgueriaException;
 
 	public void atualizar(Usuario user)  throws HamburgueriaException;
 

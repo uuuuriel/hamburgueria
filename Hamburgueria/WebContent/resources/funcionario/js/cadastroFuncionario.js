@@ -20,7 +20,7 @@ $(document).ready(function() {
 									html);
 						},
 						error:function(err){
-							console.log(err)
+							console.log(err);
 						}
 					});
 					
@@ -110,6 +110,7 @@ $(document).ready(function() {
 							newData.administrador = administrador;
 							newData.cep = cep;
 							newData.codfuncionario = codfuncionario;
+							newData.ativo = $("#ativo").val();
 							return newData;
 						}
 						

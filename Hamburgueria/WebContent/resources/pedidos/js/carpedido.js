@@ -4,6 +4,7 @@ $(document).ready(function(){
 		$("#carrinhoCompraTag").text(conta.split(",").length-1);
 		$("#carrinhoCompra").show();
 	}
+	
 	HM.produto.listar = function(){
 		HM.produto.exibir({
 			data:"",

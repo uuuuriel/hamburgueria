@@ -23,13 +23,17 @@ public class SessaoRest {
 	@Path("/getSessao/{sessao}")
 	@Produces("application/json")
 	public String getSessao(@PathParam("sessao") String parametro){
-		
 		HttpSession sessao = req.getSession(false);
-		String variSessao = (String)sessao.getAttribute(parametro);
-		Map<String, String> msg = new HashMap<String, String>();
-		
-		msg.put("sessao", variSessao);
-		String json = new Gson().toJson(msg);
-		return json;
+		String variSessao = "";
+		try{
+			variSessao = (String)sessao.getAttribute(parametro);
+		}catch(Exception e){
+			variSessao = Integer.toString((int)sessao.getAttribute(parametro));
+		}finally{
+			Map<String,String> msg = new HashMap<String, String>();
+			msg.put("sessao", variSessao);
+			String json = new Gson().toJson(msg);
+			return json;
+		}
 	}
 }

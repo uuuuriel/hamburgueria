@@ -60,7 +60,7 @@ public class UsuarioRest extends UtilRest {
 	}
 	
 	
-	@DELETE
+	@PUT
 	@Path("/deletarUsuario/{id}")
 	@Consumes("application/*")
 	public Response deletarUsuario(@PathParam("id") int id) {

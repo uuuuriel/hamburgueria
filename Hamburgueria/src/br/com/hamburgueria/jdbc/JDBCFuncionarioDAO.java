@@ -47,6 +47,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				func.setSenha(rs.getString("senha"));
 				func.setFone(rs.getDouble("fone"));
 				func.setCep(rs.getInt("cep"));
+				func.setAtivo(rs.getInt("ativo"));
 				listFunc.add(func);
 			}
 		} catch (SQLException e) {
@@ -58,12 +59,13 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 
 	@Override
 	public boolean deletarFuncionario(int cod) throws HamburgueriaException{
-		String comando = "delete from funcionario where codfuncionario = "
+		String comando = "UPDATE funcionario SET ativo=? where codfuncionario = "
 				+ cod;
-		Statement p;
+		PreparedStatement p;
 		try {
-			p = this.conexao.createStatement();
-			p.execute(comando);
+			p = this.conexao.prepareStatement(comando);
+			p.setInt(1, 0);
+			p.executeUpdate(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
@@ -76,7 +78,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		boolean editSenha = false;
 		String comando = "UPDATE funcionario SET nomefuncionario=?, cpf=?, rg=?, data_nascimento=?,"
 				+ "fone=?, email=?, funcao=?, cidade=?, bairro=?, numero=?, rua=?, complemento=?,"
-				+ "administrador=?, cep=? ";
+				+ "administrador=?, cep=?, ativo=?";
 		if (func.getSenha() == null || func.getSenha().isEmpty()) {
 			comando += " WHERE codfuncionario = ";
 		} else {
@@ -101,6 +103,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.setString(12, func.getComplemento());
 			p.setInt(13, func.getAdministrador());
 			p.setInt(14, func.getCep());
+			p.setInt(17, func.getAtivo());
 			if (editSenha) {
 				p.setString(15, func.getSenha());
 			};
@@ -117,8 +120,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 	public boolean inserir(Funcionario func) throws HamburgueriaException{
 		String comando = "insert into funcionario (nomefuncionario, cpf, rg"
 				+ ", data_nascimento, fone, email, senha, funcao, cidade, bairro"
-				+ ",numero, rua, complemento, administrador, cep) "
-				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ ",numero, rua, complemento, administrador, cep, funcionario, ativo) "
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
@@ -137,6 +140,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.setString(13, func.getComplemento());
 			p.setInt(14, func.getAdministrador());
 			p.setInt(15, func.getCep());
+			p.setInt(16, func.getFuncionario());
+			p.setInt(17, func.getAtivo());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -170,6 +175,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				func.setSenha(rs.getString("senha"));
 				func.setFone(rs.getDouble("fone"));
 				func.setCep(rs.getInt("cep"));
+				func.setAtivo(rs.getInt("ativo"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,7 +185,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 	}
 
 	public boolean buscarEmail(Funcionario func) throws HamburgueriaException{
-		String comando = "select * from funcionario where email ='" + func.getEmail() + "'";
+		String comando = "select * from funcionario where email ='" + func.getEmail() + "' AND ativo = 1";
 		boolean retun = false;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
@@ -189,6 +195,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 					func.setNomeFuncionario(rs.getString("nomefuncionario"));
 					func.setAdministrador(rs.getInt("administrador"));
 					func.setCodfuncionario(rs.getInt("codfuncionario"));
+					func.setFuncionario(rs.getInt("funcionario"));
 					retun =  true;
 				}	
 			}

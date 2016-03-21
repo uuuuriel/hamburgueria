@@ -21,6 +21,20 @@ public class Funcionario {
 	private String funcao;
 	private int codfuncionario;
 	private int cep;
+	private int funcionario;
+	private int ativo;
+	public int getFuncionario() {
+		return funcionario;
+	}
+	public void setFuncionario(int funcionario) {
+		this.funcionario = funcionario;
+	}
+	public int getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
+	}
 	public int getCep() {
 		return cep;
 	}

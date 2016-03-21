@@ -54,4 +54,18 @@ public class PedidoRest {
 			e.printStackTrace();
 		}
 	}
+	
+	@POST
+	@Path("/finalizarFuncionario")
+	public void finalizarPedidoFuncionario() throws HamburgueriaException{
+		try{
+			HttpSession sessao = req.getSession(false);
+			PedidoService pedido = new PedidoService();
+			pedido.finalizarPedido((String)sessao.getAttribute("produto"), );
+			sessao.setAttribute("produto", null);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 }
