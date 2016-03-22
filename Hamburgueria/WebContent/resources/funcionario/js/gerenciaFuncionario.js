@@ -166,6 +166,7 @@ $(document).ready(
 																					.prop(
 																							"unchecked")
 																		}
+																		$("input[name=ativo][value=" + func.ativo + "]").attr('checked', 'checked');
 
 																	},
 																	error : function(

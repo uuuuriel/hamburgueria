@@ -59,12 +59,10 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 
 	@Override
 	public boolean deletarFuncionario(int cod) throws HamburgueriaException{
-		String comando = "UPDATE funcionario SET ativo=? where codfuncionario = "
-				+ cod;
+		String comando = "UPDATE funcionario SET ativo=0 WHERE codfuncionario = "+ cod;
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setInt(1, 0);
 			p.executeUpdate(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();

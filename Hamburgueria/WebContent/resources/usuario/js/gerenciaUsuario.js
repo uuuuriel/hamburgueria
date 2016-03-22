@@ -74,6 +74,8 @@ $(document).ready(function(){
 										$("form input, form select").each(function(){
 											$(this).val(resp[this.id]);
 										});
+										$("input[name=ativo][value=" + resp.ativo + "]").attr('checked', 'checked');
+										console.log(resp.ativo);
 									},error:function(err){console.log(err.responseText());}
 								})
 
