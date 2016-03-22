@@ -10,7 +10,7 @@ public class ValidaFuncionario {
 		ValidaCpf validcpf = new ValidaCpf();
 		ValidaEmail validemail = new ValidaEmail();
 		validemail.validarEmail(func.getEmail());
-		validcpf.validarCpf(func.getCpf());
+		//validcpf.validarCpf(func.getCpf());
 		if ((func.getBairro().equals(""))
 				|| (func.getCep() - func.getCep() != 0)
 				|| (func.getCidade().equals(""))

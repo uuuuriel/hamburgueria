@@ -10,7 +10,7 @@ public class ValidaUsuario {
 		ValidaCpf validcpf = new ValidaCpf();
 		ValidaEmail validemail = new ValidaEmail();
 		validemail.validarEmail(user.getEmail());
-		validcpf.validarCpf(user.getCpf());
+		//validcpf.validarCpf(user.getCpf());
 		if (((user.getCep()
 				- user.getCep() != 0))
 				|| (user.getEmail().equals(""))

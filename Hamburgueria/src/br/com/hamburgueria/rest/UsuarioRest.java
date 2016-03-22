@@ -1,7 +1,6 @@
 package br.com.hamburgueria.rest;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -29,6 +28,7 @@ public class UsuarioRest extends UtilRest {
 		try {
 			Usuario user = new ObjectMapper().readValue(UsuarioParam,Usuario.class);
 			UsuarioService service = new UsuarioService();
+			System.out.println(user.getAtivo());
 			service.adicionarUsuario(user);
 			return this.buildResponse("Usuário cadastrado com sucesso.");
 		} catch (HamburgueriaException e) {
@@ -100,6 +100,7 @@ public class UsuarioRest extends UtilRest {
 		try{
 			Usuario user = new ObjectMapper().readValue(usuarioParam, Usuario.class);
 			UsuarioService service = new UsuarioService();
+			System.out.println(user.getAtivo());
 			service.atualizarUsuario(user);			
 			return this.buildResponse("Usuário editado com sucesso.");
 		}catch(HamburgueriaException e){

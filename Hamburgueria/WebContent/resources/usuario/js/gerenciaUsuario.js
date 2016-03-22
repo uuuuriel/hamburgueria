@@ -72,10 +72,11 @@ $(document).ready(function(){
 										$("#titleChange").text("Editar usuário");
 										$("#cadastrarUsuario").attr('onclick', "HM.usuario.edit();");
 										$("form input, form select").each(function(){
-											$(this).val(resp[this.id]);
+											if(this.name != "ativo"){
+												$(this).val(resp[this.id]);
+											}
 										});
-										$("input[name=ativo][value=" + resp.ativo + "]").attr('checked', 'checked');
-										console.log(resp.ativo);
+										$("input[name=ativo][value=" + resp.ativo + "]").prop('checked', 'true');
 									},error:function(err){console.log(err.responseText());}
 								})
 

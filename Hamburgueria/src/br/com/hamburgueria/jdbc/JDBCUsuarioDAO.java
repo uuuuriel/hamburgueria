@@ -76,7 +76,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	public void atualizar(Usuario user) throws HamburgueriaException{
 		boolean editSenha = false;
 		String comando = "UPDATE cliente SET nomecliente=?, data_nascimento=?, rg=?, cpf=?,"
-				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?";
+				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?, ativo=?";
 		if (user.getSenha() == null || user.getSenha().isEmpty()) {
 			comando += " WHERE codcliente = ";
 		} else {
@@ -99,8 +99,9 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.setInt(10, user.getCep());
 			p.setDouble(11, user.getTelefone());
 			p.setString(12, user.getEmail());
+			p.setInt(13, user.getAtivo());
 			if (editSenha) {
-				p.setString(13, user.getSenha());
+				p.setString(14, user.getSenha());
 			};
 			p.executeUpdate();
 		} catch (SQLException e) {
@@ -162,6 +163,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 				user.setRua(rs.getString("rua"));
 				user.setTelefone(rs.getDouble("telefone"));
 				user.setCep(rs.getInt("cep"));
+				user.setAtivo(rs.getInt("ativo"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

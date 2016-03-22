@@ -1,5 +1,8 @@
 $(document).ready(function(){
-	
+	function clean(crs) {
+		var clean = crs.replace(/[^\d]+/g, '');
+		return clean;
+	}
 	$("#cpf").mask("999.999.999-99");
 	$("#rg").mask("9.999.999");
 	$("#telefone").mask("(99)9999-9999");
@@ -69,16 +72,20 @@ $(document).ready(function(){
 	};
 	
 	HM.usuario.getValor = function(value){
-		$("#cpf").unmask();
+		clean($("#cpf").val());
 		$("#rg").unmask();
 		$("#telefone").unmask();
 		$("#cep").unmask();
 		$("#data_nascimento").unmask();
 		var newUsuario = new Object();
 		$("form div input, form div select").each(function(){
-			newUsuario[this.name]=this.value;
+			if(this.name != "ativo"){
+				newUsuario[this.name]=this.value;
+			}else{
+				newUsuario['ativo']=$('input[name="ativo"]:checked').val();
+			}
 		});
-		console.log($("#cpf").val());
+		console.log(newUsuario);
 		return newUsuario;
 	};
 	
