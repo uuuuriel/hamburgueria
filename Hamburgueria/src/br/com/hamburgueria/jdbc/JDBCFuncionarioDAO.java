@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		String comando = "UPDATE funcionario SET nomefuncionario=?, cpf=?, rg=?, data_nascimento=?,"
 				+ "fone=?, email=?, funcao=?, cidade=?, bairro=?, numero=?, rua=?, complemento=?,"
 				+ "administrador=?, cep=?, ativo=?";
-		if (func.getSenha() == null || func.getSenha().isEmpty()) {
+		if (func.getSenha() == null || func.getSenha().isEmpty() || func.getSenha() != "") {
 			comando += " WHERE codfuncionario = ";
 		} else {
 			editSenha = true;
@@ -101,9 +100,9 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.setString(12, func.getComplemento());
 			p.setInt(13, func.getAdministrador());
 			p.setInt(14, func.getCep());
-			p.setInt(17, func.getAtivo());
+			p.setInt(15, func.getAtivo());
 			if (editSenha) {
-				p.setString(15, func.getSenha());
+				p.setString(16, func.getSenha());
 			};
 			p.executeUpdate();
 
@@ -193,7 +192,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 					func.setNomeFuncionario(rs.getString("nomefuncionario"));
 					func.setAdministrador(rs.getInt("administrador"));
 					func.setCodfuncionario(rs.getInt("codfuncionario"));
-					func.setFuncionario(rs.getInt("funcionario"));
 					retun =  true;
 				}	
 			}

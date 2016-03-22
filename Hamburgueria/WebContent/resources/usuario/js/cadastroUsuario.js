@@ -12,12 +12,23 @@ $(document).ready(function(){
 	$("#data_nascimento").datepicker();
 	
 	HM.usuario.valida = function(acao){
+		//var filtroTelefone = new RegExp('^[1-9]{2}\-[2-9][0-9]{7,8}$');
+		//var filtroNome = /^[a-z]{1,45}$/i;
+		var filtroEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+		email = $("#email").val();
+			
 		if(($("#nome").val() == "") || ($("#cpf").val() == "") || ($("#rg").val() == "")
 				|| ($("#data_nascimento").val() == "") ||($("#telefone").val() == "")
-				|| ($("#email").val() == "") || ($("#cep").val() == "") 
+				|| ($("#cep").val() == "") 
 				|| ($("#cidade").val() == "") || ($("#bairro").val() == "") || ($("#rua").val() == "")
 				|| ($("#numero").val() == "")){
 			bootbox.alert("Campos obrigatórios.");
+			return false;
+		}else if(email == ""){
+			bootbox.alert("* O campo Email é Obrigatório <br/>");
+			return false;
+		} else if (!filtroEmail.test(email)) {
+			bootbox.alert("* Email inválido <br/>");
 			return false;
 		}else if(acao == 'new'){
 			if(($("#senha").val() == "") || ($("#confirmaSenha").val() == "")){

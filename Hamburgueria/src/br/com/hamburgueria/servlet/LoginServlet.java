@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 				sessao.setAttribute("nome", func.getNomeFuncionario());
 				sessao.setAttribute("administrador", func.getAdministrador());
 				sessao.setAttribute("cod", func.getCodfuncionario());
-				sessao.setAttribute("funcionario", func.getFuncionario());
+				sessao.setAttribute("funcionario", "1");
     			response.getOutputStream().println("Funcionário");
     		} else{
     			response.getOutputStream().println("Olá");
