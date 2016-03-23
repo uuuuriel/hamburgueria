@@ -119,7 +119,7 @@ $(document).ready(function(){
 							      className: "btn-success",
 							      callback: function() {
 							  		HM.ajax.post({
-										url:"rest/Pedido/finalizarPedidoFuncionaroi",
+										url:"rest/Pedido/finalizarPedidoFuncionario",
 										success:function(succ){
 											$("#carrinhoCompraTag").text("");
 											$("#carrinhoCompraTag").hide();
