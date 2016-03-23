@@ -42,14 +42,14 @@ public class LoginServlet extends HttpServlet {
     		HttpSession sessao = request.getSession(true);
     		if(service.buscarLoginUsuario(usuario)){
     			sessao.setAttribute("nome", usuario.getNome());
-				sessao.setAttribute("administrador", "0");
+				sessao.setAttribute("administrador", 0);
 				sessao.setAttribute("cod", usuario.getCod());
     			response.getOutputStream().println("Usuário");
     		}else if(service.buscarLoginFuncionario(func)){
 				sessao.setAttribute("nome", func.getNomeFuncionario());
 				sessao.setAttribute("administrador", func.getAdministrador());
 				sessao.setAttribute("cod", func.getCodfuncionario());
-				sessao.setAttribute("funcionario", "1");
+				sessao.setAttribute("funcionario", 1);
     			response.getOutputStream().println("Funcionário");
     		} else{
     			response.getOutputStream().println("Olá");

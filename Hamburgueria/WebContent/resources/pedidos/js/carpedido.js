@@ -74,16 +74,88 @@ $(document).ready(function(){
 				});
 	};
 	HM.produto.finalizarPedido = function(){
-		HM.ajax.post({
-			url:"rest/Pedido/finalizar",
-			success:function(succ){
-				$("#carrinhoCompraTag").text("");
-				$("#carrinhoCompraTag").hide();
-			},
-			error:function(err){
-				console.log(err);
+		var produto = HM.sessao('produto');
+		var msg = "<table class='table'>";
+		array = produto.split(",");
+		for ( var i = 0; i < array.length; i++) {
+			if(array[i] > 0){
+				HM.produto.popular({
+					data: array[i],
+					success: function(resp){
+						msg += "<tr><td>" + resp.cod + "</td><td>" + resp.nome + "</td><td>R$" + resp.valor +"<td></tr>";
+					},
+					error:function(err){
+						console.log(err.responseText);
+					}
+				});
 			}
-	  	});
+		}
+		msg += "</table>";
+		if (HM.sessao('funcionario') == 1) {
+			bootbox.dialog({
+				  message: "<div>" +msg+" </div>"
+				  			+ "Retirada balcão <input type='radio' id='entrega' name='entrega' value='1'/><br/>"
+				  			+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega'/>",
+				  title: "Pedidos<hr>",
+				  size: 'small',
+				  onEscape: function() {},
+				  buttons: {
+				    success: {
+				      label: "Continuar",
+				      className: "btn-success",
+				      callback: function() {
+				    	  $(this).fadeOut();			    	  
+				    	 
+				    	
+				    	  
+				    	  bootbox.dialog({
+							  message: '<div id="magicsuggest"></div>',
+							  title: "Selecione o cliente, ou cadastre um novo<hr>",
+							  size: 'small',
+							  onEscape: function() {},
+							  buttons: {
+							    success: {
+							      label: "Confirmar pedido.",
+							      className: "btn-success",
+							      callback: function() {
+							  		HM.ajax.post({
+										url:"rest/Pedido/finalizarPedidoFuncionaroi",
+										success:function(succ){
+											$("#carrinhoCompraTag").text("");
+											$("#carrinhoCompraTag").hide();
+										},
+										error:function(err){
+											console.log(err);
+										}
+								  	});
+							      	}
+							    	},
+							    	danger: {
+								      label: "Fechar",
+								      className: "btn-danger",
+								      callback: function() {
+								       		$(this).fadeOut(1000);
+								      	}
+								    }
+							    	
+							    	
+								}
+							});
+				      	}
+				    	},
+				    	danger: {
+					      label: "Fechar",
+					      className: "btn-danger",
+					      callback: function() {
+					       		$(this).fadeOut(1000);
+					      	}
+					    }
+				    	
+				    	
+					}
+				});
+		}
+
 	}
 	HM.produto.listar();
 });

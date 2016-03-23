@@ -55,16 +55,19 @@ public class PedidoRest {
 		}
 	}
 	
+
 	@POST
-	@Path("/finalizarFuncionario")
-	public void finalizarPedidoFuncionario() throws HamburgueriaException{
+	@Path("/finalizarPedidoFuncionaroi/{produto}")
+	@Produces("application/json")
+	public String finalizarPedidoFuncionario(@PathParam("codcliente") int codcliente) throws HamburgueriaException {
 		try{
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
-			pedido.finalizarPedido((String)sessao.getAttribute("produto"), );
+			pedido.finalizarPedidoFuncionario((String)sessao.getAttribute("produto"), (int)sessao.getAttribute("cod"), codcliente);
 			sessao.setAttribute("produto", null);
 		}catch(Exception e){
 			e.printStackTrace();
+			return null;
 		}
 	}
 	

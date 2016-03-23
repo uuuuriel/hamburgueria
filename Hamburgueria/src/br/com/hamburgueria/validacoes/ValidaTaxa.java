@@ -8,7 +8,7 @@ public class ValidaTaxa {
 	
 	public void validaTaxa(Taxa taxa) throws HamburgueriaException{
 		if (taxa.getValor() == 0) {
-			throw new NoValueException();
+			//throw new NoValueException();
 		}
 	}
 

@@ -103,4 +103,10 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		return list;
 	}
 
+	@Override
+	public Pedido setPedidoFuncionario(Pedido pedido) throws HamburgueriaException {
+		
+		return null;
+	}
+
 }

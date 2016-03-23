@@ -28,4 +28,22 @@ public class PedidoService {
 		}
 	}
 
+	public void finalizarPedidoFuncionario(String array, int codfunc, int codcliente) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			Pedido pedido = new Pedido();
+			pedido.setCodcliente(codcliente);
+			pedido = jdbcPedido.setPedidoFuncionario(pedido);			
+			String quebra[] = array.split(Pattern.quote(","));
+			for (int i = 0; i < quebra.length; i++) {
+				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), pedido.getCodpedido());
+			}
+		}finally{
+			conec.fecharConexao();
+		}
+		
+	}
+
 }

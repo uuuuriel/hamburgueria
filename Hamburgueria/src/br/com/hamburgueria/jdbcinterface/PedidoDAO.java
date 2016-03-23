@@ -8,5 +8,7 @@ public interface PedidoDAO {
 	void finalizarPedido(int pedido, int produtos) throws HamburgueriaException;
 
 	public Pedido setPedidoCliente(Pedido pedido) throws HamburgueriaException;
+
+	public Pedido setPedidoFuncionario(Pedido pedido) throws HamburgueriaException;
 	
 }
