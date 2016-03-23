@@ -7,6 +7,7 @@ import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
+import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.Pedido;
 
 public class PedidoService {
@@ -35,15 +36,37 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			Pedido pedido = new Pedido();
 			pedido.setCodcliente(codcliente);
-			pedido = jdbcPedido.setPedidoFuncionario(pedido);			
+			pedido = jdbcPedido.setPedidoCliente(pedido);	
+			jdbcPedido.setPedidoFuncionario(codfunc, pedido.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
 			for (int i = 0; i < quebra.length; i++) {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), pedido.getCodpedido());
 			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}finally{
 			conec.fecharConexao();
 		}
 		
+	}
+	
+	public void finalizarPedidoFuncionarioNovo(ClienteNovo cliente) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {
+			/*Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			Pedido pedido = new Pedido();
+			pedido.setCodcliente(codcliente);
+			pedido = jdbcPedido.setPedidoFuncionario(pedido);			
+			String quebra[] = array.split(Pattern.quote(","));
+			for (int i = 0; i < quebra.length; i++) {
+				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), pedido.getCodpedido());
+			}*/
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			conec.fecharConexao();
+		}
 	}
 
 }

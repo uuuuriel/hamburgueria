@@ -9,6 +9,6 @@ public interface PedidoDAO {
 
 	public Pedido setPedidoCliente(Pedido pedido) throws HamburgueriaException;
 
-	public Pedido setPedidoFuncionario(Pedido pedido) throws HamburgueriaException;
+	public void setPedidoFuncionario(int codfuncionario, int codpedido) throws HamburgueriaException;
 	
 }

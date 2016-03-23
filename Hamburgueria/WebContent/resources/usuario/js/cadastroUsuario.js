@@ -104,16 +104,16 @@ $(document).ready(function(){
 				HM.cidade.listar({
 				async : false,
 				success : function(data) {
-					var html = "";
-					for ( var i = 0; i < data.length; i++) {
-						html += "<option value='"+ data[i].cod+ "'>"+ data[i].cidade+ "</option>";
+						var html = "";
+						for ( var i = 0; i < data.length; i++) {
+							html += "<option value='"+ data[i].cod+ "'>"+ data[i].cidade+ "</option>";
+						}
+						$("#cidade").append(html);
+					},
+					error:function(err){
+						bootbox.alert(err.responseText);
 					}
-					$("#cidade").append(html);
-				},
-				error:function(err){
-					bootbox.alert(err.responseText);
-				}
-			});
+				});
 		});
 		
 		$("#cidade").on('change', function(){

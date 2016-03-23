@@ -13,7 +13,6 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.objs.ListaPedido;
 import br.com.hamburgueria.objs.Pedido;
-import br.com.hamburgueria.objs.Usuario;
 
 public class JDBCPedidoDAO implements PedidoDAO {
 
@@ -104,9 +103,19 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 
 	@Override
-	public Pedido setPedidoFuncionario(Pedido pedido) throws HamburgueriaException {
-		
-		return null;
+	public void setPedidoFuncionario(int codfuncionario, int codpedido) throws HamburgueriaException {
+		String comando = "insert into historico_funcionario (pedido_codpedido, funcionario_codfuncionario)"
+				+ "VALUES (?, ?)";
+		PreparedStatement p;
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.setInt(1, codpedido);
+			p.setInt(2, codfuncionario);
+			p.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new HamburgueriaException(e.getMessage());
+		}	
 	}
 
 }
