@@ -4,5 +4,29 @@
 .carrinhoCompra img{
 	width: 100px;
 	margin-top:-20px;
+	
+}
+.carrinhoCompraAll{
 	cursor:pointer;	
+	z-index: -1;
+}
+#magicsuggest{
+	color: #000000;
+}
+
+.colorBlack{
+	color: #000;
+}
+
+.ui-menu .ui-menu-item a{
+    background:red;
+    height:10px;
+	font-size:8px;
+}
+.ui-widget{
+	background-color: #fff;
+	color:#000;
+}
+.ui-widget-content li:hover{
+ 	background-color: #B4ACAC;
 }

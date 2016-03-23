@@ -11,10 +11,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
+import com.google.gson.Gson;
+
+import br.com.hamburgueria.exception.AdicionarProdutoException;
+import br.com.hamburgueria.exception.FinalizarPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.service.PedidoService;
-
-import com.google.gson.Gson;
 
 @Path("Pedido")
 public class PedidoRest {
@@ -38,7 +40,7 @@ public class PedidoRest {
 			//DELETAR DEPOIS
 		}catch(Exception e){
 			e.printStackTrace();
-			return null;
+			throw new AdicionarProdutoException();
 		}
 	}
 	
@@ -52,6 +54,7 @@ public class PedidoRest {
 			sessao.setAttribute("produto", null);
 		}catch(Exception e){
 			e.printStackTrace();
+			throw new FinalizarPedidoException();
 		}
 	}
 	
@@ -59,7 +62,7 @@ public class PedidoRest {
 	@POST
 	@Path("/finalizarPedidoFuncionaroi/{produto}")
 	@Produces("application/json")
-	public String finalizarPedidoFuncionario(@PathParam("codcliente") int codcliente) throws HamburgueriaException {
+	public void finalizarPedidoFuncionario(@PathParam("codcliente") int codcliente) throws HamburgueriaException {
 		try{
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
@@ -67,7 +70,7 @@ public class PedidoRest {
 			sessao.setAttribute("produto", null);
 		}catch(Exception e){
 			e.printStackTrace();
-			return null;
+			throw new FinalizarPedidoException();
 		}
 	}
 	
