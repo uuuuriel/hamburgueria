@@ -112,17 +112,23 @@ $(document).ready(function(){
 		});
 	};	
 	
-	
+	$("#entrega").on("change",function(){
+		if(this.value == 0){
+			
+		}
+	})
 	HM.produto.finalizarPedido = function(){
 		var produto = HM.sessao('produto');
 		var msg = "<table class='table'>";
 		array = produto.split(",");
+		var total = 0;
 		for ( var i = 0; i < array.length; i++) {
 			if(array[i] > 0){
 				HM.produto.popular({
 					data: array[i],
 					success: function(resp){
 						msg += "<tr><td>" + resp.cod + "</td><td>" + resp.nome + "</td><td>R$" + resp.valor +"<td></tr>";
+						total = resp.valor + total;
 					},
 					error:function(err){
 						console.log(err.responseText);
@@ -130,11 +136,11 @@ $(document).ready(function(){
 				});
 			}
 		}
-		msg += "</table>";
+		msg += "<tr><td></td><td><strong>TOTAL</strong></td><td>"+ total.toFixed(2) +"</td></tr></table>";
 		bootbox.dialog({
 			message: "<div>" +msg+" </div>"
 			+ "Retirada balcão <input type='radio' id='entrega' name='entrega' value='2'/><br/>"
-			+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega'/>",
+			+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega' checked/>",
 			title: "Pedidos<hr>",
 			size: 'small',
 			onEscape: function() {},
