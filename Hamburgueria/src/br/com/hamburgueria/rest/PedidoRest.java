@@ -5,21 +5,26 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.google.gson.Gson;
 
 import br.com.hamburgueria.exception.AdicionarProdutoException;
 import br.com.hamburgueria.exception.FinalizarPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.objs.Usuario;
 import br.com.hamburgueria.service.PedidoService;
 
 @Path("Pedido")
-public class PedidoRest {
+public class PedidoRest extends UtilRest{
 
 	@Context
 	private HttpServletRequest req;
@@ -60,8 +65,8 @@ public class PedidoRest {
 	
 
 	@POST
-	@Path("/finalizarPedidoFuncionario/{codcliente}")
-	@Produces("application/json")
+	@Path("/finalizarPedidoFuncionario")
+	@Produces("application/*")
 	public void finalizarPedidoFuncionario(@PathParam("codcliente") int codcliente) throws HamburgueriaException {
 		try{
 			System.out.println(codcliente);
@@ -74,5 +79,23 @@ public class PedidoRest {
 			throw new FinalizarPedidoException();
 		}
 	}
+	
+	@POST
+	@Path("/finalizarPedidoFuncionarioNovo/{usuario}")
+	@Consumes("application/*")
+	public Response finalizarPedidoFuncionarioNovo(String usuario) throws HamburgueriaException {
+		try{
+			Usuario user = new ObjectMapper().readValue(usuario,Usuario.class);
+			HttpSession sessao = req.getSession(false);
+			PedidoService pedido = new PedidoService();
+			pedido.finalizarPedidoFuncionarioNovo((String)sessao.getAttribute("produto"), user, (int)sessao.getAttribute("cod"));
+			sessao.setAttribute("produto", null);	
+			return this.buildResponse("Pedido finalizado com sucesso.");
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new FinalizarPedidoException();
+		}
+	}
+
 	
 }

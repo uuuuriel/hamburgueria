@@ -43,7 +43,7 @@ public class UsuarioRest extends UtilRest {
 	@GET
 	@Path("buscarUsuariosPorNome/{nome}")
 	@Produces({MediaType.APPLICATION_JSON })
-	public Response buscarUsuariosPorNome(@PathParam("nome") String nome) throws HamburgueriaException {
+	public Response buscarUsuariosPorNome(@PathParam("nome") String nome) {
 		try {
 			UsuarioService service = new UsuarioService();
 			if(nome.equals("null")){

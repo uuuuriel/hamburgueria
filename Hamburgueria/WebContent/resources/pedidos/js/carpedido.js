@@ -73,17 +73,11 @@ $(document).ready(function(){
 			}
 		});
 	};
-	HM.produto.encerra = function(cod){
-		var url ="";
-		if (cod == "" || cod == null) {
-			cod = "";
-			url = "rest/Pedido/finalizarPedidoFuncionarioNovo/";
-		}else{
-			url = "rest/Pedido/finalizarPedidoFuncionario/";
-		}
-		console.log(cod);
+	HM.produto.encerra = function(data){
+		console.log(data);
 		HM.ajax.post({
-			url:url+cod,
+			url: data.url,
+			data: JSON.stringify(data),
 			success:function(succ){
 				console.log(succ);
 				$("#carrinhoCompraTag").text("");
@@ -137,6 +131,7 @@ $(document).ready(function(){
 				});
 			}
 		}
+		var newData = {};
 		msg += "</table><span id='valueTotal'  style='display:none'><h1><strong>TOTAL  R$ "+ total.toFixed(2) +" </strong></h1>";
 		bootbox.dialog({
 			message: "<div>" +msg+" </div>"
@@ -150,6 +145,7 @@ $(document).ready(function(){
 					label: "Continuar",
 					className: "btn-success",
 					callback: function() {
+						newData.entrega = $('input[name="entrega"]:checked').val();
 						$(this).fadeOut();
 						if (HM.sessao('funcionario') == 1) {
 							HM.cidade.listar({
@@ -174,7 +170,7 @@ $(document).ready(function(){
 												{
 													value: data[i].nome,
 													label:data[i].nome,
-													cod:data[i].cod,
+													codigo: data[i].cod,
 													telefone: data[i].telefone,
 													cep: data[i].cep,
 													bairro: data[i].bairro,
@@ -185,7 +181,7 @@ $(document).ready(function(){
 											);
 									}
 								    $( "#tags" ).autocomplete({
-								      source: availableTags,
+								      source: availableTags,								      
 								      select: function(event, ui) {
 								    	  $("#cidade").val(ui.item.cidade);
 								    	  HM.bairro.listar({
@@ -202,22 +198,22 @@ $(document).ready(function(){
 									  				bootbox.alert(err.responseText);
 									  			}
 								  			});
-								    	  $("#cod").val(ui.item.cod);
 								    	  $(".disableds").attr("disabled","disabled");
+								    	  $("#cod").val(ui.item.codigo);
 								    	  $("#telefone").val(ui.item.telefone);
 								    	  $("#cep").val(ui.item.cep);
 								    	  $("#rua").val(ui.item.rua);
 								    	  $("#numero").val(ui.item.numero);
 								        },
-								        change: function( event, ui ) {
+								        response: function( event, ui ) {
 								        	$("#cidade").val("");
 								        	$("#bairro").val("");
 								        	$("#cod").val("");
-									    	$(".disableds").prop("disabled", false); 
 									    	$("#telefone").val("");
 									    	$("#cep").val("");
 									    	$("#rua").val("");
 									    	$("#numero").val("");
+									    	$(".disableds").prop("disabled", false); 
 								        }
 								    });
 								},
@@ -234,7 +230,7 @@ $(document).ready(function(){
 											+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
 											+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
 											+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
-											+'<input type="hidden" id="cod" />',
+											+'<input id="cod" />',
 								title: "Formulário de Entrega<hr>",
 								size: 'small',
 								onEscape: function() {},
@@ -243,7 +239,21 @@ $(document).ready(function(){
 										label: "Confirmar",
 										className: "btn-success",
 										callback: function() {
-											HM.produto.encerra($("#cod").val());
+											var cod = $("#cod").val();
+											if (cod == "" || cod == null) {
+												newData.nome = $("#tags").val();
+												newData.telefone = $("#telefone").val();
+												newData.cidade = $("#cidade").val();
+												newData.bairro = $("#bairro").val();
+												newData.rua = $("#rua").val();
+												newData.numero = $("#numero").val();
+												newData.cep = $("#cep").val();
+												newData.url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
+											}else{
+												newData.url = "rest/Pedido/finalizarPedidoFuncionario/";
+												newData.cod = cod;
+											}
+											HM.produto.encerra(newData);
 										}
 									},
 									danger: {

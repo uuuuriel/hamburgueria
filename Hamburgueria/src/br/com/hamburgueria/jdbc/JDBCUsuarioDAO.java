@@ -111,14 +111,14 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void inserir(Usuario user) throws HamburgueriaException{
+	public Usuario inserir(Usuario user) throws HamburgueriaException{
 		String comando = "insert into cliente (nomecliente, data_nascimento, rg, cpf, cidade"
 				+ ", bairro, rua, numero, complemento, cep, telefone, data_cadastro, email"
 				+ ", senha) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement p;
 		Date d = new Date();
 		try {
-			p = this.conexao.prepareStatement(comando);
+			p = this.conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
 			p.setString(1, user.getNome());
 			p.setDate(2, new java.sql.Date( user.getData_nascimento().getTime()));
 			p.setString(3, user.getRg());
@@ -134,6 +134,15 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			p.setString(13, user.getEmail());
 			p.setString(14, user.getSenha());
 			p.execute();
+			try (ResultSet generatedKeys = p.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                user.setCod(generatedKeys.getInt(1));
+	            }
+	            else {
+	                throw new SQLException("Erro ao retornar ID.");
+	            }
+	        }
+			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new HamburgueriaException();

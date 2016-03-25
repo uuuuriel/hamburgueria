@@ -13,7 +13,7 @@ public interface UsuarioDAO {
 
 	public void atualizar(Usuario user)  throws HamburgueriaException;
 
-	public void inserir(Usuario user) throws HamburgueriaException;
+	public Usuario inserir(Usuario user) throws HamburgueriaException;
 	
 	public Usuario buscarPorId(int id)  throws HamburgueriaException;
 
