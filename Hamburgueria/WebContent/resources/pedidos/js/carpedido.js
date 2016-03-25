@@ -94,7 +94,12 @@ $(document).ready(function(){
 			}
 		});
 	}
-	
+	HM.produto.exibeValor = function (){
+		$("#valueTotal").hide();
+	}
+	HM.produto.esconde = function(){
+		$("#valueTotal").fadeIn(3000);
+	}
 	
 	HM.cidade.change = function(){
 		HM.bairro.listar({
@@ -112,11 +117,7 @@ $(document).ready(function(){
 		});
 	};	
 	
-	$("#entrega").on("change",function(){
-		if(this.value == 0){
-			
-		}
-	})
+	
 	HM.produto.finalizarPedido = function(){
 		var produto = HM.sessao('produto');
 		var msg = "<table class='table'>";
@@ -127,7 +128,7 @@ $(document).ready(function(){
 				HM.produto.popular({
 					data: array[i],
 					success: function(resp){
-						msg += "<tr><td>" + resp.cod + "</td><td>" + resp.nome + "</td><td>R$" + resp.valor +"<td></tr>";
+						msg += "<tr><td>" + resp.cod + "</td><td>" + resp.nome + "</td><td>R$ " + resp.valor +"<td></tr>";
 						total = resp.valor + total;
 					},
 					error:function(err){
@@ -136,11 +137,11 @@ $(document).ready(function(){
 				});
 			}
 		}
-		msg += "<tr><td></td><td><strong>TOTAL</strong></td><td>"+ total.toFixed(2) +"</td></tr></table>";
+		msg += "</table><span id='valueTotal'  style='display:none'><h1><strong>TOTAL  R$ "+ total.toFixed(2) +" </strong></h1>";
 		bootbox.dialog({
 			message: "<div>" +msg+" </div>"
-			+ "Retirada balcão <input type='radio' id='entrega' name='entrega' value='2'/><br/>"
-			+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega' checked/>",
+			+ "Retirada balcão <input type='radio' id='entrega' name='entrega' value='2' checked onchange='HM.produto.exibeValor()'/><br/>"
+			+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega' onchange='HM.produto.esconde()'/>",
 			title: "Pedidos<hr>",
 			size: 'small',
 			onEscape: function() {},
@@ -187,7 +188,6 @@ $(document).ready(function(){
 								      source: availableTags,
 								      select: function(event, ui) {
 								    	  $("#cidade").val(ui.item.cidade);
-								    	  $("#cidade").attr("disabled","disabled");
 								    	  HM.bairro.listar({
 								  			data: $('#cidade').val(),
 								  			success:function(data){
@@ -197,22 +197,27 @@ $(document).ready(function(){
 									  				}
 									  				$("#bairro").html(html);
 									  				$("#bairro").val(ui.item.bairro);
-											    	$("#bairro").attr("disabled","disabled");
 									  			},
 									  			error:function(err){
 									  				bootbox.alert(err.responseText);
 									  			}
 								  			});
 								    	  $("#cod").val(ui.item.cod);
-								    	  $("#cod").attr("disabled","disabled");
+								    	  $(".disableds").attr("disabled","disabled");
 								    	  $("#telefone").val(ui.item.telefone);
-								    	  $("#telefone").attr("disabled","disabled");
 								    	  $("#cep").val(ui.item.cep);
-								    	  $("#cep").attr("disabled","disabled");
 								    	  $("#rua").val(ui.item.rua);
-								    	  $("#rua").attr("disabled","disabled");
 								    	  $("#numero").val(ui.item.numero);
-								    	  $("#numero").attr("disabled","disabled");
+								        },
+								        change: function( event, ui ) {
+								        	$("#cidade").val("");
+								        	$("#bairro").val("");
+								        	$("#cod").val("");
+									    	$(".disableds").prop("disabled", false); 
+									    	$("#telefone").val("");
+									    	$("#cep").val("");
+									    	$("#rua").val("");
+									    	$("#numero").val("");
 								        }
 								    });
 								},
@@ -223,12 +228,12 @@ $(document).ready(function(){
 
 							bootbox.dialog({
 								message: '<div class="form-group"><input type="text" id="tags" class="colorBlack form-control" placeholder="Nome"/></div>'
-											+'<div class="form-group"><input class="form-control" id="telefone" placeholder="Telefone"/></div>'
-											+"<div class='form-group'><select id='cidade' name='cidade' class='form-control' onchange='HM.cidade.change()'></select></div>"
-											+'<div class="form-group"><select class="form-control" id="bairro" name="bairro"></select></div>'
-											+'<div class="form-group"><input class="form-control" id="rua" placeholder="Rua"/></div>'
-											+'<div class="form-group"><input class="col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
-											+'<input class="col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
+											+'<div class="form-group"><input class="form-control disableds" id="telefone" placeholder="Telefone"/></div>'
+											+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
+											+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
+											+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
+											+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
+											+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
 											+'<input type="hidden" id="cod" />',
 								title: "Formulário de Entrega<hr>",
 								size: 'small',

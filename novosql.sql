@@ -105,7 +105,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'123',123,'1969-12-31','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123@123.com','d41d8cd98f00b204e9800998ecf8427e',1),(2,'123123123',123,'1969-12-31','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123@94898.cm','d41d8cd98f00b204e9800998ecf8427e',1),(3,'Uriel Hass123111111',123456,'1969-12-31','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','d41d8cd98f00b204e9800998ecf8427e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','d41d8cd98f00b204e9800998ecf8427e',0),(12,'Guilherme Stegmann',9498498489,'1969-12-31','4974282','274.262.651-98',8333,'34821','asdfasdfasdf',123,'132132',89227100,'2016-03-22','uriel@usuario.com','e10adc3949ba59abbe56e057f20f883e',1);
+INSERT INTO `cliente` VALUES (1,'123',123,'1969-12-31','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123@123.com','d41d8cd98f00b204e9800998ecf8427e',1),(2,'123123123',123,'1969-12-31','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123@94898.cm','d41d8cd98f00b204e9800998ecf8427e',1),(3,'Uriel Hass123111111',123456,'1969-12-31','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','d41d8cd98f00b204e9800998ecf8427e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'Caio lessin',8919819819,'1969-12-31','1231561','1981819',8521,'14036','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','d41d8cd98f00b204e9800998ecf8427e',1),(12,'Guilherme Stegmann',9498498489,'1969-12-31','4974282','274.262.651-98',8333,'34821','asdfasdfasdf',123,'132132',89227100,'2016-03-22','uriel@usuario.com','e10adc3949ba59abbe56e057f20f883e',1);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `estagio_pedido` (
   `estagio` varchar(45) DEFAULT NULL,
   `descricao_estagio` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codestagio_pedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +130,7 @@ CREATE TABLE `estagio_pedido` (
 
 LOCK TABLES `estagio_pedido` WRITE;
 /*!40000 ALTER TABLE `estagio_pedido` DISABLE KEYS */;
+INSERT INTO `estagio_pedido` VALUES (1,'Ta quase','Aguardando pagamento'),(2,'Ta na chapa','Produção'),(3,'Ta montando','Montagem'),(4,'Entrega','Entrega'),(5,'Finalizado','Produto está finalizado, valeu');
 /*!40000 ALTER TABLE `estagio_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,11 +184,9 @@ DROP TABLE IF EXISTS `historico_funcionario`;
 CREATE TABLE `historico_funcionario` (
   `pedido_codpedido` int(11) NOT NULL,
   `funcionario_codfuncionario` int(11) NOT NULL,
-  PRIMARY KEY (`pedido_codpedido`,`funcionario_codfuncionario`),
   KEY `fk_pedido_has_funcionario_funcionario1_idx` (`funcionario_codfuncionario`),
   KEY `fk_pedido_has_funcionario_pedido1_idx` (`pedido_codpedido`),
-  CONSTRAINT `fk_pedido_has_funcionario_funcionario1` FOREIGN KEY (`funcionario_codfuncionario`) REFERENCES `funcionario` (`codfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pedido_has_funcionario_pedido1` FOREIGN KEY (`pedido_codpedido`) REFERENCES `pedido` (`codpedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_pedido_has_funcionario_funcionario1` FOREIGN KEY (`funcionario_codfuncionario`) REFERENCES `funcionario` (`codfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -197,6 +196,7 @@ CREATE TABLE `historico_funcionario` (
 
 LOCK TABLES `historico_funcionario` WRITE;
 /*!40000 ALTER TABLE `historico_funcionario` DISABLE KEYS */;
+INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4);
 /*!40000 ALTER TABLE `historico_funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,19 +208,19 @@ DROP TABLE IF EXISTS `pedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pedido` (
-  `codpedido` int(11) NOT NULL,
-  `estagio_pedido` varchar(45) DEFAULT NULL,
+  `codpedido` int(11) NOT NULL AUTO_INCREMENT,
   `estagio_pedido_codestagio_pedido` int(11) NOT NULL,
   `cliente_codcliente` int(11) NOT NULL,
   `taxas_codtaxas` int(6) NOT NULL,
   `data` datetime DEFAULT NULL,
+  `total` float NOT NULL,
   PRIMARY KEY (`codpedido`,`cliente_codcliente`,`taxas_codtaxas`),
   KEY `fk_pedido_estagio_pedido1_idx` (`estagio_pedido_codestagio_pedido`),
   KEY `fk_pedido_cliente1_idx` (`cliente_codcliente`),
   KEY `fk_pedido_taxas1_idx` (`taxas_codtaxas`),
   CONSTRAINT `fk_pedido_cliente1` FOREIGN KEY (`cliente_codcliente`) REFERENCES `cliente` (`codcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_estagio_pedido1` FOREIGN KEY (`estagio_pedido_codestagio_pedido`) REFERENCES `estagio_pedido` (`codestagio_pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,6 +229,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
+INSERT INTO `pedido` VALUES (3,1,3,1,'2016-03-24 00:00:00',0),(4,1,3,1,'2016-03-24 00:00:00',0),(5,1,3,1,'2016-03-24 00:00:00',0);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,13 +241,12 @@ DROP TABLE IF EXISTS `pedido_produto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pedido_produto` (
-  `pedido_codpedido` int(11) NOT NULL,
-  `produto_codproduto` int(11) NOT NULL,
-  PRIMARY KEY (`pedido_codpedido`,`produto_codproduto`),
+  `pedido_codpedido` int(11) DEFAULT NULL,
+  `produto_codproduto` int(11) DEFAULT NULL,
   KEY `fk_pedido_has_produto_produto1_idx` (`produto_codproduto`),
-  KEY `fk_pedido_has_produto_pedido1_idx` (`pedido_codpedido`),
-  CONSTRAINT `fk_pedido_has_produto_pedido1` FOREIGN KEY (`pedido_codpedido`) REFERENCES `pedido` (`codpedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pedido_has_produto_produto1` FOREIGN KEY (`produto_codproduto`) REFERENCES `produto` (`codproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_pedido_pedido_produto_idx` (`pedido_codpedido`),
+  CONSTRAINT `fk_pedido_pedido` FOREIGN KEY (`produto_codproduto`) REFERENCES `produto` (`codproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pedido_pedido_produto` FOREIGN KEY (`pedido_codpedido`) REFERENCES `pedido` (`codpedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -256,6 +256,7 @@ CREATE TABLE `pedido_produto` (
 
 LOCK TABLES `pedido_produto` WRITE;
 /*!40000 ALTER TABLE `pedido_produto` DISABLE KEYS */;
+INSERT INTO `pedido_produto` VALUES (3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(4,2),(4,4),(4,4),(4,4),(4,2),(4,4),(4,2),(4,4),(4,2),(5,2),(5,2),(5,2),(5,4),(5,4),(5,4);
 /*!40000 ALTER TABLE `pedido_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +278,7 @@ CREATE TABLE `produto` (
   `categoria` varchar(45) NOT NULL,
   PRIMARY KEY (`codproduto`,`categoria`),
   KEY `fk_produto_categoria1_idx` (`categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -286,7 +287,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (2,'123','123',NULL,NULL,NULL,123123.00,'Lanche'),(4,'suco','123',NULL,NULL,NULL,123.48,'Lanche');
+INSERT INTO `produto` VALUES (2,'X picanha','Carne, queijo pão',NULL,NULL,NULL,15.50,'Lanche'),(4,'Suco de Laranja','Laranja, com gelo',NULL,NULL,NULL,5.80,'Bebida'),(5,'Sorvete','5 Bolas de sorvete de morango.',NULL,NULL,NULL,8.50,'Sobremesa');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-22 21:32:16
+-- Dump completed on 2016-03-24 21:37:56
