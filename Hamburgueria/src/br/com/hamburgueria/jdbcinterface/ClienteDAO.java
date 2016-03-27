@@ -19,4 +19,6 @@ public interface ClienteDAO {
 
 	public boolean buscarEmail(Cliente user)  throws HamburgueriaException;
 
+	Cliente inserirPreCadastro(Cliente user) throws HamburgueriaException;
+
 }

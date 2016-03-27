@@ -69,7 +69,6 @@ public class PedidoRest extends UtilRest{
 	@Produces("application/*")
 	public void finalizarPedidoFuncionario(@PathParam("codcliente") int codcliente) throws HamburgueriaException {
 		try{
-			System.out.println(codcliente);
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
 			pedido.finalizarPedidoFuncionario((String)sessao.getAttribute("produto"), (int)sessao.getAttribute("cod"), codcliente);

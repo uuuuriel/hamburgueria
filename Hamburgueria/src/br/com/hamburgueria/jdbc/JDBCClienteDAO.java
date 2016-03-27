@@ -148,6 +148,38 @@ public class JDBCClienteDAO implements ClienteDAO {
 			throw new HamburgueriaException();
 		}
 	}
+	
+	@Override
+	public Cliente inserirPreCadastro(Cliente user) throws HamburgueriaException{
+		String comando = "insert into cliente (nomecliente,cidade, bairro, rua, numero, cep, telefone, data_cadastro)"
+				+ " values (?,?,?,?,?,?,?,?)";
+		PreparedStatement p;
+		Date d = new Date();
+		try {
+			p = this.conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
+			p.setString(1, user.getNome());
+			p.setInt(2, user.getCidade());
+			p.setInt(3, user.getBairro());
+			p.setString(4, user.getRua());
+			p.setInt(5, user.getNumero());
+			p.setInt(6, user.getCep());
+			p.setDouble(7, user.getTelefone());
+			p.setDate(8, new java.sql.Date( d.getTime()));
+			p.execute();
+			try (ResultSet generatedKeys = p.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                user.setCod(generatedKeys.getInt(1));
+	            }
+	            else {
+	                throw new SQLException("Erro ao retornar ID.");
+	            }
+	        }
+			return user;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new HamburgueriaException();
+		}
+	}
 
 	public Cliente buscarPorId(int cod) throws HamburgueriaException{
 		String comando = "select * from cliente where codcliente = "

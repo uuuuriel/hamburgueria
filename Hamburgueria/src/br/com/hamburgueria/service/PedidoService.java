@@ -50,7 +50,7 @@ public class PedidoService {
 			conec.fecharConexao();
 		}
 		
-	}
+	} 
 	
 	public void finalizarPedidoFuncionarioNovo(String array, Cliente user, int codfunc) throws HamburgueriaException{
 		Conexao conec = new Conexao();
@@ -60,9 +60,11 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			Pedido pedido = new Pedido();
 			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
-			user = jdbcUsuario.inserir(user); 
+			user = jdbcUsuario.inserirPreCadastro(user); 
+			pedido.setCodtaxa(user.getEntrega());
 			pedido.setCodcliente(user.getCod());
-			pedido = jdbcPedido.setPedidoCliente(pedido);			
+			pedido = jdbcPedido.setPedidoCliente(pedido);
+			jdbcPedido.setPedidoFuncionario(codfunc, pedido.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
 			for (int i = 0; i < quebra.length; i++) {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), pedido.getCodpedido());

@@ -5,6 +5,12 @@ $(document).ready(function(){
 		$("#carrinhoCompra").show();
 	}
 	
+	HM.produto.mask = function(){
+    	$("#telefone").mask("(99)9999-9999");
+		$("#cep").mask("99999-999");
+		$("#numero").mask("999999");
+	}
+	
 	HM.produto.listar = function(){
 		HM.produto.exibir({
 			data:"",
@@ -73,10 +79,10 @@ $(document).ready(function(){
 			}
 		});
 	};
-	HM.produto.encerra = function(data){
+	HM.produto.encerra = function(data, url){
 		console.log(data);
 		HM.ajax.post({
-			url: data.url,
+			url: url,
 			data: JSON.stringify(data),
 			success:function(succ){
 				console.log(succ);
@@ -221,10 +227,10 @@ $(document).ready(function(){
 									console.log(error);
 								}
 							});
-
+							
 							bootbox.dialog({
 								message: '<div class="form-group"><input type="text" id="tags" class="colorBlack form-control" placeholder="Nome"/></div>'
-											+'<div class="form-group"><input class="form-control disableds" id="telefone" placeholder="Telefone"/></div>'
+											+'<div class="form-group"><input class="form-control disableds" onKeyPress="HM.produto.mask()" id="telefone" placeholder="Telefone"/></div>'
 											+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
 											+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
 											+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
@@ -240,6 +246,10 @@ $(document).ready(function(){
 										className: "btn-success",
 										callback: function() {
 											var cod = $("#cod").val();
+											var url = "";
+											$("#telefone").unmask();
+											$("#cep").unmask();
+											$("#numero").unmask();
 											if (cod == "" || cod == null) {
 												newData.nome = $("#tags").val();
 												newData.telefone = $("#telefone").val();
@@ -248,12 +258,12 @@ $(document).ready(function(){
 												newData.rua = $("#rua").val();
 												newData.numero = $("#numero").val();
 												newData.cep = $("#cep").val();
-												newData.url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
+												url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
 											}else{
-												newData.url = "rest/Pedido/finalizarPedidoFuncionario/";
+												url = "rest/Pedido/finalizarPedidoFuncionario/";
 												newData.cod = cod;
 											}
-											HM.produto.encerra(newData);
+											HM.produto.encerra(newData, url);
 										}
 									},
 									danger: {
@@ -266,7 +276,7 @@ $(document).ready(function(){
 								}
 							});
 						}else{
-							HM.produto.encerra();
+							HM.produto.encerra("", "resp/Pedido/finalizar");
 						}
 					}
 				},
