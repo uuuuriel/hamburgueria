@@ -2,11 +2,11 @@ package br.com.hamburgueria.validacoes;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.NoValueException;
-import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.objs.Cliente;
 
 public class ValidaUsuario {
 
-	public void usuario(Usuario user) throws HamburgueriaException {
+	public void usuario(Cliente user) throws HamburgueriaException {
 		ValidaCpf validcpf = new ValidaCpf();
 		ValidaEmail validemail = new ValidaEmail();
 		validemail.validarEmail(user.getEmail());

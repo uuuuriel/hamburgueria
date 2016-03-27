@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
-import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
+import br.com.hamburgueria.jdbc.JDBCClienteDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
-import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
+import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.objs.Pedido;
-import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.objs.Cliente;
 
 public class PedidoService {
 	
@@ -52,14 +52,14 @@ public class PedidoService {
 		
 	}
 	
-	public void finalizarPedidoFuncionarioNovo(String array, Usuario user, int codfunc) throws HamburgueriaException{
+	public void finalizarPedidoFuncionarioNovo(String array, Cliente user, int codfunc) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			System.out.println(user);
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			Pedido pedido = new Pedido();
-			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
 			user = jdbcUsuario.inserir(user); 
 			pedido.setCodcliente(user.getCod());
 			pedido = jdbcPedido.setPedidoCliente(pedido);			

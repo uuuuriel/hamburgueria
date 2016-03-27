@@ -13,21 +13,21 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
-import br.com.hamburgueria.objs.Usuario;
-import br.com.hamburgueria.service.UsuarioService;
+import br.com.hamburgueria.objs.Cliente;
+import br.com.hamburgueria.service.ClienteService;
 
 @Path("UsuarioRest")
-public class UsuarioRest extends UtilRest {
+public class ClienteRest extends UtilRest {
 	
-	public UsuarioRest() {
+	public ClienteRest() {
 	}
 	@POST
 	@Path("/addUsuario")
 	@Consumes("application/*")
 	public Response addUsuario(String UsuarioParam) {
 		try {
-			Usuario user = new ObjectMapper().readValue(UsuarioParam,Usuario.class);
-			UsuarioService service = new UsuarioService();
+			Cliente user = new ObjectMapper().readValue(UsuarioParam,Cliente.class);
+			ClienteService service = new ClienteService();
 			System.out.println(user.getAtivo());
 			service.adicionarUsuario(user);
 			return this.buildResponse("Usuário cadastrado com sucesso.");
@@ -45,7 +45,7 @@ public class UsuarioRest extends UtilRest {
 	@Produces({MediaType.APPLICATION_JSON })
 	public Response buscarUsuariosPorNome(@PathParam("nome") String nome) {
 		try {
-			UsuarioService service = new UsuarioService();
+			ClienteService service = new ClienteService();
 			if(nome.equals("null")){
 				nome = "";
 			}
@@ -65,7 +65,7 @@ public class UsuarioRest extends UtilRest {
 	@Consumes("application/*")
 	public Response deletarUsuario(@PathParam("id") int id) {
 		try{
-			UsuarioService service = new UsuarioService();
+			ClienteService service = new ClienteService();
 			service.deletarUsuario(id);			
 			return this.buildResponse("Usuário deletado com sucesso!");
 		}catch(HamburgueriaException e){
@@ -82,7 +82,7 @@ public class UsuarioRest extends UtilRest {
 	@Produces({ MediaType.APPLICATION_JSON})
 	public Response buscarUsuarioPeloId(@PathParam("id")int id){
 		try{
-			UsuarioService service = new UsuarioService();
+			ClienteService service = new ClienteService();
 			return this.buildResponse(service.buscarUsuarioPorId(id));
 		}catch(HamburgueriaException e){
 			e.printStackTrace();
@@ -98,8 +98,8 @@ public class UsuarioRest extends UtilRest {
 	@Consumes("application/*")
 	public Response editarUsuario(String usuarioParam){
 		try{
-			Usuario user = new ObjectMapper().readValue(usuarioParam, Usuario.class);
-			UsuarioService service = new UsuarioService();
+			Cliente user = new ObjectMapper().readValue(usuarioParam, Cliente.class);
+			ClienteService service = new ClienteService();
 			System.out.println(user.getAtivo());
 			service.atualizarUsuario(user);			
 			return this.buildResponse("Usuário editado com sucesso.");

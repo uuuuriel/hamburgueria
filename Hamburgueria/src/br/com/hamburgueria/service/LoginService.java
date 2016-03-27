@@ -11,11 +11,11 @@ import br.com.hamburgueria.exception.CripException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
-import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
+import br.com.hamburgueria.jdbc.JDBCClienteDAO;
 import br.com.hamburgueria.jdbcinterface.FuncionarioDAO;
-import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
+import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.objs.Funcionario;
-import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.objs.Cliente;
 
 public class LoginService {
 	private HttpServletRequest request;
@@ -24,11 +24,11 @@ public class LoginService {
 		this.request = req;
 	}
 
-	public boolean buscarLoginUsuario(Usuario user)throws NoResultException, NoSuchAlgorithmException, CripException {
+	public boolean buscarLoginUsuario(Cliente user)throws NoResultException, NoSuchAlgorithmException, CripException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
-			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
 			return jdbcUsuario.buscarEmail(user);

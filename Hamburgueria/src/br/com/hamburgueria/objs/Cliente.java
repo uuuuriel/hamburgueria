@@ -2,7 +2,7 @@ package br.com.hamburgueria.objs;
 
 import java.util.Date;
 
-public class Usuario {
+public class Cliente {
 	
 	private int cod;
 	private String nome;
@@ -21,7 +21,14 @@ public class Usuario {
 	private double telefone;
 	private int cep;
 	private int ativo;
+	private int entrega;
 	
+	public int getEntrega() {
+		return entrega;
+	}
+	public void setEntrega(int entrega) {
+		this.entrega = entrega;
+	}
 	public int getAtivo() {
 		return ativo;
 	}

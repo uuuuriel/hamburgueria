@@ -10,28 +10,28 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
-import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
-import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.jdbcinterface.ClienteDAO;
+import br.com.hamburgueria.objs.Cliente;
 
-public class JDBCUsuarioDAO implements UsuarioDAO {
+public class JDBCClienteDAO implements ClienteDAO {
 	private Connection conexao;
 
-	public JDBCUsuarioDAO(Connection conexao) {
+	public JDBCClienteDAO(Connection conexao) {
 		this.conexao = conexao;
 	}
 
-	public List<Usuario> buscarPorNome(String nome)  throws HamburgueriaException{
+	public List<Cliente> buscarPorNome(String nome)  throws HamburgueriaException{
 		String comando = "select * from cliente  ";
 		if (!nome.equals("")) {
 			comando += "where nomecliente like '" + nome + "%'";
 		}
-		List<Usuario> list = new ArrayList<Usuario>();
-		Usuario user = null;
+		List<Cliente> list = new ArrayList<Cliente>();
+		Cliente user = null;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				user = new Usuario();
+				user = new Cliente();
 				user.setBairro(rs.getInt("bairro"));
 				user.setCidade(rs.getInt("cidade"));
 				user.setCod(rs.getInt("codcliente"));
@@ -58,7 +58,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void deletarUsuario(Usuario user) throws HamburgueriaException{
+	public void deletarUsuario(Cliente user) throws HamburgueriaException{
 		String comando = "UPDATE cliente SET ativo = ? where codcliente = "
 				+ user.getCod();
 		PreparedStatement p;
@@ -73,7 +73,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void atualizar(Usuario user) throws HamburgueriaException{
+	public void atualizar(Cliente user) throws HamburgueriaException{
 		boolean editSenha = false;
 		String comando = "UPDATE cliente SET nomecliente=?, data_nascimento=?, rg=?, cpf=?,"
 				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?, ativo=?";
@@ -111,7 +111,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public Usuario inserir(Usuario user) throws HamburgueriaException{
+	public Cliente inserir(Cliente user) throws HamburgueriaException{
 		String comando = "insert into cliente (nomecliente, data_nascimento, rg, cpf, cidade"
 				+ ", bairro, rua, numero, complemento, cep, telefone, data_cadastro, email"
 				+ ", senha) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -149,15 +149,15 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		}
 	}
 
-	public Usuario buscarPorId(int cod) throws HamburgueriaException{
+	public Cliente buscarPorId(int cod) throws HamburgueriaException{
 		String comando = "select * from cliente where codcliente = "
 				+ cod;
-		Usuario user = null;
+		Cliente user = null;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				user = new Usuario();
+				user = new Cliente();
 				user.setBairro(rs.getInt("bairro"));
 				user.setCidade(rs.getInt("cidade"));
 				user.setCod(rs.getInt("codcliente"));
@@ -181,7 +181,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		return user;
 	}
 
-	public boolean buscarEmail(Usuario user) throws HamburgueriaException{
+	public boolean buscarEmail(Cliente user) throws HamburgueriaException{
 		String comando = "select * from cliente where email ='" + user.getEmail() + "' AND ativo = 1";
 		boolean retun = false;
 		try {

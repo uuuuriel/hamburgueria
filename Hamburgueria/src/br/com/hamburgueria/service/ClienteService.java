@@ -7,39 +7,39 @@ import br.com.hamburgueria.auxilia.Crip;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.NoResultException;
-import br.com.hamburgueria.jdbc.JDBCUsuarioDAO;
-import br.com.hamburgueria.jdbcinterface.UsuarioDAO;
-import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.jdbc.JDBCClienteDAO;
+import br.com.hamburgueria.jdbcinterface.ClienteDAO;
+import br.com.hamburgueria.objs.Cliente;
 import br.com.hamburgueria.validacoes.ValidaUsuario;
 
-public class UsuarioService {
-	public Usuario buscarUsuarioPorId(int id) throws HamburgueriaException {
+public class ClienteService {
+	public Cliente buscarUsuarioPorId(int id) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
-			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
 			return jdbcUsuario.buscarPorId(id);
 		} finally {
 			conec.fecharConexao();
 		}
 	}
 
-	public List<Usuario> buscarUsuarioPorNome(String nome) throws HamburgueriaException {
+	public List<Cliente> buscarUsuarioPorNome(String nome) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
-			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
 			return jdbcUsuario.buscarPorNome(nome);
 		} finally {
 			conec.fecharConexao();
 		}
 	}
 
-	public void adicionarUsuario(Usuario user) throws HamburgueriaException {
+	public void adicionarUsuario(Cliente user) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
-			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
 			ValidaUsuario valida = new ValidaUsuario();
@@ -53,22 +53,22 @@ public class UsuarioService {
 	public void deletarUsuario(int id) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
-			Usuario user = new Usuario();
+			Cliente user = new Cliente();
 			user.setCod(id);
 			user.setAtivo(0);
 			Connection conexao = conec.abrirConexao();
-			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
 			jdbcUsuario.deletarUsuario(user);
 		} finally {
 			conec.fecharConexao();
 		}
 	}
 
-	public void atualizarUsuario(Usuario user) throws HamburgueriaException {
+	public void atualizarUsuario(Cliente user) throws HamburgueriaException {
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
-			UsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
 			Crip crip = new Crip();
 			user.setSenha(crip.cripto(user.getSenha()));
 			ValidaUsuario valida = new ValidaUsuario();

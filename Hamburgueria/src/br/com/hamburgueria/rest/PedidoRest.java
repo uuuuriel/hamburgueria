@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import br.com.hamburgueria.exception.AdicionarProdutoException;
 import br.com.hamburgueria.exception.FinalizarPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
-import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.objs.Cliente;
 import br.com.hamburgueria.service.PedidoService;
 
 @Path("Pedido")
@@ -81,11 +81,11 @@ public class PedidoRest extends UtilRest{
 	}
 	
 	@POST
-	@Path("/finalizarPedidoFuncionarioNovo/{usuario}")
+	@Path("/finalizarPedidoFuncionarioNovo")
 	@Consumes("application/*")
 	public Response finalizarPedidoFuncionarioNovo(String usuario) throws HamburgueriaException {
 		try{
-			Usuario user = new ObjectMapper().readValue(usuario,Usuario.class);
+			Cliente user = new ObjectMapper().readValue(usuario,Cliente.class);
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
 			pedido.finalizarPedidoFuncionarioNovo((String)sessao.getAttribute("produto"), user, (int)sessao.getAttribute("cod"));

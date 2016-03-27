@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.hamburgueria.objs.Funcionario;
-import br.com.hamburgueria.objs.Usuario;
+import br.com.hamburgueria.objs.Cliente;
 import br.com.hamburgueria.service.LoginService;
 
 /**
@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
     	
     	String context = request.getServletContext().getContextPath();
     	
-    	Usuario usuario = new Usuario();
+    	Cliente usuario = new Cliente();
     	Funcionario func = new Funcionario();
     	usuario.setEmail(request.getParameter("email"));
     	usuario.setSenha(request.getParameter("senha"));
