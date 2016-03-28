@@ -20,7 +20,8 @@ import com.google.gson.Gson;
 import br.com.hamburgueria.exception.AdicionarProdutoException;
 import br.com.hamburgueria.exception.FinalizarPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
-import br.com.hamburgueria.objs.Cliente;
+import br.com.hamburgueria.objs.ClienteNovo;
+import br.com.hamburgueria.objs.Pedido;
 import br.com.hamburgueria.service.PedidoService;
 
 @Path("Pedido")
@@ -51,11 +52,14 @@ public class PedidoRest extends UtilRest{
 	
 	@POST
 	@Path("/finalizar")
-	public void finalizarPedido() throws HamburgueriaException{
+	@Consumes("application/*")
+	public void finalizarPedido(String pedido) throws HamburgueriaException{
 		try{
+			Pedido ped = new ObjectMapper().readValue(pedido,Pedido.class);
 			HttpSession sessao = req.getSession(false);
-			PedidoService pedido = new PedidoService();
-			pedido.finalizarPedido((String)sessao.getAttribute("produto"), (int)sessao.getAttribute("cod"));
+			PedidoService pedidoService = new PedidoService();
+			ped.setCodcliente((int)sessao.getAttribute("cod"));
+			pedidoService.finalizarPedido((String)sessao.getAttribute("produto"), ped);
 			sessao.setAttribute("produto", null);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -66,13 +70,16 @@ public class PedidoRest extends UtilRest{
 
 	@POST
 	@Path("/finalizarPedidoFuncionario")
-	@Produces("application/*")
-	public void finalizarPedidoFuncionario(@PathParam("codcliente") int codcliente) throws HamburgueriaException {
+	@Consumes("application/*")
+	public Response finalizarPedidoFuncionario(String pedido) throws HamburgueriaException {
 		try{
+			Pedido ped = new ObjectMapper().readValue(pedido,Pedido.class);
 			HttpSession sessao = req.getSession(false);
-			PedidoService pedido = new PedidoService();
-			pedido.finalizarPedidoFuncionario((String)sessao.getAttribute("produto"), (int)sessao.getAttribute("cod"), codcliente);
+			ped.setCodfunc((int)sessao.getAttribute("cod"));
+			PedidoService pedidoService = new PedidoService();
+			pedidoService.finalizarPedidoFuncionario((String)sessao.getAttribute("produto"), ped);
 			sessao.setAttribute("produto", null);	
+			return this.buildResponse("Pedido finalizado com sucesso.");
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new FinalizarPedidoException();
@@ -84,10 +91,11 @@ public class PedidoRest extends UtilRest{
 	@Consumes("application/*")
 	public Response finalizarPedidoFuncionarioNovo(String usuario) throws HamburgueriaException {
 		try{
-			Cliente user = new ObjectMapper().readValue(usuario,Cliente.class);
+			ClienteNovo user = new ObjectMapper().readValue(usuario,ClienteNovo.class);
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
-			pedido.finalizarPedidoFuncionarioNovo((String)sessao.getAttribute("produto"), user, (int)sessao.getAttribute("cod"));
+			user.setCodfunc((int)sessao.getAttribute("cod"));
+			pedido.finalizarPedidoFuncionarioNovo((String)sessao.getAttribute("produto"), user);
 			sessao.setAttribute("produto", null);	
 			return this.buildResponse("Pedido finalizado com sucesso.");
 		}catch(Exception e){

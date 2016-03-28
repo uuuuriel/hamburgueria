@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `hamburgueriabd` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE  IF NOT EXISTS `hamburgueriabd` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `hamburgueriabd`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: hamburgueriabd
 -- ------------------------------------------------------
--- Server version	5.7.11-log
+-- Server version	5.5.5-10.1.10-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -82,21 +82,21 @@ CREATE TABLE `cliente` (
   `codcliente` int(11) NOT NULL AUTO_INCREMENT,
   `nomecliente` varchar(45) NOT NULL,
   `telefone` double NOT NULL,
-  `data_nascimento` date NOT NULL,
-  `rg` varchar(15) NOT NULL,
-  `cpf` varchar(15) NOT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `rg` varchar(15) DEFAULT NULL,
+  `cpf` varchar(15) DEFAULT NULL,
   `cidade` int(3) NOT NULL,
   `bairro` varchar(45) NOT NULL,
   `rua` varchar(45) NOT NULL,
   `numero` int(6) NOT NULL,
-  `complemento` varchar(70) NOT NULL,
+  `complemento` varchar(70) DEFAULT NULL,
   `cep` int(9) DEFAULT NULL,
   `data_cadastro` date NOT NULL,
-  `email` varchar(70) NOT NULL,
-  `senha` varchar(100) NOT NULL,
+  `email` varchar(70) DEFAULT NULL,
+  `senha` varchar(100) DEFAULT NULL,
   `ativo` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`codcliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'123',123,'1969-12-31','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123@123.com','d41d8cd98f00b204e9800998ecf8427e',1),(2,'123123123',123,'1969-12-31','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123@94898.cm','d41d8cd98f00b204e9800998ecf8427e',1),(3,'Uriel Hass123111111',123456,'1969-12-31','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','d41d8cd98f00b204e9800998ecf8427e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'Caio lessin',8919819819,'1969-12-31','1231561','1981819',8521,'14036','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','d41d8cd98f00b204e9800998ecf8427e',1),(12,'Guilherme Stegmann',9498498489,'1969-12-31','4974282','274.262.651-98',8333,'34821','asdfasdfasdf',123,'132132',89227100,'2016-03-22','uriel@usuario.com','e10adc3949ba59abbe56e057f20f883e',1);
+INSERT INTO `cliente` VALUES (1,'123',123,'1969-12-31','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123@123.com','d41d8cd98f00b204e9800998ecf8427e',1),(2,'123123123',123,'1969-12-31','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123@94898.cm','d41d8cd98f00b204e9800998ecf8427e',1),(3,'Uriel Hass123111111',123456,'1969-12-31','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','d41d8cd98f00b204e9800998ecf8427e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'Caio lessin',8919819819,'1969-12-31','1231561','1981819',8521,'14036','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','d41d8cd98f00b204e9800998ecf8427e',1),(12,'Guilherme Stegmann',9498498489,'1969-12-31','4974282','274.262.651-98',8333,'34821','asdfasdfasdf',123,'132132',89227100,'2016-03-22','uriel@usuario.com','e10adc3949ba59abbe56e057f20f883e',1),(13,'uriel hass',165165,NULL,NULL,NULL,8323,'48953','25198',551651,NULL,1651,'2016-03-27',NULL,NULL,0),(14,'uhasdfiu',15165,NULL,NULL,NULL,8322,'38056','65156',6565,NULL,651651,'2016-03-27',NULL,NULL,0),(15,'se ta ai',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-03-27',NULL,NULL,0),(16,'asdf',9898498498,NULL,NULL,NULL,8321,'36193','qualquer rua',995,NULL,46546566,'2016-03-27',NULL,NULL,0),(17,'onkeypress',8949849849,NULL,NULL,NULL,8323,'48953','651651',651651,NULL,56165110,'2016-03-27',NULL,NULL,0),(18,'Qualquer nome',1234561561,NULL,NULL,NULL,8521,'14039','119818',116516,NULL,16516,'2016-03-28',NULL,NULL,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +196,7 @@ CREATE TABLE `historico_funcionario` (
 
 LOCK TABLES `historico_funcionario` WRITE;
 /*!40000 ALTER TABLE `historico_funcionario` DISABLE KEYS */;
-INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4);
+INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4),(0,4),(0,4),(0,4),(0,4),(0,4),(9,4),(0,4),(11,4),(12,4),(13,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(21,4),(22,4),(23,4),(24,4);
 /*!40000 ALTER TABLE `historico_funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,14 +213,14 @@ CREATE TABLE `pedido` (
   `cliente_codcliente` int(11) NOT NULL,
   `taxas_codtaxas` int(6) NOT NULL,
   `data` datetime DEFAULT NULL,
-  `total` float NOT NULL,
+  `total` float DEFAULT NULL,
   PRIMARY KEY (`codpedido`,`cliente_codcliente`,`taxas_codtaxas`),
   KEY `fk_pedido_estagio_pedido1_idx` (`estagio_pedido_codestagio_pedido`),
   KEY `fk_pedido_cliente1_idx` (`cliente_codcliente`),
   KEY `fk_pedido_taxas1_idx` (`taxas_codtaxas`),
   CONSTRAINT `fk_pedido_cliente1` FOREIGN KEY (`cliente_codcliente`) REFERENCES `cliente` (`codcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_estagio_pedido1` FOREIGN KEY (`estagio_pedido_codestagio_pedido`) REFERENCES `estagio_pedido` (`codestagio_pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +229,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (3,1,3,1,'2016-03-24 00:00:00',0),(4,1,3,1,'2016-03-24 00:00:00',0),(5,1,3,1,'2016-03-24 00:00:00',0);
+INSERT INTO `pedido` VALUES (3,1,3,1,'2016-03-24 00:00:00',0),(4,1,3,1,'2016-03-24 00:00:00',0),(5,1,3,1,'2016-03-24 00:00:00',0),(8,1,13,1,'2016-03-27 00:00:00',NULL),(9,1,14,1,'2016-03-27 00:00:00',NULL),(11,1,15,1,'2016-03-27 00:00:00',NULL),(12,1,16,1,'2016-03-27 00:00:00',NULL),(13,1,17,1,'2016-03-27 00:00:00',NULL),(21,1,3,2,'2016-03-28 00:00:00',NULL),(22,1,13,0,'2016-03-28 00:00:00',NULL),(23,1,18,0,'2016-03-28 00:00:00',NULL),(24,1,18,0,'2016-03-28 00:00:00',NULL);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +256,7 @@ CREATE TABLE `pedido_produto` (
 
 LOCK TABLES `pedido_produto` WRITE;
 /*!40000 ALTER TABLE `pedido_produto` DISABLE KEYS */;
-INSERT INTO `pedido_produto` VALUES (3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(4,2),(4,4),(4,4),(4,4),(4,2),(4,4),(4,2),(4,4),(4,2),(5,2),(5,2),(5,2),(5,4),(5,4),(5,4);
+INSERT INTO `pedido_produto` VALUES (3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(4,2),(4,4),(4,4),(4,4),(4,2),(4,4),(4,2),(4,4),(4,2),(5,2),(5,2),(5,2),(5,4),(5,4),(5,4),(8,5),(8,5),(8,5),(8,4),(8,2),(8,2),(8,2),(8,4),(9,5),(9,2),(9,4),(11,5),(11,5),(11,5),(12,5),(12,4),(13,5),(13,5),(13,4),(21,5),(21,4),(21,5),(21,5),(21,5),(21,5),(21,4),(22,5),(22,5),(22,5),(22,5),(23,5),(23,5),(23,5),(23,4),(24,4),(24,4),(24,4);
 /*!40000 ALTER TABLE `pedido_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-24 21:37:56
+-- Dump completed on 2016-03-28 10:19:12

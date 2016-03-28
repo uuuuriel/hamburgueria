@@ -44,9 +44,9 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		Date d = new Date();
 		try {
 			p = this.conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
-			p.setString(1, "1");
+			p.setInt(1, 1);
 			p.setInt(2, pedido.getCodcliente());
-			p.setInt(3, 1);
+			p.setInt(3, pedido.getCodtaxa());
 			p.setDate(4, new java.sql.Date(d.getTime()));
 			p.execute();
 			try (ResultSet generatedKeys = p.getGeneratedKeys()) {

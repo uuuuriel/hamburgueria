@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.objs.Cliente;
+import br.com.hamburgueria.objs.ClienteNovo;
 
 public interface ClienteDAO {
 
@@ -19,6 +20,6 @@ public interface ClienteDAO {
 
 	public boolean buscarEmail(Cliente user)  throws HamburgueriaException;
 
-	Cliente inserirPreCadastro(Cliente user) throws HamburgueriaException;
+	public ClienteNovo inserirPreCadastro(ClienteNovo user) throws HamburgueriaException;
 
 }

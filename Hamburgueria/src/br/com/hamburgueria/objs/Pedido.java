@@ -5,12 +5,19 @@ import java.sql.Date;
 public class Pedido {
 	
 	private int codpedido;
+	private int codfunc;
 	private String estagiopedido;
 	private double valortotal;
 	private int codcliente;
 	private int codtaxa;
 	private Date data;
 	
+	public int getCodfunc() {
+		return codfunc;
+	}
+	public void setCodfunc(int codfunc) {
+		this.codfunc = codfunc;
+	}	
 	public Date getData() {
 		return data;
 	}

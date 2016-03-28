@@ -30,7 +30,7 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
-  <filter>
+ <filter>
     <filter-name>SessaoFiltro</filter-name>
     <filter-class>br.com.hamburgueria.filtro.SessaoFiltro</filter-class>
   </filter>
@@ -48,46 +48,6 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/taxa/*</url-pattern>
-  </filter-mapping>
-  <filter>
-    <filter-name>FuncionarioFiltro</filter-name>
-    <filter-class>br.com.hamburgueria.filtro.FuncionarioFiltro</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>FuncionarioFiltro</filter-name>
-    <url-pattern>/resources/funcionario/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>FuncionarioFiltro</filter-name>
-    <url-pattern>/resources/produto/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>FuncionarioFiltro</filter-name>
-    <url-pattern>/resources/taxa/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>FuncionarioFiltro</filter-name>
-    <url-pattern>/resources/usuario/gerenciaUsuario.html</url-pattern>
-  </filter-mapping>
-  <filter>
-    <filter-name>UsuarioFiltro</filter-name>
-    <filter-class>br.com.hamburgueria.filtro.UsuarioFiltro</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
-    <url-pattern>/resources/funcionario/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
-    <url-pattern>/resources/usuario/gerenciaUsuario.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
-    <url-pattern>/resources/produto/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
     <url-pattern>/resources/taxa/*</url-pattern>
   </filter-mapping>
     <servlet>

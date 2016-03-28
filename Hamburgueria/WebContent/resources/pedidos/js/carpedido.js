@@ -151,7 +151,7 @@ $(document).ready(function(){
 					label: "Continuar",
 					className: "btn-success",
 					callback: function() {
-						newData.entrega = $('input[name="entrega"]:checked').val();
+						newData.codtaxa = $('input[name="entrega"]:checked').val();
 						$(this).fadeOut();
 						if (HM.sessao('funcionario') == 1) {
 							HM.cidade.listar({
@@ -236,7 +236,7 @@ $(document).ready(function(){
 											+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
 											+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
 											+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
-											+'<input id="cod" />',
+											+'<input type="hidden" id="cod" />',
 								title: "Formulário de Entrega<hr>",
 								size: 'small',
 								onEscape: function() {},
@@ -261,7 +261,7 @@ $(document).ready(function(){
 												url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
 											}else{
 												url = "rest/Pedido/finalizarPedidoFuncionario/";
-												newData.cod = cod;
+												newData.codcliente = cod;
 											}
 											HM.produto.encerra(newData, url);
 										}
@@ -276,7 +276,7 @@ $(document).ready(function(){
 								}
 							});
 						}else{
-							HM.produto.encerra("", "resp/Pedido/finalizar");
+							HM.produto.encerra(newData, "rest/Pedido/finalizar");
 						}
 					}
 				},

@@ -12,6 +12,7 @@ import java.util.List;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.objs.Cliente;
+import br.com.hamburgueria.objs.ClienteNovo;
 
 public class JDBCClienteDAO implements ClienteDAO {
 	private Connection conexao;
@@ -150,7 +151,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 	}
 	
 	@Override
-	public Cliente inserirPreCadastro(Cliente user) throws HamburgueriaException{
+	public ClienteNovo inserirPreCadastro(ClienteNovo user) throws HamburgueriaException{
 		String comando = "insert into cliente (nomecliente,cidade, bairro, rua, numero, cep, telefone, data_cadastro)"
 				+ " values (?,?,?,?,?,?,?,?)";
 		PreparedStatement p;
@@ -168,7 +169,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 			p.execute();
 			try (ResultSet generatedKeys = p.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                user.setCod(generatedKeys.getInt(1));
+	                user.setCodCliente(generatedKeys.getInt(1));
 	            }
 	            else {
 	                throw new SQLException("Erro ao retornar ID.");
