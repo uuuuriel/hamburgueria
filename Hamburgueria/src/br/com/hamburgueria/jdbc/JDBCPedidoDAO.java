@@ -11,6 +11,8 @@ import java.util.List;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
+import br.com.hamburgueria.objs.Cidade;
+import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.ListaPedido;
 import br.com.hamburgueria.objs.Pedido;
 
@@ -116,6 +118,35 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}	
+	}
+	
+	@Override
+	public List<Pedido> listar(Date dataini, Date datafim, int codcliente) throws HamburgueriaException{
+		String comando = "select p.*, pr.nomeproduto from pedido p "
+				+ "inner join pedido_produto pp on p.codpedido = pp.pedido_codpedido"
+				+ "inner join produto pr on pr.codproduto = pp.produto_codproduto";
+		if (!dataini.equals("")) {
+			comando += "where data between '" + dataini + "' and '" + datafim + "'"
+					+ " and estagio_pedido_codestagio_pedido = 5"
+					+ " and cliente_codcliente = "+codcliente;
+		}
+		List<Pedido> list = new ArrayList<Pedido>();
+		Pedido ped = null;
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				ped.setCodpedido(rs.getInt("codpedido"));
+				ped.setData(rs.getDate("data"));
+				ped.setValortotal(rs.getDouble("total"));
+				list.add(ped);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new HamburgueriaException(e.getMessage());
+		}
+		
+		return list;	
 	}
 
 }
