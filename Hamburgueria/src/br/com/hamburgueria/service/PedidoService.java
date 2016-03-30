@@ -1,15 +1,19 @@
 package br.com.hamburgueria.service;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.ListaPedidoException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.objs.ClienteNovo;
+import br.com.hamburgueria.objs.ListaPedido;
 import br.com.hamburgueria.objs.Pedido;
 
 public class PedidoService {
@@ -66,6 +70,20 @@ public class PedidoService {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public List<ListaPedido> listarPedidos(String busca, Date dataini, Date datafim, int cod) throws ListaPedidoException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			return jdbcPedido.listar(dataini, datafim, busca, cod);		
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new ListaPedidoException();
 		}finally{
 			conec.fecharConexao();
 		}

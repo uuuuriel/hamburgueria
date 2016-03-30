@@ -26,18 +26,15 @@ $(document).ready(function(){
 	};
 	
 	HM.produto.adiciona = function(cod){
-		HM.ajax.post({
-			url:"rest/Pedido/listaPedido/"+ cod,
+		HM.pedidos.adicionar({
+			data: cod,
 			success:function(succ){
 				if(succ){
 					$("#carrinhoCompra").show();
 					$("#carrinhoCompraTag").text(HM.sessao("produto").split(",").length-1);
 				}
-			},
-			error:function(err){
-				console.log(err);
 			}
-		});
+		})
 	}
 
 	HM.produto.exibe = function(cod){

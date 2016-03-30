@@ -1,21 +1,23 @@
 package br.com.hamburgueria.rest;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
-
-import com.google.gson.Gson;
 
 import br.com.hamburgueria.exception.AdicionarProdutoException;
 import br.com.hamburgueria.exception.FinalizarPedidoException;
@@ -24,6 +26,8 @@ import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.Pedido;
 import br.com.hamburgueria.service.PedidoService;
 
+import com.google.gson.Gson;
+
 @Path("Pedido")
 public class PedidoRest extends UtilRest{
 
@@ -31,7 +35,7 @@ public class PedidoRest extends UtilRest{
 	private HttpServletRequest req;
 	
 	@POST
-	@Path("/listaPedido/{produto}")
+	@Path("/addProduto/{produto}")
 	@Produces("application/json")
 	public String pedido(@PathParam("produto") String produto) throws HamburgueriaException {
 		try{
@@ -103,6 +107,26 @@ public class PedidoRest extends UtilRest{
 			throw new FinalizarPedidoException();
 		}
 	}
+	
+	@GET
+	@Path("listarPedidos/{busca}/{dataini}/{datafim}")
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response listarPedidos(@QueryParam("busca") String busca,
+			@PathParam("dataini")Date dataini,
+			@PathParam("datafim")Date datafim) {
+		try {
+			PedidoService pedido = new PedidoService();
+			if(busca.equals("")){
+				busca = "";
+			}
+			HttpSession sessao = req.getSession(false);
+			return this.buildResponse(pedido.listarPedidos(busca, datafim, dataini, 
+					(int)sessao.getAttribute("administrador") == 1 ? (int)sessao.getAttribute("cod") : 0));
 
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}		
+	}
 	
 }

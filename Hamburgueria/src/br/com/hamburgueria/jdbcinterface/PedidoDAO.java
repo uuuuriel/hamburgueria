@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.objs.ListaPedido;
 import br.com.hamburgueria.objs.Pedido;
 
 public interface PedidoDAO {
@@ -14,6 +15,6 @@ public interface PedidoDAO {
 
 	public void setPedidoFuncionario(int codfuncionario, int codpedido) throws HamburgueriaException;
 
-	public List<Pedido> listar(Date dataini, Date datafim, int codcliente) throws HamburgueriaException;
+	public List<ListaPedido> listar(Date dataini, Date datafim, String busca, int codcliente) throws HamburgueriaException;
 	
 }

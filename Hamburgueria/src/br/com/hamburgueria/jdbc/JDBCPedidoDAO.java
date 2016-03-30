@@ -11,8 +11,6 @@ import java.util.List;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
-import br.com.hamburgueria.objs.Cidade;
-import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.objs.ListaPedido;
 import br.com.hamburgueria.objs.Pedido;
 
@@ -121,24 +119,32 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 	
 	@Override
-	public List<Pedido> listar(Date dataini, Date datafim, int codcliente) throws HamburgueriaException{
-		String comando = "select p.*, pr.nomeproduto from pedido p "
-				+ "inner join pedido_produto pp on p.codpedido = pp.pedido_codpedido"
-				+ "inner join produto pr on pr.codproduto = pp.produto_codproduto";
+	public List<ListaPedido> listar(Date dataini, Date datafim, String busca, int codcliente) throws HamburgueriaException{
+		String comando = "select p.*, pr.*, ep.estagio, cl.nomecliente as estagio from pedido p"
+				+ " inner join pedido_produto pp on p.codpedido = pp.pedido_codpedido"
+				+ " inner join produto pr on pr.codproduto = pp.produto_codproduto"
+				+ " inner join estagio_pedido ep on ep.codestagio_pedido = p.estagio_pedido_codestagio_pedido"
+				+ " inner join cliente cl on cl.codliente = p.cliente_codcliente";
 		if (!dataini.equals("")) {
 			comando += "where data between '" + dataini + "' and '" + datafim + "'"
 					+ " and estagio_pedido_codestagio_pedido = 5"
 					+ " and cliente_codcliente = "+codcliente;
 		}
-		List<Pedido> list = new ArrayList<Pedido>();
-		Pedido ped = null;
+		List<ListaPedido> list = new ArrayList<ListaPedido>();
+		ListaPedido ped = null;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				ped.setCodpedido(rs.getInt("codpedido"));
-				ped.setData(rs.getDate("data"));
-				ped.setValortotal(rs.getDouble("total"));
+				ped.setCancelado(rs.getString("cancelado"));
+				ped.setCodCliente(rs.getInt("codcliente"));
+				ped.setCodPedido(rs.getInt("codpedido"));
+				ped.setCodProduto(rs.getInt("codproduto"));
+				ped.setDataCompra(rs.getDate("data"));
+				ped.setDescricaoProduto(rs.getString("descricao"));
+				ped.setEstagio_produto(rs.getString("estagio"));
+				ped.setNomeProduto(rs.getString("nomeproduto"));
+				ped.setNomeUsuario(rs.getString("nomecliente"));
 				list.add(ped);
 			}
 		} catch (SQLException e) {
