@@ -33,6 +33,9 @@ $(document).ready(function(){
 					$("#carrinhoCompra").show();
 					$("#carrinhoCompraTag").text(HM.sessao("produto").split(",").length-1);
 				}
+			},
+			error:function(err){
+				console.log(err.responseText);
 			}
 		})
 	}

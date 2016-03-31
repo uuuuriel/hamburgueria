@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `hamburgueriabd` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE  IF NOT EXISTS `hamburgueriabd` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `hamburgueriabd`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: hamburgueriabd
 -- ------------------------------------------------------
--- Server version	5.5.8-log
+-- Server version	5.7.11-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -82,21 +82,21 @@ CREATE TABLE `cliente` (
   `codcliente` int(11) NOT NULL AUTO_INCREMENT,
   `nomecliente` varchar(45) NOT NULL,
   `telefone` double NOT NULL,
-  `data_nascimento` date NOT NULL,
-  `rg` varchar(15) NOT NULL,
-  `cpf` varchar(15) NOT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `rg` varchar(15) DEFAULT NULL,
+  `cpf` varchar(15) DEFAULT NULL,
   `cidade` int(3) NOT NULL,
   `bairro` varchar(45) NOT NULL,
   `rua` varchar(45) NOT NULL,
-  `numero` int(6) unsigned DEFAULT NULL,
-  `complemento` varchar(70) NOT NULL,
+  `numero` int(6) NOT NULL,
+  `complemento` varchar(70) DEFAULT NULL,
   `cep` int(9) DEFAULT NULL,
   `data_cadastro` date NOT NULL,
-  `email` varchar(70) NOT NULL,
-  `senha` varchar(100) NOT NULL,
+  `email` varchar(70) DEFAULT NULL,
+  `senha` varchar(100) DEFAULT NULL,
   `ativo` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`codcliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'123',123,'2010-10-08','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123','123',0),(2,'123123123',123,'1969-12-30','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123','123',0),(3,'Uriel Hass123111111',123456,'2010-10-07','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','e10adc3949ba59abbe56e057f20f883e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0);
+INSERT INTO `cliente` VALUES (1,'123',123,'1969-12-31','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123@123.com','d41d8cd98f00b204e9800998ecf8427e',1),(2,'123123123',123,'1969-12-31','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123@94898.cm','d41d8cd98f00b204e9800998ecf8427e',1),(3,'Uriel Hass123111111',123456,'1969-12-31','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','d41d8cd98f00b204e9800998ecf8427e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'Caio lessin',8919819819,'1969-12-31','1231561','1981819',8521,'14036','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','d41d8cd98f00b204e9800998ecf8427e',1),(12,'Guilherme Stegmann',9498498489,'1969-12-31','4974282','274.262.651-98',8333,'34821','asdfasdfasdf',123,'132132',89227100,'2016-03-22','uriel@usuario.com','e10adc3949ba59abbe56e057f20f883e',1),(13,'uriel hass',165165,NULL,NULL,NULL,8323,'48953','25198',551651,NULL,1651,'2016-03-27',NULL,NULL,0),(14,'uhasdfiu',15165,NULL,NULL,NULL,8322,'38056','65156',6565,NULL,651651,'2016-03-27',NULL,NULL,0),(15,'se ta ai',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-03-27',NULL,NULL,0),(16,'asdf',9898498498,NULL,NULL,NULL,8321,'36193','qualquer rua',995,NULL,46546566,'2016-03-27',NULL,NULL,0),(17,'onkeypress',8949849849,NULL,NULL,NULL,8323,'48953','651651',651651,NULL,56165110,'2016-03-27',NULL,NULL,0),(18,'Qualquer nome',1234561561,NULL,NULL,NULL,8521,'14039','119818',116516,NULL,16516,'2016-03-28',NULL,NULL,0),(19,'Guilherme ',1561651651,NULL,NULL,NULL,8322,'38056','qualquer',156165,NULL,15616516,'2016-03-30',NULL,NULL,0),(20,'uriel ',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-03-30',NULL,NULL,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `estagio_pedido` (
   `estagio` varchar(45) DEFAULT NULL,
   `descricao_estagio` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codestagio_pedido`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `estagio_pedido` (
 
 LOCK TABLES `estagio_pedido` WRITE;
 /*!40000 ALTER TABLE `estagio_pedido` DISABLE KEYS */;
-INSERT INTO `estagio_pedido` VALUES (1,'Produção','O pedido está sendo feito, por favor aguarde ');
+INSERT INTO `estagio_pedido` VALUES (1,'Ta quase','Aguardando pagamento'),(2,'Ta na chapa','Produção'),(3,'Ta montando','Montagem'),(4,'Entrega','Entrega'),(5,'Finalizado','Produto está finalizado, valeu');
 /*!40000 ALTER TABLE `estagio_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,13 +154,14 @@ CREATE TABLE `funcionario` (
   `cidade` int(7) NOT NULL,
   `bairro` int(7) NOT NULL,
   `rua` varchar(45) NOT NULL,
-  `numero` int(6) unsigned DEFAULT NULL,
+  `numero` int(6) DEFAULT NULL,
   `complemento` varchar(100) DEFAULT NULL,
   `administrador` varchar(1) DEFAULT NULL,
   `cep` int(8) DEFAULT NULL,
+  `funcionario` int(1) NOT NULL DEFAULT '0',
   `ativo` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`codfuncionario`,`fone`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +170,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (4,'Uriel Hass12354','08984452454','4875215','2015-12-10',4788252700,'uriel@funcionario.com','e10adc3949ba59abbe56e057f20f883e','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','1',89228352,0),(10,'Uriel Hass','08981981981','1234564','2015-12-10',4754545454,'uriel@uriel.com.br','123456','qualquer coisa',4356,0,'Aventureiro',5156,'Sem complemento','0',89255480,0),(11,'Uriel Hass','089.819.819-81','1.234.564','2015-12-11',4754545454,'uriel@uriel.com.br','123456','qualquer coisa',4492,0,'Aventureiro',5156,'Sem complemento','0',89255480,0),(12,'Uriel Hass','089.819.819-81','1.234.564','2015-12-11',4754545454,'uriel@uriel.com.br','123456','qualquer coisa',4492,0,'Aventureiro',5156,'Sem complemento','0',89255480,0),(13,'Uriel Hass','08984452454','4875215','2015-12-10',4788252700,'uriel@teste.com.br','123456','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','1',89228352,0),(14,'Uriel Hass123','08984452454','4875215','2015-12-09',4788252700,'uriel@teste.com.br','123456','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','0',89228352,0),(15,'Uriel Hass1234','08984452454','4875215','2015-12-08',4788252700,'uriel@teste.com.br','123456','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','0',89228352,0),(16,'Uriel Hass','08984452454','4875215','2015-12-09',4788252700,'uriel@teste.com.br','123456','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','0',89228352,0),(17,'Uriel Hass12','08984452454','4875215','2015-12-08',4788252700,'uriel@teste.com.br','123','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','0',89228352,0),(19,'Uriel Hass','08984452454','4875215','2015-12-09',4788252700,'uriel@teste.com.br','123456','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','1',89228352,0);
+INSERT INTO `funcionario` VALUES (4,'Uriel Hass12354','08984452454','4875215','2015-12-10',4788252700,'uriel@funcionario.com','e10adc3949ba59abbe56e057f20f883e','Gerente',4356,0,'papa joao 23',654,'Proximo ao colegio','1',89228352,0,1),(10,'Uriel Hass','08981981981','1234564','2015-12-10',4754545454,'uriel@uriel.com.br','123456','qualquer coisa',4356,0,'Aventureiro',5156,'Sem complemento','0',89255480,0,1),(11,'Uriel Hass','089.819.819-81','1.234.564','2015-12-11',4754545454,'uriel@uriel.com.br','123456','qualquer coisa',4492,0,'Aventureiro',5156,'Sem complemento','0',89255480,0,0),(20,'Eduardo Pacheco','08684452909','1234561','1969-12-31',4981981819,'tinho@gmail.com','e10adc3949ba59abbe56e057f20f883e','Não faz nada da vida',8528,34359,'Não tem',123,'Sem comprementu','1',89227100,1,0),(21,'Eduardo Pacheco','08684452909','1234561','1969-12-31',4981981819,'tinho@gmail.com','e10adc3949ba59abbe56e057f20f883e','Não faz nada da vida',8528,34359,'Não tem',123,'Sem comprementu','1',89227100,1,0),(22,'Uriel Hass','08684452909','1198198','1969-12-31',9158119819,'1151@uiorej.com','e10adc3949ba59abbe56e057f20f883e','Sem função',8322,38056,'hahaasdf',123,'12313','1',89227100,1,1);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,11 +184,9 @@ DROP TABLE IF EXISTS `historico_funcionario`;
 CREATE TABLE `historico_funcionario` (
   `pedido_codpedido` int(11) NOT NULL,
   `funcionario_codfuncionario` int(11) NOT NULL,
-  PRIMARY KEY (`pedido_codpedido`,`funcionario_codfuncionario`),
   KEY `fk_pedido_has_funcionario_funcionario1_idx` (`funcionario_codfuncionario`),
   KEY `fk_pedido_has_funcionario_pedido1_idx` (`pedido_codpedido`),
-  CONSTRAINT `fk_pedido_has_funcionario_funcionario1` FOREIGN KEY (`funcionario_codfuncionario`) REFERENCES `funcionario` (`codfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pedido_has_funcionario_pedido1` FOREIGN KEY (`pedido_codpedido`) REFERENCES `pedido` (`codpedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_pedido_has_funcionario_funcionario1` FOREIGN KEY (`funcionario_codfuncionario`) REFERENCES `funcionario` (`codfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -197,6 +196,7 @@ CREATE TABLE `historico_funcionario` (
 
 LOCK TABLES `historico_funcionario` WRITE;
 /*!40000 ALTER TABLE `historico_funcionario` DISABLE KEYS */;
+INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4),(0,4),(0,4),(0,4),(0,4),(0,4),(9,4),(0,4),(11,4),(12,4),(13,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(21,4),(22,4),(23,4),(24,4),(26,4),(27,4),(28,4);
 /*!40000 ALTER TABLE `historico_funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,20 +209,19 @@ DROP TABLE IF EXISTS `pedido`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pedido` (
   `codpedido` int(11) NOT NULL AUTO_INCREMENT,
-  `estagio_pedido` varchar(45) DEFAULT NULL,
   `estagio_pedido_codestagio_pedido` int(11) NOT NULL,
   `cliente_codcliente` int(11) NOT NULL,
   `taxas_codtaxas` int(6) NOT NULL,
   `data` datetime DEFAULT NULL,
-  `ativo` int(1) NOT NULL DEFAULT '0',
-  `cancelado` varchar(200) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`codpedido`,`taxas_codtaxas`,`cliente_codcliente`),
+  `total` float DEFAULT NULL,
+  `cancelado` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`codpedido`,`cliente_codcliente`,`taxas_codtaxas`),
   KEY `fk_pedido_estagio_pedido1_idx` (`estagio_pedido_codestagio_pedido`),
   KEY `fk_pedido_cliente1_idx` (`cliente_codcliente`),
   KEY `fk_pedido_taxas1_idx` (`taxas_codtaxas`),
-  CONSTRAINT `fk_pedido_estagio_pedido1` FOREIGN KEY (`estagio_pedido_codestagio_pedido`) REFERENCES `estagio_pedido` (`codestagio_pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pedido_funcionario` FOREIGN KEY (`cliente_codcliente`) REFERENCES `funcionario` (`codfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_pedido_cliente1` FOREIGN KEY (`cliente_codcliente`) REFERENCES `cliente` (`codcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pedido_estagio_pedido1` FOREIGN KEY (`estagio_pedido_codestagio_pedido`) REFERENCES `estagio_pedido` (`codestagio_pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +230,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (9,NULL,1,4,1,'2016-03-17 00:00:00',0,'0'),(10,NULL,1,4,1,'2016-03-17 00:00:00',0,'0'),(11,NULL,1,4,1,'2016-03-17 00:00:00',0,'0'),(12,NULL,1,4,1,'2016-03-17 00:00:00',0,'0'),(13,NULL,1,4,1,'2016-03-17 00:00:00',0,'0');
+INSERT INTO `pedido` VALUES (3,1,3,1,'2016-03-24 00:00:00',0,NULL),(4,1,3,1,'2016-03-24 00:00:00',0,NULL),(5,1,3,1,'2016-03-24 00:00:00',0,NULL),(8,1,13,1,'2016-03-27 00:00:00',NULL,NULL),(9,1,14,1,'2016-03-27 00:00:00',NULL,NULL),(11,1,15,1,'2016-03-27 00:00:00',NULL,NULL),(12,1,16,1,'2016-03-27 00:00:00',NULL,NULL),(13,1,17,1,'2016-03-27 00:00:00',NULL,NULL),(21,1,3,2,'2016-03-28 00:00:00',NULL,NULL),(22,1,13,0,'2016-03-28 00:00:00',NULL,NULL),(23,1,18,0,'2016-03-28 00:00:00',NULL,NULL),(24,1,18,0,'2016-03-28 00:00:00',NULL,NULL),(25,1,12,2,'2016-03-30 00:00:00',NULL,NULL),(26,1,19,2,'2016-03-30 00:00:00',NULL,NULL),(27,1,20,2,'2016-03-30 00:00:00',NULL,NULL),(28,1,13,0,'2016-03-30 00:00:00',NULL,NULL);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,11 +242,12 @@ DROP TABLE IF EXISTS `pedido_produto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pedido_produto` (
-  `pedido_codpedido` int(11) NOT NULL,
-  `produto_codproduto` int(11) NOT NULL,
+  `pedido_codpedido` int(11) DEFAULT NULL,
+  `produto_codproduto` int(11) DEFAULT NULL,
   KEY `fk_pedido_has_produto_produto1_idx` (`produto_codproduto`),
-  KEY `fk_pedido_has_produto_pedido1_idx` (`pedido_codpedido`),
-  CONSTRAINT `fk_pedido_has_produto_produto1` FOREIGN KEY (`produto_codproduto`) REFERENCES `produto` (`codproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_pedido_pedido_produto_idx` (`pedido_codpedido`),
+  CONSTRAINT `fk_pedido_pedido` FOREIGN KEY (`produto_codproduto`) REFERENCES `produto` (`codproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pedido_pedido_produto` FOREIGN KEY (`pedido_codpedido`) REFERENCES `pedido` (`codpedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -257,7 +257,7 @@ CREATE TABLE `pedido_produto` (
 
 LOCK TABLES `pedido_produto` WRITE;
 /*!40000 ALTER TABLE `pedido_produto` DISABLE KEYS */;
-INSERT INTO `pedido_produto` VALUES (0,2),(0,2),(0,4),(0,2),(0,2),(9,2),(9,4),(10,2),(11,4),(11,4),(11,4),(11,4),(11,4),(11,4),(11,4),(11,4),(11,4),(11,2),(11,2),(11,2),(11,2),(12,5),(12,5),(12,4),(12,4),(12,5),(12,5),(12,5),(12,5),(12,5),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,5),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,2),(12,5),(12,5),(12,5),(12,5),(12,5),(12,5),(12,5),(12,5),(12,5),(12,2),(12,4),(12,5),(12,4),(12,5),(12,4),(12,2),(12,4),(12,5),(12,2),(12,2),(12,4),(12,5),(12,5),(12,4),(12,5),(12,4),(12,4),(12,2),(12,4),(12,5),(12,4),(12,4),(12,2),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,4),(12,5),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,2),(13,4),(13,5),(13,5),(13,4),(13,2);
+INSERT INTO `pedido_produto` VALUES (3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(4,2),(4,4),(4,4),(4,4),(4,2),(4,4),(4,2),(4,4),(4,2),(5,2),(5,2),(5,2),(5,4),(5,4),(5,4),(8,5),(8,5),(8,5),(8,4),(8,2),(8,2),(8,2),(8,4),(9,5),(9,2),(9,4),(11,5),(11,5),(11,5),(12,5),(12,4),(13,5),(13,5),(13,4),(21,5),(21,4),(21,5),(21,5),(21,5),(21,5),(21,4),(22,5),(22,5),(22,5),(22,5),(23,5),(23,5),(23,5),(23,4),(24,4),(24,4),(24,4),(25,5),(25,4),(25,4),(25,4),(25,4),(25,4),(25,2),(26,4),(26,5),(26,4),(26,2),(27,5),(27,2),(28,4),(28,4),(28,4),(28,4),(28,4),(28,5);
 /*!40000 ALTER TABLE `pedido_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +277,6 @@ CREATE TABLE `produto` (
   `observacao` varchar(155) DEFAULT NULL,
   `valor` decimal(10,2) NOT NULL,
   `categoria` varchar(45) NOT NULL,
-  `ativo` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`codproduto`,`categoria`),
   KEY `fk_produto_categoria1_idx` (`categoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
@@ -289,7 +288,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (2,'X burguer','Pão. queijo, presunto, hamburgueria, maionese',NULL,NULL,NULL,10.00,'Lanche',0),(4,'Suco de limão','Água + limão',NULL,NULL,NULL,6.90,'Bebida',0),(5,'X Delícia','Bacon, muita batata palha e requeijão.',NULL,NULL,NULL,25.00,'Lanche',0);
+INSERT INTO `produto` VALUES (2,'X picanha','Carne, queijo pão',NULL,NULL,NULL,15.50,'Lanche'),(4,'Suco de Laranja','Laranja, com gelo',NULL,NULL,NULL,5.80,'Bebida'),(5,'Sorvete','5 Bolas de sorvete de morango.',NULL,NULL,NULL,8.50,'Sobremesa');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +341,7 @@ CREATE TABLE `taxas` (
 
 LOCK TABLES `taxas` WRITE;
 /*!40000 ALTER TABLE `taxas` DISABLE KEYS */;
-INSERT INTO `taxas` VALUES (0,'Entrega','Taxa de entrega',150),(1,'Taxa mínima','Haverá um valor mínimo para compra delivery',15000);
+INSERT INTO `taxas` VALUES (0,'Entrega','Taxa de entrega',150),(1,'Taxa mínima','Haverá um valor mínimo para compra delivery',15000),(2,'Retirada balcão','Sem nenhum custo adicional',0);
 /*!40000 ALTER TABLE `taxas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -355,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-18 16:22:23
+-- Dump completed on 2016-03-30 20:59:45
