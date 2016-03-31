@@ -1,5 +1,4 @@
-$(document).ready(
-		function() {
+$(document).ready(function() {
 			HM.pedidos = new Object();
 			HM.pedidos = {
 				exibir : function(cfg) {
@@ -7,10 +6,13 @@ $(document).ready(
 					if (busca == "") {
 						busca = "null";
 					}
-					var quebraini = split("/",cfg.dataini);
+					/*var quebraini = split("/",cfg.dataini);
 					cfg.dataini = quebraini[2] + "-" + quebra[1] + "-" + quebra[0];
 					var quebrafim = split("/",cfg.datafim);
-					cfg.datafim = quebrafim[2] + "-" + quebra[1] + "-" + quebra[0];
+					cfg.datafim = quebrafim[2] + "-" + quebra[1] + "-" + quebra[0];*/
+					busca = "null";
+					cfg.dataini = "2015-10-10";
+					cfg.datafim = "2016-10-10";
 					HM.ajax.get({
 						url : "rest/Pedido/listarPedidos/"+ busca +"/"+cfg.dataini+"/"+cfg.datafim,
 						success : function(list) {

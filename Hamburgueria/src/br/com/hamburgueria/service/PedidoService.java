@@ -80,7 +80,7 @@ public class PedidoService {
 		try{
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			return jdbcPedido.listar(dataini, datafim, busca, cod);		
+			return jdbcPedido.listar(busca, dataini, datafim, cod);		
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new ListaPedidoException();

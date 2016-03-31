@@ -15,6 +15,6 @@ public interface PedidoDAO {
 
 	public void setPedidoFuncionario(int codfuncionario, int codpedido) throws HamburgueriaException;
 
-	public List<ListaPedido> listar(Date dataini, Date datafim, String busca, int codcliente) throws HamburgueriaException;
+	public List<ListaPedido> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException;
 	
 }

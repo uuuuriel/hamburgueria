@@ -119,16 +119,17 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 	
 	@Override
-	public List<ListaPedido> listar(Date dataini, Date datafim, String busca, int codcliente) throws HamburgueriaException{
-		String comando = "select p.*, pr.*, ep.estagio, cl.nomecliente as estagio from pedido p"
+	public List<ListaPedido> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException{
+		String comando = "select p.*, pr.*, ep.estagio as estagio, cl.nomecliente from pedido p"
 				+ " inner join pedido_produto pp on p.codpedido = pp.pedido_codpedido"
 				+ " inner join produto pr on pr.codproduto = pp.produto_codproduto"
 				+ " inner join estagio_pedido ep on ep.codestagio_pedido = p.estagio_pedido_codestagio_pedido"
-				+ " inner join cliente cl on cl.codliente = p.cliente_codcliente";
+				+ " inner join cliente cl on cl.codcliente = p.cliente_codcliente";
 		if (!dataini.equals("")) {
-			comando += "where data between '" + dataini + "' and '" + datafim + "'"
-					+ " and estagio_pedido_codestagio_pedido = 5"
-					+ " and cliente_codcliente = "+codcliente;
+			comando += " where data between '" + dataini + "' and '" + datafim + "'";
+					if (codcliente != 0) {
+						comando += " and cliente_codcliente = "+codcliente;
+					}
 		}
 		List<ListaPedido> list = new ArrayList<ListaPedido>();
 		ListaPedido ped = null;
@@ -136,11 +137,13 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
+				ped = new ListaPedido();
 				ped.setCancelado(rs.getString("cancelado"));
-				ped.setCodCliente(rs.getInt("codcliente"));
+				ped.setCodCliente(rs.getInt("cliente_codcliente"));
 				ped.setCodPedido(rs.getInt("codpedido"));
 				ped.setCodProduto(rs.getInt("codproduto"));
 				ped.setDataCompra(rs.getDate("data"));
+				ped.setValorProduto(rs.getFloat("valor"));
 				ped.setDescricaoProduto(rs.getString("descricao"));
 				ped.setEstagio_produto(rs.getString("estagio"));
 				ped.setNomeProduto(rs.getString("nomeproduto"));

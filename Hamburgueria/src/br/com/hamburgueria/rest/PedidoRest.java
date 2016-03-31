@@ -111,7 +111,7 @@ public class PedidoRest extends UtilRest{
 	@GET
 	@Path("listarPedidos/{busca}/{dataini}/{datafim}")
 	@Produces({MediaType.APPLICATION_JSON })
-	public Response listarPedidos(@QueryParam("busca") String busca,
+	public Response listarPedidos(@PathParam("busca") String busca,
 			@PathParam("dataini")Date dataini,
 			@PathParam("datafim")Date datafim) {
 		try {
@@ -120,8 +120,8 @@ public class PedidoRest extends UtilRest{
 				busca = "";
 			}
 			HttpSession sessao = req.getSession(false);
-			return this.buildResponse(pedido.listarPedidos(busca, datafim, dataini, 
-					(int)sessao.getAttribute("administrador") == 1 ? (int)sessao.getAttribute("cod") : 0));
+			return this.buildResponse(pedido.listarPedidos(busca, dataini, datafim, 
+					(int)sessao.getAttribute("administrador") != 1 ? (int)sessao.getAttribute("cod") : 0));
 
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();
