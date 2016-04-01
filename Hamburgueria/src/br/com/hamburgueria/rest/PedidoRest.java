@@ -116,12 +116,11 @@ public class PedidoRest extends UtilRest{
 			@PathParam("datafim")Date datafim) {
 		try {
 			PedidoService pedido = new PedidoService();
-			if(busca.equals("")){
+			if(busca.equals("null")){
 				busca = "";
 			}
 			HttpSession sessao = req.getSession(false);
-			return this.buildResponse(pedido.listarPedidos(busca, dataini, datafim, 
-					(int)sessao.getAttribute("administrador") != 1 ? (int)sessao.getAttribute("cod") : 0));
+			return this.buildResponse(pedido.listarPedidos(busca, dataini, datafim, (int)sessao.getAttribute("administrador") != 1 ? (int)sessao.getAttribute("cod") : 0));
 
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();

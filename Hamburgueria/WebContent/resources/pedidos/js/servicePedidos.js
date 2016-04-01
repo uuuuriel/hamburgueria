@@ -6,19 +6,15 @@ $(document).ready(function() {
 					if (busca == "") {
 						busca = "null";
 					}
-					/*var quebraini = split("/",cfg.dataini);
-					cfg.dataini = quebraini[2] + "-" + quebra[1] + "-" + quebra[0];
-					var quebrafim = split("/",cfg.datafim);
-					cfg.datafim = quebrafim[2] + "-" + quebra[1] + "-" + quebra[0];*/
-					busca = "null";
-					cfg.dataini = "2015-10-10";
-					cfg.datafim = "2016-10-10";
+					var quebraini = cfg.dataini.split("/");
+					cfg.dataini = quebraini[2] + "-" + quebraini[1] + "-" + quebraini[0];
+					var quebrafim = cfg.datafim.split("/");
+					cfg.datafim = quebrafim[2] + "-" + quebrafim[1] + "-" + quebrafim[0];
 					HM.ajax.get({
 						url : "rest/Pedido/listarPedidos/"+ busca +"/"+cfg.dataini+"/"+cfg.datafim,
 						success : function(list) {
 							if (cfg && cfg.success) {
 								cfg.success(list);
-								console.log(list);
 							}
 						},
 						error : function(err) {

@@ -1,5 +1,4 @@
-$(document).ready(
-		function() {
+$(document).ready(function() {
 			$.fn.bootstrapSwitch.defaults.onText = 'Pago';
 			$.fn.bootstrapSwitch.defaults.offText = 'Produção';
 			$.fn.bootstrapSwitch.defaults.onColor = 'danger';

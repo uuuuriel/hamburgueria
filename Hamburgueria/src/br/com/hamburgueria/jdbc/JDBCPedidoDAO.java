@@ -126,7 +126,9 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				+ " inner join estagio_pedido ep on ep.codestagio_pedido = p.estagio_pedido_codestagio_pedido"
 				+ " inner join cliente cl on cl.codcliente = p.cliente_codcliente";
 		if (!dataini.equals("")) {
-			comando += " where data between '" + dataini + "' and '" + datafim + "'";
+			comando += " where (data between '" + dataini + "' and '" + datafim + "')"
+					+ " and (pr.nomeproduto like '%" + busca + "%' or pr.descricao like '%" + busca + "%'"
+					+ " or cl.nomecliente like '%"+ busca +"%')";
 					if (codcliente != 0) {
 						comando += " and cliente_codcliente = "+codcliente;
 					}
