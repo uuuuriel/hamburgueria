@@ -9,10 +9,10 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -126,6 +126,20 @@ public class PedidoRest extends UtilRest{
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}		
+	}
+	
+	@PUT
+	@Path("/atualizarEstagioPedido/{estagio}/{cod}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response atualizarEstagioPedido(@PathParam("estagio") int estagio, @PathParam("cod") int cod) {
+		try{
+			PedidoService pedido = new PedidoService();
+			pedido.atualizarEstagioPedido(estagio, cod);
+			return this.buildResponse("Pedido está no próximo estágio.");
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
 	}
 	
 }

@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import br.com.hamburgueria.bd.conexao.Conexao;
+import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListaPedidoException;
+import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
@@ -81,6 +83,37 @@ public class PedidoService {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			return jdbcPedido.listar(busca, dataini, datafim, cod);		
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new ListaPedidoException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public void atualizarEstagioPedido(int estagio, int cod) throws EstagioPedidoException{
+		Conexao conec = new Conexao();
+		try {
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			if(estagio != 0 && cod != 0){
+				jdbcPedido.atualizaEstagioPedido(estagio, cod);
+			}else{
+				throw new ValueZException();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public List<ListaPedido> listarProdutosEstagio() throws ListaPedidoException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			return jdbcPedido.listar();		
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new ListaPedidoException();

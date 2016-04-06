@@ -8,12 +8,23 @@ $(document).ready(function() {
 					size : 'small',
 					message : "Deseja cancelar o pedido?",
 					callback : function(result) {
+						console.log(result);
 					}
 				});
 			});
 
-			$('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch',
-					function(event, state) {
-						$(this).closest('tr').fadeOut(1000);
-					});
+			$('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
+				var cod = $(this).parents().parent('tr').find("td:first-child").text();
+					HM.pedidos.estagioPedido({
+					estagio: '2',
+					cod: cod,
+					success:function(data){
+						console.log(data);
+					},
+					error:function(err){
+						console.log(err.responseText);
+					}						
+				})
+				$(this).closest('tr').fadeOut(1000);
+			});
 		});

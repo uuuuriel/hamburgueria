@@ -13,7 +13,7 @@ $(document).ready(function(){
 				for ( var i = 0; i < data.length; i++) {
 					html += "<div class='divGallery col-sm-3'><div onclick='HM.produto.exibe("+data[i].cod+")'>"
 					+"<img src='assets/imagem/imagem3.png' width='80px'>"
-					+"<div class='valorDivGallery'><strong>"+data[i].valor+"</strong></div>"
+					+"<div class='valorDivGallery'><strong>R$ "+data[i].valor.toFixed(2)+"</strong></div>"
 					+"<div class='textoDivGallery'><p>"+data[i].descricao+"</p></div></div>"
 					+"<div class='addProduto' onclick='HM.produto.adiciona("+data[i].cod+");' title='Adicionar esse produto!'>adicionar</div></div>"
 				}

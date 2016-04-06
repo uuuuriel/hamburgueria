@@ -38,6 +38,21 @@ $(document).ready(function() {
 							}
 						}
 					});
+				},
+				estagioPedido : function(cfg){
+					HM.ajax.put({
+						url: "rest/Pedido/atualizarEstagioPedido/"+cfg.estagio+"/"+cfg.cod,
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cf.error){
+								cfg.error(err);
+							}
+						}
+					})
 				}
 			};
 		});

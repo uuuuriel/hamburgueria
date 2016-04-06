@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.hamburgueria.exception.EstagioPedidoException;
+import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.objs.ListaPedido;
@@ -159,5 +161,40 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		
 		return list;	
 	}
-
+	
+	@Override
+	public List<ListaPedido> listarEstagioPedido() throws EstagioProdutoException{
+		String comando = "";
+		List<ListaPedido> list = new ArrayList<ListaPedido>();
+		ListaPedido ped = null;
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				ped = new ListaPedido();
+				ped.setCancelado(rs.getString("cancelado"));
+				
+				list.add(ped);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new EstagioProdutoException(e.getMessage());
+		}
+		
+		return list;	
+	}
+	
+	@Override
+	public void atualizaEstagioPedido (int estagio, int cod) throws EstagioPedidoException{
+		String comando = "UPDATE pedido SET estagio_pedido_codestagio_pedido =? WHERE codpedido="+ cod;
+		PreparedStatement p;
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.setInt(1, estagio);
+			p.executeUpdate(comando);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new EstagioPedidoException(e.getMessage());
+		}
+	}
 }
