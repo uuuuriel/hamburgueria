@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.hamburgueria.exception.DeletarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
@@ -195,6 +196,19 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new EstagioPedidoException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deletarPedido(int cod) throws DeletarPedidoException {
+		String comando = "DELETE FROM pedido WHERE codpedido = " + cod;
+		Statement p;
+		try {
+			p = this.conexao.createStatement();
+			p.execute(comando);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DeletarPedidoException(e);
 		}
 	}
 }

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `hamburgueriabd` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `hamburgueriabd`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: hamburgueriabd
@@ -244,6 +242,7 @@ DROP TABLE IF EXISTS `pedido_produto`;
 CREATE TABLE `pedido_produto` (
   `pedido_codpedido` int(11) DEFAULT NULL,
   `produto_codproduto` int(11) DEFAULT NULL,
+  `estagio_pedido` int(2) DEFAULT NULL,
   KEY `fk_pedido_has_produto_produto1_idx` (`produto_codproduto`),
   KEY `fk_pedido_pedido_produto_idx` (`pedido_codpedido`),
   CONSTRAINT `fk_pedido_pedido` FOREIGN KEY (`produto_codproduto`) REFERENCES `produto` (`codproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -257,7 +256,7 @@ CREATE TABLE `pedido_produto` (
 
 LOCK TABLES `pedido_produto` WRITE;
 /*!40000 ALTER TABLE `pedido_produto` DISABLE KEYS */;
-INSERT INTO `pedido_produto` VALUES (3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(3,2),(4,2),(4,4),(4,4),(4,4),(4,2),(4,4),(4,2),(4,4),(4,2),(5,2),(5,2),(5,2),(5,4),(5,4),(5,4),(8,5),(8,5),(8,5),(8,4),(8,2),(8,2),(8,2),(8,4),(9,5),(9,2),(9,4),(11,5),(11,5),(11,5),(12,5),(12,4),(13,5),(13,5),(13,4),(21,5),(21,4),(21,5),(21,5),(21,5),(21,5),(21,4),(22,5),(22,5),(22,5),(22,5),(23,5),(23,5),(23,5),(23,4),(24,4),(24,4),(24,4),(25,5),(25,4),(25,4),(25,4),(25,4),(25,4),(25,2),(26,4),(26,5),(26,4),(26,2),(27,5),(27,2),(28,4),(28,4),(28,4),(28,4),(28,4),(28,5),(29,5),(29,5),(29,5),(29,5),(29,5);
+INSERT INTO `pedido_produto` VALUES (3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(4,2,NULL),(4,4,NULL),(4,4,NULL),(4,4,NULL),(4,2,NULL),(4,4,NULL),(4,2,NULL),(4,4,NULL),(4,2,NULL),(5,2,NULL),(5,2,NULL),(5,2,NULL),(5,4,NULL),(5,4,NULL),(5,4,NULL),(8,5,NULL),(8,5,NULL),(8,5,NULL),(8,4,NULL),(8,2,NULL),(8,2,NULL),(8,2,NULL),(8,4,NULL),(9,5,NULL),(9,2,NULL),(9,4,NULL),(11,5,NULL),(11,5,NULL),(11,5,NULL),(12,5,NULL),(12,4,NULL),(13,5,NULL),(13,5,NULL),(13,4,NULL),(21,5,NULL),(21,4,NULL),(21,5,NULL),(21,5,NULL),(21,5,NULL),(21,5,NULL),(21,4,NULL),(22,5,NULL),(22,5,NULL),(22,5,NULL),(22,5,NULL),(23,5,NULL),(23,5,NULL),(23,5,NULL),(23,4,NULL),(24,4,NULL),(24,4,NULL),(24,4,NULL),(25,5,NULL),(25,4,NULL),(25,4,NULL),(25,4,NULL),(25,4,NULL),(25,4,NULL),(25,2,NULL),(26,4,NULL),(26,5,NULL),(26,4,NULL),(26,2,NULL),(27,5,NULL),(27,2,NULL),(28,4,NULL),(28,4,NULL),(28,4,NULL),(28,4,NULL),(28,4,NULL),(28,5,NULL),(29,5,NULL),(29,5,NULL),(29,5,NULL),(29,5,NULL),(29,5,NULL);
 /*!40000 ALTER TABLE `pedido_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-31 21:36:43
+-- Dump completed on 2016-04-05 21:49:18

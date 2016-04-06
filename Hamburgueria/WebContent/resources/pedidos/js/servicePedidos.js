@@ -53,6 +53,21 @@ $(document).ready(function() {
 							}
 						}
 					})
+				},
+				deletarPedido : function(cfg){
+					HM.ajax.DELETE({
+						url: "rest/Pedido/deletarPedido/"+cfg.data,
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cfg.error){
+								cfg.error(err);
+							}
+						}
+					})
 				}
 			};
 		});

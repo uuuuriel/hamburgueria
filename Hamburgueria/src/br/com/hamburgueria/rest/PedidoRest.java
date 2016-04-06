@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -140,6 +141,28 @@ public class PedidoRest extends UtilRest{
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
+	}
+	
+	@DELETE
+	@Path("/deletarPedido/{cod}")
+	@Consumes("application/*")
+	public Response deletar(@PathParam("cod") int cod) {
+		try{
+			PedidoService pedido = new PedidoService();
+			pedido.deletarPedido(cod);
+			return this.buildResponse("Pedido deletado com sucesso.");
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
+		
+	}
+	
+	@POST
+	@Path("/listarPedidoEstagio")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response listarPedidoEstagio(){
+		
 	}
 	
 }
