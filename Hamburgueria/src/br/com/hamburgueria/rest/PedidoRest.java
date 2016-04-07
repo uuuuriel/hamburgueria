@@ -159,9 +159,16 @@ public class PedidoRest extends UtilRest{
 	}
 	
 	@POST
-	@Path("/listarPedidoEstagio")
+	@Path("/listarProdutosEstagio/{cod}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response listarPedidoEstagio(){
+	public Response listarPedidoEstagio(@PathParam("cod")int cod){
+		try{
+			PedidoService pedido = new PedidoService();
+			return this.buildResponse(pedido.listarProdutosEstagio(cod));
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
 		
 	}
 	

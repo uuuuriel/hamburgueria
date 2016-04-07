@@ -22,7 +22,7 @@ public interface PedidoDAO {
 	
 	public void atualizaEstagioPedido (int estagio, int cod) throws EstagioPedidoException;
 	
-	public List<ListaPedido> listarEstagioPedido() throws EstagioProdutoException;
+	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException;
 	
 	public void deletarPedido (int cod) throws DeletarPedidoException;
 	

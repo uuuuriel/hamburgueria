@@ -17,7 +17,14 @@ public class ListaPedido {
 	private int entrega;
 	private float valorTotal;
 	private String nomeUsuario;
+	private int qtde;
 	
+	public int getQtde() {
+		return qtde;
+	}
+	public void setQtde(int qtde) {
+		this.qtde = qtde;
+	}
 	public int getCodPedido() {
 		return codPedido;
 	}

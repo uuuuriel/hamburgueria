@@ -109,12 +109,12 @@ public class PedidoService {
 		}
 	}
 	
-	public List<ListaPedido> listarProdutosEstagio() throws ListaPedidoException{
+	public List<ListaPedido> listarProdutosEstagio(int cod) throws ListaPedidoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			return null;		
+			return jdbcPedido.listarProdutoEstagio(cod);		
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new ListaPedidoException();

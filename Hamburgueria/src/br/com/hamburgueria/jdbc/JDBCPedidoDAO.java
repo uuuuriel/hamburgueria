@@ -164,8 +164,12 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 	
 	@Override
-	public List<ListaPedido> listarEstagioPedido() throws EstagioProdutoException{
-		String comando = "";
+	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException{
+		String comando = "SELECT ped.codpedido, prod.codproduto, prod.nomeproduto, prod.descricao, prod.valor,"
+				+ " prod.categoria, ped_prod.estagio_pedido, count(ped_prod.produto_codproduto) as qtde FROM pedido ped"
+				+ " inner join pedido_produto ped_prod on ped_prod.pedido_codpedido = ped.codpedido"
+				+ " inner join produto prod on prod.codproduto = ped_prod.produto_codproduto "
+				+ " WHERE ped_prod.estagio_pedido ="+cod+ " GROUP BY ped_prod.pedido_codpedido,ped_prod.produto_codproduto";
 		List<ListaPedido> list = new ArrayList<ListaPedido>();
 		ListaPedido ped = null;
 		try {
@@ -173,8 +177,14 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
 				ped = new ListaPedido();
-				ped.setCancelado(rs.getString("cancelado"));
-				
+				ped.setCodPedido(rs.getInt("codpedido"));
+				ped.setCodProduto(rs.getInt("codproduto"));
+				ped.setNomeProduto(rs.getString("nomeproduto"));
+				ped.setDescricaoProduto(rs.getString("descricao"));
+				ped.setValorProduto(rs.getFloat("valor"));
+				ped.setCategoria(rs.getString("categoria"));
+				ped.setEstagio_produto(rs.getString("estagio_pedido"));
+				ped.setQtde(rs.getInt("qtde"));
 				list.add(ped);
 			}
 		} catch (SQLException e) {
@@ -187,12 +197,12 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	
 	@Override
 	public void atualizaEstagioPedido (int estagio, int cod) throws EstagioPedidoException{
-		String comando = "UPDATE pedido SET estagio_pedido_codestagio_pedido =? WHERE codpedido="+ cod;
+		String comando = "UPDATE produto_pedido SET estagio_pedido_codestagio_pedido = ? WHERE codpedido="+ cod;
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setInt(1, estagio);
-			p.executeUpdate(comando);
+			p.execute(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new EstagioPedidoException(e.getMessage());
