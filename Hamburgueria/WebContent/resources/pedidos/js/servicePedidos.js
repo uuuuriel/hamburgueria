@@ -41,7 +41,7 @@ $(document).ready(function() {
 				},
 				estagioPedido : function(cfg){
 					HM.ajax.put({
-						url: "rest/Pedido/atualizarEstagioPedido/"+cfg.estagio+"/"+cfg.cod,
+						url: "rest/Pedido/atualizarEstagioPedido/"+cfg.estagio+"/"+cfg.codpe+"/"+cfg.codpr,
 						success:function(succ){
 							if(cfg && cfg.success){
 								cfg.success(succ);

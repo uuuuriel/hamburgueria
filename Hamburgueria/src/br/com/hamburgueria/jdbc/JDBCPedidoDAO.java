@@ -196,13 +196,13 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 	
 	@Override
-	public void atualizaEstagioPedido (int estagio, int cod) throws EstagioPedidoException{
-		String comando = "UPDATE produto_pedido SET estagio_pedido_codestagio_pedido = ? WHERE codpedido="+ cod;
+	public void atualizaEstagioPedido (int estagio, int codpe, int codpr) throws EstagioPedidoException{
+		String comando = "UPDATE pedido_produto SET estagio_pedido="+estagio+" WHERE pedido_codpedido="+ codpe
+					+ " AND produto_codproduto=" + codpr;
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setInt(1, estagio);
-			p.execute(comando);
+			p.executeUpdate(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new EstagioPedidoException(e.getMessage());

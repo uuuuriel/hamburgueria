@@ -130,12 +130,13 @@ public class PedidoRest extends UtilRest{
 	}
 	
 	@PUT
-	@Path("/atualizarEstagioPedido/{estagio}/{cod}")
+	@Path("/atualizarEstagioPedido/{estagio}/{codpe}/{codpr}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response atualizarEstagioPedido(@PathParam("estagio") int estagio, @PathParam("cod") int cod) {
+	public Response atualizarEstagioPedido(@PathParam("estagio") int estagio, @PathParam("codpe") int codpe
+			, @PathParam("codpr") int codpr) {
 		try{
 			PedidoService pedido = new PedidoService();
-			pedido.atualizarEstagioPedido(estagio, cod);
+			pedido.atualizarEstagioPedido(estagio, codpe, codpr);
 			return this.buildResponse("Pedido está no próximo estágio.");
 		}catch(Exception e){
 			e.printStackTrace();

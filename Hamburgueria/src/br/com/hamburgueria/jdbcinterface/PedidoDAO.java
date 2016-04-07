@@ -20,7 +20,7 @@ public interface PedidoDAO {
 
 	public List<ListaPedido> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException;
 	
-	public void atualizaEstagioPedido (int estagio, int cod) throws EstagioPedidoException;
+	public void atualizaEstagioPedido (int estagio, int codpe, int codpr) throws EstagioPedidoException;
 	
 	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException;
 	

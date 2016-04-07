@@ -9,7 +9,7 @@ $(document).ready(function() {
 							html += "<tr><td>" + data[i].codPedido + "</td>"
 									+ "<td>" + data[i].nomeProduto + " - " + data[i].descricaoProduto + "</td>"
 									+ "<td>" + data[i].qtde + "</td>"
-									+ "<td><input onchange='HM.pedidos.mudaEstagio("+data[i].codProduto+")' class='checkboxChange' type='checkbox' name='my-checkbox' id='inputCheck'"
+									+ "<td><input onchange='HM.pedidos.mudaEstagio("+data[i].codProduto+","+data[i].codPedido+")' class='checkboxChange' type='checkbox' name='my-checkbox' id='inputCheck'"
 									+ "data-size='mini' checked /> <a href='#' onclick='HM.pedidos.cancelarPedido("+ data[i].codPedido + ")'>"
 									+ "<i class='glyphicon glyphicon-remove-sign' aria-hidden='true'></i></a></tr>";
 						}
@@ -23,7 +23,7 @@ $(document).ready(function() {
 						console.log(err.responseText);
 					}
 				})
-			}
+			};
 			HM.pedidos.listarProdutosEstagiosF();
 			 HM.pedidos.cancelarPedido = function(cod){
 				bootbox.confirm({
@@ -41,11 +41,11 @@ $(document).ready(function() {
 					}
 				});
 			};
-			HM.pedidos.mudaEstagio = function(cod) {
-				alert("ae?");
+			HM.pedidos.mudaEstagio = function(codpedido, codproduto) {
 				HM.pedidos.estagioPedido({
 					estagio: '2',
-					cod: cod,
+					codpe:codpedido,
+					codpr:codproduto,
 					success:function(data){
 						console.log(data);
 					},

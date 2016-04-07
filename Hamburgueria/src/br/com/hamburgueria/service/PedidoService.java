@@ -92,13 +92,13 @@ public class PedidoService {
 		}
 	}
 	
-	public void atualizarEstagioPedido(int estagio, int cod) throws EstagioPedidoException{
+	public void atualizarEstagioPedido(int estagio, int codpe, int codpr) throws EstagioPedidoException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			if(estagio != 0 && cod != 0){
-				jdbcPedido.atualizaEstagioPedido(estagio, cod);
+			if(estagio != 0 && codpe != 0 && codpr != 0){
+				jdbcPedido.atualizaEstagioPedido(estagio, codpe, codpr);
 			}else{
 				throw new ValueZException();
 			}
