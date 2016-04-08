@@ -194,7 +194,7 @@ CREATE TABLE `historico_funcionario` (
 
 LOCK TABLES `historico_funcionario` WRITE;
 /*!40000 ALTER TABLE `historico_funcionario` DISABLE KEYS */;
-INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4),(0,4),(0,4),(0,4),(0,4),(0,4),(9,4),(0,4),(11,4),(12,4),(13,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(21,4),(22,4),(23,4),(24,4),(26,4),(27,4),(28,4),(29,4);
+INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4),(0,4),(0,4),(0,4),(0,4),(0,4),(9,4),(0,4),(11,4),(12,4),(13,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(21,4),(22,4),(23,4),(24,4),(26,4),(27,4),(28,4),(29,4),(30,4);
 /*!40000 ALTER TABLE `historico_funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,9 +207,9 @@ DROP TABLE IF EXISTS `pedido`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pedido` (
   `codpedido` int(11) NOT NULL AUTO_INCREMENT,
-  `estagio_pedido_codestagio_pedido` int(11) NOT NULL,
+  `estagio_pedido_codestagio_pedido` int(1) NOT NULL,
   `cliente_codcliente` int(11) NOT NULL,
-  `taxas_codtaxas` int(6) NOT NULL,
+  `taxas_codtaxas` int(2) NOT NULL,
   `data` datetime DEFAULT NULL,
   `total` float DEFAULT NULL,
   `cancelado` varchar(255) DEFAULT NULL,
@@ -219,7 +219,7 @@ CREATE TABLE `pedido` (
   KEY `fk_pedido_taxas1_idx` (`taxas_codtaxas`),
   CONSTRAINT `fk_pedido_cliente1` FOREIGN KEY (`cliente_codcliente`) REFERENCES `cliente` (`codcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_estagio_pedido1` FOREIGN KEY (`estagio_pedido_codestagio_pedido`) REFERENCES `estagio_pedido` (`codestagio_pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +228,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (3,1,3,1,'2016-03-24 00:00:00',0,NULL),(4,1,3,1,'2016-03-24 00:00:00',0,NULL),(5,1,3,1,'2016-03-24 00:00:00',0,NULL),(8,1,13,1,'2016-03-27 00:00:00',NULL,NULL),(9,1,14,1,'2016-03-27 00:00:00',NULL,NULL),(11,1,15,1,'2016-03-27 00:00:00',NULL,NULL),(12,1,16,1,'2016-03-27 00:00:00',NULL,NULL),(13,1,17,1,'2016-03-27 00:00:00',NULL,NULL),(21,1,3,2,'2016-03-28 00:00:00',NULL,NULL),(22,1,13,0,'2016-03-28 00:00:00',NULL,NULL),(23,1,18,0,'2016-03-28 00:00:00',NULL,NULL),(24,1,18,0,'2016-03-28 00:00:00',NULL,NULL),(25,1,12,2,'2016-03-30 00:00:00',NULL,NULL),(26,1,19,2,'2016-03-30 00:00:00',NULL,NULL),(27,1,20,2,'2016-03-30 00:00:00',NULL,NULL),(28,1,13,0,'2016-03-30 00:00:00',NULL,NULL),(29,1,13,0,'2016-03-31 00:00:00',NULL,NULL);
+INSERT INTO `pedido` VALUES (4,1,3,1,'2016-03-24 00:00:00',0,NULL),(5,1,3,1,'2016-03-24 00:00:00',0,NULL),(8,1,13,1,'2016-03-27 00:00:00',NULL,NULL),(9,1,14,1,'2016-03-27 00:00:00',NULL,NULL),(11,1,15,1,'2016-03-27 00:00:00',NULL,NULL),(12,1,16,1,'2016-03-27 00:00:00',NULL,NULL),(13,1,17,1,'2016-03-27 00:00:00',NULL,NULL),(21,1,3,2,'2016-03-28 00:00:00',NULL,NULL),(22,1,13,0,'2016-03-28 00:00:00',NULL,NULL),(23,1,18,0,'2016-03-28 00:00:00',NULL,NULL),(24,1,18,0,'2016-03-28 00:00:00',NULL,NULL),(25,1,12,2,'2016-03-30 00:00:00',NULL,NULL),(26,1,19,2,'2016-03-30 00:00:00',NULL,NULL),(27,1,20,2,'2016-03-30 00:00:00',NULL,NULL),(28,1,13,0,'2016-03-30 00:00:00',NULL,NULL),(29,1,13,0,'2016-03-31 00:00:00',NULL,NULL),(30,1,7,0,'2016-04-07 00:00:00',NULL,NULL);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,11 +242,11 @@ DROP TABLE IF EXISTS `pedido_produto`;
 CREATE TABLE `pedido_produto` (
   `pedido_codpedido` int(11) DEFAULT NULL,
   `produto_codproduto` int(11) DEFAULT NULL,
-  `estagio_pedido` int(2) DEFAULT NULL,
+  `estagio_pedido` int(2) DEFAULT '1',
   KEY `fk_pedido_has_produto_produto1_idx` (`produto_codproduto`),
   KEY `fk_pedido_pedido_produto_idx` (`pedido_codpedido`),
   CONSTRAINT `fk_pedido_pedido` FOREIGN KEY (`produto_codproduto`) REFERENCES `produto` (`codproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pedido_pedido_produto` FOREIGN KEY (`pedido_codpedido`) REFERENCES `pedido` (`codpedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_pedido_pedido_produto` FOREIGN KEY (`pedido_codpedido`) REFERENCES `pedido` (`codpedido`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -256,7 +256,7 @@ CREATE TABLE `pedido_produto` (
 
 LOCK TABLES `pedido_produto` WRITE;
 /*!40000 ALTER TABLE `pedido_produto` DISABLE KEYS */;
-INSERT INTO `pedido_produto` VALUES (3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(3,2,NULL),(4,2,NULL),(4,4,NULL),(4,4,NULL),(4,4,NULL),(4,2,NULL),(4,4,NULL),(4,2,NULL),(4,4,NULL),(4,2,NULL),(5,2,NULL),(5,2,NULL),(5,2,NULL),(5,4,NULL),(5,4,NULL),(5,4,NULL),(8,5,NULL),(8,5,NULL),(8,5,NULL),(8,4,NULL),(8,2,NULL),(8,2,NULL),(8,2,NULL),(8,4,NULL),(9,5,NULL),(9,2,NULL),(9,4,NULL),(11,5,NULL),(11,5,NULL),(11,5,NULL),(12,5,NULL),(12,4,NULL),(13,5,NULL),(13,5,NULL),(13,4,NULL),(21,5,NULL),(21,4,NULL),(21,5,NULL),(21,5,NULL),(21,5,NULL),(21,5,NULL),(21,4,NULL),(22,5,NULL),(22,5,NULL),(22,5,NULL),(22,5,NULL),(23,5,NULL),(23,5,NULL),(23,5,NULL),(23,4,NULL),(24,4,NULL),(24,4,NULL),(24,4,NULL),(25,5,NULL),(25,4,NULL),(25,4,NULL),(25,4,NULL),(25,4,NULL),(25,4,NULL),(25,2,NULL),(26,4,NULL),(26,5,NULL),(26,4,NULL),(26,2,NULL),(27,5,NULL),(27,2,NULL),(28,4,NULL),(28,4,NULL),(28,4,NULL),(28,4,NULL),(28,4,NULL),(28,5,NULL),(29,5,NULL),(29,5,NULL),(29,5,NULL),(29,5,NULL),(29,5,NULL);
+INSERT INTO `pedido_produto` VALUES (4,2,3),(4,4,2),(4,4,2),(4,4,2),(4,2,3),(4,4,2),(4,2,3),(4,4,2),(4,2,3),(5,2,3),(5,2,3),(5,2,3),(5,4,3),(5,4,3),(5,4,3),(8,5,3),(8,5,3),(8,5,3),(8,4,3),(8,2,2),(8,2,2),(8,2,2),(8,4,3),(9,5,3),(9,2,3),(9,4,2),(11,5,3),(11,5,3),(11,5,3),(12,5,2),(12,4,2),(13,5,2),(13,5,2),(13,4,3),(21,5,3),(21,4,3),(21,5,3),(21,5,3),(21,5,3),(21,5,3),(21,4,3),(22,5,2),(22,5,2),(22,5,2),(22,5,2),(23,5,2),(23,5,2),(23,5,2),(23,4,2),(24,4,3),(24,4,3),(24,4,3),(25,5,1),(25,4,2),(25,4,2),(25,4,2),(25,4,2),(25,4,2),(25,2,3),(26,4,1),(26,5,1),(26,4,1),(26,2,1),(27,5,1),(27,2,1),(28,4,1),(28,4,1),(28,4,1),(28,4,1),(28,4,1),(28,5,2),(29,5,2),(29,5,2),(29,5,2),(29,5,2),(29,5,2),(30,5,3),(30,5,3),(30,4,3),(30,4,3),(30,2,3);
 /*!40000 ALTER TABLE `pedido_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-05 21:49:18
+-- Dump completed on 2016-04-07 21:24:31

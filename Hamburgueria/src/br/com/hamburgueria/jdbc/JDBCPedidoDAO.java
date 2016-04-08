@@ -13,6 +13,8 @@ import br.com.hamburgueria.exception.DeletarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
+import br.com.hamburgueria.exception.finalizaPedidoAllException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.objs.ListaPedido;
 import br.com.hamburgueria.objs.Pedido;
@@ -220,5 +222,25 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			e.printStackTrace();
 			throw new DeletarPedidoException(e);
 		}
+	}
+	
+	@Override
+	public boolean verificaPedidoFinalizado(int cod)throws VerificaPedidoFinalizadoException{
+		String comando = "SELECT p.codpedido, pp.estagio_pedido FROM pedido p"
+				+ " inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido"
+				+ "	inner join produto pr on pr.codproduto = pp.produto_codproduto"
+				+ "	WHERE pp.estagio_pedido != 3 AND p.codpedido ="+cod; 
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			return rs.next() ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new VerificaPedidoFinalizadoException(e.getMessage());
+		}
+	}
+	
+	public void finalizaPedidoAll(int cod)throws finalizaPedidoAllException{
+		String comando ="";
 	}
 }

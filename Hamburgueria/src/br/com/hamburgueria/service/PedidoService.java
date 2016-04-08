@@ -102,6 +102,10 @@ public class PedidoService {
 			}else{
 				throw new ValueZException();
 			}
+			if(jdbcPedido.verificaPedidoFinalizado(codpe) == false){
+				jdbcPedido.finalizaPedidoAll(codpe);
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{

@@ -7,6 +7,8 @@ import br.com.hamburgueria.exception.DeletarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
+import br.com.hamburgueria.exception.finalizaPedidoAllException;
 import br.com.hamburgueria.objs.ListaPedido;
 import br.com.hamburgueria.objs.Pedido;
 
@@ -25,5 +27,9 @@ public interface PedidoDAO {
 	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException;
 	
 	public void deletarPedido (int cod) throws DeletarPedidoException;
+	
+	public boolean verificaPedidoFinalizado(int cod)throws VerificaPedidoFinalizadoException;
+	
+	public void finalizaPedidoAll(int cod)throws finalizaPedidoAllException;
 	
 }
