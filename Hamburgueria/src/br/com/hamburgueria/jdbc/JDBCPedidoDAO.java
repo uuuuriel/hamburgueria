@@ -229,7 +229,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		String comando = "SELECT p.codpedido, pp.estagio_pedido FROM pedido p"
 				+ " inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido"
 				+ "	inner join produto pr on pr.codproduto = pp.produto_codproduto"
-				+ "	WHERE pp.estagio_pedido != 3 AND p.codpedido ="+cod; 
+				+ "	WHERE pp.estagio_pedido != 3 AND p.estagio_pedido_codestagio_pedido = 1 AND p.codpedido ="+cod; 
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
@@ -241,6 +241,14 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 	
 	public void finalizaPedidoAll(int cod)throws finalizaPedidoAllException{
-		String comando ="";
+			String comando = "UPDATE pedido SET estagio_pedido_codestagio_pedido = 3 WHERE codpedido=" + cod;
+		PreparedStatement p;
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.executeUpdate(comando);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new finalizaPedidoAllException(e.getMessage());
+		}
 	}
 }
