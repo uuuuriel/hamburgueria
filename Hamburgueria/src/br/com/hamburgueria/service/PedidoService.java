@@ -10,6 +10,7 @@ import br.com.hamburgueria.exception.DeletarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListaPedidoException;
+import br.com.hamburgueria.exception.PedidoEntregueException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
@@ -103,7 +104,7 @@ public class PedidoService {
 				throw new ValueZException();
 			}
 			if(jdbcPedido.verificaPedidoFinalizado(codpe) == false){
-				jdbcPedido.finalizaPedidoAll(codpe);
+				jdbcPedido.finalizaPedidoAll(codpe, 3);
 			}
 			
 		}catch(Exception e){
@@ -127,12 +128,12 @@ public class PedidoService {
 		}
 	}
 	
-	public void deletarPedido(int cod) throws DeletarPedidoException{
+	public void cancelarPedido(int cod, String cancelado) throws DeletarPedidoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			jdbcPedido.deletarPedido(cod);	
+			jdbcPedido.cancelarPedido(cod, cancelado);	
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new DeletarPedidoException();
@@ -140,5 +141,16 @@ public class PedidoService {
 			conec.fecharConexao();
 		}
 	}
-
+	
+	public void pedidoEntregue(int cod) throws PedidoEntregueException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			jdbcPedido.finalizaPedidoAll(cod, 4);
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new PedidoEntregueException();
+		}
+	}
 }

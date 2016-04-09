@@ -14,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -145,12 +146,12 @@ public class PedidoRest extends UtilRest{
 	}
 	
 	@DELETE
-	@Path("/deletarPedido/{cod}")
+	@Path("/deletarPedido/{cod}/{cancelado}")
 	@Consumes("application/*")
-	public Response deletar(@PathParam("cod") int cod) {
+	public Response deletar(@PathParam("cod") int cod, @QueryParam("cancelado") String cancelado) {
 		try{
 			PedidoService pedido = new PedidoService();
-			pedido.deletarPedido(cod);
+			pedido.cancelarPedido(cod, cancelado);
 			return this.buildResponse("Pedido deletado com sucesso.");
 		}catch(Exception e){
 			e.printStackTrace();

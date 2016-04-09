@@ -212,8 +212,8 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 
 	@Override
-	public void deletarPedido(int cod) throws DeletarPedidoException {
-		String comando = "DELETE FROM pedido WHERE codpedido = " + cod;
+	public void cancelarPedido(int cod,String cancelado) throws DeletarPedidoException {
+		String comando = "UPDATE pedido SET total = 0, cancelado = "+cancelado+" WHERE codpedido="+ cod;
 		Statement p;
 		try {
 			p = this.conexao.createStatement();
@@ -240,8 +240,8 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		}
 	}
 	
-	public void finalizaPedidoAll(int cod)throws finalizaPedidoAllException{
-			String comando = "UPDATE pedido SET estagio_pedido_codestagio_pedido = 3 WHERE codpedido=" + cod;
+	public void finalizaPedidoAll(int cod, int estagio)throws finalizaPedidoAllException{
+			String comando = "UPDATE pedido SET estagio_pedido_codestagio_pedido ="+estagio+" WHERE codpedido=" + cod;
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);

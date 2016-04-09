@@ -6,8 +6,14 @@ $(document).ready(function() {
 					success:function(data){
 						estagio = estagio + 1;
 						var html = "";
+						var background = "";
+						var a = 0;
 						for (var i = 0; i < data.length; i++) {
-							html += "<tr id='"+data[i].codProduto+data[i].codPedido+"'><td>" + data[i].codPedido + "</td>"
+							if(data[i].codPedido < 1){
+								a = data[i].codPedido;
+							}
+							background = data[i].codPedido == a ? "zebra": ""; 
+							html += "<tr class='"+background+"' id='"+data[i].codProduto+data[i].codPedido+"'><td>" + data[i].codPedido + "</td>"
 									+ "<td>" + data[i].nomeProduto + " - " + data[i].descricaoProduto + "</td>"
 									+ "<td>" + data[i].qtde + "</td>"
 									+ "<td><input onchange='HM.pedidos.mudaEstagio("+data[i].codProduto+","+data[i].codPedido+","+estagio+")' class='checkboxChange' type='checkbox' name='my-checkbox' id='inputCheck'"
@@ -17,6 +23,7 @@ $(document).ready(function() {
 								+ "<i class='glyphicon glyphicon-remove-sign' aria-hidden='true'></i></a>";
 							}
 							html += "</td></tr>";
+							a = data[i].codPedido;
 						}
 						$("tbody").append(html);
 						$.fn.bootstrapSwitch.defaults.onText = 'Go ->';

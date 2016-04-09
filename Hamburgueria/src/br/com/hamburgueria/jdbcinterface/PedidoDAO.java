@@ -26,10 +26,10 @@ public interface PedidoDAO {
 	
 	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException;
 	
-	public void deletarPedido (int cod) throws DeletarPedidoException;
+	public void cancelarPedido (int cod, String cancelar) throws DeletarPedidoException;
 	
 	public boolean verificaPedidoFinalizado(int cod)throws VerificaPedidoFinalizadoException;
 	
-	public void finalizaPedidoAll(int cod)throws finalizaPedidoAllException;
+	public void finalizaPedidoAll(int cod, int estagio)throws finalizaPedidoAllException;
 	
 }
