@@ -13,6 +13,7 @@ import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.RelatorioVendaException;
 import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
 import br.com.hamburgueria.exception.finalizaPedidoAllException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
@@ -249,6 +250,53 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new finalizaPedidoAllException(e.getMessage());
+		}
+	}
+	
+	public boolean verificaProdutoCancela(int cod) throws CancelarPedidoException{
+		String comando = "SELECT p.codpedido FROM pedido p "
+				+ "inner join pedido_produto pp on p.codpedido = pp.pedido_codpedido"
+				+ " WHERE p.codpedido ="+cod+" AND pp.estagio_pedido != 1";
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			return rs.next() ? false : true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CancelarPedidoException(e.getMessage());
+		}
+
+	}
+	
+	public void relatorioVenda(Date dataini, Date datafim) throws RelatorioVendaException{
+		//IMPLEMENTAR AS DATA COMO PARAMETRO NA CONSULTA
+		String comando = "SELECT p.*, c.nomecliente, count(pp.pedido_codpedido) as qtde,"
+				+ " f.nomefuncionario FROM pedido p inner join cliente c"
+				+ " on c.codcliente = p.cliente_codcliente inner join pedido_produto pp "
+				+ "on pp.pedido_codpedido = p.codpedido "
+				+ "inner join historico_funcionario hf on hf.pedido_codpedido = p.codpedido "
+				+ " inner join funcionario f on f.codfuncionario = hf.funcionario_codfuncionario "
+				+ "GROUP by p.codpedido";
+		List<ListaPedido> list = new ArrayList<ListaPedido>();
+		ListaPedido ped = null;
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				ped = new ListaPedido();
+				ped.setCodPedido(rs.getInt("codpedido"));
+				ped.setCancelado(rs.getString("cancelado"));
+				ped.setDataCompra(rs.getDate("data"));
+				ped.setNomeUsuario(rs.getString("nomecliente"));
+				ped.setValorTotal(rs.getFloat("total"));
+				ped.setCategoria(rs.getString("categoria"));
+				ped.setNomefuncionario(rs.getString("nomefuncionario"));
+				ped.setQtde(rs.getInt("qtde"));
+				list.add(ped);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new RelatorioVendaException(e.getMessage());
 		}
 	}
 }

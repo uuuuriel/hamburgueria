@@ -32,4 +32,6 @@ public interface PedidoDAO {
 	
 	public void finalizaPedidoAll(int cod, int estagio)throws finalizaPedidoAllException;
 	
+	public boolean verificaProdutoCancela(int cod) throws CancelarPedidoException;
+	
 }

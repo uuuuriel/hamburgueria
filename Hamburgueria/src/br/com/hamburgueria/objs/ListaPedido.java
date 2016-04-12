@@ -18,7 +18,14 @@ public class ListaPedido {
 	private float valorTotal;
 	private String nomeUsuario;
 	private int qtde;
+	private String nomefuncionario;
 	
+	public String getNomefuncionario() {
+		return nomefuncionario;
+	}
+	public void setNomefuncionario(String nomefuncionario) {
+		this.nomefuncionario = nomefuncionario;
+	}
 	public int getQtde() {
 		return qtde;
 	}

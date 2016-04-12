@@ -41,14 +41,41 @@ $(document).ready(function() {
 					size : 'small',
 					message : "Deseja cancelar o pedido?",
 					callback : function(result) {
-						if(result){
-							HM.pedidos.deletarPedido({
-								data:cod,
-								error:function(err){
-									console.log(err.responseText);
+						bootbox.dialog({
+							message: "<input type='text' name='cancel' id='cancel' class='form-control'/>",
+							title: "Motivo pelo cancelamento: <hr>",
+							size: 'small',
+							onEscape: function() {},
+							buttons: {
+								success: {
+									label: "Cancelar pedido",
+									className: "btn-success",
+									callback: function() {
+										HM.pedidos.deletarPedido({
+											data:cod,
+											cancelado: $("#cancel").val(),
+											success:function(data){
+												if(data != "success"){
+													bootbox.alert("Seu pedido já está em produção, não é mais possível cancelar.");
+												}else{
+													bootbox.alert("Seu pedido foi cancelado.");
+												}
+											},
+											error:function(err){
+												console.log(err.responseText);
+											}
+										})
+									}
+								},
+								danger: {
+									label: "Fechar",
+									className: "btn-danger",
+									callback: function() {
+										$(this).fadeOut(1000);
+									}
 								}
-							})
-						}
+							}
+						});
 					}
 				});
 			};

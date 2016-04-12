@@ -128,12 +128,17 @@ public class PedidoService {
 		}
 	}
 	
-	public void cancelarPedido(int cod, String cancelado) throws CancelarPedidoException{
+	public boolean cancelarPedido(int cod, String cancelado) throws CancelarPedidoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			jdbcPedido.cancelarPedido(cod, cancelado);	
+			if(jdbcPedido.verificaProdutoCancela(cod)){
+				jdbcPedido.cancelarPedido(cod, cancelado);
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new CancelarPedidoException();
