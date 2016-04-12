@@ -3,7 +3,7 @@ package br.com.hamburgueria.jdbcinterface;
 import java.util.Date;
 import java.util.List;
 
-import br.com.hamburgueria.exception.DeletarPedidoException;
+import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
@@ -26,7 +26,7 @@ public interface PedidoDAO {
 	
 	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException;
 	
-	public void cancelarPedido (int cod, String cancelar) throws DeletarPedidoException;
+	public void cancelarPedido (int cod, String cancelar) throws CancelarPedidoException;
 	
 	public boolean verificaPedidoFinalizado(int cod)throws VerificaPedidoFinalizadoException;
 	

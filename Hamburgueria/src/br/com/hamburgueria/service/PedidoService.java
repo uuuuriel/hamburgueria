@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import br.com.hamburgueria.bd.conexao.Conexao;
-import br.com.hamburgueria.exception.DeletarPedidoException;
+import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListaPedidoException;
@@ -128,7 +128,7 @@ public class PedidoService {
 		}
 	}
 	
-	public void cancelarPedido(int cod, String cancelado) throws DeletarPedidoException{
+	public void cancelarPedido(int cod, String cancelado) throws CancelarPedidoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -136,7 +136,7 @@ public class PedidoService {
 			jdbcPedido.cancelarPedido(cod, cancelado);	
 		}catch(Exception e){
 			e.printStackTrace();
-			throw new DeletarPedidoException();
+			throw new CancelarPedidoException();
 		}finally{
 			conec.fecharConexao();
 		}

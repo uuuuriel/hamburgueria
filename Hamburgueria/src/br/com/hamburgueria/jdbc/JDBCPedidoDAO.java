@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.hamburgueria.exception.DeletarPedidoException;
+import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
@@ -212,7 +212,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 
 	@Override
-	public void cancelarPedido(int cod,String cancelado) throws DeletarPedidoException {
+	public void cancelarPedido(int cod,String cancelado) throws CancelarPedidoException {
 		String comando = "UPDATE pedido SET total = 0, cancelado = "+cancelado+" WHERE codpedido="+ cod;
 		Statement p;
 		try {
@@ -220,7 +220,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			p.execute(comando);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DeletarPedidoException(e);
+			throw new CancelarPedidoException(e);
 		}
 	}
 	
