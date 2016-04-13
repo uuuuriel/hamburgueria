@@ -9,10 +9,7 @@ $(document).ready(function() {
 						var background = "";
 						var a = 0;
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].codPedido < 1){
-								a = data[i].codPedido;
-							}
-							background = data[i].codPedido == a ? "zebra": ""; 
+
 							html += "<tr class='"+background+"' id='"+data[i].codProduto+data[i].codPedido+"'><td>" + data[i].codPedido + "</td>"
 									+ "<td>" + data[i].nomeProduto + " - " + data[i].descricaoProduto + "</td>"
 									+ "<td>" + data[i].qtde + "</td>"
@@ -23,7 +20,6 @@ $(document).ready(function() {
 								+ "<i class='glyphicon glyphicon-remove-sign' aria-hidden='true'></i></a>";
 							}
 							html += "</td></tr>";
-							a = data[i].codPedido;
 						}
 						$("tbody").append(html);
 						$.fn.bootstrapSwitch.defaults.onText = 'Go ->';
@@ -41,41 +37,43 @@ $(document).ready(function() {
 					size : 'small',
 					message : "Deseja cancelar o pedido?",
 					callback : function(result) {
-						bootbox.dialog({
-							message: "<input type='text' name='cancel' id='cancel' class='form-control'/>",
-							title: "Motivo pelo cancelamento: <hr>",
-							size: 'small',
-							onEscape: function() {},
-							buttons: {
-								success: {
-									label: "Cancelar pedido",
-									className: "btn-success",
-									callback: function() {
-										HM.pedidos.deletarPedido({
-											data:cod,
-											cancelado: $("#cancel").val(),
-											success:function(data){
-												if(data != "success"){
-													bootbox.alert("Seu pedido já está em produção, não é mais possível cancelar.");
-												}else{
-													bootbox.alert("Seu pedido foi cancelado.");
+						if(result){
+							bootbox.dialog({
+								message: "<input type='text' name='cancel' id='cancel' class='form-control'/>",
+								title: "Motivo pelo cancelamento: <hr>",
+								size: 'small',
+								onEscape: function() {},
+								buttons: {
+									success: {
+										label: "Cancelar pedido",
+										className: "btn-success",
+										callback: function() {
+											HM.pedidos.deletarPedido({
+												data:cod,
+												cancelado: $("#cancel").val(),
+												success:function(data){
+													if(data != "success"){
+														bootbox.alert("Seu pedido já está em produção, não é mais possível cancelar.");
+													}else{
+														bootbox.alert("Seu pedido foi cancelado.");
+													}
+												},
+												error:function(err){
+													console.log(err.responseText);
 												}
-											},
-											error:function(err){
-												console.log(err.responseText);
-											}
-										})
-									}
-								},
-								danger: {
-									label: "Fechar",
-									className: "btn-danger",
-									callback: function() {
-										$(this).fadeOut(1000);
+											})
+										}
+									},
+									danger: {
+										label: "Fechar",
+										className: "btn-danger",
+										callback: function() {
+											$(this).fadeOut(1000);
+										}
 									}
 								}
-							}
-						});
+							});
+						}
 					}
 				});
 			};

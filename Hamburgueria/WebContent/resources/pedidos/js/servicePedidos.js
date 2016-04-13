@@ -55,6 +55,7 @@ $(document).ready(function() {
 					})
 				},
 				deletarPedido : function(cfg){
+					console.log(cfg);
 					HM.ajax.DELETE({
 						url: "rest/Pedido/cancelarPedido/"+cfg.data+"/"+cfg.cancelado,
 						success:function(succ){

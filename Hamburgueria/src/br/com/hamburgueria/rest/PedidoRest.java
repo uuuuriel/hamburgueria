@@ -148,7 +148,7 @@ public class PedidoRest extends UtilRest{
 	@DELETE
 	@Path("/cancelarPedido/{cod}/{cancelado}")
 	@Consumes("application/*")
-	public Response deletar(@PathParam("cod") int cod, @QueryParam("cancelado") String cancelado) {
+	public Response deletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) {
 		try{
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.cancelarPedido(cod, cancelado) ? "success" : "");
