@@ -10,6 +10,7 @@ import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListaPedidoException;
+import br.com.hamburgueria.exception.ListarPedidoEntregaException;
 import br.com.hamburgueria.exception.PedidoEntregueException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
@@ -17,7 +18,8 @@ import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.objs.ClienteNovo;
-import br.com.hamburgueria.objs.ListaPedido;
+import br.com.hamburgueria.objs.ListaPedidoVO;
+import br.com.hamburgueria.objs.ListaVO;
 import br.com.hamburgueria.objs.Pedido;
 
 public class PedidoService {
@@ -48,8 +50,6 @@ public class PedidoService {
 			for (int i = 0; i < quebra.length; i++) {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
-		}catch(Exception e){
-			e.printStackTrace();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -72,14 +72,12 @@ public class PedidoService {
 			for (int i = 0; i < quebra.length; i++) {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
-		}catch(Exception e){
-			e.printStackTrace();
 		}finally{
 			conec.fecharConexao();
 		}
 	}
 	
-	public List<ListaPedido> listarPedidos(String busca, Date dataini, Date datafim, int cod) throws ListaPedidoException{
+	public List<ListaPedidoVO> listarPedidos(String busca, Date dataini, Date datafim, int cod) throws ListaPedidoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -104,7 +102,7 @@ public class PedidoService {
 				throw new ValueZException();
 			}
 			if(jdbcPedido.verificaPedidoFinalizado(codpe) == false){
-				jdbcPedido.finalizaPedidoAll(codpe, 3);
+				jdbcPedido.finalizaPedidoAll(codpe, 4);
 			}
 			
 		}catch(Exception e){
@@ -114,7 +112,7 @@ public class PedidoService {
 		}
 	}
 	
-	public List<ListaPedido> listarProdutosEstagio(int cod) throws ListaPedidoException{
+	public List<ListaPedidoVO> listarProdutosEstagio(int cod) throws ListaPedidoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -147,12 +145,28 @@ public class PedidoService {
 		}
 	}
 	
+	public List<ListaPedidoVO> listarPedidoEntrega() throws  ListarPedidoEntregaException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			ListaVO lista = new ListaVO();
+			for(ListaPedidoVO list : jdbcPedido.listarPedidoEntrega()){
+			    
+			}
+			return null;
+		}catch(ListarPedidoEntregaException e){
+			e.printStackTrace();
+			throw new ListarPedidoEntregaException();
+		}
+	}
+	
 	public void pedidoEntregue(int cod) throws PedidoEntregueException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			jdbcPedido.finalizaPedidoAll(cod, 4);
+			jdbcPedido.finalizaPedidoAll(cod, 5);
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new PedidoEntregueException();

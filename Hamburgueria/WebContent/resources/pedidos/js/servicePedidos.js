@@ -84,6 +84,36 @@ $(document).ready(function() {
 							}
 						}
 					})
+				},
+				pedidoEntregue : function (cfg){
+					HM.ajax.post({
+						url : "rest/Pedido/pedidoEntrega"+cfg.data,
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cfg.error){
+								cfg.error(err);
+							}
+						}
+					})
+				},
+				listarPedidoEntregue : function (cfg){
+					HM.ajax.get({
+						url:"rest/Pedido/listarPedidoEntrega",
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg & cfg.error){
+								cfg.error(err);
+							}
+						}
+					})
 				}
 			};
 		});

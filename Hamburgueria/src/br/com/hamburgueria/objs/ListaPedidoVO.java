@@ -2,10 +2,10 @@ package br.com.hamburgueria.objs;
 
 import java.util.Date;
 
-public class ListaPedido {
-	private int codPedido;
-	private int codProduto;
-	private int codCliente;
+public class ListaPedidoVO {
+	private int codigoPedido;
+	private int codigoProduto;
+	private int codigoCliente;
 	private Date dataCompra;
 	private float valorProduto;
 	private String nomeProduto;
@@ -13,11 +13,11 @@ public class ListaPedido {
 	private String cancelado;
 	private String anexo;
 	private String categoria;
-	private String estagio_produto;
+	private String estagioProduto;
 	private int entrega;
 	private float valorTotal;
 	private String nomeUsuario;
-	private int qtde;
+	private int quantidade;
 	private String nomefuncionario;
 	
 	public String getNomefuncionario() {
@@ -27,28 +27,28 @@ public class ListaPedido {
 		this.nomefuncionario = nomefuncionario;
 	}
 	public int getQtde() {
-		return qtde;
+		return quantidade;
 	}
 	public void setQtde(int qtde) {
-		this.qtde = qtde;
+		this.quantidade = qtde;
 	}
 	public int getCodPedido() {
-		return codPedido;
+		return codigoPedido;
 	}
 	public void setCodPedido(int codPedido) {
-		this.codPedido = codPedido;
+		this.codigoPedido = codPedido;
 	}
 	public int getCodProduto() {
-		return codProduto;
+		return codigoProduto;
 	}
 	public void setCodProduto(int codProduto) {
-		this.codProduto = codProduto;
+		this.codigoProduto = codProduto;
 	}
 	public int getCodCliente() {
-		return codCliente;
+		return codigoCliente;
 	}
 	public void setCodCliente(int codCliente) {
-		this.codCliente = codCliente;
+		this.codigoCliente = codCliente;
 	}
 	public Date getDataCompra() {
 		return dataCompra;
@@ -93,10 +93,10 @@ public class ListaPedido {
 		this.categoria = categoria;
 	}
 	public String getEstagio_produto() {
-		return estagio_produto;
+		return estagioProduto;
 	}
 	public void setEstagio_produto(String estagio_produto) {
-		this.estagio_produto = estagio_produto;
+		this.estagioProduto = estagio_produto;
 	}
 	public int getEntrega() {
 		return entrega;

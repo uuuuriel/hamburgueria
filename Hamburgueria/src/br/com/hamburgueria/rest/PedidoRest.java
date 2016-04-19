@@ -173,4 +173,31 @@ public class PedidoRest extends UtilRest{
 		
 	}
 	
+	@GET
+	@Path("/listarPedidoEntrega/")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response listarPedidoEntrega(){
+		try{
+			PedidoService pedido = new PedidoService();
+			return this.buildResponse(pedido.listarPedidoEntrega());
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
+	}
+	
+	@POST
+	@Path("/pedidoEntrega/{cod}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response pedidoEntrega(@PathParam("cod")int cod){
+		try{
+			PedidoService pedido = new PedidoService();
+			pedido.pedidoEntregue(cod);
+			return this.buildResponse("Pedido entregue.");
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
+	}
+	
 }

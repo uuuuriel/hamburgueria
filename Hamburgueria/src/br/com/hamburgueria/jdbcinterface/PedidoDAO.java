@@ -10,7 +10,7 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListarPedidoEntregaException;
 import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
 import br.com.hamburgueria.exception.finalizaPedidoAllException;
-import br.com.hamburgueria.objs.ListaPedido;
+import br.com.hamburgueria.objs.ListaPedidoVO;
 import br.com.hamburgueria.objs.Pedido;
 
 public interface PedidoDAO {
@@ -21,11 +21,11 @@ public interface PedidoDAO {
 
 	public void setPedidoFuncionario(int codfuncionario, int codpedido) throws HamburgueriaException;
 
-	public List<ListaPedido> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException;
+	public List<ListaPedidoVO> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException;
 	
 	public void atualizaEstagioPedido (int estagio, int codpe, int codpr) throws EstagioPedidoException;
 	
-	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException;
+	public List<ListaPedidoVO> listarProdutoEstagio(int cod) throws EstagioProdutoException;
 	
 	public void cancelarPedido (int cod, String cancelar) throws CancelarPedidoException;
 	
@@ -35,6 +35,6 @@ public interface PedidoDAO {
 	
 	public boolean verificaProdutoCancela(int cod) throws CancelarPedidoException;
 	
-	public List<ListaPedido> listarPedidoEntrega(int cod) throws ListarPedidoEntregaException;
+	public List<ListaPedidoVO> listarPedidoEntrega() throws ListarPedidoEntregaException;
 	
 }

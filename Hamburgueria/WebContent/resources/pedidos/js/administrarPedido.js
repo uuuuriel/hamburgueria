@@ -91,5 +91,4 @@ $(document).ready(function() {
 				})
 				$('#'+codproduto+codpedido+'').fadeOut(1000);
 			};
-
 		});

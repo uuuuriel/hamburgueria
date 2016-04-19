@@ -18,7 +18,7 @@ import br.com.hamburgueria.exception.RelatorioVendaException;
 import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
 import br.com.hamburgueria.exception.finalizaPedidoAllException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
-import br.com.hamburgueria.objs.ListaPedido;
+import br.com.hamburgueria.objs.ListaPedidoVO;
 import br.com.hamburgueria.objs.Pedido;
 
 public class JDBCPedidoDAO implements PedidoDAO {
@@ -70,7 +70,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		return pedido;
 	}
 	
-	public List<ListaPedido> buscarPedido(String nome)  throws HamburgueriaException{
+	public List<ListaPedidoVO> buscarPedido(String nome)  throws HamburgueriaException{
 		String comando = "SELECT pe.codpedido, pe.cliente_codcliente as codcliente, pe.funcionario_codfuncionario, "
 				+ "pe.data, pr.valor,"
 				+ " pr.nomeproduto, pr.descricao, pr.cancelamento, pr.anexo, pr.categoria, pr.codproduto,"
@@ -81,13 +81,13 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		if (!nome.equals("")) {
 			comando += "where pe.cliente_codcliente like '" + nome + "%'";
 		}
-		List<ListaPedido> list = new ArrayList<ListaPedido>();
-		ListaPedido produt = null;
+		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
+		ListaPedidoVO produt = null;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				produt = new ListaPedido();
+				produt = new ListaPedidoVO();
 				produt.setCancelado(rs.getString("cancelamento"));
 				produt.setCategoria(rs.getString("categoria"));
 				produt.setCodCliente(rs.getInt("codcliente"));
@@ -126,7 +126,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 	
 	@Override
-	public List<ListaPedido> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException{
+	public List<ListaPedidoVO> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException{
 		String comando = "select p.*, pr.*, ep.estagio as estagio, cl.nomecliente from pedido p"
 				+ " inner join pedido_produto pp on p.codpedido = pp.pedido_codpedido"
 				+ " inner join produto pr on pr.codproduto = pp.produto_codproduto"
@@ -135,18 +135,18 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		if (!dataini.equals("")) {
 			comando += " where (data between '" + dataini + "' and '" + datafim + "')"
 					+ " and (pr.nomeproduto like '%" + busca + "%' or pr.descricao like '%" + busca + "%'"
-					+ " or cl.nomecliente like '%"+ busca +"%')";
+					+ " or cl.nomecliente like '%"+ busca +"%') AND p.estagio_pedido_codestagio_pedido = 5";
 					if (codcliente != 0) {
 						comando += " and cliente_codcliente = "+codcliente;
 					}
 		}
-		List<ListaPedido> list = new ArrayList<ListaPedido>();
-		ListaPedido ped = null;
+		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
+		ListaPedidoVO ped = null;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				ped = new ListaPedido();
+				ped = new ListaPedidoVO();
 				ped.setCancelado(rs.getString("cancelado"));
 				ped.setCodCliente(rs.getInt("cliente_codcliente"));
 				ped.setCodPedido(rs.getInt("codpedido"));
@@ -168,20 +168,20 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 	
 	@Override
-	public List<ListaPedido> listarProdutoEstagio(int cod) throws EstagioProdutoException{
+	public List<ListaPedidoVO> listarProdutoEstagio(int cod) throws EstagioProdutoException{
 		String comando = "SELECT ped.codpedido, prod.codproduto, prod.nomeproduto, prod.descricao, prod.valor,"
 				+ " prod.categoria, ped_prod.estagio_pedido, count(ped_prod.produto_codproduto) as qtde FROM pedido ped"
 				+ " inner join pedido_produto ped_prod on ped_prod.pedido_codpedido = ped.codpedido"
 				+ " inner join produto prod on prod.codproduto = ped_prod.produto_codproduto "
 				+ " WHERE ped_prod.estagio_pedido ="+cod+ " "
 						+ " AND ped.cancelado is null GROUP BY ped_prod.pedido_codpedido,ped_prod.produto_codproduto";
-		List<ListaPedido> list = new ArrayList<ListaPedido>();
-		ListaPedido ped = null;
+		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
+		ListaPedidoVO ped = null;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				ped = new ListaPedido();
+				ped = new ListaPedidoVO();
 				ped.setCodPedido(rs.getInt("codpedido"));
 				ped.setCodProduto(rs.getInt("codproduto"));
 				ped.setNomeProduto(rs.getString("nomeproduto"));
@@ -272,6 +272,30 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		}
 
 	}
+
+	@Override
+	public List<ListaPedidoVO> listarPedidoEntrega() throws ListarPedidoEntregaException{
+		String comando = "SELECT p.*, pr.*, count(pp.produto_codproduto) as qtde FROM pedido p "
+				+ "inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido "
+				+ "inner join produto pr on pr.codproduto = pp.produto_codproduto "
+				+ "WHERE p.estagio_pedido_codestagio_pedido = 4 GROUP BY pp.pedido_codpedido, pp.produto_codproduto";
+		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
+		ListaPedidoVO ped = null;
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				ped = new ListaPedidoVO();
+				
+				list.add(ped);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ListarPedidoEntregaException(e.getMessage());
+		}
+		
+		return list;	
+	} 
 	
 	public void relatorioVenda(Date dataini, Date datafim) throws RelatorioVendaException{
 		//IMPLEMENTAR A DATA COMO PARAMETRO NA CONSULTA
@@ -282,13 +306,13 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				+ "inner join historico_funcionario hf on hf.pedido_codpedido = p.codpedido "
 				+ " inner join funcionario f on f.codfuncionario = hf.funcionario_codfuncionario "
 				+ "GROUP by p.codpedido";
-		List<ListaPedido> list = new ArrayList<ListaPedido>();
-		ListaPedido ped = null;
+		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
+		ListaPedidoVO ped = null;
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
-				ped = new ListaPedido();
+				ped = new ListaPedidoVO();
 				ped.setCodPedido(rs.getInt("codpedido"));
 				ped.setCancelado(rs.getString("cancelado"));
 				ped.setDataCompra(rs.getDate("data"));
@@ -305,23 +329,4 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		}
 	}
 	
-	@Override
-	public List<ListaPedido> listarPedidoEntrega(int cod) throws ListarPedidoEntregaException{
-		String comando = "";
-		List<ListaPedido> list = new ArrayList<ListaPedido>();
-		ListaPedido ped = null;
-		try {
-			java.sql.Statement stmt = conexao.createStatement();
-			ResultSet rs = stmt.executeQuery(comando);
-			while (rs.next()) {
-				ped = new ListaPedido();
-				list.add(ped);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ListarPedidoEntregaException(e.getMessage());
-		}
-		
-		return list;	
-	} 
 }
