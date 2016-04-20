@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.hamburgueria.exception.CalculaValorException;
 import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListarPedidoEntregaException;
 import br.com.hamburgueria.exception.RelatorioVendaException;
+import br.com.hamburgueria.exception.ValorTotalException;
 import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
 import br.com.hamburgueria.exception.finalizaPedidoAllException;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
@@ -68,6 +70,30 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			e.printStackTrace();
 		}
 		return pedido;
+	}
+	
+	public float calculaValor(int cod) throws CalculaValorException{
+		String comando = "SELECT valor, codproduto FROM produto WHERE codproduto ="+cod; 
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			return rs.next() ? rs.getFloat("valor") : 0;
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new CalculaValorException();
+		}
+	}
+	
+	public void setValorTotalPedido(int cod, float total) throws ValorTotalException{
+		String comando = "UPDATE pedido SET total = ? WHERE codpedido ="+cod;
+		PreparedStatement p;
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.setFloat(1, total);
+			p.executeUpdate();
+		} catch (SQLException e) {
+			throw new ValorTotalException(e);
+		}
 	}
 	
 	public List<ListaPedidoVO> buscarPedido(String nome)  throws HamburgueriaException{
@@ -286,7 +312,14 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
 				ped = new ListaPedidoVO();
-				
+				ped.setCodPedido(rs.getInt("codpedido"));
+				ped.setCodProduto(rs.getInt("codproduto"));
+				ped.setNomeProduto(rs.getString("nomeproduto"));
+				ped.setDescricaoProduto(rs.getString("descricao"));
+				ped.setValorProduto(rs.getFloat("valor"));
+				ped.setCategoria(rs.getString("categoria"));
+				ped.setValorTotal(rs.getInt("total"));
+				ped.setQtde(rs.getInt("qtde"));
 				list.add(ped);
 			}
 		} catch (SQLException e) {

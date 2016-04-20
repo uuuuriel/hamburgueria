@@ -6,6 +6,7 @@ import java.util.List;
 public class ListaVO {
 	
 	private int codigoPedido;
+	private List<ListaPedidoVO> list = new ArrayList();
 	
 	public int getCodigoPedido() {
 		return codigoPedido;
@@ -14,8 +15,6 @@ public class ListaVO {
 	public void setCodigoPedido(int codigoPedido) {
 		this.codigoPedido = codigoPedido;
 	}
-
-	List<ListaPedidoVO> list = new ArrayList();
 
 	public List<ListaPedidoVO> getList() {
 		return list;

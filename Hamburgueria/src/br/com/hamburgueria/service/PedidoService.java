@@ -2,6 +2,7 @@ package br.com.hamburgueria.service;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -47,9 +48,12 @@ public class PedidoService {
 			ped = jdbcPedido.setPedidoCliente(ped);	
 			jdbcPedido.setPedidoFuncionario(ped.getCodfunc(), ped.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
+			float total = 0;
 			for (int i = 0; i < quebra.length; i++) {
+				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
+			jdbcPedido.setValorTotalPedido(ped.getCodpedido(), total);
 		}finally{
 			conec.fecharConexao();
 		}
@@ -84,7 +88,6 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			return jdbcPedido.listar(busca, dataini, datafim, cod);		
 		}catch(Exception e){
-			e.printStackTrace();
 			throw new ListaPedidoException();
 		}finally{
 			conec.fecharConexao();
@@ -106,7 +109,7 @@ public class PedidoService {
 			}
 			
 		}catch(Exception e){
-			e.printStackTrace();
+			throw new EstagioPedidoException();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -119,7 +122,6 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			return jdbcPedido.listarProdutoEstagio(cod);		
 		}catch(Exception e){
-			e.printStackTrace();
 			throw new ListaPedidoException();
 		}finally{
 			conec.fecharConexao();
@@ -145,19 +147,34 @@ public class PedidoService {
 		}
 	}
 	
-	public List<ListaPedidoVO> listarPedidoEntrega() throws  ListarPedidoEntregaException{
+	public List<ListaVO> listarPedidoEntrega() throws  ListarPedidoEntregaException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			ListaVO lista = new ListaVO();
-			for(ListaPedidoVO list : jdbcPedido.listarPedidoEntrega()){
-			    
+			List<ListaVO> listaPedido = new ArrayList<ListaVO>();
+			boolean firsttime = true;
+			List<ListaPedidoVO> listPedido = jdbcPedido.listarPedidoEntrega();
+			for(ListaPedidoVO pedidos : listPedido){
+				ListaVO listaVO = new ListaVO();
+				if(firsttime){
+				   	listaVO.setCodigoPedido(pedidos.getCodPedido());
+				  	listaVO.getList().add(pedidos);
+			   	}
+			   	if (listaVO.getCodigoPedido() == pedidos.getCodPedido()) {
+				  	listaVO.getList().add(pedidos);
+			  	}else{
+			  		listaVO.setCodigoPedido(pedidos.getCodPedido());
+			  		listaVO.getList().add(pedidos);
+	  		 	}
+			 	firsttime = false;
 			}
-			return null;
+			return listaPedido;
 		}catch(ListarPedidoEntregaException e){
 			e.printStackTrace();
 			throw new ListarPedidoEntregaException();
+		}finally{
+			conec.fecharConexao();
 		}
 	}
 	
@@ -168,8 +185,9 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			jdbcPedido.finalizaPedidoAll(cod, 5);
 		}catch(Exception e){
-			e.printStackTrace();
 			throw new PedidoEntregueException();
+		}finally{
+			conec.fecharConexao();
 		}
 	}
 }

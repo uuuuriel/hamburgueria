@@ -3,11 +3,13 @@ package br.com.hamburgueria.jdbcinterface;
 import java.util.Date;
 import java.util.List;
 
+import br.com.hamburgueria.exception.CalculaValorException;
 import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListarPedidoEntregaException;
+import br.com.hamburgueria.exception.ValorTotalException;
 import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
 import br.com.hamburgueria.exception.finalizaPedidoAllException;
 import br.com.hamburgueria.objs.ListaPedidoVO;
@@ -36,5 +38,9 @@ public interface PedidoDAO {
 	public boolean verificaProdutoCancela(int cod) throws CancelarPedidoException;
 	
 	public List<ListaPedidoVO> listarPedidoEntrega() throws ListarPedidoEntregaException;
+	
+	public float calculaValor(int cod) throws CalculaValorException;
+	
+	public void setValorTotalPedido(int cod, float total) throws ValorTotalException;
 	
 }
