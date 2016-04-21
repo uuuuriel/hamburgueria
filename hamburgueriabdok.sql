@@ -331,7 +331,7 @@ CREATE TABLE `taxas` (
   `codtaxas` int(6) NOT NULL,
   `nometaxa` varchar(45) DEFAULT NULL,
   `descricao` varchar(45) DEFAULT NULL,
-  `valor` int(7) DEFAULT NULL,
+  `valor` float DEFAULT NULL,
   PRIMARY KEY (`codtaxas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -355,4 +355,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-19 21:53:03
+-- Dump completed on 2016-04-20 20:32:12

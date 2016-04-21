@@ -17,7 +17,6 @@ $(document).ready(function(){
 							+ "<td><button type='button' class='btn btn-primary' onclick='HM.taxa.atualize(" + i  + ")'>atualizar</button></td></tr>";
 				}
 				$("table tbody").html(html);
-				$(".valor").mask('000.000.000.000.000,00', {reverse: true});
 			},
 			error:function(err){
 				console.log(err.responseText());
@@ -27,7 +26,7 @@ $(document).ready(function(){
 	
 	HM.taxa.atualize = function(cod){
 		HM.taxa.atualizar({
-			data: JSON.stringify({'cod': cod , 'valor': $("#valor"+cod).val().replace(",",".")}),
+			data: JSON.stringify({'cod': cod , 'valor': $("#valor"+cod).val()}),
 			success:function(succ){
 				console.log(succ);
 			},

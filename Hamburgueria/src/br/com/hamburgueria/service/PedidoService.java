@@ -16,8 +16,10 @@ import br.com.hamburgueria.exception.PedidoEntregueException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
+import br.com.hamburgueria.jdbc.JDBCTaxaDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
+import br.com.hamburgueria.jdbcinterface.TaxaDAO;
 import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.ListaPedidoVO;
 import br.com.hamburgueria.objs.ListaVO;
@@ -32,9 +34,13 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			ped = jdbcPedido.setPedidoCliente(ped);			
 			String quebra[] = array.split(Pattern.quote(","));
+			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
+			float total = jdbcTaxa.taxaEntrega().getValor();
 			for (int i = 0; i < quebra.length; i++) {
+				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
+			jdbcPedido.setValorTotalPedido(ped.getCodpedido(), total);
 		}finally{
 			conec.fecharConexao();
 		}
@@ -48,7 +54,8 @@ public class PedidoService {
 			ped = jdbcPedido.setPedidoCliente(ped);	
 			jdbcPedido.setPedidoFuncionario(ped.getCodfunc(), ped.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
-			float total = 0;
+			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
+			float total = jdbcTaxa.taxaEntrega().getValor();
 			for (int i = 0; i < quebra.length; i++) {
 				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
@@ -73,9 +80,13 @@ public class PedidoService {
 			ped = jdbcPedido.setPedidoCliente(ped);
 			jdbcPedido.setPedidoFuncionario(user.getCodfunc(), ped.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
+			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
+			float total = jdbcTaxa.taxaEntrega().getValor();
 			for (int i = 0; i < quebra.length; i++) {
+				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
+			jdbcPedido.setValorTotalPedido(ped.getCodpedido(), total);
 		}finally{
 			conec.fecharConexao();
 		}
@@ -153,21 +164,16 @@ public class PedidoService {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			List<ListaVO> listaPedido = new ArrayList<ListaVO>();
-			boolean firsttime = true;
 			List<ListaPedidoVO> listPedido = jdbcPedido.listarPedidoEntrega();
-			for(ListaPedidoVO pedidos : listPedido){
-				ListaVO listaVO = new ListaVO();
-				if(firsttime){
-				   	listaVO.setCodigoPedido(pedidos.getCodPedido());
-				  	listaVO.getList().add(pedidos);
-			   	}
-			   	if (listaVO.getCodigoPedido() == pedidos.getCodPedido()) {
-				  	listaVO.getList().add(pedidos);
-			  	}else{
-			  		listaVO.setCodigoPedido(pedidos.getCodPedido());
-			  		listaVO.getList().add(pedidos);
-	  		 	}
-			 	firsttime = false;
+			
+			ListaVO lastVO = new ListaVO();
+			for(ListaPedidoVO pedido : listPedido){
+				if ( pedido.getCodPedido() != lastVO.getCodigoPedido() ) {
+					lastVO = new ListaVO();
+					lastVO.setCodigoPedido(pedido.getCodPedido());
+				 	listaPedido.add(lastVO);
+				}
+				lastVO.getList().add(pedido);
 			}
 			return listaPedido;
 		}catch(ListarPedidoEntregaException e){

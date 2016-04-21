@@ -5,7 +5,7 @@ public class Taxa {
 	private int cod;
 	private String descricao;
 	private String nome;
-	private double valor;
+	private float valor;
 	
 	public int getCod() {
 		return cod;
@@ -25,10 +25,10 @@ public class Taxa {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public double getValor() {
+	public float getValor() {
 		return valor;
 	}
-	public void setValor(double valor) {
+	public void setValor(float valor) {
 		this.valor = valor;
 	}
 }

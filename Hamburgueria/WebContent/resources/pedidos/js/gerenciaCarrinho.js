@@ -89,10 +89,12 @@ $(document).ready(function(){
 		});
 	}
 	HM.produto.exibeValor = function (){
-		$("#valueTotal").hide();
+		$("#retiradaBalcao").show();
+		$("#teleEntrega").hide();
 	}
 	HM.produto.esconde = function(){
-		$("#valueTotal").fadeIn(3000);
+		$("#teleEntrega").show();
+		$("#retiradaBalcao").hide();
 	}
 	
 	HM.cidade.change = function(){
@@ -131,157 +133,162 @@ $(document).ready(function(){
 				});
 			}
 		}
-		var newData = {};
-		msg += "</table><span id='valueTotal'  style='display:none'><h1><strong>TOTAL  R$ "+ total.toFixed(2) +" </strong></h1>";
-		bootbox.dialog({
-			message: "<div>" +msg+" </div>"
-			+ "Retirada balcão <input type='radio' id='entrega' name='entrega' value='2' checked onchange='HM.produto.exibeValor()'/><br/>"
-			+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega' onchange='HM.produto.esconde()'/>",
-			title: "Pedidos<hr>",
-			size: 'small',
-			onEscape: function() {},
-			buttons: {
-				success: {
-					label: "Continuar",
-					className: "btn-success",
-					callback: function() {
-						newData.codtaxa = $('input[name="entrega"]:checked').val();
-						$(this).fadeOut();
-						if (HM.sessao('funcionario') == 1) {
-							HM.cidade.listar({
-								async : false,
-								success : function(data) {
-										var html = "";
-										for ( var i = 0; i < data.length; i++) {
-											html += "<option value='"+ data[i].cod+ "'>"+ data[i].cidade+ "</option>";
-										}
-										$("#cidade").html(html);
-									},
-									error:function(err){
-										bootbox.alert(err.responseText);
-									}
-								});
-							HM.usuario.exibir({
-								data: "",
-								success : function(data) {
-									var availableTags = [];
-									for (var i = 0; i < data.length; i++) {
-										availableTags.push(
-												{
-													value: data[i].nome,
-													label:data[i].nome,
-													codigo: data[i].cod,
-													telefone: data[i].telefone,
-													cep: data[i].cep,
-													bairro: data[i].bairro,
-													rua: data[i].rua,
-													numero: data[i].numero,
-													cidade: data[i].cidade
+		HM.taxa.entrega({
+			success:function(entrega){
+				var newData = {};
+				msg += "</table><span><h1><strong>TOTAL  R$ <span  id='teleEntrega' style='display:none;'>"+ (total+entrega.valor).toFixed(2) +"</span> <span id='retiradaBalcao' style='display:none;'>"+ total.toFixed(2) +"</span></strong></h1>";
+				bootbox.dialog({
+					message: "<div>" +msg+" </div>"
+					+ "Retirada balcão <input type='radio' id='entrega' name='entrega' value='2' onclick='HM.produto.exibeValor()'/><br/>"
+					+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega' onclick='HM.produto.esconde()'/>",
+					title: "Pedidos<hr>",
+					size: 'small',
+					onEscape: function() {},
+					buttons: {
+						success: {
+							label: "Continuar",
+							className: "btn-success",
+							callback: function() {
+								newData.codtaxa = $('input[name="entrega"]:checked').val();
+								$(this).fadeOut();
+								if (HM.sessao('funcionario') == 1) {
+									HM.cidade.listar({
+										async : false,
+										success : function(data) {
+												var html = "";
+												for ( var i = 0; i < data.length; i++) {
+													html += "<option value='"+ data[i].cod+ "'>"+ data[i].cidade+ "</option>";
 												}
-											);
-									}
-								    $( "#tags" ).autocomplete({
-								      source: availableTags,								      
-								      select: function(event, ui) {
-								    	  $("#cidade").val(ui.item.cidade);
-								    	  HM.bairro.listar({
-								  			data: $('#cidade').val(),
-								  			success:function(data){
-									  				var html = "";
-									  				for ( var i = 0; i < data.length; i++) {
-									  					html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
-									  				}
-									  				$("#bairro").html(html);
-									  				$("#bairro").val(ui.item.bairro);
-									  			},
-									  			error:function(err){
-									  				bootbox.alert(err.responseText);
-									  			}
-								  			});
-								    	  $(".disableds").attr("disabled","disabled");
-								    	  $("#cod").val(ui.item.codigo);
-								    	  $("#telefone").val(ui.item.telefone);
-								    	  $("#cep").val(ui.item.cep);
-								    	  $("#rua").val(ui.item.rua);
-								    	  $("#numero").val(ui.item.numero);
-								        },
-								        response: function( event, ui ) {
-								        	$("#cidade").val("");
-								        	$("#bairro").val("");
-								        	$("#cod").val("");
-									    	$("#telefone").val("");
-									    	$("#cep").val("");
-									    	$("#rua").val("");
-									    	$("#numero").val("");
-									    	$(".disableds").prop("disabled", false); 
-								        }
-								    });
-								},
-								error : function(error) {
-									console.log(error);
-								}
-							});
-							
-							bootbox.dialog({
-								message: '<div class="form-group"><input type="text" id="tags" class="colorBlack form-control" placeholder="Nome"/></div>'
-											+'<div class="form-group"><input class="form-control disableds" onKeyPress="HM.produto.mask()" id="telefone" placeholder="Telefone"/></div>'
-											+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
-											+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
-											+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
-											+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
-											+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
-											+'<input type="hidden" id="cod" />',
-								title: "Formulário de Entrega<hr>",
-								size: 'small',
-								onEscape: function() {},
-								buttons: {
-									success: {
-										label: "Confirmar",
-										className: "btn-success",
-										callback: function() {
-											var cod = $("#cod").val();
-											var url = "";
-											$("#telefone").unmask();
-											$("#cep").unmask();
-											$("#numero").unmask();
-											if (cod == "" || cod == null) {
-												newData.nome = $("#tags").val();
-												newData.telefone = $("#telefone").val();
-												newData.cidade = $("#cidade").val();
-												newData.bairro = $("#bairro").val();
-												newData.rua = $("#rua").val();
-												newData.numero = $("#numero").val();
-												newData.cep = $("#cep").val();
-												url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
-											}else{
-												url = "rest/Pedido/finalizarPedidoFuncionario/";
-												newData.codcliente = cod;
+												$("#cidade").html(html);
+											},
+											error:function(err){
+												bootbox.alert(err.responseText);
 											}
-											HM.produto.encerra(newData, url);
+										});
+									HM.usuario.exibir({
+										data: "",
+										success : function(data) {
+											var availableTags = [];
+											for (var i = 0; i < data.length; i++) {
+												availableTags.push(
+														{
+															value: data[i].nome,
+															label:data[i].nome,
+															codigo: data[i].cod,
+															telefone: data[i].telefone,
+															cep: data[i].cep,
+															bairro: data[i].bairro,
+															rua: data[i].rua,
+															numero: data[i].numero,
+															cidade: data[i].cidade
+														}
+													);
+											}
+										    $( "#tags" ).autocomplete({
+										      source: availableTags,								      
+										      select: function(event, ui) {
+										    	  $("#cidade").val(ui.item.cidade);
+										    	  HM.bairro.listar({
+										  			data: $('#cidade').val(),
+										  			success:function(data){
+											  				var html = "";
+											  				for ( var i = 0; i < data.length; i++) {
+											  					html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
+											  				}
+											  				$("#bairro").html(html);
+											  				$("#bairro").val(ui.item.bairro);
+											  			},
+											  			error:function(err){
+											  				bootbox.alert(err.responseText);
+											  			}
+										  			});
+										    	  $(".disableds").attr("disabled","disabled");
+										    	  $("#cod").val(ui.item.codigo);
+										    	  $("#telefone").val(ui.item.telefone);
+										    	  $("#cep").val(ui.item.cep);
+										    	  $("#rua").val(ui.item.rua);
+										    	  $("#numero").val(ui.item.numero);
+										        },
+										        response: function( event, ui ) {
+										        	$("#cidade").val("");
+										        	$("#bairro").val("");
+										        	$("#cod").val("");
+											    	$("#telefone").val("");
+											    	$("#cep").val("");
+											    	$("#rua").val("");
+											    	$("#numero").val("");
+											    	$(".disableds").prop("disabled", false); 
+										        }
+										    });
+										},
+										error : function(error) {
+											console.log(error);
 										}
-									},
-									danger: {
-										label: "Fechar",
-										className: "btn-danger",
-										callback: function() {
-											$(this).fadeOut(1000);
+									});
+									
+									bootbox.dialog({
+										message: '<div class="form-group"><input type="text" id="tags" class="colorBlack form-control" placeholder="Nome"/></div>'
+													+'<div class="form-group"><input class="form-control disableds" onKeyPress="HM.produto.mask()" id="telefone" placeholder="Telefone"/></div>'
+													+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
+													+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
+													+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
+													+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
+													+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
+													+'<input type="hidden" id="cod" />',
+										title: "Formulário de Entrega<hr>",
+										size: 'small',
+										onEscape: function() {},
+										buttons: {
+											success: {
+												label: "Confirmar",
+												className: "btn-success",
+												callback: function() {
+													var cod = $("#cod").val();
+													var url = "";
+													$("#telefone").unmask();
+													$("#cep").unmask();
+													$("#numero").unmask();
+													if (cod == "" || cod == null) {
+														newData.nome = $("#tags").val();
+														newData.telefone = $("#telefone").val();
+														newData.cidade = $("#cidade").val();
+														newData.bairro = $("#bairro").val();
+														newData.rua = $("#rua").val();
+														newData.numero = $("#numero").val();
+														newData.cep = $("#cep").val();
+														url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
+													}else{
+														url = "rest/Pedido/finalizarPedidoFuncionario/";
+														newData.codcliente = cod;
+													}
+													HM.produto.encerra(newData, url);
+												}
+											},
+											danger: {
+												label: "Fechar",
+												className: "btn-danger",
+												callback: function() {
+													$(this).fadeOut(1000);
+												}
+											}	
 										}
-									}	
+									});
+								}else{
+									HM.produto.encerra(newData, "rest/Pedido/finalizar");
 								}
-							});
-						}else{
-							HM.produto.encerra(newData, "rest/Pedido/finalizar");
-						}
+							}
+						},
+						danger: {
+							label: "Fechar",
+							className: "btn-danger",
+							callback: function() {
+								$(this).fadeOut(1000);
+							}
+						}	
 					}
-				},
-				danger: {
-					label: "Fechar",
-					className: "btn-danger",
-					callback: function() {
-						$(this).fadeOut(1000);
-					}
-				}	
+				});
 			}
-		});
+		})
+		
 	}
 })

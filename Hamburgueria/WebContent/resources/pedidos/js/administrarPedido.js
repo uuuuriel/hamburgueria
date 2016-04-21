@@ -21,7 +21,7 @@ $(document).ready(function() {
 							}
 							html += "</td></tr>";
 						}
-						$("tbody").append(html);
+						$("tbody").html(html);
 						$.fn.bootstrapSwitch.defaults.onText = 'Go ->';
 						$.fn.bootstrapSwitch.defaults.offText = 'Next step.';
 						$.fn.bootstrapSwitch.defaults.onColor = 'danger';
@@ -56,6 +56,7 @@ $(document).ready(function() {
 														bootbox.alert("Seu pedido já está em produção, não é mais possível cancelar.");
 													}else{
 														bootbox.alert("Seu pedido foi cancelado.");
+														HM.pedidos.listarProdutosEstagiosF(1);
 													}
 												},
 												error:function(err){
@@ -83,7 +84,7 @@ $(document).ready(function() {
 					codpe:codpedido,
 					codpr:codproduto,
 					success:function(data){
-						console.log(data);
+						
 					},
 					error:function(err){
 						console.log(err.responseText);

@@ -9,4 +9,6 @@ public interface TaxaDAO {
 	public List<Taxa> buscar(String list) throws HamburgueriaException;
 
 	public boolean editar(Taxa taxa) throws HamburgueriaException;
+
+	public Taxa taxaEntrega() throws HamburgueriaException;
 }

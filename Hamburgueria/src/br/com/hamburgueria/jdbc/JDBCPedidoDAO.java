@@ -304,7 +304,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		String comando = "SELECT p.*, pr.*, count(pp.produto_codproduto) as qtde FROM pedido p "
 				+ "inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido "
 				+ "inner join produto pr on pr.codproduto = pp.produto_codproduto "
-				+ "WHERE p.estagio_pedido_codestagio_pedido = 4 GROUP BY pp.pedido_codpedido, pp.produto_codproduto";
+				+ "WHERE p.estagio_pedido_codestagio_pedido = 4 GROUP BY pp.pedido_codpedido, pp.produto_codproduto ORDER BY p.codpedido ASC";
 		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
 		ListaPedidoVO ped = null;
 		try {

@@ -35,6 +35,17 @@ public class TaxaService {
 			conec.fecharConexao();
 		}
 	}
+	
+	public Taxa entrega() throws HamburgueriaException {
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
+			return jdbcTaxa.taxaEntrega();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
 
 	
 }

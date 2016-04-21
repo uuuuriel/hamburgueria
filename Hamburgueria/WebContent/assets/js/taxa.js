@@ -27,6 +27,21 @@ $(document).ready(function() {
 					cfg.error(err);
 				}				
 			})
+		},
+		entrega : function(cfg){
+			HM.ajax.get({
+				url: "rest/TaxaRest/entrega",
+				success:function(succ){
+					if(cfg && cfg.success){
+						cfg.success(succ);
+					}
+				},
+				error:function(err){
+					if(cfg && cfg.error){
+						cfg.error(err);
+					}
+				}
+			})
 		}
 	}
 	

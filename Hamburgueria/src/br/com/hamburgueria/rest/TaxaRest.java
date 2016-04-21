@@ -40,6 +40,19 @@ public class TaxaRest extends UtilRest{
 		}		
 	}
 	
+	@GET
+	@Path("entrega")
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response entrega() {
+		try {
+			TaxaService service = new TaxaService();
+			return this.buildResponse(service.entrega());
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}		
+	}
+	
 	@PUT
 	@Path("/atualizar")
 	@Consumes("application/*")

@@ -18,6 +18,26 @@ public class JDBCTaxaDAO implements TaxaDAO {
 	}
 	
 	@Override
+	public Taxa taxaEntrega() throws HamburgueriaException{
+		String comando = "SELECT * FROM taxas WHERE codtaxas = 0";
+		try{
+			Taxa taxa = new Taxa();
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while(rs.next()){
+				taxa.setCod(rs.getInt("codtaxas"));
+				taxa.setDescricao(rs.getString("descricao"));
+				taxa.setNome(rs.getString("nometaxa"));
+				taxa.setValor(rs.getFloat("valor"));
+			}
+			return taxa;			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new HamburgueriaException(e);
+		}
+	}
+	
+	@Override
 	public List<Taxa> buscar(String nome) throws HamburgueriaException{
 		String comando = "select * from taxas";
 		if (!nome.equals("")) {
@@ -33,7 +53,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 				taxa.setCod(rs.getInt("codtaxas"));
 				taxa.setDescricao(rs.getString("descricao"));
 				taxa.setNome(rs.getString("nometaxa"));
-				taxa.setValor(rs.getDouble("valor"));
+				taxa.setValor(rs.getFloat("valor"));
 				list.add(taxa);
 			}
 		} catch (SQLException e) {
