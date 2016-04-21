@@ -164,10 +164,8 @@ public class PedidoService {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			List<ListaVO> listaPedido = new ArrayList<ListaVO>();
-			List<ListaPedidoVO> listPedido = jdbcPedido.listarPedidoEntrega();
-			
 			ListaVO lastVO = new ListaVO();
-			for(ListaPedidoVO pedido : listPedido){
+			for(ListaPedidoVO pedido : jdbcPedido.listarPedidoEntrega()){
 				if ( pedido.getCodPedido() != lastVO.getCodigoPedido() ) {
 					lastVO = new ListaVO();
 					lastVO.setCodigoPedido(pedido.getCodPedido());
