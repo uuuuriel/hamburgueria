@@ -33,6 +33,17 @@ public class ProdutoService {
 		}
 	}
 	
+	public List<Produto> buscarNomeTodos(String nome) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try {
+			Connection conexao = conec.abrirConexao();
+			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
+			return jdbcProduto.buscarNomeTodos(nome);
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
 	public void adicionar(Produto prod) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {

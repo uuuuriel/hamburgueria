@@ -22,7 +22,7 @@ $(document).ready(function(){
 	};
 
 	HM.produto.listarTodos = function(){
-		HM.produto.exibir({
+		HM.produto.exibirTodos({
 			data:$("#search").val(),
 			success : function(data) {
 				var html = "";
@@ -56,8 +56,11 @@ $(document).ready(function(){
 						$("#titleChange").text("Editar Produto");
 						$("#cadastrarProduto").attr('onclick', "HM.produto.edite();");
 						$("form input, form select").each(function(){
-							$(this).val(resp[this.id]);
+							if(this.name != "ativo"){
+								$(this).val(resp[this.id]);
+							}
 						});
+						$("input[name=ativo][value=" + resp.ativo + "]").prop('checked', 'true');
 					},
 					error: function(err){
 						console.log(err);

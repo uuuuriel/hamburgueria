@@ -22,6 +22,26 @@ $(document).ready(
 						}
 					})
 				},
+				exibirTodos : function(cfg) {
+					var busca = cfg.data;
+					if (busca == "") {
+						busca = "null";
+					}
+					HM.ajax.get({
+						url : "rest/ProdutoRest/buscarNomeTodos/"
+								+ busca,
+						success : function(list) {
+							if (cfg && cfg.success) {
+								cfg.success(list);
+							}
+						},
+						error : function(err) {
+							if (cfg && cfg.error) {
+								cfg.error(error);
+							}
+						}
+					})
+				},
 				deletar : function(cfg) {
 					var cod = cfg.cod;
 					HM.ajax.DELETE({

@@ -124,7 +124,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				produt.setEntrega(rs.getInt("entrega"));
 				produt.setEstagio_produto(rs.getString("estagio"));
 				produt.setNomeProduto(rs.getString("nomeproduto"));
-				produt.setNomeUsuario(rs.getString("nome"));
+				produt.setNomeCliente(rs.getString("nome"));
 				produt.setValorProduto(rs.getFloat("valor"));
 				list.add(produt);
 			}
@@ -182,7 +182,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				ped.setDescricaoProduto(rs.getString("descricao"));
 				ped.setEstagio_produto(rs.getString("estagio"));
 				ped.setNomeProduto(rs.getString("nomeproduto"));
-				ped.setNomeUsuario(rs.getString("nomecliente"));
+				ped.setNomeCliente(rs.getString("nomecliente"));
 				list.add(ped);
 			}
 		} catch (SQLException e) {
@@ -260,7 +260,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		String comando = "SELECT p.codpedido, pp.estagio_pedido FROM pedido p"
 				+ " inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido"
 				+ "	inner join produto pr on pr.codproduto = pp.produto_codproduto"
-				+ "	WHERE pp.estagio_pedido != 4 AND p.estagio_pedido_codestagio_pedido = 1"
+				+ "	WHERE pp.estagio_pedido < 4 AND p.estagio_pedido_codestagio_pedido = 1"
 				+ " AND p.codpedido ="+cod; 
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
@@ -301,9 +301,10 @@ public class JDBCPedidoDAO implements PedidoDAO {
 
 	@Override
 	public List<ListaPedidoVO> listarPedidoEntrega() throws ListarPedidoEntregaException{
-		String comando = "SELECT p.*, pr.*, count(pp.produto_codproduto) as qtde FROM pedido p "
+		String comando = "SELECT p.*, pr.*, c.nomecliente, count(pp.produto_codproduto) as qtde FROM pedido p "
 				+ "inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido "
 				+ "inner join produto pr on pr.codproduto = pp.produto_codproduto "
+				+ "inner join cliente c on c.codcliente = p.cliente_codcliente "
 				+ "WHERE p.estagio_pedido_codestagio_pedido = 4 GROUP BY pp.pedido_codpedido, pp.produto_codproduto ORDER BY p.codpedido ASC";
 		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
 		ListaPedidoVO ped = null;
@@ -315,6 +316,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				ped.setCodPedido(rs.getInt("codpedido"));
 				ped.setCodProduto(rs.getInt("codproduto"));
 				ped.setNomeProduto(rs.getString("nomeproduto"));
+				ped.setNomeCliente(rs.getString("nomecliente"));
 				ped.setDescricaoProduto(rs.getString("descricao"));
 				ped.setValorProduto(rs.getFloat("valor"));
 				ped.setCategoria(rs.getString("categoria"));
@@ -349,7 +351,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				ped.setCodPedido(rs.getInt("codpedido"));
 				ped.setCancelado(rs.getString("cancelado"));
 				ped.setDataCompra(rs.getDate("data"));
-				ped.setNomeUsuario(rs.getString("nomecliente"));
+				ped.setNomeCliente(rs.getString("nomecliente"));
 				ped.setValorTotal(rs.getFloat("total"));
 				ped.setCategoria(rs.getString("categoria"));
 				ped.setNomefuncionario(rs.getString("nomefuncionario"));

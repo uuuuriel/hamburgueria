@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="resources/pedidos/css/pedidoPronto.css"/>
 <div class="container administrarPedidoDiv col-sm-12 row">
 	<ul class="nav nav-tabs">
 	    <li><a href="#" onclick="carregarPedido('resources/pedidos/administrarPedido.html')">Pedidos</a></li>
@@ -7,17 +8,19 @@
 	</ul>
 	<div class="contentEstagio">
 		<h3>Estágio 3</h3>
-		<table class='table col-sm-12	tableAdmin'>
+		<table class='table col-sm-12'>
 			<thead>
 			    <tr>
-			        <th><strong>Cód. Pedido</strong></th>
-			        <th>Descrição</th>
-			        <th></th>
+			       <th class='col-sm-1'><strong>Cód. Pedido</strong></th>
+			       <th class='col-sm-3'>Cliente</th>
+			       <th class='col-sm-3'>Produto</th>
+			       <th class='col-sm-1'>Qtde.</th>
+			       <th class='col-sm-1'>Valor</th>
+			       <th class='col-sm-2'>Finalizar</th>
 			    </tr>
 			</thead>
-			<tbody>
-			</tbody>
 		</table>
+		<div id="anotherTables"></div>
 	</div>
 </div> 
 <script type="text/javascript" src="resources/pedidos/js/servicePedidos.js"></script>

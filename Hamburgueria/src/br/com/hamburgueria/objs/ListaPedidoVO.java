@@ -16,7 +16,7 @@ public class ListaPedidoVO {
 	private String estagioProduto;
 	private int entrega;
 	private float valorTotal;
-	private String nomeUsuario;
+	private String nomeCliente;
 	private int quantidade;
 	private String nomefuncionario;
 	
@@ -110,10 +110,10 @@ public class ListaPedidoVO {
 	public void setValorTotal(float valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	public String getNomeUsuario() {
-		return nomeUsuario;
+	public String getNomeCliente() {
+		return nomeCliente;
 	}
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
 	}	
 }

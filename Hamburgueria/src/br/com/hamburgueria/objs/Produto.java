@@ -9,7 +9,14 @@ public class Produto {
 	private String observacao;
 	private Double valor;
 	private String categoria;
+	private int ativo;
 	
+	public int getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
+	}
 	public int getCod() {
 		return cod;
 	}

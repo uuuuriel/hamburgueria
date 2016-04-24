@@ -45,10 +45,13 @@ $(document).ready(function(){
 	HM.produto.getValor = function(value){
 		var newProduto = new Object();
 		$("form input, form select").each(function(){
-			newProduto[this.name]=this.value;
-			});
+			if(this.name != "ativo"){
+				newProduto[this.name]=this.value;
+			}else{
+				newProduto[this.name]=$('input[name="ativo"]:checked').val();
+			}
+		});
 		newProduto.valor = newProduto.valor.replace(",", ".");
-		console.log(newProduto.valor);
 		return newProduto;
 	};
 });

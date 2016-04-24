@@ -22,8 +22,8 @@ $(document).ready(function() {
 							html += "</td></tr>";
 						}
 						$("tbody").html(html);
-						$.fn.bootstrapSwitch.defaults.onText = 'Go ->';
-						$.fn.bootstrapSwitch.defaults.offText = 'Next step.';
+						$.fn.bootstrapSwitch.defaults.onText = 'Próximo';
+						$.fn.bootstrapSwitch.defaults.offText = 'ok!';
 						$.fn.bootstrapSwitch.defaults.onColor = 'danger';
 						$("[name='my-checkbox']").bootstrapSwitch();
 					},

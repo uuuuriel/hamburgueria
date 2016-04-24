@@ -87,7 +87,7 @@ $(document).ready(function() {
 				},
 				pedidoEntregue : function (cfg){
 					HM.ajax.post({
-						url : "rest/Pedido/pedidoEntrega"+cfg.data,
+						url : "rest/Pedido/pedidoEntrega/"+cfg.data,
 						success:function(succ){
 							if(cfg && cfg.success){
 								cfg.success(succ);

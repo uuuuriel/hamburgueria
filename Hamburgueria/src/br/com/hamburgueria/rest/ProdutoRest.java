@@ -57,6 +57,23 @@ public class ProdutoRest extends UtilRest {
 		}		
 	}
 	
+	@GET
+	@Path("buscarNomeTodos/{nome}")
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response buscarNomeTodos(@PathParam("nome") String nome) {
+		try {
+			ProdutoService service = new ProdutoService();
+			if(nome.equals("null")){
+				nome = "";
+			}
+			return this.buildResponse(service.buscarNomeTodos(nome));
+
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}		
+	}
+	
 	
 	@DELETE
 	@Path("/deletar/{id}")

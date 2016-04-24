@@ -10,6 +10,8 @@ public interface ProdutoDAO {
 	public Produto buscarId(int id) throws HamburgueriaException;
 
 	public List<Produto> buscarNome(String nome) throws HamburgueriaException;
+	
+	public List<Produto> buscarNomeTodos(String nome) throws HamburgueriaException;
 
 	public boolean inserir(Produto prod) throws HamburgueriaException;
 

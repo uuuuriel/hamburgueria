@@ -35,7 +35,7 @@ public class PedidoService {
 			ped = jdbcPedido.setPedidoCliente(ped);			
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
-			float total = jdbcTaxa.taxaEntrega().getValor();
+			float total = jdbcTaxa.taxaEntrega().getCod() == 0 ? jdbcTaxa.taxaEntrega().getValor() : 0;
 			for (int i = 0; i < quebra.length; i++) {
 				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
@@ -55,7 +55,7 @@ public class PedidoService {
 			jdbcPedido.setPedidoFuncionario(ped.getCodfunc(), ped.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
-			float total = jdbcTaxa.taxaEntrega().getValor();
+			float total = jdbcTaxa.taxaEntrega().getCod() == 0 ? jdbcTaxa.taxaEntrega().getValor() : 0;
 			for (int i = 0; i < quebra.length; i++) {
 				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
@@ -81,7 +81,7 @@ public class PedidoService {
 			jdbcPedido.setPedidoFuncionario(user.getCodfunc(), ped.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
-			float total = jdbcTaxa.taxaEntrega().getValor();
+			float total = jdbcTaxa.taxaEntrega().getCod () == 0 ? jdbcTaxa.taxaEntrega().getValor() : 0;
 			for (int i = 0; i < quebra.length; i++) {
 				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
@@ -169,8 +169,11 @@ public class PedidoService {
 				if ( pedido.getCodPedido() != lastVO.getCodigoPedido() ) {
 					lastVO = new ListaVO();
 					lastVO.setCodigoPedido(pedido.getCodPedido());
+					lastVO.setNomeCliente(pedido.getNomeCliente());
+					lastVO.setValorTotal(pedido.getValorTotal());
 				 	listaPedido.add(lastVO);
 				}
+				lastVO.setQtdeTotal(lastVO.getQtdeTotal() + pedido.getQtde());
 				lastVO.getList().add(pedido);
 			}
 			return listaPedido;

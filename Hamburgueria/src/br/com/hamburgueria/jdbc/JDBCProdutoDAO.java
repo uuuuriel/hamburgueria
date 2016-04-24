@@ -20,6 +20,33 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 	}
 	
 	public List<Produto> buscarNome(String nome) throws HamburgueriaException{
+		String comando = "select * from produto where ativo = 1";
+		List<Produto> list = new ArrayList<Produto>();
+		Produto prod = null;
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				prod = new Produto();	
+				prod.setCod(rs.getInt("codproduto"));
+				prod.setNome(rs.getString("nomeproduto"));
+				prod.setDescricao(rs.getString("descricao"));
+				prod.setAnexo(rs.getString("anexo"));
+				prod.setCancelamento(rs.getString("cancelamento"));
+				prod.setObservacao(rs.getString("observacao"));
+				prod.setValor(rs.getDouble("valor"));
+				prod.setCategoria(rs.getString("categoria"));
+				prod.setAtivo(rs.getInt("ativo"));
+				list.add(prod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new HamburgueriaException();
+		}
+		return list;
+	}
+	
+	public List<Produto> buscarNomeTodos(String nome) throws HamburgueriaException{
 		String comando = "select * from produto  ";
 		if (!nome.equals("")) {
 			comando += "where nomeproduto like '" + nome + "%'";
@@ -39,6 +66,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setObservacao(rs.getString("observacao"));
 				prod.setValor(rs.getDouble("valor"));
 				prod.setCategoria(rs.getString("categoria"));
+				prod.setAtivo(rs.getInt("ativo"));
 				list.add(prod);
 			}
 		} catch (SQLException e) {
@@ -66,14 +94,15 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 	@Override
 	public boolean atualizar(Produto prod) throws HamburgueriaException{
 		String comando = "UPDATE produto SET nomeproduto=?,"
-				+ " descricao=?, categoria=?, valor=? WHERE codproduto="+prod.getCod();
+				+ " descricao=?, categoria=?, ativo=?, valor=? WHERE codproduto="+prod.getCod();
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, prod.getNome());
 			p.setString(2, prod.getDescricao());
 			p.setString(3, prod.getCategoria());
-			p.setDouble(4, prod.getValor());
+			p.setInt(4, prod.getAtivo());
+			p.setDouble(5, prod.getValor());
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,15 +113,16 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 
 	@Override
 	public boolean inserir(Produto prod) throws HamburgueriaException{
-		String comando = "insert into produto (nomeproduto, descricao, categoria,valor)"
-				+ " values (?, ?, ?, ?);";
+		String comando = "insert into produto (nomeproduto, descricao, categoria, ativo, valor)"
+				+ " values (?, ?, ?, ?, ?);";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, prod.getNome());
 			p.setString(2, prod.getDescricao());
 			p.setString(3, prod.getCategoria());
-			p.setDouble(4, prod.getValor());
+			p.setInt(4, prod.getAtivo());
+			p.setDouble(5, prod.getValor());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -116,6 +146,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setAnexo(rs.getString("anexo"));
 				prod.setCancelamento(rs.getString("cancelamento"));
 				prod.setObservacao(rs.getString("observacao"));
+				prod.setAtivo(rs.getInt("ativo"));
 				prod.setValor(rs.getDouble("valor"));
 				prod.setCategoria(rs.getString("categoria"));
 			}

@@ -199,5 +199,4 @@ public class PedidoRest extends UtilRest{
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
-	
 }
