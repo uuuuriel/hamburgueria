@@ -18,7 +18,7 @@ $(document).ready(function(){
 					var total = 0;
 					for (var i = 0; i < data.length; i++) {
 						html += "<tr><td>" + data[i].codPedido + "</td>"
-							+ "<td>" + data[i].nomeUsuario + "</td>"
+							+ "<td>" + data[i].nomeCliente + "</td>"
 							+ "<td>" + data[i].nomeProduto + "</td>"
 							+ "<td>" + data[i].descricaoProduto + "</td>"
 							+ "<td>" + data[i].valorProduto.toFixed(2) + "</td>"

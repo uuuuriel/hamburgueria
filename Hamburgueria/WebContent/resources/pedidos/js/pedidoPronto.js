@@ -7,7 +7,7 @@ $(document).ready(function() {
 					html += "<span id='"+data[i].codigoPedido+"'><br/><table class='table backgroundDiferenciado col-sm-12'><thead><tr><th class='col-sm-1'>"+data[i].codigoPedido+"</th>" +
 							"<th class='col-sm-3'>"+data[i].nomeCliente+"</th><th class='col-sm-3'></th>" +
 									"<th class='col-sm-1'>"+data[i].qtdeTotal+"</th>" +
-									"<th class='col-sm-1'>"+data[i].valorTotal+"</th>" +
+									"<th class='col-sm-1'>"+data[i].valorTotal.toFixed(2)+"</th>" +
 									"<th class='col-sm-2'><input  class='checkboxChange' type='checkbox' " +
 									" onchange='HM.pedidos.pedidoFoiEntregue("+data[i].codigoPedido+");' name='my-checkbox' id='inputCheck' data-size='mini' checked/></tr></thead><tbody>";
 					for (var e = 0; e < data[i].list.length; e++) {
