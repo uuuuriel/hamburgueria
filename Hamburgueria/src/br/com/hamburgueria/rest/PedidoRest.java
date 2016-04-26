@@ -199,4 +199,22 @@ public class PedidoRest extends UtilRest{
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
+	
+	@GET
+	@Path("/relatorioVenda/{dataini}/{datafim}/{busca}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response relatorioVenda(@PathParam("dataini")Date dataini,
+			@PathParam("datafim")Date datafim,
+			@PathParam("busca")String busca){
+		try{
+			if(busca.equals("null")){
+				busca = "";
+			}
+			PedidoService pedido = new PedidoService();
+			return this.buildResponse(pedido.relatorioVenda(dataini, datafim, busca));
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
+	}
 }

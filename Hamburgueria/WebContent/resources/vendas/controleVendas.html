@@ -4,15 +4,15 @@
 		<div class="col-sm-12 row">
 			<form >
 				<div class="form-group col-sm-6">
-					<input type="text" class="form-control" placeholder="Procure pelo pedido...">
+					<input type="text" class="form-control" id="busca" placeholder="Procure pelo cliente...">
 				</div>
 					<div class="form-group col-sm-2">	
-						<input type="text" class="form-control datePicker" placeholder="De..."/>
+						<input type="text" class="form-control datepicker" id="dataini" placeholder="De..."/>
 					</div>	
 					<div class="form-group col-sm-2">	
-						<input type="text" class="form-control datePicker" placeholder="até..."/>
+						<input type="text" class="form-control datepicker" id="datafim" placeholder="até..."/>
 					</div>				
-					<button class="btn btn-success" type="button">Search</button>
+					<button class="btn btn-success" type="button" onclick="HM.pedidos.relatorioDeVenda();">Buscar</button>
 				</div>
 			</form>
 		</div>
@@ -20,22 +20,19 @@
 			<thead>
 				<tr>
 					<th><strong>Cód. Pedido</strong></th>
-					<th>Descrição</th>
-					<th>Local de Entrega</th>
+					<th>Nome cliente</th>
+					<th>Nome funcionário</th>
+					<th>Tipo entrega</th>
 					<th>Data</th>
-					<th>Valor</th>
+					<th>Quantidade</th>
+					<th>Valor total</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>35</td>
-					<td>X Carne e queijo</td>
-					<td>Morro do meio, aquidaban, n 365 - Joinville/SC</td>
-					<td>30/11/2015</td>
-					<td>R$ 985,15</td>
-				</tr>
 			</tbody>
 		</table>
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="resources/pedidos/js/servicePedidos.js"></script>
+<script type="text/javascript" src="resources/vendas/js/controleVendas.js"></script>

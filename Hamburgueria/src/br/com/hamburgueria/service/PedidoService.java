@@ -13,6 +13,7 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListaPedidoException;
 import br.com.hamburgueria.exception.ListarPedidoEntregaException;
 import br.com.hamburgueria.exception.PedidoEntregueException;
+import br.com.hamburgueria.exception.RelatorioVendaException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
 import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
@@ -35,7 +36,7 @@ public class PedidoService {
 			ped = jdbcPedido.setPedidoCliente(ped);			
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
-			float total = jdbcTaxa.taxaEntrega().getCod() == 0 ? jdbcTaxa.taxaEntrega().getValor() : 0;
+			float total = jdbcTaxa.taxaEntrega().getCod() == ped.getCodtaxa() ? jdbcTaxa.taxaEntrega().getValor() : 0;
 			for (int i = 0; i < quebra.length; i++) {
 				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
@@ -55,7 +56,7 @@ public class PedidoService {
 			jdbcPedido.setPedidoFuncionario(ped.getCodfunc(), ped.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
-			float total = jdbcTaxa.taxaEntrega().getCod() == 0 ? jdbcTaxa.taxaEntrega().getValor() : 0;
+			float total = jdbcTaxa.taxaEntrega().getCod() == ped.getCodtaxa() ? jdbcTaxa.taxaEntrega().getValor() : 0;
 			for (int i = 0; i < quebra.length; i++) {
 				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
@@ -81,7 +82,7 @@ public class PedidoService {
 			jdbcPedido.setPedidoFuncionario(user.getCodfunc(), ped.getCodpedido());
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
-			float total = jdbcTaxa.taxaEntrega().getCod () == 0 ? jdbcTaxa.taxaEntrega().getValor() : 0;
+			float total = jdbcTaxa.taxaEntrega().getCod () == ped.getCodtaxa() ? jdbcTaxa.taxaEntrega().getValor() : 0;
 			for (int i = 0; i < quebra.length; i++) {
 				 total = total + jdbcPedido.calculaValor(Integer.parseInt(quebra[i]));
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
@@ -195,6 +196,17 @@ public class PedidoService {
 			throw new PedidoEntregueException();
 		}finally{
 			conec.fecharConexao();
+		}
+	}
+	
+	public List<ListaPedidoVO> relatorioVenda(Date dataini, Date datafim, String busca) throws RelatorioVendaException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			return jdbcPedido.relatorioVenda(dataini, datafim, busca);
+		}catch(Exception e){
+			throw new RelatorioVendaException(e);
 		}
 	}
 }

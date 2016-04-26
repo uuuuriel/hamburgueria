@@ -332,15 +332,19 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		return list;	
 	} 
 	
-	public void relatorioVenda(Date dataini, Date datafim) throws RelatorioVendaException{
+	public List<ListaPedidoVO> relatorioVenda(Date dataini, Date datafim, String busca) throws RelatorioVendaException{
 		//IMPLEMENTAR A DATA COMO PARAMETRO NA CONSULTA
 		String comando = "SELECT p.*, c.nomecliente, count(pp.pedido_codpedido) as qtde,"
 				+ " f.nomefuncionario FROM pedido p inner join cliente c"
 				+ " on c.codcliente = p.cliente_codcliente inner join pedido_produto pp "
 				+ "on pp.pedido_codpedido = p.codpedido "
 				+ "inner join historico_funcionario hf on hf.pedido_codpedido = p.codpedido "
-				+ " inner join funcionario f on f.codfuncionario = hf.funcionario_codfuncionario "
-				+ "GROUP by p.codpedido";
+				+ " inner join funcionario f on f.codfuncionario = hf.funcionario_codfuncionario"
+				+ "  WHERE (data between '"+dataini+" 00:00:00' AND '"+datafim+" 23:59:00')";
+				if(busca != ""){
+					comando += " AND c.nomecliente LIKE '"+busca+"%'";
+				}
+				comando += " GROUP by p.codpedido";
 		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
 		ListaPedidoVO ped = null;
 		try {
@@ -353,11 +357,11 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				ped.setDataCompra(rs.getDate("data"));
 				ped.setNomeCliente(rs.getString("nomecliente"));
 				ped.setValorTotal(rs.getFloat("total"));
-				ped.setCategoria(rs.getString("categoria"));
 				ped.setNomefuncionario(rs.getString("nomefuncionario"));
 				ped.setQtde(rs.getInt("qtde"));
 				list.add(ped);
 			}
+			return list;
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RelatorioVendaException(e.getMessage());

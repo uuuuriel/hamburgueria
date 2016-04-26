@@ -9,6 +9,7 @@ import br.com.hamburgueria.exception.EstagioPedidoException;
 import br.com.hamburgueria.exception.EstagioProdutoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListarPedidoEntregaException;
+import br.com.hamburgueria.exception.RelatorioVendaException;
 import br.com.hamburgueria.exception.ValorTotalException;
 import br.com.hamburgueria.exception.VerificaPedidoFinalizadoException;
 import br.com.hamburgueria.exception.finalizaPedidoAllException;
@@ -42,5 +43,7 @@ public interface PedidoDAO {
 	public float calculaValor(int cod) throws CalculaValorException;
 	
 	public void setValorTotalPedido(int cod, float total) throws ValorTotalException;
+	
+	public List<ListaPedidoVO> relatorioVenda(Date dataini, Date datafim, String busca) throws RelatorioVendaException;
 	
 }

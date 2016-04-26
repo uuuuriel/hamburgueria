@@ -6,12 +6,8 @@ $(document).ready(function() {
 					if (busca == "") {
 						busca = "null";
 					}
-					var quebraini = cfg.dataini.split("/");
-					cfg.dataini = quebraini[2] + "-" + quebraini[1] + "-" + quebraini[0];
-					var quebrafim = cfg.datafim.split("/");
-					cfg.datafim = quebrafim[2] + "-" + quebrafim[1] + "-" + quebrafim[0];
 					HM.ajax.get({
-						url : "rest/Pedido/listarPedidos/"+ busca +"/"+cfg.dataini+"/"+cfg.datafim,
+						url : "rest/Pedido/listarPedidos/"+ busca +"/"+fromBD(cfg.dataini)+"/"+fromBD(cfg.datafim),
 						success : function(list) {
 							if (cfg && cfg.success) {
 								cfg.success(list);
@@ -110,6 +106,24 @@ $(document).ready(function() {
 						},
 						error:function(err){
 							if(cfg & cfg.error){
+								cfg.error(err);
+							}
+						}
+					})
+				},
+				relatorioVendas : function(cfg){
+					if(cfg.busca == ""){
+						cfg.busca = "null";
+					}
+					HM.ajax.get({
+						url:"rest/Pedido/relatorioVenda/"+fromBD(cfg.dataini)+"/"+fromBD(cfg.datafim)+"/"+cfg.busca,
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cfg.error){
 								cfg.error(err);
 							}
 						}
