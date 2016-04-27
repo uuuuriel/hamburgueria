@@ -22,7 +22,7 @@ public interface PedidoDAO {
 
 	public Pedido setPedidoCliente(Pedido pedido) throws HamburgueriaException;
 
-	public void setPedidoFuncionario(int codfuncionario, int codpedido) throws HamburgueriaException;
+	public void setPedidoFuncionario(Pedido ped) throws HamburgueriaException;
 
 	public List<ListaPedidoVO> listar(String busca, Date dataini, Date datafim, int codcliente) throws HamburgueriaException;
 	

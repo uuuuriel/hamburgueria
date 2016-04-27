@@ -21,7 +21,6 @@ $(document).ready(function(){
 							+ "<td>" + data[i].nomeCliente + "</td>"
 							+ "<td>" + data[i].nomeProduto + "</td>"
 							+ "<td>" + data[i].descricaoProduto + "</td>"
-							+ "<td>" + data[i].valorProduto.toFixed(2) + "</td>"
 							+ "<td>" + data[i].dataCompra + "</td></tr>";
 						total = total + data[i].valorProduto;
 					}

@@ -33,8 +33,7 @@ $(document).ready(function() {
 		HM.pedidos.pedidoEntregue({
 			data: cod,
 			success:function(data){
-				$("#"+cod).remove();
-				bootbox.alert(data);
+				$("#"+cod).fadeOut(3000);
 			}
 		})
 	}

@@ -136,14 +136,14 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	}
 
 	@Override
-	public void setPedidoFuncionario(int codfuncionario, int codpedido) throws HamburgueriaException {
+	public void setPedidoFuncionario(Pedido ped) throws HamburgueriaException {
 		String comando = "insert into historico_funcionario (pedido_codpedido, funcionario_codfuncionario)"
 				+ "VALUES (?, ?)";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setInt(1, codpedido);
-			p.setInt(2, codfuncionario);
+			p.setInt(1, ped.getCodpedido());
+			p.setInt(2, ped.getCodfunc());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

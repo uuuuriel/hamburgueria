@@ -1,4 +1,4 @@
-<div class='divForm'>
+<!-- <div class='divForm'>
 	<h1 id="titleChange">Formulário Produto</h1>
 	<form method='POST' role='form' class='row form-group' action=''>
 		<div class='col-sm-6 cadastroUserLeft'>
@@ -38,5 +38,21 @@
 				<input type='button' class='btn btn-primary' onclick='HM.produto.cadastrar()' id="cadastrarProduto" value='Confirmar'/>
 				<input type='reset' class='btn btn-default' value='Limpar'/> 
 			</div>
-</div>
+</div>-->
+<form id="formImagem" name="formImagem" method="post" action="upload" enctype="multipart/form-data">
+
+<input type="hidden" id="tipoForm" name="tipoForm" value="imagem">
+
+<input name="imagem" type="file" accept="image/jpeg; image/gif; image/bmp; image/png" id="imagem" class="dados" maxlength="60" tabindex="1" value="c:/" position:absolute; top:23px; left:12px;  width:500px; ">
+
+
+<input type="submit" id="upload" name="upload" tabindex="2" position:absolute; top:20px; left:532px; >
+
+ 
+
+</form>
+
+
+
+
 <script type="text/javascript" src="resources/produto/js/cadastroProduto.js"></script>

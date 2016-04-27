@@ -25,6 +25,7 @@ import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.ListaPedidoVO;
 import br.com.hamburgueria.objs.ListaVO;
 import br.com.hamburgueria.objs.Pedido;
+import br.com.hamburgueria.validacoes.ValidaPedido;
 
 public class PedidoService {
 	
@@ -33,7 +34,9 @@ public class PedidoService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			ped = jdbcPedido.setPedidoCliente(ped);			
+			ValidaPedido valida = new ValidaPedido();
+			valida.pedido(ped);
+			ped = jdbcPedido.setPedidoCliente(ped);
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
 			float total = jdbcTaxa.taxaEntrega().getCod() == ped.getCodtaxa() ? jdbcTaxa.taxaEntrega().getValor() : 0;
@@ -52,8 +55,10 @@ public class PedidoService {
 		try {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			ValidaPedido valida = new ValidaPedido();
+			valida.pedidoFuncionario(ped);
 			ped = jdbcPedido.setPedidoCliente(ped);	
-			jdbcPedido.setPedidoFuncionario(ped.getCodfunc(), ped.getCodpedido());
+			jdbcPedido.setPedidoFuncionario(ped);
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
 			float total = jdbcTaxa.taxaEntrega().getCod() == ped.getCodtaxa() ? jdbcTaxa.taxaEntrega().getValor() : 0;
@@ -78,8 +83,11 @@ public class PedidoService {
 			Pedido ped = new Pedido();
 			ped.setCodcliente(user.getCodCliente());
 			ped.setCodtaxa(user.getCodtaxa());
+			ped.setCodfunc(user.getCodfunc());
+			ValidaPedido valida = new ValidaPedido();
+			valida.pedidoFuncionarioNovo(ped);
 			ped = jdbcPedido.setPedidoCliente(ped);
-			jdbcPedido.setPedidoFuncionario(user.getCodfunc(), ped.getCodpedido());
+			jdbcPedido.setPedidoFuncionario(ped);
 			String quebra[] = array.split(Pattern.quote(","));
 			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
 			float total = jdbcTaxa.taxaEntrega().getCod () == ped.getCodtaxa() ? jdbcTaxa.taxaEntrega().getValor() : 0;
