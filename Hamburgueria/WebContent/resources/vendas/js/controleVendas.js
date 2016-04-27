@@ -8,13 +8,14 @@ $(document).ready(function() {
 	$("#dataini").datepicker('setDate', new Date());
 	$("#datafim").datepicker('setDate', new Date());
 	HM.pedidos.relatorioDeVenda = function(){
+		$("#graficoVenda").hide();
+		$("#relatorioVenda").show();
 		HM.pedidos.relatorioVendas({
 			dataini: $("#dataini").val(),
 			datafim: $("#datafim").val(),
 			busca: $("#busca").val(),
 			success:function(data){
 				var html = "";
-				console.log(data);
 				for (var i = 0; i < data.length; i++) {
 					html += "<tr><td>"+data[i].codPedido+"</td>" +
 							"<td>"+data[i].nomeCliente+"</td>" +

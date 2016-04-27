@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="resources/vendas/css/vendas.css"/>
 <div class="container administrarPedidoDiv col-sm-12 row">
 	<div class="content row">
 		<h3>Controle de vendas</h3>
@@ -16,7 +17,11 @@
 				</div>
 			</form>
 		</div>
-		<table class='table col-sm-12'>
+		<h3 onclick="HM.venda.exibeGrafico();" class="cursorPointer">Visualizar gráfico</h3>
+		<div id="graficoVenda" style="display:none;padding:100px;" width="500" height="500">
+			<canvas id="myChart" width="200" height="100" ></canvas>
+		</div>
+		<table class='table col-sm-12' id="relatorioVenda">
 			<thead>
 				<tr>
 					<th><strong>Cód. Pedido</strong></th>
@@ -35,4 +40,6 @@
 	</div>
 </div>
 <script type="text/javascript" src="resources/pedidos/js/servicePedidos.js"></script>
+<script type="text/javascript" src="resources/vendas/js/serviceVendas.js"></script>
 <script type="text/javascript" src="resources/vendas/js/controleVendas.js"></script>
+<script type="text/javascript" src="resources/vendas/js/graficoVenda.js"></script>
