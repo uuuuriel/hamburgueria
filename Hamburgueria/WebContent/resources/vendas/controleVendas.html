@@ -1,10 +1,10 @@
 <link rel="stylesheet" type="text/css" href="resources/vendas/css/vendas.css"/>
 <div class="container administrarPedidoDiv col-sm-12 row">
-	<div class="content row">
+	<div class="content">
 		<h3>Controle de vendas</h3>
 		<div class="col-sm-12 row">
-			<form >
-				<div class="form-group col-sm-6">
+			<form class="row" >
+				<div class="form-group col-sm-5">
 					<input type="text" class="form-control" id="busca" placeholder="Procure pelo cliente...">
 				</div>
 					<div class="form-group col-sm-2">	
@@ -14,11 +14,11 @@
 						<input type="text" class="form-control datepicker" id="datafim" placeholder="até..."/>
 					</div>				
 					<button class="btn btn-success" type="button" onclick="HM.pedidos.relatorioDeVenda();">Buscar</button>
+					<button class="btn btn-primary" onclick="HM.venda.exibeGrafico();" type="button">Visualizar gráfico</button>
 				</div>
 			</form>
 		</div>
-		<h3 onclick="HM.venda.exibeGrafico();" class="cursorPointer">Visualizar gráfico</h3>
-		<div id="graficoVenda" style="display:none;padding:100px;" width="500" height="500">
+		<div id="graficoVenda" style="display:none;" width="500" height="500">
 			<canvas id="myChart" width="200" height="100" ></canvas>
 		</div>
 		<table class='table col-sm-12' id="relatorioVenda">
