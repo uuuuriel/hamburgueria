@@ -40,8 +40,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				list.add(prod);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return list;
 	}
@@ -70,8 +69,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				list.add(prod);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return list;
 	}
@@ -85,8 +83,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p = this.conexao.createStatement();
 			p.execute(comando);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return true;
 	}
@@ -94,7 +91,11 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 	@Override
 	public boolean atualizar(Produto prod) throws HamburgueriaException{
 		String comando = "UPDATE produto SET nomeproduto=?,"
-				+ " descricao=?, categoria=?, ativo=?, valor=? WHERE codproduto="+prod.getCod();
+				+ " descricao=?, categoria=?, ativo=?, valor=?";
+		if(prod.getAnexo() != ""){
+			comando += " ,anexo=?";
+		}
+		comando += " WHERE codproduto="+prod.getCod();
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
@@ -103,30 +104,32 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 			p.setString(3, prod.getCategoria());
 			p.setInt(4, prod.getAtivo());
 			p.setDouble(5, prod.getValor());
+			if(prod.getAnexo() != ""){
+				p.setString(6, prod.getAnexo());
+			}
 			p.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return true;
 	}
 
 	@Override
 	public boolean inserir(Produto prod) throws HamburgueriaException{
-		String comando = "insert into produto (nomeproduto, descricao, categoria, ativo, valor)"
-				+ " values (?, ?, ?, ?, ?);";
+		String comando = "insert into produto (nomeproduto, descricao, anexo, categoria, ativo, valor)"
+				+ " values (?, ?, ?, ?, ?, ?);";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, prod.getNome());
 			p.setString(2, prod.getDescricao());
-			p.setString(3, prod.getCategoria());
-			p.setInt(4, prod.getAtivo());
-			p.setDouble(5, prod.getValor());
+			p.setString(3, prod.getAnexo());
+			p.setString(4, prod.getCategoria());
+			p.setInt(5, prod.getAtivo());
+			p.setDouble(6, prod.getValor());
 			p.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return true;
 	}
@@ -151,8 +154,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 				prod.setCategoria(rs.getString("categoria"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return prod;
 	}

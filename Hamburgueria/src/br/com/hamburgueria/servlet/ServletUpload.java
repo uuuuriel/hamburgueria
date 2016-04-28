@@ -39,14 +39,16 @@ public class ServletUpload extends HttpServlet {
 			try {
 				List items = upload.parseRequest(request);
 				Iterator iter = items.iterator();
+				String nome = "";
 				while (iter.hasNext()) {
 					FileItem item = (FileItem) iter.next();
 					if (item.getFieldName().equals("tipoForm")) {
 						formulario = item.getString();
+						nome = item.getString();
 					}
 					if (!item.isFormField()) {
 						if (item.getName().length() > 0) {
-							this.inserirImagemDiretorio(item, response);						
+							this.inserirImagemDiretorio(item, nome);						
 						}
 					}
 				}
@@ -60,13 +62,12 @@ public class ServletUpload extends HttpServlet {
 		}
 	}
 
-	private void inserirImagemDiretorio(FileItem item,HttpServletResponse response) throws IOException {
-		String caminho = "H:/hamburgueria/Hamburgueria/WebContent/resources/uploads/";
+	private void inserirImagemDiretorio(FileItem item,String nome) throws IOException {
+		String caminho = "C:/Users/GrupoMaxi/Desktop/hamburgueria/Hamburgueria/WebContent/resources/uploads/";
 		File diretorio = new File(caminho);
 		if (!diretorio.exists()) {
 			diretorio.mkdir();
 		}
-		String nome = item.getName();
 		String arq[] = nome.split("\\\\");
 		for (int i = 0; i < arq.length; i++) {
 			nome = arq[i];
@@ -79,9 +80,6 @@ public class ServletUpload extends HttpServlet {
 		while ((nLidos = is.read(buffer)) >= 0) {
 			output.write(buffer, 0, nLidos);
 		}
-		PrintWriter out = response.getWriter();  
-		response.setContentType("text/html");  
-		out.println(file);  
 		output.flush();
 		output.close();
 	}

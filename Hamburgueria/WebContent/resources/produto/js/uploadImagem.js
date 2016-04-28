@@ -9,7 +9,7 @@ function upload(receive){
     xhr.send(formdata);
     xhr.onload = function(e) {
         if (this.status == 200) {
-           $(".imagemCaminho").val("'"+e.target.response+"'");
+           console.log(e.target.response);
         }
     };
     

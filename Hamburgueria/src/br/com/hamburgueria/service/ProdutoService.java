@@ -2,6 +2,7 @@ package br.com.hamburgueria.service;
 import java.sql.Connection;
 import java.util.List;
 
+import br.com.hamburgueria.auxilia.hashImagem;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCProdutoDAO;
@@ -44,14 +45,17 @@ public class ProdutoService {
 		}
 	}
 	
-	public void adicionar(Produto prod) throws HamburgueriaException{
+	public String adicionar(Produto prod) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
 			ValidaProduto valid = new ValidaProduto();
 			valid.produtoCadastro(prod);
+			hashImagem imagem = new hashImagem();
+			prod.setAnexo(imagem.cripto(prod.getAnexo())+".jpg");
 			jdbcProduto.inserir(prod);
+			return prod.getAnexo();
 		}finally{
 			conec.fecharConexao();
 		}
@@ -75,6 +79,10 @@ public class ProdutoService {
 			ProdutoDAO jdbcProduto = new JDBCProdutoDAO(conexao);
 			ValidaProduto valid = new ValidaProduto();
 			valid.produtoCadastro(prod);
+			if(prod.getAnexo()!= ""){
+				hashImagem imagem = new hashImagem();
+				prod.setAnexo(imagem.cripto(prod.getAnexo())+".jpg");
+			}
 			jdbcProduto.atualizar(prod);
 		} catch (Exception e){
 			e.printStackTrace();

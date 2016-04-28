@@ -15,13 +15,14 @@ $(document).ready(function(){
 		if(HM.produto.valida()){
 			var newData = new Object();
 			newData = HM.produto.getValor();
-			newData.anexo = $(".imagemCaminho").val();
-			console.log(newData.anexo);
+			newData.anexo = $("#imagem")[0].files[0].name;
 			HM.produto.adicionar({
 				data: newData,
 				success : function(data) {
-					bootbox.alert(data);
-					//carregar('resources/produto/gerenciaProduto.html');
+					$("#tipoForm").val(data);
+					upload();
+					bootbox.alert("Produto cadastrado.");
+					carregar('resources/produto/gerenciaProduto.html');
 				},
 				error : function(error) {
 					console.log(error);
@@ -31,11 +32,19 @@ $(document).ready(function(){
 	};
 	
 	HM.produto.edite = function(){
+		if($("#tipoForm").val() == ""){
+			bootbox.alert("Não é permitido arquivo sem foto.");
+			return false;
+		}
 		if(HM.produto.valida()){
+			var newData = new Object();
+			newData = HM.produto.getValor();
+			newData.anexo = $("#imagem")[0].files[0].name;
 			HM.produto.editar({
-				data:HM.produto.getValor(),
+				data:newData,
 				success : function(data) {
-					bootbox.alert(data);
+					upload();
+					bootbox.alert("Edição concluida.");
 					carregar('resources/produto/gerenciaProduto.html');
 				},
 				error : function(error) {

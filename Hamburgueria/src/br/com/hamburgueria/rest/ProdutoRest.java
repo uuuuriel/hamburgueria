@@ -32,8 +32,7 @@ public class ProdutoRest extends UtilRest {
 			Produto prod = new ObjectMapper().readValue(produto,
 					Produto.class);
 			ProdutoService service = new ProdutoService();
-			service.adicionar(prod);
-			return this.buildResponse("Produto cadastrado com sucesso.");
+			return this.buildResponse(service.adicionar(prod));
 		} catch (HamburgueriaException | IOException e) {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

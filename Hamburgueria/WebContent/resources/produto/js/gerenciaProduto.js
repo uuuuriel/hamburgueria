@@ -60,6 +60,7 @@ $(document).ready(function(){
 								$(this).val(resp[this.id]);
 							}
 						});
+						//$("#tipoForm").val(resp.anexo);
 						$("input[name=ativo][value=" + resp.ativo + "]").prop('checked', 'true');
 					},
 					error: function(err){
