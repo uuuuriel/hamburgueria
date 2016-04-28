@@ -13,12 +13,15 @@ $(document).ready(function(){
 	
 	HM.produto.cadastrar = function(){
 		if(HM.produto.valida()){
+			var newData = new Object();
+			newData = HM.produto.getValor();
+			newData.anexo = $(".imagemCaminho").val();
+			console.log(newData.anexo);
 			HM.produto.adicionar({
-				data: HM.produto.getValor(),
+				data: newData,
 				success : function(data) {
-					console.log(data);
 					bootbox.alert(data);
-					carregar('resources/produto/gerenciaProduto.html');
+					//carregar('resources/produto/gerenciaProduto.html');
 				},
 				error : function(error) {
 					console.log(error);
@@ -44,7 +47,7 @@ $(document).ready(function(){
 	
 	HM.produto.getValor = function(value){
 		var newProduto = new Object();
-		$("form input, form select").each(function(){
+		$("#formCadastro input, form select").each(function(){
 			if(this.name != "ativo"){
 				newProduto[this.name]=this.value;
 			}else{

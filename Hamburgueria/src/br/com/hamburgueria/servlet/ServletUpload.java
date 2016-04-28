@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class ServletUpload extends HttpServlet {
 					}
 					if (!item.isFormField()) {
 						if (item.getName().length() > 0) {
-							this.inserirImagemDiretorio(item);
+							this.inserirImagemDiretorio(item, response);						
 						}
 					}
 				}
@@ -59,8 +60,8 @@ public class ServletUpload extends HttpServlet {
 		}
 	}
 
-	private void inserirImagemDiretorio(FileItem item) throws IOException {
-		String caminho = getServletContext().getContextPath()+ "/";
+	private void inserirImagemDiretorio(FileItem item,HttpServletResponse response) throws IOException {
+		String caminho = "H:/hamburgueria/Hamburgueria/WebContent/resources/uploads/";
 		File diretorio = new File(caminho);
 		if (!diretorio.exists()) {
 			diretorio.mkdir();
@@ -78,6 +79,9 @@ public class ServletUpload extends HttpServlet {
 		while ((nLidos = is.read(buffer)) >= 0) {
 			output.write(buffer, 0, nLidos);
 		}
+		PrintWriter out = response.getWriter();  
+		response.setContentType("text/html");  
+		out.println(file);  
 		output.flush();
 		output.close();
 	}
