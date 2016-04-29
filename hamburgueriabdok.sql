@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `hamburgueriabd` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE  IF NOT EXISTS `hamburgueriabd` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `hamburgueriabd`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: hamburgueriabd
 -- ------------------------------------------------------
--- Server version	5.5.8-log
+-- Server version	5.7.11-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -281,7 +281,7 @@ CREATE TABLE `produto` (
   `ativo` int(11) NOT NULL,
   PRIMARY KEY (`codproduto`,`categoria`),
   KEY `fk_produto_categoria1_idx` (`categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -290,7 +290,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (2,'X picanha','Carne, queijo pão',NULL,NULL,NULL,15.50,'Lanche',1),(4,'Suco de Laranja','Laranja, com gelo',NULL,NULL,NULL,5.80,'Bebida',1),(5,'Sorvete','5 Bolas de sorvete de morango.',NULL,NULL,NULL,8.50,'Sobremesa',0),(32,'teste','testes','Mr-Bean-s-holiday-mr-bean-28500185-1366-672.jpg',NULL,NULL,12.34,'Bebida',1),(33,'teste','testes','18796ba0ce8ec1b93e9be9f530b8b753.jpg',NULL,NULL,12.34,'Bebida',1),(34,'descricao','descricao','5a0abab1074f117fa5c1db9ba8aee76f.jpg',NULL,NULL,87.54,'Bebida',1),(35,'descricao','descricao','dbfe43ec75efa87088bfb34d19cfebe8.jpg',NULL,NULL,87.54,'Bebida',1),(36,'geag','seagaes','995855b445a7a7e76c5001ffd87ee773.jpg',NULL,NULL,87.87,'Bebida',1),(37,'Cachorro quente','muita, mas muita batata palha','5cc723ab8c2bb74dfa3989a926a3543f.jpg',NULL,NULL,10.00,'Bebida',1),(38,'testes','testes','bf44511b0d38001d6170b96ab3edb693.jpg',NULL,NULL,44.44,'Sobremesa',1);
+INSERT INTO `produto` VALUES (2,'X picanha','Carne, queijo pão','7d314c7d6c2c6b1a793aa5b515df4c31.jpg',NULL,NULL,15.50,'Lanche',1),(4,'Suco de Laranja','Laranja, com gelo','9fb26b1ad7609c9a7e999f3fc26eb639.jpg',NULL,NULL,5.80,'Bebida',1),(5,'Sorvete','5 Bolas de sorvete de morango.','8db8718675e8f7a83e31588cfe51ca67.jpg',NULL,NULL,8.50,'Sobremesa',1),(41,'X dog','hue','ab7f42211b0381d9cec1fa81bebf7766.jpg',NULL,NULL,1.23,'Bebida',1),(42,'aeae','aeae','54fa68c83761f7d7fcc77d1b03a86778.jpg',NULL,NULL,5.55,'Bebida',1);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,4 +356,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-28 15:14:52
+-- Dump completed on 2016-04-28 22:13:41
