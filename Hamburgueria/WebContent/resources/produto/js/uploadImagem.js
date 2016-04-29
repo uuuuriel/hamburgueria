@@ -9,7 +9,6 @@ function upload(receive){
     xhr.send(formdata);
     xhr.onload = function(e) {
         if (this.status == 200) {
-           console.log(e.target.response);
         }
     };
     

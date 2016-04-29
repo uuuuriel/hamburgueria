@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,7 +29,8 @@ public class ServletUpload extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		boolean isMultiPart = FileUpload.isMultipartContent(request);
 		if (isMultiPart) {
 			FileItemFactory factory = new DiskFileItemFactory();
@@ -48,22 +48,21 @@ public class ServletUpload extends HttpServlet {
 					}
 					if (!item.isFormField()) {
 						if (item.getName().length() > 0) {
-							this.inserirImagemDiretorio(item, nome);						
+							this.inserirImagemDiretorio(item, nome);
 						}
 					}
 				}
-			}
-			catch (FileUploadException ex) {
+			} catch (FileUploadException ex) {
 				ex.printStackTrace();
-			}
-			catch (Exception ex) {
+			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
 	}
 
-	private void inserirImagemDiretorio(FileItem item,String nome) throws IOException {
-		String caminho = "C:/Users/GrupoMaxi/Desktop/hamburgueria/Hamburgueria/WebContent/resources/uploads/";
+	private void inserirImagemDiretorio(FileItem item, String nome)
+			throws IOException {
+		String caminho = "H:/hamburgueria/Hamburgueria/WebContent/resources/uploads/";
 		File diretorio = new File(caminho);
 		if (!diretorio.exists()) {
 			diretorio.mkdir();

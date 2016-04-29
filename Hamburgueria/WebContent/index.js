@@ -1,6 +1,7 @@
 function carregar(pagina) {
 	$("#conteudo").load(pagina);
 }
+var base = "resources/uploads/";
 HM.sessao = function(data, back){
 	HM.ajax.post({
 		async: false,

@@ -12,7 +12,7 @@ $(document).ready(function(){
 				var html = "";
 				for ( var i = 0; i < data.length; i++) {
 					html += "<div class='divGallery col-sm-3'><div onclick='HM.produto.exibe("+data[i].cod+")'>"
-					+"<img src='assets/imagem/imagem3.png' width='80px'>"
+					+"<img src='imagem?caminho="+data[i].anexo+"' width='80px'>"
 					+"<div class='valorDivGallery'><strong>R$ "+data[i].valor.toFixed(2)+"</strong></div>"
 					+"<div class='textoDivGallery'><p>"+data[i].descricao+"</p></div></div>"
 					+"<div class='addProduto' onclick='HM.produto.adiciona("+data[i].cod+");' title='Adicionar esse produto!'>adicionar</div></div>"
@@ -45,7 +45,7 @@ $(document).ready(function(){
 			data: cod,
 			success: function(resp){
 				bootbox.dialog({
-					message: "<img src='assets/imagem/imagem3.png' width='100%' style='margin:0 auto'/>" +
+					message: "<img src='imagem?caminho="+resp.anexo+"' width='100%' style='margin:0 auto'/>" +
 					"<div class='descricaoProduto'>" + resp.descricao +"</div>",
 					title: ""+resp.nomeproduto +"<hr>",
 					size: 'small',

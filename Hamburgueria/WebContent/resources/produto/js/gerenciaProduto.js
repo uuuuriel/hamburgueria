@@ -56,11 +56,11 @@ $(document).ready(function(){
 						$("#titleChange").text("Editar Produto");
 						$("#cadastrarProduto").attr('onclick', "HM.produto.edite();");
 						$("form input, form select").each(function(){
-							if(this.name != "ativo"){
+							if(this.name != "ativo" && this.name != "anexo"){
 								$(this).val(resp[this.id]);
 							}
 						});
-						//$("#tipoForm").val(resp.anexo);
+						$("#imgProduto").attr('src', "imagem?caminho="+resp.anexo);
 						$("input[name=ativo][value=" + resp.ativo + "]").prop('checked', 'true');
 					},
 					error: function(err){

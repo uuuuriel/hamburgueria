@@ -16,6 +16,10 @@ $(document).ready(function(){
 			var newData = new Object();
 			newData = HM.produto.getValor();
 			newData.anexo = $("#imagem")[0].files[0].name;
+			if(newData.anexo == ""){
+				bootbox.alert("Coloque uma foto para o produto.");
+				return false;
+			}
 			HM.produto.adicionar({
 				data: newData,
 				success : function(data) {
@@ -32,10 +36,6 @@ $(document).ready(function(){
 	};
 	
 	HM.produto.edite = function(){
-		if($("#tipoForm").val() == ""){
-			bootbox.alert("Não é permitido arquivo sem foto.");
-			return false;
-		}
 		if(HM.produto.valida()){
 			var newData = new Object();
 			newData = HM.produto.getValor();
@@ -43,7 +43,8 @@ $(document).ready(function(){
 			HM.produto.editar({
 				data:newData,
 				success : function(data) {
-					upload();
+					$("#tipoForm").val(data);
+					if(newData.anexo != ""){upload();};
 					bootbox.alert("Edição concluida.");
 					carregar('resources/produto/gerenciaProduto.html');
 				},

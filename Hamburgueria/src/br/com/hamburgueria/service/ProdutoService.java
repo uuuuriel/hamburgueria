@@ -72,7 +72,7 @@ public class ProdutoService {
 		}
 	}
 	
-	public void atualizar(Produto prod) throws HamburgueriaException{
+	public String atualizar(Produto prod) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -84,8 +84,7 @@ public class ProdutoService {
 				prod.setAnexo(imagem.cripto(prod.getAnexo())+".jpg");
 			}
 			jdbcProduto.atualizar(prod);
-		} catch (Exception e){
-			e.printStackTrace();
+			return prod.getAnexo();
 		}finally{
 			conec.fecharConexao();
 		}
