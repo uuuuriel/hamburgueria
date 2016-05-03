@@ -1,5 +1,20 @@
 $(document).ready(
 		function() {
+			/*
+			var map = {"/cadastroFuncionario":"resources/funcionario/cadastroFuncionario.html"};
+			for ( var i in map ) {
+				if ( window.location.pathname.endsWith(i) ) {
+					load(map[i]);
+					break;
+				} 
+			}
+			$(".carregar").on("click",function(e){
+				var href = map["/"+$(this).attr("action")];
+				$("#conteudo").load(href);
+				window.history.pushState({url:href}, $(this).attr("action"), $(this).attr("action"));
+			})
+			*/
+			loadCarregarFunction();
 			HM.funcionario = new Object();
 			HM.funcionario = {
 				exibir : function(cfg) {

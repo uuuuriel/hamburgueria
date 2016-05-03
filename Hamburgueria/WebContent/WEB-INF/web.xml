@@ -38,18 +38,25 @@
     <servlet-name>ServletUpload</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
-  
   <filter>
     <filter-name>SessaoFiltro</filter-name>
     <filter-class>br.com.hamburgueria.filtro.SessaoFiltro</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/funcionario/*</url-pattern>
+    <url-pattern>/resources/funcionario/cadastroFuncionario.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/produto/*</url-pattern>
+    <url-pattern>/resources/funcionario/gerenciaFuncionario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/produto/formularioProduto.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/produto/gerenciaProduto.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
@@ -57,14 +64,74 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/taxa/*</url-pattern>
+    <url-pattern>/resources/taxa/formularioTaxa.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/taxa/gerenciaTaxa.html</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>DestroiSessao</servlet-name>
-    <servlet-class>br.com.chamados.servlet.DestroiSessao</servlet-class>
+    <servlet-class>br.com.Hamburgueria.servlet.DestroiSessao</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DestroiSessao</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+  <filter>
+    <filter-name>Redireciona</filter-name>
+    <filter-class>br.com.hamburgueria.filtro.Redireciona</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/delivery</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/contato</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/cadastro</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/delivery</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/producao</url-pattern>
+  </filter-mapping>
+   <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/pedido</url-pattern>
+  </filter-mapping>
+    <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/funcionario</url-pattern>
+  </filter-mapping>  
+    <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/taxas</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/usuarios</url-pattern>
+  </filter-mapping>
+      <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/produto</url-pattern>
+  </filter-mapping>
+      <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/controleVendas</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/producao</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/cadastroFuncionario</url-pattern>
+  </filter-mapping>
 </web-app>
