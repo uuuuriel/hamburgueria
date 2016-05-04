@@ -5,6 +5,10 @@ body{
 	background-size: 100%;
 	color: #fff;
 }
+
+body a{
+	cursor:pointer;
+}
 .imgLogo{
 	width: 12%;
 	float: left;

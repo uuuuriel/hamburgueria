@@ -53,6 +53,19 @@ public class TaxaRest extends UtilRest{
 		}		
 	}
 	
+	@GET
+	@Path("valorMinimo")
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response valorMinimo() {
+		try {
+			TaxaService service = new TaxaService();
+			return this.buildResponse(service.entrega());
+		} catch (HamburgueriaException e) {
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}		
+	}
+	
 	@PUT
 	@Path("/atualizar")
 	@Consumes("application/*")

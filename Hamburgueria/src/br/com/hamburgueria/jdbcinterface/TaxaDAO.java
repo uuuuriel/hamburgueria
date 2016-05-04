@@ -11,4 +11,6 @@ public interface TaxaDAO {
 	public boolean editar(Taxa taxa) throws HamburgueriaException;
 
 	public Taxa taxaEntrega() throws HamburgueriaException;
+	
+	public Taxa valorMinimo() throws HamburgueriaException;
 }

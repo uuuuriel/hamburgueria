@@ -25,7 +25,7 @@ $(document).ready(
 						+ "<td>"
 						+ listFunc[i]['fone']
 						+ "</td>"
-						+ "<td><a href='#' onclick='HM.funcionario.editarFuncionario("
+						+ "<td><a action='cadastroFuncionario' onclick='HM.funcionario.editarFuncionario("
 						+ listFunc[i]['codfuncionario']
 						+ ")'>"
 						+ "<i class='glyphicon glyphicon-edit editFunc' aria-hidden='true'></i>"
@@ -65,8 +65,7 @@ $(document).ready(
 			});
 		};
 		HM.funcionario.editarFuncionario = function(cod) {
-			$
-			.ajax({
+			$.ajax({
 				url : "resources/funcionario/cadastroFuncionario.html",
 				async : false,
 				success : function(dat) {

@@ -46,6 +46,17 @@ public class TaxaService {
 			conec.fecharConexao();
 		}
 	}
+	
+	public Taxa valorMinimo() throws HamburgueriaException {
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			TaxaDAO jdbcTaxa = new JDBCTaxaDAO(conexao);
+			return jdbcTaxa.valorMinimo();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
 
 	
 }

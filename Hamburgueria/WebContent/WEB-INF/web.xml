@@ -64,11 +64,103 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/pedidos/listarPedidoUsuario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
     <url-pattern>/resources/taxa/formularioTaxa.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
     <url-pattern>/resources/taxa/gerenciaTaxa.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/pedidos/acompanharPedidoUsuario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/pedidos/administrarPedido.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/pedidos/entregaPedido.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/pedidos/listarPedidoUsuario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/pedidos/pedidoPronto.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/pedidos/producaoPedido.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/vendas/controleVendas.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SessaoFiltro</filter-name>
+    <url-pattern>/resources/usuario/gerenciaUsuario.html</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>UsuarioFiltro</filter-name>
+    <filter-class>br.com.hamburgueria.filtro.UsuarioFiltro</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/funcionario/cadastroFuncionario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/funcionario/gerenciaFuncionario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/produto/formularioProduto.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/produto/gerenciaProduto.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/taxa/formularioTaxa.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/taxa/gerenciaTaxa.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/usuario/gerenciaUsuario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/pedidos/acompanharPedidoUsuario.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/pedidos/entregaPedido.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/pedidos/administrarPedido.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/pedidos/pedidoPronto.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/pedidos/producaoPedido.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UsuarioFiltro</filter-name>
+    <url-pattern>/resources/vendas/controleVendas.html</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>DestroiSessao</servlet-name>
@@ -133,5 +225,9 @@
   <filter-mapping>
     <filter-name>Redireciona</filter-name>
     <url-pattern>/cadastroFuncionario</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/cadastroProduto</url-pattern>
   </filter-mapping>
 </web-app>

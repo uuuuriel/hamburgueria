@@ -1,5 +1,6 @@
 $(document).ready(
 		function() {
+			loadCarregarFunction();
 			HM.produto = new Object();
 			HM.produto = {
 				exibir : function(cfg) {

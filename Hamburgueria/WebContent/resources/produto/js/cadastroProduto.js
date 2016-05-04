@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("#valor").mask('000.000.000.000.000,00', {reverse: true});
-	
-	HM.produto.valida = function(){
+	HM.novoProduto = new Object();
+	HM.novoProduto.valida = function(){
 		if(($("#nome").val() == "") || ($("#descricao").val() == "") 
 		|| ($("#valor").val() == "")){
 			bootbox.alert("Todos os campos são obrigatórios.");
@@ -11,22 +11,22 @@ $(document).ready(function(){
 		}
 	};
 	
-	HM.produto.cadastrar = function(){
-		if(HM.produto.valida()){
+	HM.novoProduto.cadastrar = function(){
+		if(HM.novoProduto.valida()){
 			var newData = new Object();
-			newData = HM.produto.getValor();
+			newData = HM.novoProduto.getValor();
 			newData.anexo = $("#imagem")[0].files[0].name;
 			if(newData.anexo == ""){
 				bootbox.alert("Coloque uma foto para o produto.");
 				return false;
 			}
-			HM.produto.adicionar({
+			HM.novoProduto.adicionar({
 				data: newData,
 				success : function(data) {
 					$("#tipoForm").val(data);
 					upload();
 					bootbox.alert("Produto cadastrado.");
-					carregar('resources/produto/gerenciaProduto.html');
+					loadUrl('gerenciaProduto');
 				},
 				error : function(error) {
 					console.log(error);
@@ -35,10 +35,10 @@ $(document).ready(function(){
 		};
 	};
 	
-	HM.produto.edite = function(){
-		if(HM.produto.valida()){
+	HM.novoProduto.edite = function(){
+		if(HM.novoProduto.valida()){
 			var newData = new Object();
-			newData = HM.produto.getValor();
+			newData = HM.novoProduto.getValor();
 			newData.anexo = $("#imagem")[0].files[0].name;
 			HM.produto.editar({
 				data:newData,
@@ -46,7 +46,7 @@ $(document).ready(function(){
 					$("#tipoForm").val(data);
 					if(newData.anexo != ""){upload();};
 					bootbox.alert("Edição concluida.");
-					carregar('resources/produto/gerenciaProduto.html');
+					loadUrl('gerenciaProduto');
 				},
 				error : function(error) {
 					console.log(error);
@@ -55,7 +55,7 @@ $(document).ready(function(){
 		}
 	};
 	
-	HM.produto.getValor = function(value){
+	HM.novoProduto.getValor = function(value){
 		var newProduto = new Object();
 		$("#formCadastro input, form select").each(function(){
 			if(this.name != "ativo"){

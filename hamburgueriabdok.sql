@@ -81,22 +81,22 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `codcliente` int(11) NOT NULL AUTO_INCREMENT,
   `nomecliente` varchar(45) NOT NULL,
-  `telefone` double NOT NULL,
+  `telefone` double DEFAULT NULL,
   `data_nascimento` date DEFAULT NULL,
   `rg` varchar(15) DEFAULT NULL,
   `cpf` varchar(15) DEFAULT NULL,
-  `cidade` int(3) NOT NULL,
-  `bairro` varchar(45) NOT NULL,
-  `rua` varchar(45) NOT NULL,
-  `numero` int(6) NOT NULL,
+  `cidade` int(3) DEFAULT NULL,
+  `bairro` varchar(45) DEFAULT NULL,
+  `rua` varchar(45) DEFAULT NULL,
+  `numero` int(6) DEFAULT NULL,
   `complemento` varchar(70) DEFAULT NULL,
   `cep` int(9) DEFAULT NULL,
-  `data_cadastro` date NOT NULL,
+  `data_cadastro` date DEFAULT NULL,
   `email` varchar(70) DEFAULT NULL,
   `senha` varchar(100) DEFAULT NULL,
-  `ativo` int(1) NOT NULL DEFAULT '0',
+  `ativo` int(1) DEFAULT '0',
   PRIMARY KEY (`codcliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'abc',123,'1969-12-31','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123@123.com','d41d8cd98f00b204e9800998ecf8427e',1),(2,'123123123',123,'1969-12-31','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123@94898.cm','d41d8cd98f00b204e9800998ecf8427e',1),(3,'Uriel Hass123111111',123456,'1969-12-31','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','d41d8cd98f00b204e9800998ecf8427e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'Caio lessin',8919819819,'1969-12-31','1231561','1981819',8521,'14036','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',1),(12,'Guilherme Stegmann',9498498489,'1969-12-31','4974282','274.262.651-98',8333,'34821','asdfasdfasdf',123,'132132',89227100,'2016-03-22','uriel@usuario.com','e10adc3949ba59abbe56e057f20f883e',1),(13,'uriel hass',165165,NULL,NULL,NULL,8323,'48953','25198',551651,NULL,1651,'2016-03-27',NULL,NULL,0),(14,'uhasdfiu',15165,NULL,NULL,NULL,8322,'38056','65156',6565,NULL,651651,'2016-03-27',NULL,NULL,0),(15,'se ta ai',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-03-27',NULL,NULL,0),(16,'asdf',9898498498,NULL,NULL,NULL,8321,'36193','qualquer rua',995,NULL,46546566,'2016-03-27',NULL,NULL,0),(17,'onkeypress',8949849849,NULL,NULL,NULL,8323,'48953','651651',651651,NULL,56165110,'2016-03-27',NULL,NULL,0),(18,'Qualquer nome',1234561561,NULL,NULL,NULL,8521,'14039','119818',116516,NULL,16516,'2016-03-28',NULL,NULL,0),(19,'Guilherme ',1561651651,NULL,NULL,NULL,8322,'38056','qualquer',156165,NULL,15616516,'2016-03-30',NULL,NULL,0),(20,'uriel ',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-03-30',NULL,NULL,0),(21,'Teste nome',4787844747,NULL,NULL,NULL,8521,'14029','Follow',123,NULL,89554545,'2016-04-27',NULL,NULL,0);
+INSERT INTO `cliente` VALUES (1,'abc',123,'1969-12-31','123','123.0',8321,'36193','123',123,'123123',123,'2016-02-16','123@123.com','d41d8cd98f00b204e9800998ecf8427e',1),(2,'123123123',123,'1969-12-31','123','123.0',8320,'35957','123',123,'123',123,'2016-02-16','123@94898.cm','d41d8cd98f00b204e9800998ecf8427e',1),(3,'Uriel Hass123111111',123456,'1969-12-31','123456','123456.0',8382,'34837','123456',123456,'123',123456,'2016-02-16','uriel@cliente.com','d41d8cd98f00b204e9800998ecf8427e',0),(6,'asdf',8919819819,'1969-12-31','1231561','1981819',8322,'38056','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',0),(7,'Caio lessin',8919819819,'1969-12-31','1231561','1981819',8521,'14036','13251',1321,'4151',1651651,'2016-03-10','uriel@urei.com','e10adc3949ba59abbe56e057f20f883e',1),(12,'Guilherme Stegmann',9498498489,'1969-12-31','4974282','274.262.651-98',8333,'34821','asdfasdfasdf',123,'132132',89227100,'2016-03-22','uriel@usuario.com','e10adc3949ba59abbe56e057f20f883e',1),(13,'uriel hass',165165,NULL,NULL,NULL,8323,'48953','25198',551651,NULL,1651,'2016-03-27',NULL,NULL,0),(14,'uhasdfiu',15165,NULL,NULL,NULL,8322,'38056','65156',6565,NULL,651651,'2016-03-27',NULL,NULL,0),(15,'se ta ai',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-03-27',NULL,NULL,0),(16,'asdf',9898498498,NULL,NULL,NULL,8321,'36193','qualquer rua',995,NULL,46546566,'2016-03-27',NULL,NULL,0),(17,'onkeypress',8949849849,NULL,NULL,NULL,8323,'48953','651651',651651,NULL,56165110,'2016-03-27',NULL,NULL,0),(18,'Qualquer nome',1234561561,NULL,NULL,NULL,8521,'14039','119818',116516,NULL,16516,'2016-03-28',NULL,NULL,0),(19,'Guilherme ',1561651651,NULL,NULL,NULL,8322,'38056','qualquer',156165,NULL,15616516,'2016-03-30',NULL,NULL,0),(20,'uriel ',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-03-30',NULL,NULL,0),(21,'Teste nome',4787844747,NULL,NULL,NULL,8521,'14029','Follow',123,NULL,89554545,'2016-04-27',NULL,NULL,0),(22,'Geraldo',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-05-03',NULL,NULL,0),(23,'asff',0,NULL,NULL,NULL,0,'0','',0,NULL,0,'2016-05-03',NULL,NULL,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +196,7 @@ CREATE TABLE `historico_funcionario` (
 
 LOCK TABLES `historico_funcionario` WRITE;
 /*!40000 ALTER TABLE `historico_funcionario` DISABLE KEYS */;
-INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4),(0,4),(0,4),(0,4),(0,4),(0,4),(9,4),(0,4),(11,4),(12,4),(13,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(21,4),(22,4),(23,4),(24,4),(26,4),(27,4),(28,4),(29,4),(30,4),(31,4),(32,4),(33,4),(34,4),(35,4),(36,4),(37,4),(38,4),(39,4),(40,4),(41,4),(42,4);
+INSERT INTO `historico_funcionario` VALUES (0,4),(0,4),(0,4),(0,4),(3,4),(4,4),(5,4),(0,4),(0,4),(0,4),(0,4),(0,4),(9,4),(0,4),(11,4),(12,4),(13,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(0,4),(21,4),(22,4),(23,4),(24,4),(26,4),(27,4),(28,4),(29,4),(30,4),(31,4),(32,4),(33,4),(34,4),(35,4),(36,4),(37,4),(38,4),(39,4),(40,4),(41,4),(42,4),(44,4),(45,4);
 /*!40000 ALTER TABLE `historico_funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +221,7 @@ CREATE TABLE `pedido` (
   KEY `fk_pedido_taxas1_idx` (`taxas_codtaxas`),
   CONSTRAINT `fk_pedido_cliente1` FOREIGN KEY (`cliente_codcliente`) REFERENCES `cliente` (`codcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_estagio_pedido1` FOREIGN KEY (`estagio_pedido_codestagio_pedido`) REFERENCES `estagio_pedido` (`codestagio_pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +230,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (4,5,3,1,'2016-03-24 00:00:00',0,NULL),(5,5,3,1,'2016-03-24 00:00:00',0,NULL),(8,5,13,1,'2016-03-27 00:00:00',NULL,NULL),(9,5,14,1,'2016-03-27 00:00:00',NULL,NULL),(11,1,15,1,'2016-03-27 00:00:00',0,'cliente não quis mais'),(12,1,16,1,'2016-03-27 00:00:00',0,'Náo quis mais'),(13,1,17,1,'2016-03-27 00:00:00',0,'asdfkj'),(21,1,3,2,'2016-03-28 00:00:00',0,'dasfasdf'),(22,1,13,0,'2016-03-28 00:00:00',0,'Cancelando apenas'),(23,5,18,0,'2016-03-28 00:00:00',NULL,NULL),(24,5,18,0,'2016-03-28 00:00:00',NULL,NULL),(25,1,12,2,'2016-03-30 00:00:00',0,'asdfasdf'),(26,1,19,2,'2016-03-30 00:00:00',0,'dasfdsfasdf'),(27,5,20,2,'2016-03-30 00:00:00',NULL,NULL),(28,5,13,0,'2016-03-30 00:00:00',NULL,NULL),(29,5,13,0,'2016-03-31 00:00:00',NULL,NULL),(30,5,7,0,'2016-04-07 00:00:00',NULL,NULL),(31,1,3,2,'2016-04-08 00:00:00',0,'testes'),(32,5,7,0,'2016-04-08 00:00:00',NULL,NULL),(33,1,13,0,'2016-04-19 00:00:00',NULL,NULL),(34,1,12,0,'2016-04-19 00:00:00',NULL,NULL),(35,1,7,2,'2016-04-19 00:00:00',NULL,NULL),(36,1,18,0,'2016-04-19 00:00:00',NULL,NULL),(37,5,12,2,'2016-04-19 00:00:00',77.5,NULL),(38,5,3,0,'2016-04-20 00:00:00',35.7,NULL),(39,5,7,2,'2016-04-25 00:00:00',49.3,NULL),(40,5,3,2,'2016-04-25 00:00:00',39.6,NULL),(41,5,21,2,'2016-04-27 00:00:00',48.4,NULL),(42,1,14,2,'2016-04-27 00:00:00',21.3,NULL);
+INSERT INTO `pedido` VALUES (4,5,3,1,'2016-03-24 00:00:00',0,NULL),(5,5,3,1,'2016-03-24 00:00:00',0,NULL),(8,5,13,1,'2016-03-27 00:00:00',NULL,NULL),(9,5,14,1,'2016-03-27 00:00:00',NULL,NULL),(11,1,15,1,'2016-03-27 00:00:00',0,'cliente não quis mais'),(12,1,16,1,'2016-03-27 00:00:00',0,'Náo quis mais'),(13,1,17,1,'2016-03-27 00:00:00',0,'asdfkj'),(21,1,3,2,'2016-03-28 00:00:00',0,'dasfasdf'),(22,1,13,0,'2016-03-28 00:00:00',0,'Cancelando apenas'),(23,5,18,0,'2016-03-28 00:00:00',NULL,NULL),(24,5,18,0,'2016-03-28 00:00:00',NULL,NULL),(25,1,12,2,'2016-03-30 00:00:00',0,'asdfasdf'),(26,1,19,2,'2016-03-30 00:00:00',0,'dasfdsfasdf'),(27,5,20,2,'2016-03-30 00:00:00',NULL,NULL),(28,5,13,0,'2016-03-30 00:00:00',NULL,NULL),(29,5,13,0,'2016-03-31 00:00:00',NULL,NULL),(30,5,7,0,'2016-04-07 00:00:00',NULL,NULL),(31,1,3,2,'2016-04-08 00:00:00',0,'testes'),(32,5,7,0,'2016-04-08 00:00:00',NULL,NULL),(33,1,13,0,'2016-04-19 00:00:00',NULL,NULL),(34,1,12,0,'2016-04-19 00:00:00',NULL,NULL),(35,1,7,2,'2016-04-19 00:00:00',NULL,NULL),(36,1,18,0,'2016-04-19 00:00:00',NULL,NULL),(37,5,12,2,'2016-04-19 00:00:00',77.5,NULL),(38,5,3,0,'2016-04-20 00:00:00',35.7,NULL),(39,5,7,2,'2016-04-25 00:00:00',49.3,NULL),(40,5,3,2,'2016-04-25 00:00:00',39.6,NULL),(41,5,21,2,'2016-04-27 00:00:00',48.4,NULL),(42,5,14,2,'2016-04-27 00:00:00',21.3,NULL),(43,1,12,2,'2016-05-03 00:00:00',5.8,NULL),(44,1,22,0,'2016-05-03 00:00:00',36.5,NULL),(45,1,23,0,'2016-05-03 00:00:00',36.53,NULL);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,7 +258,7 @@ CREATE TABLE `pedido_produto` (
 
 LOCK TABLES `pedido_produto` WRITE;
 /*!40000 ALTER TABLE `pedido_produto` DISABLE KEYS */;
-INSERT INTO `pedido_produto` VALUES (4,4,4),(4,4,4),(4,4,4),(4,4,4),(4,4,4),(5,2,4),(5,2,4),(5,2,4),(5,4,4),(5,4,4),(5,4,4),(8,5,4),(8,5,4),(8,5,4),(8,4,4),(8,2,4),(8,2,4),(8,2,4),(8,4,4),(9,5,4),(9,2,4),(9,4,4),(11,5,1),(11,5,1),(11,5,1),(12,5,1),(12,4,1),(13,5,1),(13,5,1),(13,4,1),(21,5,1),(21,4,1),(21,5,1),(21,5,1),(21,5,1),(21,5,1),(21,4,1),(22,5,1),(22,5,1),(22,5,1),(22,5,1),(23,5,4),(23,5,4),(23,5,4),(23,4,4),(24,4,4),(24,4,4),(24,4,4),(25,5,1),(25,4,1),(25,4,1),(25,4,1),(25,4,1),(25,4,1),(25,2,1),(26,4,1),(26,5,1),(26,4,1),(26,2,1),(27,5,4),(27,2,4),(28,4,4),(28,4,4),(28,4,4),(28,4,4),(28,4,4),(28,5,4),(29,5,4),(29,5,4),(29,5,4),(29,5,4),(29,5,4),(30,5,4),(30,5,4),(30,4,4),(30,4,4),(30,2,4),(31,2,1),(31,5,1),(31,4,1),(31,4,1),(32,5,4),(32,5,4),(32,5,4),(32,4,4),(32,5,4),(37,2,4),(37,2,4),(37,2,4),(37,2,4),(37,2,4),(38,4,4),(38,4,4),(38,4,4),(38,4,4),(39,2,4),(39,4,4),(39,2,4),(40,4,4),(40,4,4),(40,2,4),(41,4,4),(41,2,4),(41,4,4),(41,2,4),(41,4,4),(42,4,1),(42,2,1);
+INSERT INTO `pedido_produto` VALUES (4,4,4),(4,4,4),(4,4,4),(4,4,4),(4,4,4),(5,2,4),(5,2,4),(5,2,4),(5,4,4),(5,4,4),(5,4,4),(8,5,4),(8,5,4),(8,5,4),(8,4,4),(8,2,4),(8,2,4),(8,2,4),(8,4,4),(9,5,4),(9,2,4),(9,4,4),(11,5,1),(11,5,1),(11,5,1),(12,5,1),(12,4,1),(13,5,1),(13,5,1),(13,4,1),(21,5,1),(21,4,1),(21,5,1),(21,5,1),(21,5,1),(21,5,1),(21,4,1),(22,5,1),(22,5,1),(22,5,1),(22,5,1),(23,5,4),(23,5,4),(23,5,4),(23,4,4),(24,4,4),(24,4,4),(24,4,4),(25,5,1),(25,4,1),(25,4,1),(25,4,1),(25,4,1),(25,4,1),(25,2,1),(26,4,1),(26,5,1),(26,4,1),(26,2,1),(27,5,4),(27,2,4),(28,4,4),(28,4,4),(28,4,4),(28,4,4),(28,4,4),(28,5,4),(29,5,4),(29,5,4),(29,5,4),(29,5,4),(29,5,4),(30,5,4),(30,5,4),(30,4,4),(30,4,4),(30,2,4),(31,2,1),(31,5,1),(31,4,1),(31,4,1),(32,5,4),(32,5,4),(32,5,4),(32,4,4),(32,5,4),(37,2,4),(37,2,4),(37,2,4),(37,2,4),(37,2,4),(38,4,4),(38,4,4),(38,4,4),(38,4,4),(39,2,4),(39,4,4),(39,2,4),(40,4,4),(40,4,4),(40,2,4),(41,4,4),(41,2,4),(41,4,4),(41,2,4),(41,4,4),(42,4,4),(42,2,4),(43,4,1),(44,5,1),(44,2,1),(45,5,1),(45,41,1),(45,5,1),(45,4,1);
 /*!40000 ALTER TABLE `pedido_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +290,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (2,'X picanha','Carne, queijo pão','7d314c7d6c2c6b1a793aa5b515df4c31.jpg',NULL,NULL,15.50,'Lanche',1),(4,'Suco de Laranja','Laranja, com gelo','9fb26b1ad7609c9a7e999f3fc26eb639.jpg',NULL,NULL,5.80,'Bebida',1),(5,'Sorvete','5 Bolas de sorvete de morango.','8db8718675e8f7a83e31588cfe51ca67.jpg',NULL,NULL,8.50,'Sobremesa',1),(41,'X dog','hue','ab7f42211b0381d9cec1fa81bebf7766.jpg',NULL,NULL,1.23,'Bebida',1),(42,'aeae','aeae','54fa68c83761f7d7fcc77d1b03a86778.jpg',NULL,NULL,5.55,'Bebida',1);
+INSERT INTO `produto` VALUES (2,'X picanha','Carne, queijo pão','7d314c7d6c2c6b1a793aa5b515df4c31.jpg',NULL,NULL,15.50,'Lanche',1),(4,'Suco de Laranja','Laranja, com gelo','9fb26b1ad7609c9a7e999f3fc26eb639.jpg',NULL,NULL,5.80,'Bebida',1),(5,'Sorvete','5 Bolas de sorvete de morango.','8db8718675e8f7a83e31588cfe51ca67.jpg',NULL,NULL,8.50,'Sobremesa',1),(41,'X dog','hue','ab7f42211b0381d9cec1fa81bebf7766.jpg',NULL,NULL,1.23,'Bebida',1);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,7 +343,7 @@ CREATE TABLE `taxas` (
 
 LOCK TABLES `taxas` WRITE;
 /*!40000 ALTER TABLE `taxas` DISABLE KEYS */;
-INSERT INTO `taxas` VALUES (0,'Entrega','Taxa de entrega',12.5),(1,'Taxa mínima','Haverá um valor mínimo para compra delivery',15000),(2,'Retirada balcão','Sem nenhum custo adicional',0);
+INSERT INTO `taxas` VALUES (0,'Entrega','Taxa de entrega',12.5),(1,'Taxa mínima','Haverá um valor mínimo para compra delivery',15.75),(2,'Retirada balcão','Sem nenhum custo adicional',0);
 /*!40000 ALTER TABLE `taxas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -356,4 +356,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-28 22:13:41
+-- Dump completed on 2016-05-03 21:59:21

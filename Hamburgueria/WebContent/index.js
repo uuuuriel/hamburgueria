@@ -1,25 +1,7 @@
 $(document).ready(function(){
-	/*window.onpopstate = function(event) {
+	window.onpopstate = function(event) {
 		$('#conteudo').load(event.state.url);
 	 }
-	$(".carregar").on("click",function(e){
-		e.preventDefault();
-//		var url = window.location.pathname.indexOf("/h/") > 0 ? "" : "h/";
-//		url += $(this).attr("title");
-		$("#conteudo").load($(this).attr("href"));
-		$(this).attr("href");
-		window.history.pushState({url:$(this).attr("href")}, $(this).attr("action"), $(this).attr("action"));
-	})
-	
-	*/
-	function carregar(url){
-		$("#conteudo").load(url);
-	}
-	
-	function loadContent(url){
-		$('#conteudo').load(url);
-	};
-	
 	var mapHref = {"/delivery":"resources/pedidos/delivery.html",
 				"/pedido":"resources/pedidos/administrarPedido.html",
 				"/contato": "resources/contato.html",
@@ -31,12 +13,13 @@ $(document).ready(function(){
 				"/usuarios":"resources/usuario/gerenciaUsuario.html",
 				"/gerenciaProduto":"resources/produto/gerenciaProduto.html",
 				"/controleVendas":"resources/vendas/controleVendas.html",
-				"/cadastroFuncionario":"resources/funcionario/cadastroFuncionario.html"};
+				"/cadastroFuncionario":"resources/funcionario/cadastroFuncionario.html",
+				"/cadastroProduto": "resources/produto/formularioProduto.html"};
 	
 	loadContentByPath = function() {
 		for ( var i in mapHref ) {
 			if ( window.location.pathname.endsWith(i) ) {
-				loadContent(mapHref[i]);
+				$("#conteudo").load(mapHref[i]);
 				break;
 			} 
 		}
@@ -58,25 +41,6 @@ $(document).ready(function(){
 		window.history.pushState({url:href}, path, path);
 	};
 	
-	
-	
-	
-	
-	/*window.onpopstate = function(event) {
-	$('#conteudo').load(event.state.url);
- }
-$(".carregar").on("click",function(e){
-	e.preventDefault();
-//	var url = window.location.pathname.indexOf("/h/") > 0 ? "" : "h/";
-//	url += $(this).attr("title");
-	$("#conteudo").load($(this).attr("href"));
-	$(this).attr("href");
-	window.history.pushState({url:$(this).attr("href")}, $(this).attr("action"), $(this).attr("action"));
-})
-
-*/
-	
-	
 	HM.sessao = function(data, back){
 		HM.ajax.post({
 			async: false,
@@ -90,6 +54,13 @@ $(".carregar").on("click",function(e){
 		});
 		return back;
 	};
+	
+	if(HM.sessao('administrador') == 1 && HM.sessao('nome') != null){
+		$(".funcionario").show();
+		$(".usuario").show();
+	}else if(HM.sessao('administrador') != 1 && HM.sessao('nome') != ""){
+		$(".usuario").show();
+	}
 	$(document).ready(function() {
 		$('#conteudoIndex').load('resources/ofertadia.html');
 		$('#sugestaoCritica').load('resources/sugestaocritica.html');

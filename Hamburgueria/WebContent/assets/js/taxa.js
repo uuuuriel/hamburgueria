@@ -42,6 +42,22 @@ $(document).ready(function() {
 					}
 				}
 			})
+		},
+		valorMinimo : function(cfg){
+			HM.ajax.get({
+				async:false,
+				url :"rest/TaxaRest/valorMinimo",
+				success:function(succ){
+					if(cfg && cfg.success){
+						cfg.success(succ);
+					}
+				},
+				error:function(err){
+					if(cfg && cfg.error){
+						cfg.error(err);
+					}
+				}
+			})
 		}
 	}
 	

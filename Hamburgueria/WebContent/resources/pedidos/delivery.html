@@ -1,11 +1,11 @@
 <link rel="stylesheet" type="text/css" href="resources/pedidos/css/carrinhoCompra.css"/>
 <link rel="stylesheet" type="text/css" href="resources/pedidos/css/delivery.css"/>
 <a class="carrinhoCompraAll">
-	<span class="carrinhoCompra" id="carrinhoCompra" style="display:none;">
+	<span class="carrinhoCompra" id="carrinhoCompra" onclick="HM.produto.finalizarPedido();" style="display:none;">
 		<img src="assets/imagem/carrinho_compras.png">
 		<input type='text' id='cont' style="display:none;" value='0'/>
 		<span class='carrinhoCompraTag'><span id='carrinhoCompraTag'></span></span><br/>
-		<span class="finalizarPedidoTag" onclick="HM.produto.finalizarPedido();" id="codigouma">Finalizar Pedido!</span>	
+		<span class="finalizarPedidoTag"  id="codigouma">Visualizar carrinho!</span>	
 	</span>
 </a>
 <div class='divDelivery col-sm-12'>
