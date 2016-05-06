@@ -55,6 +55,9 @@ $(document).ready(function(){
 						$("#conteudo").html(dat);
 						$("#titleChange").text("Editar Produto");
 						$("#cadastrarProduto").attr('onclick', "HM.produto.edite();");
+						$("#nome").attr("disabled", "disabled");
+						$("#descricao").attr("disabled", "disabled");
+						$("#categoria").attr("disabled", "disabled");
 						$("form input, form select").each(function(){
 							if(this.name != "ativo" && this.name != "anexo"){
 								$(this).val(resp[this.id]);

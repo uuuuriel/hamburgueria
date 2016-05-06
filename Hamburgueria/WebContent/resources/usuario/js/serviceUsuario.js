@@ -1,6 +1,6 @@
 $(document).ready(
 		function() {
-			loadCarregarFunction();
+			//loadCarregarFunction();
 			HM.usuario = new Object();
 			HM.usuario = {
 				exibir : function(cfg) {

@@ -1,6 +1,6 @@
 $(document).ready(
 		function() {
-			loadCarregarFunction();
+			loadCarregarFunction(".carregar-func");
 			HM.funcionario = new Object();
 			HM.funcionario = {
 				exibir : function(cfg) {

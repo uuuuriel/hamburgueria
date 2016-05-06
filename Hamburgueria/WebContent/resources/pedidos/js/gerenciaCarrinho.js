@@ -84,6 +84,10 @@ $(document).ready(function(){
 			success:function(succ){
 				$("#carrinhoCompraTag").text("");
 				$("#carrinhoCompraTag").hide();
+				$("#carrinhoCompra").hide();
+				$('#alerts').fadeIn(function(){
+					$("#alerts").html("Agradecemos por comprar conosco! :)");
+				}).delay(2000).fadeOut(2000);
 			},
 			error:function(err){
 				console.log(err);
@@ -177,10 +181,10 @@ $(document).ready(function(){
 														for (var i = 0; i < data.length; i++) {
 															availableTags.push(
 																	{
-																		value: data[i].nome,
-																		label:data[i].nome,
+																		value: data[i].telefone,
+																		label:data[i].telefone,
 																		codigo: data[i].cod,
-																		telefone: data[i].telefone,
+																		nome: data[i].nome,
 																		cep: data[i].cep,
 																		bairro: data[i].bairro,
 																		rua: data[i].rua,
@@ -189,7 +193,7 @@ $(document).ready(function(){
 																	}
 																);
 														}
-													    $( "#tags" ).autocomplete({
+													    $( ".tags" ).autocomplete({
 													      source: availableTags,								      
 													      select: function(event, ui) {
 													    	  $("#cidade").val(ui.item.cidade);
@@ -209,7 +213,7 @@ $(document).ready(function(){
 													  			});
 													    	  $(".disableds").attr("disabled","disabled");
 													    	  $("#cod").val(ui.item.codigo);
-													    	  $("#telefone").val(ui.item.telefone);
+													    	  $("#nome").val(ui.item.nome);
 													    	  $("#cep").val(ui.item.cep);
 													    	  $("#rua").val(ui.item.rua);
 													    	  $("#numero").val(ui.item.numero);
@@ -218,7 +222,7 @@ $(document).ready(function(){
 													        	$("#cidade").val("");
 													        	$("#bairro").val("");
 													        	$("#cod").val("");
-														    	$("#telefone").val("");
+														    	$("#nome").val("");
 														    	$("#cep").val("");
 														    	$("#rua").val("");
 														    	$("#numero").val("");
@@ -232,8 +236,8 @@ $(document).ready(function(){
 												});
 												
 												bootbox.dialog({
-													message: '<div class="form-group"><input type="text" id="tags" class="colorBlack form-control" placeholder="Nome"/></div>'
-																+'<div class="form-group"><input class="form-control disableds" onKeyPress="HM.produto.mask()" id="telefone" placeholder="Telefone"/></div>'
+													message: '<div class="form-group"><input type="text" id="nome" class="disableds colorBlack form-control" placeholder="Nome"/></div>'
+																+'<div class="form-group"><input class="form-control tags"  placeholder="Telefone"/></div>'
 																+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
 																+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
 																+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'

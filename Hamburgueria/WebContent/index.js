@@ -26,14 +26,14 @@ $(document).ready(function(){
 	}
 	loadContentByPath();
 	
-	loadCarregarFunction = function() {
-		$(".carregar").on("click",function(e){
+	loadCarregarFunction = function(clazz) {
+		$(clazz).on("click",function(e){
 			var href = mapHref["/"+$(this).attr("action")];
 			$("#conteudo").load(href);
 			window.history.pushState({url:href}, $(this).attr("action"), $(this).attr("action"));
 		});
 	};
-	loadCarregarFunction();
+	loadCarregarFunction(".carregar");
 	
 	loadUrl = function(path) {
 		var href = mapHref["/"+path];

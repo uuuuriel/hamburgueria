@@ -90,8 +90,7 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 
 	@Override
 	public boolean atualizar(Produto prod) throws HamburgueriaException{
-		String comando = "UPDATE produto SET nomeproduto=?,"
-				+ " descricao=?, categoria=?, ativo=?, valor=?";
+		String comando = "UPDATE produto SET ativo=?, valor=?";
 		if(prod.getAnexo() != ""){
 			comando += " ,anexo=?";
 		}
@@ -99,13 +98,10 @@ public class JDBCProdutoDAO implements ProdutoDAO{
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setString(1, prod.getNome());
-			p.setString(2, prod.getDescricao());
-			p.setString(3, prod.getCategoria());
-			p.setInt(4, prod.getAtivo());
-			p.setDouble(5, prod.getValor());
+			p.setInt(1, prod.getAtivo());
+			p.setDouble(2, prod.getValor());
 			if(prod.getAnexo() != ""){
-				p.setString(6, prod.getAnexo());
+				p.setString(3, prod.getAnexo());
 			}
 			p.executeUpdate();
 		} catch (SQLException e) {
