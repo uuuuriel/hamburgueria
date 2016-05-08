@@ -102,7 +102,7 @@ $(document).ready(
 									$("#cep").val(func.cep);
 									$("#txtcomplemento").val(func.complemento);
 									$("#codfuncionario").val(func.codfuncionario);
-									$("#buttonConfirmar").attr("onclick","HM.funcionario.exibirEdicao();");
+									$("#buttonConfirmar").attr("onclick","HM.funcionario .exibirEdicao();");
 									if (func.administrador == 1) {
 										$("#administrador").prop("checked","true")
 									} else {

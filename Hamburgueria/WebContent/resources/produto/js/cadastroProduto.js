@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("#valor").mask('000.000.000.000.000,00', {reverse: true});
-	HM.novoProduto = new Object();
-	HM.novoProduto.valida = function(){
+	HM.produto = new Object();
+	HM.produto.valida = function(){
 		if(($("#nome").val() == "") || ($("#descricao").val() == "") 
 		|| ($("#valor").val() == "")){
 			bootbox.alert("Todos os campos são obrigatórios.");
@@ -11,16 +11,16 @@ $(document).ready(function(){
 		}
 	};
 	
-	HM.novoProduto.cadastrar = function(){
-		if(HM.novoProduto.valida()){
+	HM.produto.cadastrar = function(){
+		if(HM.produto.valida()){
 			var newData = new Object();
-			newData = HM.novoProduto.getValor();
-			newData.anexo = $("#imagem")[0].files[0].name;
+			newData = HM.produto.getValor();
+			newData.anexo = $("#imagem")[0].files[0].name ? $("#imagem")[0].files[0].name : "";
 			if(newData.anexo == ""){
 				bootbox.alert("Coloque uma foto para o produto.");
 				return false;
 			}
-			HM.novoProduto.adicionar({
+			HM.produto.adicionar({
 				data: newData,
 				success : function(data) {
 					$("#tipoForm").val(data);
@@ -35,10 +35,10 @@ $(document).ready(function(){
 		};
 	};
 	
-	HM.novoProduto.edite = function(){
-		if(HM.novoProduto.valida()){
+	HM.produto.edite = function(){
+		if(HM.produto.valida()){
 			var newData = new Object();
-			newData = HM.novoProduto.getValor();
+			newData = HM.produto.getValor();
 			newData.anexo = $("#imagem")[0].files[0].name;
 			HM.produto.editar({
 				data:newData,
@@ -55,7 +55,7 @@ $(document).ready(function(){
 		}
 	};
 	
-	HM.novoProduto.getValor = function(value){
+	HM.produto.getValor = function(value){
 		var newProduto = new Object();
 		$("#formCadastro input, form select").each(function(){
 			if(this.name != "ativo"){

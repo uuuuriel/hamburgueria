@@ -66,8 +66,6 @@ $(document).ready(function(){
 	}else if(HM.sessao('administrador') != 1 && HM.sessao('nome') != ""){
 		$(".usuario").show();
 	}
-	$(document).ready(function() {
-		$('#conteudoIndex').load('resources/ofertadia.html');
-		$('#sugestaoCritica').load('resources/sugestaocritica.html');
-	});
+	$('#conteudoIndex').load('resources/ofertadia.html');
+	$('#sugestaoCritica').load('resources/sugestaocritica.html');
 });

@@ -23,8 +23,8 @@ $(document).ready(function() {
 			console.log(err);
 		}
 	});
-	HM.novofuncionario = new Object();
-	HM.novofuncionario.funcValida = function(tp){
+	HM.funcionario = new Object();
+	HM.funcionario .funcValida = function(tp){
 		var newData = new Object();
 		var codfuncionario = $("#codfuncionario").val();
 		var nome = $('#txtnome').val();
@@ -109,9 +109,9 @@ $(document).ready(function() {
 		var clean = crs.replace(/[^\d]+/g, '');
 		return clean;
 	}
-	HM.novofuncionario.exibirEdicao = function() {
-		var newData = HM.novofuncionario.funcValida("att");
-		HM.novofuncionario
+	HM.funcionario .exibirEdicao = function() {
+		var newData = HM.funcionario .funcValida("att");
+		HM.funcionario 
 		.editar({
 			data:newData,
 			success : function(succ) {
@@ -124,9 +124,9 @@ $(document).ready(function() {
 			}
 		});
 	}
-	HM.novofuncionario.cadastrar = function() {
-		var newData = HM.novofuncionario.funcValida("new");
-		HM.novofuncionario.adicionar({
+	HM.funcionario .cadastrar = function() {
+		var newData = HM.funcionario .funcValida("new");
+		HM.funcionario .adicionar({
 			data: newData,
 			success : function(data) {
 				bootbox.alert(data);

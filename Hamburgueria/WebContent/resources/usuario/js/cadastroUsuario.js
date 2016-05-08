@@ -58,7 +58,11 @@ $(document).ready(function(){
 				data:HM.usuario.getValor(),
 				success : function(data) {
 					bootbox.alert(data);
-					carregar('resources/usuario/gerenciaUsuario.html');
+					if(HM.sessao("administrador") == 1){
+						loadUrl('usuarios');
+					}else{
+						loadUrl('index');
+					}
 				},
 				error : function(error) {
 					bootbox.alert(error.responseText);
@@ -73,7 +77,7 @@ $(document).ready(function(){
 				data:HM.usuario.getValor(),
 				success : function(data) {
 					bootbox.alert(data);
-					carregar('resources/usuario/gerenciaUsuario.html');
+					loadUrl('usuarios');
 				},
 				error : function(error) {
 					bootbox.alert(error.responseText);
