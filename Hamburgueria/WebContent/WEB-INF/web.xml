@@ -194,6 +194,10 @@
     <filter-name>Redireciona</filter-name>
     <url-pattern>/producao</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/gerenciaProduto</url-pattern>
+  </filter-mapping>
    <filter-mapping>
     <filter-name>Redireciona</filter-name>
     <url-pattern>/pedido</url-pattern>
@@ -225,6 +229,10 @@
   <filter-mapping>
     <filter-name>Redireciona</filter-name>
     <url-pattern>/cadastroFuncionario</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/index</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>Redireciona</filter-name>

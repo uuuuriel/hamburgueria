@@ -14,7 +14,8 @@ $(document).ready(function(){
 				"/gerenciaProduto":"resources/produto/gerenciaProduto.html",
 				"/controleVendas":"resources/vendas/controleVendas.html",
 				"/cadastroFuncionario":"resources/funcionario/cadastroFuncionario.html",
-				"/cadastroProduto": "resources/produto/formularioProduto.html"};
+				"/cadastroProduto": "resources/produto/formularioProduto.html",
+				"/index":"index.html"};
 	
 	loadContentByPath = function() {
 		for ( var i in mapHref ) {
@@ -37,7 +38,11 @@ $(document).ready(function(){
 	
 	loadUrl = function(path) {
 		var href = mapHref["/"+path];
-		$("#conteudo").load(href);
+		if(path == "index"){
+			window.location.assign("index.html");
+		}else{
+			$("#conteudo").load(href);
+		}
 		window.history.pushState({url:href}, path, path);
 	};
 	
