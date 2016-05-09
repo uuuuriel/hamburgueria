@@ -65,6 +65,21 @@ $(document).ready(function() {
 						}
 					})
 				},
+				verificaDeletarPedido : function(cfg){
+					HM.ajax.DELETE({
+						url: "rest/Pedido/verificaCancelarPedido/"+cfg.data,
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cfg.error){
+								cfg.error(err);
+							}
+						}
+					})
+				},
 				listarProdutosEstagio : function(cfg){
 					HM.ajax.post({
 						url : "rest/Pedido/listarProdutosEstagio/"+cfg.data,

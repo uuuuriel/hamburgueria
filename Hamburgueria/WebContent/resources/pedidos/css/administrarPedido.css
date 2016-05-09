@@ -1,3 +1,14 @@
 .zebra{
 	background: black;
 }
+#alerts{
+	border: 2px solid white;
+	background-color: rgba(0,0,0,0.3);
+	color: #fff !important;
+	padding: 5px;
+	width:auto;
+	margin-left:20%;
+	-webkit-box-shadow: 6px 9px 36px 3px rgba(107,101,107,0.84);
+	-moz-box-shadow: 6px 9px 36px 3px rgba(107,101,107,0.84);
+	box-shadow: 6px 9px 36px 3px rgba(107,101,107,0.84);
+}

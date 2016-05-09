@@ -153,14 +153,23 @@ public class PedidoService {
 		try{
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
-			if(jdbcPedido.verificaProdutoCancela(cod)){
-				jdbcPedido.cancelarPedido(cod, cancelado);
-				return true;
-			}else{
-				return false;
-			}
+			jdbcPedido.cancelarPedido(cod, cancelado);
+			return true;
 		}catch(Exception e){
 			e.printStackTrace();
+			throw new CancelarPedidoException();
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public boolean validaCancelarPedido(int cod) throws CancelarPedidoException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			return jdbcPedido.verificaProdutoCancela(cod);
+		}catch(Exception e){
 			throw new CancelarPedidoException();
 		}finally{
 			conec.fecharConexao();

@@ -15,7 +15,7 @@ $(document).ready(function(){
 				"/controleVendas":"resources/vendas/controleVendas.html",
 				"/cadastroFuncionario":"resources/funcionario/cadastroFuncionario.html",
 				"/cadastroProduto": "resources/produto/formularioProduto.html",
-				"/index":"index.html"};
+				"/index":"resources/ofertadia.html"};
 	
 	loadContentByPath = function() {
 		for ( var i in mapHref ) {

@@ -1,4 +1,12 @@
 HM.login = function() {
+	$.ajax({
+		url : "/Hamburgueria/upload",
+		type: "POST",
+		processData: false,
+		contentType: "multipart/form-data",
+		data: formdata,
+		success : function(dat) { console.log("ok ok"); },
+		error: function(dat) { console.log("nao nao"); }
 	$("#login").submit();
 		$("#myModal").modal('toggle');
 		$("#div-menu-login strong").text('Logout');

@@ -35,6 +35,7 @@ $(document).ready(function(){
 			success:function(succ){
 				if(succ){
 					$("#carrinhoCompra").show();
+					$("#carrinhoCompraTag").show();
 					$("#carrinhoCompraTag").text(HM.sessao("produto").split(",").length-1);
 				}
 			},
@@ -237,7 +238,7 @@ $(document).ready(function(){
 												
 												bootbox.dialog({
 													message: '<div class="form-group"><input type="text" id="nome" class="disableds colorBlack form-control" placeholder="Nome"/></div>'
-																+'<div class="form-group"><input class="form-control tags"  placeholder="Telefone"/></div>'
+																+'<div class="form-group"><input class="form-control tags" id="telefone"  placeholder="Telefone"/></div>'
 																+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
 																+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
 																+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
@@ -258,7 +259,7 @@ $(document).ready(function(){
 																$("#cep").unmask();
 																$("#numero").unmask();
 																if (cod == "" || cod == null) {
-																	newData.nome = $("#tags").val();
+																	newData.nome = $("#nome").val();
 																	newData.telefone = $("#telefone").val();
 																	newData.cidade = $("#cidade").val();
 																	newData.bairro = $("#bairro").val();
