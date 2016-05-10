@@ -6,7 +6,14 @@ HM.login = function() {
         data: 'email='+encodeURIComponent(email)+'&senha='+encodeURIComponent(senha),
         url: "/Hamburgueria/login",
         success:function(content){
-            restricao();         
+        	if(content == "true"){
+	        	$('.loginInvalido').fadeIn(function(){
+	 				$(".loginInvalido").html("Email e senha não conferem.");
+	 			}).delay(2000).fadeOut(2000);
+        	}else{
+        		window.location.href="index.html";
+        	}
+        	
         }           
     });
 };
