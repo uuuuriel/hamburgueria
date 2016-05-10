@@ -6,7 +6,7 @@ HM.login = function() {
         data: 'email='+encodeURIComponent(email)+'&senha='+encodeURIComponent(senha),
         url: "/Hamburgueria/login",
         success:function(content){
-            console.log(content);           
+            restricao();         
         }           
     });
 };

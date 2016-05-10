@@ -27,7 +27,7 @@ public class DestroiSessao extends HttpServlet {
     	String context = request.getServletContext().getContextPath();
     	HttpSession session = request.getSession(false);
     	session.invalidate();
-    	
+    		
     	response.sendRedirect(context + "/index.html");
     }
     
