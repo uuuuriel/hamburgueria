@@ -31,6 +31,14 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>DestroiSessao</servlet-name>
+    <servlet-class>br.com.hamburgueria.servlet.DestroiSessao</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DestroiSessao</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>ServletUpload</servlet-name>
     <servlet-class>br.com.hamburgueria.servlet.ServletUpload</servlet-class>
   </servlet>
@@ -162,14 +170,6 @@
     <filter-name>UsuarioFiltro</filter-name>
     <url-pattern>/resources/vendas/controleVendas.html</url-pattern>
   </filter-mapping>
-  <servlet>
-    <servlet-name>DestroiSessao</servlet-name>
-    <servlet-class>br.com.Hamburgueria.servlet.DestroiSessao</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DestroiSessao</servlet-name>
-    <url-pattern>/logout</url-pattern>
-  </servlet-mapping>
   <filter>
     <filter-name>Redireciona</filter-name>
     <filter-class>br.com.hamburgueria.filtro.Redireciona</filter-class>

@@ -1,18 +1,14 @@
 HM.login = function() {
+	var email = document.getElementById("email").value;
+	var senha = document.getElementById("senha").value;
 	$.ajax({
-		url : "/Hamburgueria/upload",
-		type: "POST",
-		processData: false,
-		contentType: "multipart/form-data",
-		data: formdata,
-		success : function(dat) { console.log("ok ok"); },
-		error: function(dat) { console.log("nao nao"); }
-	$("#login").submit();
-		$("#myModal").modal('toggle');
-		$("#div-menu-login strong").text('Logout');
-		$("#div-menu-login").removeAttr('href');
-		$("#div-menu-login").attr('onclick', 'HM.logout();');
-		$("#div-menu-login").css('cursor', 'pointer');
+        type: "POST",           
+        data: 'email='+encodeURIComponent(email)+'&senha='+encodeURIComponent(senha),
+        url: "/Hamburgueria/login",
+        success:function(content){
+            console.log(content);           
+        }           
+    });
 };
 HM.logout = function(){
 	var toma = 'destroi';

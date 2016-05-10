@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
     	usuario.setSenha(request.getParameter("senha"));
     	func.setEmail(request.getParameter("email"));
     	func.setSenha(request.getParameter("senha"));
+
     	 	
     	try{
     		LoginService service = new LoginService(request);

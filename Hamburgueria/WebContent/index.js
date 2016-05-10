@@ -60,12 +60,23 @@ $(document).ready(function(){
 		return back;
 	};
 	
-	if(HM.sessao('administrador') == 1 && HM.sessao('nome') != null){
-		$(".funcionario").show();
-		$(".usuario").show();
-	}else if(HM.sessao('administrador') != 1 && HM.sessao('nome') != ""){
-		$(".usuario").show();
+	function restricao(){
+		if(HM.sessao('administrador') == 1 && HM.sessao('nome') != null){
+			$(".funcionario").show();
+			$(".usuario").show();
+		}else if(HM.sessao('administrador') != 1 && HM.sessao('nome') != ""){
+			$(".usuario").show();
+		}
+		if(HM.sessao('nome') != null && HM.sessao('nome') != ""){
+			$(".logins").hide();
+			$("#logout").show();
+		}else{
+			$(".logins").show();
+			$("#logout").hide();
+		}
 	}
+	restricao();
+	
 	$('#conteudoIndex').load('resources/ofertadia.html');
 	$('#sugestaoCritica').load('resources/sugestaocritica.html');
 });
