@@ -11,14 +11,14 @@ public class ValidaFuncionario {
 		ValidaEmail validemail = new ValidaEmail();
 		validemail.validarEmail(func.getEmail());
 		//validcpf.validarCpf(func.getCpf());
-		if ((func.getBairro().equals(""))
+		if ((func.getBairro() == 0)
 				|| (func.getCep() - func.getCep() != 0)
-				|| (func.getCidade().equals(""))
-				|| (func.getDataNascimento().equals(""))
+				|| (func.getCidade() == 0)
+				|| (func.getData_nascimento().equals(""))
 				|| (func.getEmail().equals(""))
-				|| (func.getFone() - func.getFone() != 0)
+				|| (func.getTelefone() - func.getTelefone() != 0)
 				|| (func.getFuncao().equals(""))
-				|| (func.getNomeFuncionario().equals(""))
+				|| (func.getNome().equals(""))
 				|| (func.getNumero() - func.getNumero() != 0)
 				|| (func.getRg().equals("")) || (func.getRua().equals(""))) {
 			throw new NoValueException();

@@ -27,7 +27,7 @@ public class SessaoRest {
 		String variSessao = "";
 		try{
 			variSessao = (String)sessao.getAttribute(parametro);
-		}catch(Exception e){
+		}catch(Exception e){ 
 			variSessao = Integer.toString((int)sessao.getAttribute(parametro));
 		}finally{
 			Map<String,String> msg = new HashMap<String, String>();

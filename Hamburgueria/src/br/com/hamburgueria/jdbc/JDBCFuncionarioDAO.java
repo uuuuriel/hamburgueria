@@ -31,20 +31,20 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			while (rs.next()) {
 				func = new Funcionario();
 				func.setAdministrador(rs.getInt("administrador"));
-				func.setBairro(rs.getString("bairro"));
-				func.setCidade(rs.getString("cidade"));
+				func.setBairro(rs.getInt("bairro"));
+				func.setCidade(rs.getInt("cidade"));
 				func.setCodfuncionario(rs.getInt("codfuncionario"));
 				func.setComplemento(rs.getString("complemento"));
 				func.setCpf(rs.getString("cpf"));
-				func.setDataNascimento(rs.getDate("data_nascimento"));
+				func.setData_nascimento(rs.getDate("data_nascimento"));
 				func.setEmail(rs.getString("email"));
-				func.setNomeFuncionario(rs.getString("nomefuncionario"));
+				func.setNome(rs.getString("nomefuncionario"));
 				func.setNumero(rs.getInt("numero"));
 				func.setRg(rs.getString("rg"));
 				func.setRua(rs.getString("rua"));
 				func.setFuncao(rs.getString("funcao"));
 				func.setSenha(rs.getString("senha"));
-				func.setFone(rs.getDouble("fone"));
+				func.setTelefone(rs.getDouble("fone"));
 				func.setCep(rs.getInt("cep"));
 				func.setAtivo(rs.getInt("ativo"));
 				listFunc.add(func);
@@ -86,15 +86,15 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setString(1, func.getNomeFuncionario());
+			p.setString(1, func.getNome());
 			p.setString(2, func.getCpf());
 			p.setString(3, func.getRg());
-			p.setDate(4, new java.sql.Date(func.getDataNascimento().getTime()));
-			p.setDouble(5, func.getFone());
+			p.setDate(4, new java.sql.Date(func.getData_nascimento().getTime()));
+			p.setDouble(5, func.getTelefone());
 			p.setString(6, func.getEmail());
 			p.setString(7, func.getFuncao());
-			p.setString(8, func.getCidade());
-			p.setString(9, func.getBairro());
+			p.setInt(8, func.getCidade());
+			p.setInt(9, func.getBairro());
 			p.setFloat(10, func.getNumero());
 			p.setString(11, func.getRua());
 			p.setString(12, func.getComplemento());
@@ -122,16 +122,16 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setString(1, func.getNomeFuncionario());
+			p.setString(1, func.getNome());
 			p.setString(2, func.getCpf());
 			p.setString(3, func.getRg());
-			p.setDate(4, new java.sql.Date(func.getDataNascimento().getTime()));
-			p.setDouble(5, func.getFone());
+			p.setDate(4, new java.sql.Date(func.getData_nascimento().getTime()));
+			p.setDouble(5, func.getTelefone());
 			p.setString(6, func.getEmail());
 			p.setString(7, func.getSenha());
 			p.setString(8, func.getFuncao());
-			p.setString(9, func.getCidade());
-			p.setString(10, func.getBairro());
+			p.setInt(9, func.getCidade());
+			p.setInt(10, func.getBairro());
 			p.setFloat(11, func.getNumero());
 			p.setString(12, func.getRua());
 			p.setString(13, func.getComplemento());
@@ -157,20 +157,20 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			while (rs.next()) {
 				func = new Funcionario();
 				func.setAdministrador(rs.getInt("administrador"));
-				func.setBairro(rs.getString("bairro"));
-				func.setCidade(rs.getString("cidade"));
+				func.setBairro(rs.getInt("bairro"));
+				func.setCidade(rs.getInt("cidade"));
 				func.setCodfuncionario(rs.getInt("codfuncionario"));
 				func.setComplemento(rs.getString("complemento"));
 				func.setCpf(rs.getString("cpf"));
-				func.setDataNascimento(rs.getDate("data_nascimento"));
+				func.setData_nascimento(rs.getDate("data_nascimento"));
 				func.setEmail(rs.getString("email"));
-				func.setNomeFuncionario(rs.getString("nomefuncionario"));
+				func.setNome(rs.getString("nomefuncionario"));
 				func.setNumero(rs.getInt("numero"));
 				func.setRg(rs.getString("rg"));
 				func.setRua(rs.getString("rua"));
 				func.setFuncao(rs.getString("funcao"));
 				func.setSenha(rs.getString("senha"));
-				func.setFone(rs.getDouble("fone"));
+				func.setTelefone(rs.getDouble("fone"));
 				func.setCep(rs.getInt("cep"));
 				func.setAtivo(rs.getInt("ativo"));
 			}
@@ -189,7 +189,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
 				if((func.getEmail().equals(rs.getString("email"))) && (func.getSenha().equals(rs.getString("senha")))){
-					func.setNomeFuncionario(rs.getString("nomefuncionario"));
+					func.setNome(rs.getString("nomefuncionario"));
 					func.setAdministrador(rs.getInt("administrador"));
 					func.setCodfuncionario(rs.getInt("codfuncionario"));
 					retun =  true;
