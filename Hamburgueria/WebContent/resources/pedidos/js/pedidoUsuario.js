@@ -1,9 +1,6 @@
 $(document).ready(function(){
-	HM.pedidos.listarPedidos = function(){
-		HM.pedidos.exibir({
-			dataini: $("#dataini").val(),
-			datafim: $("#datafim").val(),
-			busca: $("#search").val(),
+	HM.pedidosUsuario.listarPedidos = function(){
+		HM.pedidosUsuario.exibir({
 			success:function(data){
 				var html = "";
 				if(data){
@@ -13,7 +10,9 @@ $(document).ready(function(){
 							+ "<td>" + data[i].nomeCliente + "</td>"
 							+ "<td>" + data[i].nomeProduto + "</td>"
 							+ "<td>" + data[i].descricaoProduto + "</td>"
-							+ "<td>" + fromView(data[i].dataCompra) + "</td></tr>";
+							+ "<td>" + fromView(data[i].dataCompra) + "</td>"
+							+ "<td><a onclick='HM.pedidos.cancelarPedido("+ data[i].codPedido + ")'>"
+							+ "<i class='glyphicon glyphicon-remove-sign' aria-hidden='true'></i></a></td></tr>"
 					}
 					$("#tbodyPedido").html(html);
 				}
@@ -22,7 +21,8 @@ $(document).ready(function(){
 			}
 		})
 	}
-	HM.pedidos.listarPedidos();
+	HM.pedidosUsuario.listarPedidos();
+	
 	HM.pedidos.cancelarPedido = function(cod){
 		HM.pedidos.verificaDeletarPedido({
 			data:cod,

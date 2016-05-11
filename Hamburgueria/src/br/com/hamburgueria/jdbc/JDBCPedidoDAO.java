@@ -368,4 +368,37 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		}
 	}
 	
+	@Override
+	public List<ListaPedidoVO> pedidosUsuario(int cod) throws HamburgueriaException{
+		String comando = "SELECT ped.codpedido, prod.codproduto, prod.nomeproduto, prod.descricao, prod.valor,"
+				+ " prod.categoria, ped_prod.estagio_pedido, count(ped_prod.produto_codproduto) as qtde FROM pedido ped"
+				+ " inner join pedido_produto ped_prod on ped_prod.pedido_codpedido = ped.codpedido"
+				+ " inner join produto prod on prod.codproduto = ped_prod.produto_codproduto "
+				+ " WHERE ped_prod.estagio_pedido ="+cod+ " "
+						+ " AND ped.cancelado is null GROUP BY ped_prod.pedido_codpedido,ped_prod.produto_codproduto";
+		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
+		ListaPedidoVO ped = null;
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				ped = new ListaPedidoVO();
+				ped.setCodPedido(rs.getInt("codpedido"));
+				ped.setCodProduto(rs.getInt("codproduto"));
+				ped.setNomeProduto(rs.getString("nomeproduto"));
+				ped.setDescricaoProduto(rs.getString("descricao"));
+				ped.setValorProduto(rs.getFloat("valor"));
+				ped.setCategoria(rs.getString("categoria"));
+				ped.setEstagio_produto(rs.getString("estagio_pedido"));
+				ped.setQtde(rs.getInt("qtde"));
+				list.add(ped);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new EstagioProdutoException(e.getMessage());
+		}
+		
+		return list;	
+	}
+	
 }

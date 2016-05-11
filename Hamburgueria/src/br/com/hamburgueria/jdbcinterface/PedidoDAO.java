@@ -46,4 +46,6 @@ public interface PedidoDAO {
 	
 	public List<ListaPedidoVO> relatorioVenda(Date dataini, Date datafim, String busca) throws RelatorioVendaException;
 	
+	public List<ListaPedidoVO> pedidosUsuario(int cod) throws HamburgueriaException;
+	
 }

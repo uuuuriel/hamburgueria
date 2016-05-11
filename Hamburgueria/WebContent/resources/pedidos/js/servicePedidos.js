@@ -142,6 +142,21 @@ $(document).ready(function() {
 							}
 						}
 					})
+				},
+				pedidosUsuario : function(cfg){
+					HM.ajax.get({
+						url:"rest/Pedido/pedidosUsuario",
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cfg.error){
+								cfg.error(err);
+							}
+						}
+					})
 				}
 			};
 		});

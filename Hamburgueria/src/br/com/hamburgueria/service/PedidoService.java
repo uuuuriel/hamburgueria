@@ -224,6 +224,22 @@ public class PedidoService {
 			return jdbcPedido.relatorioVenda(dataini, datafim, busca);
 		}catch(Exception e){
 			throw new RelatorioVendaException(e);
+		}finally{
+			conec.fecharConexao();
+		}
+	}
+	
+	public List<ListaPedidoVO> pedidosUsuario(int cod) throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
+			return jdbcPedido.pedidosUsuario(cod);
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new HamburgueriaException("Erro ao exibir pedidos.");
+		}finally{
+			conec.fecharConexao();
 		}
 	}
 }

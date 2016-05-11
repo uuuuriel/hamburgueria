@@ -150,7 +150,7 @@ public class PedidoRest extends UtilRest{
 	@Path("/cancelarPedido/{cod}/{cancelado}")
 	@Consumes("application/*")
 	public Response deletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) throws PermissaoException {
-		validaSessao("funcionario");
+		validaSessao("log");
 		try{
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.cancelarPedido(cod, cancelado) ? true : false);
@@ -165,7 +165,7 @@ public class PedidoRest extends UtilRest{
 	@Path("/verificaCancelarPedido/{cod}")
 	@Consumes("application/*")
 	public Response verificaDeletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) throws PermissaoException {
-		validaSessao("funcionario");
+		validaSessao("log");
 		try{
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.validaCancelarPedido(cod) ? true : false);
@@ -232,6 +232,20 @@ public class PedidoRest extends UtilRest{
 			}
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.relatorioVenda(dataini, datafim, busca));
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
+	}
+	
+	@GET
+	@Path("/pedidosUsuario")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response pedidosUsuario() {
+		try{
+			PedidoService pedido = new PedidoService();
+			HttpSession sessao = req.getSession(false);
+			return this.buildResponse(pedido.pedidosUsuario((int) sessao.getAttribute("cod")));
 		}catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
