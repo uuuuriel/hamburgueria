@@ -7,6 +7,7 @@ public class Funcionario extends Cliente{
 	private String funcao;
 	private int codfuncionario;
 	private int funcionario;
+	
 	public int getAdministrador() {
 		return administrador;
 	}
