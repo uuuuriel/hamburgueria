@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.PermissaoException;
 import br.com.hamburgueria.objs.Funcionario;
 import br.com.hamburgueria.service.FuncionarioService;
 
@@ -27,10 +28,8 @@ public class FuncionarioRest extends UtilRest {
 	@POST
 	@Path("/addFuncionario")
 	@Consumes("application/*")
-	public Response addFuncionario(String funcionarioParam) {
-		if(getSessao("admRest").equals("0")){
-			return this.buildErrorResponse("Sem permissão para acesso");
-		};
+	public Response addFuncionario(String funcionarioParam) throws PermissaoException {
+		validaSessao("admRest");
 		try {
 			Funcionario funcionario = new ObjectMapper().readValue(funcionarioParam,
 					Funcionario.class);
@@ -46,10 +45,8 @@ public class FuncionarioRest extends UtilRest {
 	@GET
 	@Path("buscarFuncionariosPorNome/{nome}")
 	@Produces({MediaType.APPLICATION_JSON })
-	public Response buscarFuncionariosPorNome(@PathParam("nome") String nome) {
-		if(getSessao("admRest").equals("0")){
-			return this.buildErrorResponse("Sem permissão para acesso");
-		};
+	public Response buscarFuncionariosPorNome(@PathParam("nome") String nome) throws PermissaoException {
+		validaSessao("admRest");
 		try {
 			FuncionarioService service = new FuncionarioService();
 			if(nome.equals("null")){
@@ -67,10 +64,8 @@ public class FuncionarioRest extends UtilRest {
 	@DELETE
 	@Path("/deletarFuncionario/{id}")
 	@Consumes("application/*")
-	public Response deletarFuncionario(@PathParam("id") int id) {
-		if(getSessao("admRest").equals("0")){
-			return this.buildErrorResponse("Sem permissão para acesso");
-		};
+	public Response deletarFuncionario(@PathParam("id") int id) throws PermissaoException {
+		validaSessao("admRest");
 		try{
 			FuncionarioService funcionarioService = new FuncionarioService();
 			funcionarioService.deletarFuncionario(id);			
@@ -84,10 +79,8 @@ public class FuncionarioRest extends UtilRest {
 	@GET
 	@Path("/buscarFuncionarioPeloId/{id}")
 	@Produces({ MediaType.APPLICATION_JSON})
-	public Response buscarFuncionarioPeloId(@PathParam("id")int id){
-		if(getSessao("admRest").equals("1")){
-			return this.buildErrorResponse("Sem permissão para acesso");
-		};
+	public Response buscarFuncionarioPeloId(@PathParam("id")int id) throws PermissaoException{
+		validaSessao("admRest");
 		try{
 			FuncionarioService funcionarioService = new FuncionarioService();
 			return this.buildResponse(funcionarioService.buscarFuncionarioPorId(id));
@@ -100,10 +93,8 @@ public class FuncionarioRest extends UtilRest {
 	@PUT
 	@Path("/editarFuncionario")
 	@Consumes("application/*")
-	public Response editarFuncionario(String funcionarioParam){
-		if(getSessao("admRest").equals("0")){
-			return this.buildErrorResponse("Sem permissão para acesso");
-		};
+	public Response editarFuncionario(String funcionarioParam) throws PermissaoException{
+		validaSessao("admRest");
 		try{
 			Funcionario funcionario = new ObjectMapper().readValue(funcionarioParam, Funcionario.class);
 			FuncionarioService service = new FuncionarioService();

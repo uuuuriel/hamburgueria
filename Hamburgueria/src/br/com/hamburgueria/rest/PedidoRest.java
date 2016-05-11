@@ -23,6 +23,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import br.com.hamburgueria.exception.AdicionarProdutoException;
 import br.com.hamburgueria.exception.FinalizarPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.PermissaoException;
 import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.Pedido;
 import br.com.hamburgueria.service.PedidoService;
@@ -39,9 +40,7 @@ public class PedidoRest extends UtilRest{
 	@Path("/addProduto/{produto}")
 	@Produces("application/json")
 	public void pedido(@PathParam("produto") String produto) throws HamburgueriaException {
-		if(getSessao("log") != "4"){
-			throw new AdicionarProdutoException("Sem permissão.");
-		};
+		validaSessao("log");
 		try{
 			HttpSession sessao = req.getSession(false);
 			String produtos = (String)sessao.getAttribute("produto") != null ? (String)sessao.getAttribute("produto")  : "";
@@ -56,9 +55,7 @@ public class PedidoRest extends UtilRest{
 	@Path("/finalizar")
 	@Consumes("application/*")
 	public void finalizarPedido(String pedido) throws HamburgueriaException{
-		if(getSessao("log") != "4"){
-			throw new AdicionarProdutoException("Sem permissão.");
-		};
+		validaSessao("log");
 		try{
 			Pedido ped = new ObjectMapper().readValue(pedido,Pedido.class);
 			HttpSession sessao = req.getSession(false);
@@ -77,9 +74,7 @@ public class PedidoRest extends UtilRest{
 	@Path("/finalizarPedidoFuncionario")
 	@Consumes("application/*")
 	public Response finalizarPedidoFuncionario(String pedido) throws HamburgueriaException {
-		if(getSessao("log") != "4"){
-			throw new AdicionarProdutoException("Sem permissão.");
-		};
+		validaSessao("log");
 		try{
 			Pedido ped = new ObjectMapper().readValue(pedido,Pedido.class);
 			HttpSession sessao = req.getSession(false);
@@ -98,9 +93,7 @@ public class PedidoRest extends UtilRest{
 	@Path("/finalizarPedidoFuncionarioNovo")
 	@Consumes("application/*")
 	public Response finalizarPedidoFuncionarioNovo(String usuario) throws HamburgueriaException {
-		if(getSessao("admRest").equals("0")){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+		validaSessao("admRest");
 		try{
 			ClienteNovo user = new ObjectMapper().readValue(usuario,ClienteNovo.class);
 			HttpSession sessao = req.getSession(false);
@@ -120,11 +113,8 @@ public class PedidoRest extends UtilRest{
 	@Produces({MediaType.APPLICATION_JSON })
 	public Response listarPedidos(@PathParam("busca") String busca,
 			@PathParam("dataini")Date dataini,
-			@PathParam("datafim")Date datafim) {
-		if(getSessao("log") != "4"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
-		
+			@PathParam("datafim")Date datafim) throws PermissaoException {
+		validaSessao("admRest");		
 		try {
 			
 			PedidoService pedido = new PedidoService();
@@ -144,10 +134,8 @@ public class PedidoRest extends UtilRest{
 	@Path("/atualizarEstagioPedido/{estagio}/{codpe}/{codpr}")
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response atualizarEstagioPedido(@PathParam("estagio") int estagio, @PathParam("codpe") int codpe
-			, @PathParam("codpr") int codpr) {
-		if(getSessao("funcionario") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+			, @PathParam("codpr") int codpr) throws PermissaoException {
+		validaSessao("funcionario");
 		try{
 			PedidoService pedido = new PedidoService();
 			pedido.atualizarEstagioPedido(estagio, codpe, codpr);
@@ -161,10 +149,8 @@ public class PedidoRest extends UtilRest{
 	@DELETE
 	@Path("/cancelarPedido/{cod}/{cancelado}")
 	@Consumes("application/*")
-	public Response deletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) {
-		if(getSessao("funcionario") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response deletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) throws PermissaoException {
+		validaSessao("funcionario");
 		try{
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.cancelarPedido(cod, cancelado) ? true : false);
@@ -178,10 +164,8 @@ public class PedidoRest extends UtilRest{
 	@DELETE
 	@Path("/verificaCancelarPedido/{cod}")
 	@Consumes("application/*")
-	public Response verificaDeletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) {
-		if(getSessao("funcionario") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response verificaDeletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) throws PermissaoException {
+		validaSessao("funcionario");
 		try{
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.validaCancelarPedido(cod) ? true : false);
@@ -195,10 +179,8 @@ public class PedidoRest extends UtilRest{
 	@POST
 	@Path("/listarProdutosEstagio/{cod}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response listarPedidoEstagio(@PathParam("cod")int cod){
-		if(getSessao("log") != "4"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response listarPedidoEstagio(@PathParam("cod")int cod) throws PermissaoException{
+		validaSessao("log");
 		try{
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.listarProdutosEstagio(cod));
@@ -212,10 +194,8 @@ public class PedidoRest extends UtilRest{
 	@GET
 	@Path("/listarPedidoEntrega/")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response listarPedidoEntrega(){
-		if(getSessao("log") != "4"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response listarPedidoEntrega() throws PermissaoException{
+		validaSessao("log");
 		try{
 			PedidoService pedido = new PedidoService();
 			return this.buildResponse(pedido.listarPedidoEntrega());
@@ -244,10 +224,8 @@ public class PedidoRest extends UtilRest{
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response relatorioVenda(@PathParam("dataini")Date dataini,
 			@PathParam("datafim")Date datafim,
-			@PathParam("busca")String busca){
-		if(getSessao("admRest") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+			@PathParam("busca")String busca) throws PermissaoException{
+		validaSessao("admRest");
 		try{
 			if(busca.equals("null")){
 				busca = "";

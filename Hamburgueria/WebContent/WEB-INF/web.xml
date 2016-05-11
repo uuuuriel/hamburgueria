@@ -238,4 +238,8 @@
     <filter-name>Redireciona</filter-name>
     <url-pattern>/cadastroProduto</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+    <filter-name>Redireciona</filter-name>
+    <url-pattern>/pedidoUsuario</url-pattern>
+  </filter-mapping>
 </web-app>

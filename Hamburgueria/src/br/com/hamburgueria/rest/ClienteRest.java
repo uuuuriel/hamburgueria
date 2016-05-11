@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.PermissaoException;
 import br.com.hamburgueria.objs.Cliente;
 import br.com.hamburgueria.service.ClienteService;
 
@@ -63,10 +64,8 @@ public class ClienteRest extends UtilRest {
 	@PUT
 	@Path("/deletarUsuario/{id}")
 	@Consumes("application/*")
-	public Response deletarUsuario(@PathParam("id") int id) {
-		if(getSessao("admRest").equals("")){
-			return this.buildErrorResponse("Sem permissão para acesso");
-		};
+	public Response deletarUsuario(@PathParam("id") int id) throws PermissaoException {
+		validaSessao("admRest");
 		try{
 			ClienteService service = new ClienteService();
 			service.deletarUsuario(id);			
@@ -99,10 +98,8 @@ public class ClienteRest extends UtilRest {
 	@PUT
 	@Path("/editarUsuario")
 	@Consumes("application/*")
-	public Response editarUsuario(String usuarioParam){
-		if(getSessao("log")!="4"){
-			return this.buildErrorResponse("Sem permissão para acesso");
-		};
+	public Response editarUsuario(String usuarioParam) throws PermissaoException{
+		validaSessao("log");
 		try{
 			Cliente user = new ObjectMapper().readValue(usuarioParam, Cliente.class);
 			ClienteService service = new ClienteService();

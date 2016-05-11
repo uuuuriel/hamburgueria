@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.PermissaoException;
 import br.com.hamburgueria.objs.Taxa;
 import br.com.hamburgueria.service.TaxaService;
 
@@ -69,10 +70,8 @@ public class TaxaRest extends UtilRest{
 	@PUT
 	@Path("/atualizar")
 	@Consumes("application/*")
-	public Response atualizar(String taxa){
-		if(getSessao("admRest") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response atualizar(String taxa) throws PermissaoException{
+		validaSessao("admRest");
 		try{
 			Taxa taxas = new ObjectMapper().readValue(taxa, Taxa.class);
 			TaxaService service = new TaxaService();

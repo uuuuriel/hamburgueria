@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.hamburgueria.exception.HamburgueriaException;
+import br.com.hamburgueria.exception.PermissaoException;
 import br.com.hamburgueria.objs.Produto;
 import br.com.hamburgueria.service.ProdutoService;
 
@@ -27,10 +28,8 @@ public class ProdutoRest extends UtilRest {
 	@POST
 	@Path("/adicionar")
 	@Consumes("application/*")
-	public Response adicionar(String produto) {
-		if(getSessao("funcionario") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response adicionar(String produto) throws PermissaoException {
+		validaSessao("funcionario");
 		try {
 			Produto prod = new ObjectMapper().readValue(produto,
 					Produto.class);
@@ -45,10 +44,7 @@ public class ProdutoRest extends UtilRest {
 	@GET
 	@Path("buscarNome/{nome}")
 	@Produces({MediaType.APPLICATION_JSON })
-	public Response buscarNome(@PathParam("nome") String nome) {
-		if(getSessao("funcionario") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response buscarNome(@PathParam("nome") String nome) throws PermissaoException {
 		try {
 			ProdutoService service = new ProdutoService();
 			if(nome.equals("null")){
@@ -83,10 +79,8 @@ public class ProdutoRest extends UtilRest {
 	@DELETE
 	@Path("/deletar/{id}")
 	@Consumes("application/*")
-	public Response deletar(@PathParam("id") int id) {
-		if(getSessao("funcionario") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response deletar(@PathParam("id") int id) throws PermissaoException {
+		validaSessao("funcionario");
 		try{
 			ProdutoService service = new ProdutoService();
 			service.deletar(id);			
@@ -113,10 +107,8 @@ public class ProdutoRest extends UtilRest {
 	@PUT
 	@Path("/editar")
 	@Consumes("application/*")
-	public Response editar(String produto){
-		if(getSessao("funcionario") != "1"){
-			return this.buildErrorResponse("Sem permissão.");
-		};
+	public Response editar(String produto) throws PermissaoException{
+		validaSessao("funcionario");
 		try{
 			Produto prod = new ObjectMapper().readValue(produto, Produto.class);
 			ProdutoService service = new ProdutoService();

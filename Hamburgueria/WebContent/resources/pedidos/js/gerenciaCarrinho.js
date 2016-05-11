@@ -33,11 +33,9 @@ $(document).ready(function(){
 		HM.pedidos.adicionar({
 			data: cod,
 			success:function(succ){
-				if(succ){
-					$("#carrinhoCompra").show();
-					$("#carrinhoCompraTag").show();
-					$("#carrinhoCompraTag").text(HM.sessao("produto").split(",").length-1);
-				}
+				$("#carrinhoCompra").show();
+				$("#carrinhoCompraTag").show();
+				$("#carrinhoCompraTag").text(HM.sessao("produto").split(",").length-1);
 			},
 			error:function(err){
 				console.log(err.responseText);
@@ -237,8 +235,8 @@ $(document).ready(function(){
 												});
 												
 												bootbox.dialog({
-													message: '<div class="form-group"><input type="text" id="nome" class="disableds colorBlack form-control" placeholder="Nome"/></div>'
-																+'<div class="form-group"><input class="form-control tags" id="telefone"  placeholder="Telefone"/></div>'
+													message: '<div class="form-group"><input class="form-control tags" id="telefone"  placeholder="Telefone"/></div>'
+																+'<div class="form-group"><input type="text" id="nome" class="disableds colorBlack form-control" placeholder="Nome"/></div>'
 																+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
 																+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
 																+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'

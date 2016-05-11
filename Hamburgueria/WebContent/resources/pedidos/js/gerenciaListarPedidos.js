@@ -21,10 +21,9 @@ $(document).ready(function(){
 							+ "<td>" + data[i].nomeCliente + "</td>"
 							+ "<td>" + data[i].nomeProduto + "</td>"
 							+ "<td>" + data[i].descricaoProduto + "</td>"
-							+ "<td>" + data[i].dataCompra + "</td></tr>";
-						total = total + data[i].valorProduto;
+							+ "<td>" + fromView(data[i].dataCompra) + "</td></tr>";
 					}
-					$("#tbodyPedido").html(html + "<tr><td>TOTAL : </td><td>R$ " + total.toFixed(2) + "</td></tr>");
+					$("#tbodyPedido").html(html);
 				}
 			},error:function(err){
 				console.log(err.responseText);

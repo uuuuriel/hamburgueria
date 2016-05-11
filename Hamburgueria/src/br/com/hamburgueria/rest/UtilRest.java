@@ -1,22 +1,16 @@
 package br.com.hamburgueria.rest;
 
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.google.gson.Gson;
+import br.com.hamburgueria.exception.PermissaoException;
 
 public class UtilRest {
 	public Response buildResponse(Object result) {
@@ -40,7 +34,7 @@ public class UtilRest {
 	@Context
 	private HttpServletRequest req;
 	
-	public String getSessao(String parametro){
+	private String getSessao(String parametro){
 		HttpSession sessao = req.getSession(false);
 		String variSessao = "";
 		try{
@@ -49,6 +43,23 @@ public class UtilRest {
 			variSessao = Integer.toString((int)sessao.getAttribute(parametro));
 		}finally{
 			return variSessao;
+		}
+	}
+	
+	public void validaSessao(String parametro) throws PermissaoException{
+		if(parametro.equals("admRest")){
+			if(getSessao("admRest").equals("0")){
+				throw new PermissaoException();
+			};
+		}else if(parametro.equals("log")){
+			if(!getSessao("log").equals("4")){
+				System.out.println(getSessao("log"));
+				throw new PermissaoException();
+			};
+		}else if(parametro.equals("funcionario")){
+			if(getSessao("funcionario") != "1"){
+				throw new PermissaoException();
+			};
 		}
 	}
 }
