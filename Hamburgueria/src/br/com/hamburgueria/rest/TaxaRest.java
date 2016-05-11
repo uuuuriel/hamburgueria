@@ -70,6 +70,9 @@ public class TaxaRest extends UtilRest{
 	@Path("/atualizar")
 	@Consumes("application/*")
 	public Response atualizar(String taxa){
+		if(getSessao("admRest") != "1"){
+			return this.buildErrorResponse("Sem permissão.");
+		};
 		try{
 			Taxa taxas = new ObjectMapper().readValue(taxa, Taxa.class);
 			TaxaService service = new TaxaService();

@@ -28,6 +28,9 @@ public class ProdutoRest extends UtilRest {
 	@Path("/adicionar")
 	@Consumes("application/*")
 	public Response adicionar(String produto) {
+		if(getSessao("funcionario") != "1"){
+			return this.buildErrorResponse("Sem permissão.");
+		};
 		try {
 			Produto prod = new ObjectMapper().readValue(produto,
 					Produto.class);
@@ -43,6 +46,9 @@ public class ProdutoRest extends UtilRest {
 	@Path("buscarNome/{nome}")
 	@Produces({MediaType.APPLICATION_JSON })
 	public Response buscarNome(@PathParam("nome") String nome) {
+		if(getSessao("funcionario") != "1"){
+			return this.buildErrorResponse("Sem permissão.");
+		};
 		try {
 			ProdutoService service = new ProdutoService();
 			if(nome.equals("null")){
@@ -78,6 +84,9 @@ public class ProdutoRest extends UtilRest {
 	@Path("/deletar/{id}")
 	@Consumes("application/*")
 	public Response deletar(@PathParam("id") int id) {
+		if(getSessao("funcionario") != "1"){
+			return this.buildErrorResponse("Sem permissão.");
+		};
 		try{
 			ProdutoService service = new ProdutoService();
 			service.deletar(id);			
@@ -105,6 +114,9 @@ public class ProdutoRest extends UtilRest {
 	@Path("/editar")
 	@Consumes("application/*")
 	public Response editar(String produto){
+		if(getSessao("funcionario") != "1"){
+			return this.buildErrorResponse("Sem permissão.");
+		};
 		try{
 			Produto prod = new ObjectMapper().readValue(produto, Produto.class);
 			ProdutoService service = new ProdutoService();

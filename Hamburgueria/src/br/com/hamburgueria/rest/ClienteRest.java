@@ -64,6 +64,9 @@ public class ClienteRest extends UtilRest {
 	@Path("/deletarUsuario/{id}")
 	@Consumes("application/*")
 	public Response deletarUsuario(@PathParam("id") int id) {
+		if(getSessao("admRest").equals("")){
+			return this.buildErrorResponse("Sem permissão para acesso");
+		};
 		try{
 			ClienteService service = new ClienteService();
 			service.deletarUsuario(id);			
@@ -97,6 +100,9 @@ public class ClienteRest extends UtilRest {
 	@Path("/editarUsuario")
 	@Consumes("application/*")
 	public Response editarUsuario(String usuarioParam){
+		if(getSessao("log")!="4"){
+			return this.buildErrorResponse("Sem permissão para acesso");
+		};
 		try{
 			Cliente user = new ObjectMapper().readValue(usuarioParam, Cliente.class);
 			ClienteService service = new ClienteService();
