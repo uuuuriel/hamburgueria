@@ -1,15 +1,12 @@
 $(document).ready(function(){
-	HM.pedidosUsuario.listarPedidos = function(){
-		HM.pedidosUsuario.exibir({
+	HM.pedidos.listarPedidos2 = function(){
+		HM.pedidos.pedidosUsuario({
 			success:function(data){
 				var html = "";
-				if(data){
-					var total = 0;
+				if(data.length > 0){
 					for (var i = 0; i < data.length; i++) {
 						html += "<tr><td>" + data[i].codPedido + "</td>"
-							+ "<td>" + data[i].nomeCliente + "</td>"
-							+ "<td>" + data[i].nomeProduto + "</td>"
-							+ "<td>" + data[i].descricaoProduto + "</td>"
+							+ "<td>" + data[i].valorTotal + "</td>"
 							+ "<td>" + fromView(data[i].dataCompra) + "</td>"
 							+ "<td><a onclick='HM.pedidos.cancelarPedido("+ data[i].codPedido + ")'>"
 							+ "<i class='glyphicon glyphicon-remove-sign' aria-hidden='true'></i></a></td></tr>"
@@ -21,7 +18,7 @@ $(document).ready(function(){
 			}
 		})
 	}
-	HM.pedidosUsuario.listarPedidos();
+	HM.pedidos.listarPedidos2();
 	
 	HM.pedidos.cancelarPedido = function(cod){
 		HM.pedidos.verificaDeletarPedido({
