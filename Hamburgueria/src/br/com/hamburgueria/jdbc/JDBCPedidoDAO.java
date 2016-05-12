@@ -370,7 +370,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	
 	@Override
 	public List<ListaPedidoVO> pedidosUsuario(int cod) throws HamburgueriaException{
-		String comando = "SELECT * FROM pedido p" 
+		String comando = "SELECT p.* FROM pedido p " 
 				+ "inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido "
 				+ "WHERE pp.estagio_pedido = '1' AND p.cliente_codcliente ="+cod;
 		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
@@ -384,7 +384,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				ped.setCancelado(rs.getString("cancelado"));
 				ped.setDataCompra(rs.getDate("data"));
 				ped.setValorTotal(rs.getFloat("total"));
-				ped.setQtde(rs.getInt("qtde"));
 				list.add(ped);
 			}
 		} catch (SQLException e) {

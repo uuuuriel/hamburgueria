@@ -8,7 +8,7 @@ $(document).ready(function(){
 						html += "<tr><td>" + data[i].codPedido + "</td>"
 							+ "<td>" + data[i].valorTotal + "</td>"
 							+ "<td>" + fromView(data[i].dataCompra) + "</td>"
-							+ "<td><a onclick='HM.pedidos.cancelarPedido("+ data[i].codPedido + ")'>"
+							+ "<td class='center'><a onclick='HM.pedidos.cancelarPedido("+ data[i].codPedido + ")'>"
 							+ "<i class='glyphicon glyphicon-remove-sign' aria-hidden='true'></i></a></td></tr>"
 					}
 					$("#tbodyPedido").html(html);
@@ -39,10 +39,7 @@ $(document).ready(function(){
 											data:cod,
 											cancelado: $("#cancel").val(),
 												success:function(data){
-													HM.pedidos.listarProdutosEstagiosF(1);
-													$('#alerts').fadeIn(function(){
-														$("#alerts").html("O pedido foi cancelado.");
-													}).delay(2000).fadeOut(2000);
+													
 												},
 												error:function(err){
 													console.log(err.responseText);
