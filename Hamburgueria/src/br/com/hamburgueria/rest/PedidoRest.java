@@ -114,7 +114,7 @@ public class PedidoRest extends UtilRest{
 	public Response listarPedidos(@PathParam("busca") String busca,
 			@PathParam("dataini")Date dataini,
 			@PathParam("datafim")Date datafim) throws PermissaoException {
-		validaSessao("admRest");		
+		validaSessao("log");		
 		try {
 			
 			PedidoService pedido = new PedidoService();
