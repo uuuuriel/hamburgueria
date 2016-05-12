@@ -57,7 +57,7 @@ public class UtilRest {
 				throw new PermissaoException();
 			};
 		}else if(parametro.equals("funcionario")){
-			if(getSessao("funcionario") != "1"){
+			if(Integer.parseInt(getSessao("funcionario")) != 1){
 				throw new PermissaoException();
 			};
 		}

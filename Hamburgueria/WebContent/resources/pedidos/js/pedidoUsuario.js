@@ -39,7 +39,7 @@ $(document).ready(function(){
 											data:cod,
 											cancelado: $("#cancel").val(),
 												success:function(data){
-													
+													HM.pedidos.listarPedidos2();
 												},
 												error:function(err){
 													console.log(err.responseText);

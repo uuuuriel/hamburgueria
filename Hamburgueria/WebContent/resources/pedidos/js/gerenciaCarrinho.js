@@ -124,12 +124,27 @@ $(document).ready(function(){
 		var msg = "<table class='table'>";
 		array = produto.split(",");
 		var total = 0;
+		var listaProduto = [];
+		var first = true;
 		for ( var i = 0; i < array.length; i++) {
 			if(array[i] > 0){
 				HM.produto.popular({
 					data: array[i],
 					success: function(resp){
-						msg += "<tr><td>" + resp.nome + "</td><td>R$ " + resp.valor +"<td></tr>";
+						var produto = new Object();
+						if(first){
+							produto.cod = resp.cod;
+							produto.nome = resp.nome;
+							produto.valor = resp.valor;
+							produto.qtde = 1;
+							listaProduto.push(produto);
+							console.log(listaProduto);
+							first = false;
+						}else{
+							for (var e = 0; e < listaProduto.length; i++) {
+								console.log(listaProduto[e].cod);
+							}							
+						}						
 						total = resp.valor + total;
 					},
 					error:function(err){

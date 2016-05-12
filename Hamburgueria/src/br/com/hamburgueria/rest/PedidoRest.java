@@ -93,7 +93,7 @@ public class PedidoRest extends UtilRest{
 	@Path("/finalizarPedidoFuncionarioNovo")
 	@Consumes("application/*")
 	public Response finalizarPedidoFuncionarioNovo(String usuario) throws HamburgueriaException {
-		validaSessao("admRest");
+		validaSessao("funcionario");
 		try{
 			ClienteNovo user = new ObjectMapper().readValue(usuario,ClienteNovo.class);
 			HttpSession sessao = req.getSession(false);
@@ -164,7 +164,7 @@ public class PedidoRest extends UtilRest{
 	@DELETE
 	@Path("/verificaCancelarPedido/{cod}")
 	@Consumes("application/*")
-	public Response verificaDeletar(@PathParam("cod") int cod, @PathParam("cancelado") String cancelado) throws PermissaoException {
+	public Response verificaDeletar(@PathParam("cod") int cod) throws PermissaoException {
 		validaSessao("log");
 		try{
 			PedidoService pedido = new PedidoService();
