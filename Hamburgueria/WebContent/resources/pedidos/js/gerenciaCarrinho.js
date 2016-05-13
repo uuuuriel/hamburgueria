@@ -121,7 +121,6 @@ $(document).ready(function(){
 	
 	HM.produto.finalizarPedido = function(){
 		var produto = HM.sessao('produto');
-		var msg = "<table class='table'>";
 		array = produto.split(",");
 		var total = 0;
 		var listaProduto = [];
@@ -138,12 +137,20 @@ $(document).ready(function(){
 							produto.valor = resp.valor;
 							produto.qtde = 1;
 							listaProduto.push(produto);
-							console.log(listaProduto);
 							first = false;
 						}else{
-							for (var e = 0; e < listaProduto.length; i++) {
-								console.log(listaProduto[e].cod);
-							}							
+							for(var prop in listaProduto ) { 
+								if(listaProduto[prop].cod == resp.cod) {
+							       listaProduto[prop].qtde = listaProduto[prop].qtde + 1;
+							    }else{
+							    	produto.cod = resp.cod;
+							    	produto.nome = resp.nome;
+							    	produto.valor = resp.valor;
+							    	produto.qtde = 1;
+							    	listaProduto.push(produto);
+							    }
+								console.log(listaProduto[prop].cod);
+							}   
 						}						
 						total = resp.valor + total;
 					},
@@ -152,6 +159,12 @@ $(document).ready(function(){
 					}
 				});
 			}
+		}
+		var msg = "<table class='table'>";
+		for ( var i = 0; i < listaProduto.length; i++) {
+			msg += "<tr><td>" + listaProduto[i].nome + "</td>"
+					+ "<td><input type='number' id='"+listaProduto[i].cod +"' class='carrinhoNumber' value='" + listaProduto[i].qtde + "'/>"
+					+ "<td> R$ " + listaProduto[i].valor +"</td></tr>";
 		}
 		HM.taxa.valorMinimo({
 			success:function(valorMinimo){
