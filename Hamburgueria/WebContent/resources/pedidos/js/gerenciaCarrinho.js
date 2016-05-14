@@ -118,6 +118,15 @@ $(document).ready(function(){
 		});
 	};	
 	
+	HM.produto.somaTudo = function(vlr){
+		var total = 0;
+		$(".somaTudo").each(function(){
+			total = parseFloat(total) + ($(this).val() * parseFloat($(this).attr("valor")));
+		})
+		var valor = 0;
+		$("#retiradaBalcao").text(total.toFixed(2));
+		$("#teleEntrega").text((total+ $('#entrega1').attr("valor")).toFixed(2));
+	}
 	
 	HM.produto.finalizarPedido = function(){
 		var produto = HM.sessao('produto');
@@ -125,34 +134,13 @@ $(document).ready(function(){
 		var total = 0;
 		var listaProduto = [];
 		var first = true;
+		
 		for ( var i = 0; i < array.length; i++) {
 			if(array[i] > 0){
 				HM.produto.popular({
 					data: array[i],
 					success: function(resp){
-						var produto = new Object();
-						if(first){
-							produto.cod = resp.cod;
-							produto.nome = resp.nome;
-							produto.valor = resp.valor;
-							produto.qtde = 1;
-							listaProduto.push(produto);
-							first = false;
-						}else{
-							for(var prop in listaProduto ) { 
-								if(listaProduto[prop].cod == resp.cod) {
-							       listaProduto[prop].qtde = listaProduto[prop].qtde + 1;
-							    }else{
-							    	produto.cod = resp.cod;
-							    	produto.nome = resp.nome;
-							    	produto.valor = resp.valor;
-							    	produto.qtde = 1;
-							    	listaProduto.push(produto);
-							    }
-								console.log(listaProduto[prop].cod);
-							}   
-						}						
-						total = resp.valor + total;
+						listaProduto.push(resp);
 					},
 					error:function(err){
 						console.log(err.responseText);
@@ -160,11 +148,28 @@ $(document).ready(function(){
 				});
 			}
 		}
+		var groupedData = [];
+		var arr = [];
+		var x = 0;
+		for (var it = 0; it < listaProduto.length; it++) {
+			var item = listaProduto[it];
+			if (!groupedData[item.cod]){
+				groupedData[item.cod] = [];
+				groupedData[item.cod].cod = item.cod;
+				groupedData[item.cod].nome = item.nome;
+				groupedData[item.cod].valor = item.valor;
+				arr[x] = item.cod; 
+				x += 1;
+			}
+			groupedData[item.cod].push(1);
+		}
 		var msg = "<table class='table'>";
-		for ( var i = 0; i < listaProduto.length; i++) {
-			msg += "<tr><td>" + listaProduto[i].nome + "</td>"
-					+ "<td><input type='number' id='"+listaProduto[i].cod +"' class='carrinhoNumber' value='" + listaProduto[i].qtde + "'/>"
-					+ "<td> R$ " + listaProduto[i].valor +"</td></tr>";
+		for (var i = 0; i < arr.length; i++) {
+				msg += "<tr><td>" + groupedData[arr[i]].nome + "</td>"
+					+ "<td><input type='number' id='"+ groupedData[arr[i]].cod +"' class='carrinhoNumber somaTudo'"
+					+ " onchange='HM.produto.somaTudo();' valor='"+groupedData[arr[i]].valor+"' value='" + groupedData[arr[i]].length+ "'/>"
+					+ "<td> R$ " + groupedData[arr[i]].valor +"</td></tr>";
+				total = total + (groupedData[arr[i]].valor * groupedData[arr[i]].length);
 		}
 		HM.taxa.valorMinimo({
 			success:function(valorMinimo){
@@ -175,8 +180,8 @@ $(document).ready(function(){
 							msg += "</table><span><h1><strong>TOTAL  R$ <span  id='teleEntrega' style='display:none;'>"+ (total+entrega.valor).toFixed(2) +"</span> <span id='retiradaBalcao'>"+ total.toFixed(2) +"</span></strong></h1>";
 							bootbox.dialog({
 								message: "<div>" +msg+" </div>"
-								+ "Retirada balcão <input type='radio' id='entrega' name='entrega' value='2' checked onclick='HM.produto.exibeValor()'/><br/>"
-								+ "Entrega delivery <input type='radio' value='0' id='entrega' name='entrega' onclick='HM.produto.esconde()'/>",
+								+ "Retirada balcão <input type='radio'  id='entrega' name='entrega' value='2' checked onclick='HM.produto.exibeValor()'/><br/>"
+								+ "Entrega delivery <input type='radio' valor='"+entrega+"' value='0' id='entrega1' name='entrega' onclick='HM.produto.esconde()'/>",
 								title: "Pedidos<hr>",
 								size: 'small',
 								onEscape: function() {},
