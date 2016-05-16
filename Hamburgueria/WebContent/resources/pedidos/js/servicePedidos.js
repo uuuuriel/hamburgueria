@@ -157,6 +157,22 @@ $(document).ready(function() {
 							}
 						}
 					})
+				},
+				ajustaFinalizar : function(cfg){
+					HM.ajax.post({
+						url:"rest/Pedido/ajustarFinalizar",
+						data:cfg.data,
+						success:function(succ){
+							if(cfg && cfg.success){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cfg.error){
+								cfg.error(err.responseText);
+							}
+						}
+					})
 				}
 			};
 		});

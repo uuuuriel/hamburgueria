@@ -190,133 +190,148 @@ $(document).ready(function(){
 										label: "Continuar",
 										className: "btn-success",
 										callback: function() {
-											newData.codtaxa = $('input[name="entrega"]:checked').val();
+											var data = [];
+											$(".somaTudo").each(function(){
+												var add = {};
+												add.cod = $(this).attr("id");
+												add.qtde = $(this).val();
+												data.push(add);
+											})
 											$(this).fadeOut();
-											if (HM.sessao('funcionario') == 1) {
-												HM.cidade.listar({
-													async : false,
-													success : function(data) {
-															var html = "";
-															for ( var i = 0; i < data.length; i++) {
-																html += "<option value='"+ data[i].cod+ "'>"+ data[i].cidade+ "</option>";
-															}
-															$("#cidade").html(html);
-														},
-														error:function(err){
-															bootbox.alert(err.responseText);
-														}
-													});
-												HM.usuario.exibir({
-													data: "",
-													success : function(data) {
-														var availableTags = [];
-														for (var i = 0; i < data.length; i++) {
-															availableTags.push(
-																	{
-																		value: data[i].telefone,
-																		label:data[i].telefone,
-																		codigo: data[i].cod,
-																		nome: data[i].nome,
-																		cep: data[i].cep,
-																		bairro: data[i].bairro,
-																		rua: data[i].rua,
-																		numero: data[i].numero,
-																		cidade: data[i].cidade
+											HM.pedidos.ajustaFinalizar({
+												data:data,
+												success:function(succ){
+													newData.codtaxa = $('input[name="entrega"]:checked').val();
+													if (HM.sessao('funcionario') == 1) {
+														HM.cidade.listar({
+															async : false,
+															success : function(data) {
+																	var html = "";
+																	for ( var i = 0; i < data.length; i++) {
+																		html += "<option value='"+ data[i].cod+ "'>"+ data[i].cidade+ "</option>";
 																	}
-																);
-														}
-													    $( ".tags" ).autocomplete({
-													      source: availableTags,								      
-													      select: function(event, ui) {
-													    	  $("#cidade").val(ui.item.cidade);
-													    	  HM.bairro.listar({
-													  			data: $('#cidade').val(),
-													  			success:function(data){
-														  				var html = "";
-														  				for ( var i = 0; i < data.length; i++) {
-														  					html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
-														  				}
-														  				$("#bairro").html(html);
-														  				$("#bairro").val(ui.item.bairro);
-														  			},
-														  			error:function(err){
-														  				bootbox.alert(err.responseText);
-														  			}
-													  			});
-													    	  $(".disableds").attr("disabled","disabled");
-													    	  $("#cod").val(ui.item.codigo);
-													    	  $("#nome").val(ui.item.nome);
-													    	  $("#cep").val(ui.item.cep);
-													    	  $("#rua").val(ui.item.rua);
-													    	  $("#numero").val(ui.item.numero);
-													        },
-													        response: function( event, ui ) {
-													        	$("#cidade").val("");
-													        	$("#bairro").val("");
-													        	$("#cod").val("");
-														    	$("#nome").val("");
-														    	$("#cep").val("");
-														    	$("#rua").val("");
-														    	$("#numero").val("");
-														    	$(".disableds").prop("disabled", false); 
-													        }
-													    });
-													},
-													error : function(error) {
-														console.log(error);
-													}
-												});
-												
-												bootbox.dialog({
-													message: '<div class="form-group"><input class="form-control tags" id="telefone"  placeholder="Telefone"/></div>'
-																+'<div class="form-group"><input type="text" id="nome" class="disableds colorBlack form-control" placeholder="Nome"/></div>'
-																+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
-																+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
-																+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
-																+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
-																+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
-																+'<input type="hidden" id="cod" />',
-													title: "Formulário de Entrega<hr>",
-													size: 'small',
-													onEscape: function() {},
-													buttons: {
-														success: {
-															label: "Confirmar",
-															className: "btn-success",
-															callback: function() {
-																var cod = $("#cod").val();
-																var url = "";
-																$("#telefone").unmask();
-																$("#cep").unmask();
-																$("#numero").unmask();
-																if (cod == "" || cod == null) {
-																	newData.nome = $("#nome").val();
-																	newData.telefone = $("#telefone").val();
-																	newData.cidade = $("#cidade").val();
-																	newData.bairro = $("#bairro").val();
-																	newData.rua = $("#rua").val();
-																	newData.numero = $("#numero").val();
-																	newData.cep = $("#cep").val();
-																	url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
-																}else{
-																	url = "rest/Pedido/finalizarPedidoFuncionario/";
-																	newData.codcliente = cod;
+																	$("#cidade").html(html);
+																},
+																error:function(err){
+																	bootbox.alert(err.responseText);
 																}
-																HM.produto.encerra(newData, url);
+															});
+														HM.usuario.exibir({
+															data: "",
+															success : function(data) {
+																var availableTags = [];
+																for (var i = 0; i < data.length; i++) {
+																	availableTags.push(
+																			{
+																				value: data[i].telefone,
+																				label:data[i].telefone,
+																				codigo: data[i].cod,
+																				nome: data[i].nome,
+																				cep: data[i].cep,
+																				bairro: data[i].bairro,
+																				rua: data[i].rua,
+																				numero: data[i].numero,
+																				cidade: data[i].cidade
+																			}
+																		);
+																}
+															    $( ".tags" ).autocomplete({
+															      source: availableTags,								      
+															      select: function(event, ui) {
+															    	  $("#cidade").val(ui.item.cidade);
+															    	  HM.bairro.listar({
+															  			data: $('#cidade').val(),
+															  			success:function(data){
+																  				var html = "";
+																  				for ( var i = 0; i < data.length; i++) {
+																  					html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
+																  				}
+																  				$("#bairro").html(html);
+																  				$("#bairro").val(ui.item.bairro);
+																  			},
+																  			error:function(err){
+																  				bootbox.alert(err.responseText);
+																  			}
+															  			});
+															    	  $(".disableds").attr("disabled","disabled");
+															    	  $("#cod").val(ui.item.codigo);
+															    	  $("#nome").val(ui.item.nome);
+															    	  $("#cep").val(ui.item.cep);
+															    	  $("#rua").val(ui.item.rua);
+															    	  $("#numero").val(ui.item.numero);
+															        },
+															        response: function( event, ui ) {
+															        	$("#cidade").val("");
+															        	$("#bairro").val("");
+															        	$("#cod").val("");
+																    	$("#nome").val("");
+																    	$("#cep").val("");
+																    	$("#rua").val("");
+																    	$("#numero").val("");
+																    	$(".disableds").prop("disabled", false); 
+															        }
+															    });
+															},
+															error : function(error) {
+																console.log(error);
 															}
-														},
-														danger: {
-															label: "Fechar",
-															className: "btn-danger",
-															callback: function() {
-																$(this).fadeOut(1000);
+														});
+														
+														bootbox.dialog({
+															message: '<div class="form-group"><input class="form-control tags" id="telefone"  placeholder="Telefone"/></div>'
+																		+'<div class="form-group"><input type="text" id="nome" class="disableds colorBlack form-control" placeholder="Nome"/></div>'
+																		+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
+																		+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
+																		+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
+																		+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
+																		+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
+																		+'<input type="hidden" id="cod" />',
+															title: "Formulário de Entrega<hr>",
+															size: 'small',
+															onEscape: function() {},
+															buttons: {
+																success: {
+																	label: "Confirmar",
+																	className: "btn-success",
+																	callback: function() {
+																		var cod = $("#cod").val();
+																		var url = "";
+																		$("#telefone").unmask();
+																		$("#cep").unmask();
+																		$("#numero").unmask();
+																		if (cod == "" || cod == null) {
+																			newData.nome = $("#nome").val();
+																			newData.telefone = $("#telefone").val();
+																			newData.cidade = $("#cidade").val();
+																			newData.bairro = $("#bairro").val();
+																			newData.rua = $("#rua").val();
+																			newData.numero = $("#numero").val();
+																			newData.cep = $("#cep").val();
+																			url = "rest/Pedido/finalizarPedidoFuncionarioNovo";
+																		}else{
+																			url = "rest/Pedido/finalizarPedidoFuncionario/";
+																			newData.codcliente = cod;
+																		}
+																		HM.produto.encerra(newData, url);
+																	}
+																},
+																danger: {
+																	label: "Fechar",
+																	className: "btn-danger",
+																	callback: function() {
+																		$(this).fadeOut(1000);
+																	}
+																}	
 															}
-														}	
-													}
-												});
-											}else{
-												HM.produto.encerra(newData, "rest/Pedido/finalizar");
-											}
+														});
+													}else{
+														HM.produto.encerra(newData, "rest/Pedido/finalizar");
+													}												
+												},
+												error:function(err){
+													console.log(err);
+												}
+											})
 										}
 									},
 									danger: {

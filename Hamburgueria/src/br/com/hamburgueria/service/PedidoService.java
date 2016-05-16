@@ -21,6 +21,7 @@ import br.com.hamburgueria.jdbc.JDBCTaxaDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.jdbcinterface.TaxaDAO;
+import br.com.hamburgueria.objs.AjustaFinalizarPedido;
 import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.ListaPedidoVO;
 import br.com.hamburgueria.objs.ListaVO;
@@ -28,6 +29,14 @@ import br.com.hamburgueria.objs.Pedido;
 import br.com.hamburgueria.validacoes.ValidaPedido;
 
 public class PedidoService {
+	
+	/*public void ajustarFinalizar(AjustaFinalizarPedido[] ped) throws HamburgueriaException{
+		try{
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}*/
 	
 	public void finalizarPedido (String array, Pedido ped) throws HamburgueriaException{
 		Conexao conec = new Conexao();

@@ -1,8 +1,7 @@
 package br.com.hamburgueria.rest;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,17 +23,47 @@ import br.com.hamburgueria.exception.AdicionarProdutoException;
 import br.com.hamburgueria.exception.FinalizarPedidoException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.PermissaoException;
+import br.com.hamburgueria.objs.AjustaFinalizarPedido;
 import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.Pedido;
 import br.com.hamburgueria.service.PedidoService;
-
-import com.google.gson.Gson;
 
 @Path("Pedido")
 public class PedidoRest extends UtilRest{
 
 	@Context
 	private HttpServletRequest req;
+	
+	@POST
+	@Path("/ajustarFinalizar")
+	@Consumes("application/*")
+	public void ajustarFinalizar(String pedido) throws HamburgueriaException{
+		validaSessao("log");
+		try{
+			AjustaFinalizarPedido[] ped = new ObjectMapper().readValue(pedido,AjustaFinalizarPedido[].class);
+			HttpSession sessao = req.getSession(false);
+			sessao.setAttribute("produto", null);
+			int conta = 0;
+			boolean x = true;
+			for (int i = 0; i < ped.length; i++) {
+				conta = ped[i].getQtde();
+				while(conta > 0){
+					if(x){
+						sessao.setAttribute("produto", ped[i].getCod() + ",");
+						x = false;
+						conta = conta - 1;
+					}else{
+						String produtos = (String)sessao.getAttribute("produto") != null ? (String)sessao.getAttribute("produto")  : "";
+						sessao.setAttribute("produto", ped[i].getCod() + "," + produtos);
+						conta = conta - 1;
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new FinalizarPedidoException();
+		}
+	}
 	
 	@POST
 	@Path("/addProduto/{produto}")
