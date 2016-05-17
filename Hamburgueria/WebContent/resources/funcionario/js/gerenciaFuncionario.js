@@ -12,18 +12,19 @@ $(document).ready(
 				busca : busca,
 				success : function(listFunc) {
 					var html;
+					console.log(listFunc);
 					for (var i = 0; i < listFunc.length; i++) {
 						html += "<tr><td>"
 						+ listFunc[i]['codfuncionario']
 						+ "</td>"
 						+ "<td>"
-						+ listFunc[i]['nomeFuncionario']
+						+ listFunc[i]['nome']
 						+ "</td>"
 						+ "<td>"
 						+ listFunc[i]['funcao']
 						+ "</td>"
 						+ "<td>"
-						+ listFunc[i]['fone']
+						+ listFunc[i]['telefone']
 						+ "</td>"
 						+ "<td><a action='cadastroFuncionario' onclick='HM.funcionario.editarFuncionario("
 						+ listFunc[i]['codfuncionario']
@@ -70,8 +71,7 @@ $(document).ready(
 				async : false,
 				success : function(dat) {
 					$("#conteudo").html(dat);
-					HM.cidade
-					.listar({
+					HM.cidade.listar({
 						async : false,
 						success : function(data) {
 							var html = "";
@@ -82,33 +82,41 @@ $(document).ready(
 								+ data[i].cidade
 								+ "</option>";
 							}
-							$("#txtcidade").append(
-								html);
-							HM.funcionario
-							.popular({
+							$("#txtcidade").append(html);
+							HM.funcionario.popular({
 								data : cod,
 								success : function(func) {
-									$('#txtnome').val(func.nomeFuncionario);
-									$('#nmbrcpf').val(func.cpf);
-									$("#nmbrrg").val(func.rg);
-									$("#nmbrdatanascimento").val(func.dataNascimento);
-									$("#nmbrfone").val(func.fone);
-									$("#txtemail").val(func.email);
-									$("#txtfuncao").val(func.funcao);
-									$("#txtcidade").val(func.cidade);
-									$("#txtbairro").val(func.bairro);
-									$("#txtrua").val(func.rua);
-									$("#nmbrcasa").val(func.numero);
-									$("#cep").val(func.cep);
-									$("#txtcomplemento").val(func.complemento);
-									$("#codfuncionario").val(func.codfuncionario);
-									$("#buttonConfirmar").attr("onclick","HM.funcionario .exibirEdicao();");
-									if (func.administrador == 1) {
-										$("#administrador").prop("checked","true")
-									} else {
-										$("#administrador").prop("unchecked")
-									}
-									$("input[name=ativo][value=" + func.ativo + "]").prop('checked', 'true');
+										HM.bairro.listar({
+											data:func.cidade,
+											success:function(data){
+												html="";
+												for (var i = 0; i < data.length; i++) {
+													html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
+												}
+												$("#bairro").append(html);
+												$('#txtnome').val(func.nome);
+												$('#nmbrcpf').val(func.cpf);
+												$("#nmbrrg").val(func.rg);
+												$("#nmbrdatanascimento").val(func.data_nascimento);
+												$("#nmbrfone").val(func.fone);
+												$("#txtemail").val(func.email);
+												$("#txtfuncao").val(func.funcao);
+												$("#txtcidade").val(func.cidade);
+												$("#txtbairro").val(func.bairro);
+												$("#txtrua").val(func.rua);
+												$("#nmbrcasa").val(func.numero);
+												$("#cep").val(func.cep);
+												$("#txtcomplemento").val(func.complemento);
+												$("#codfuncionario").val(func.cod);
+												$("#buttonConfirmar").attr("onclick","HM.funcionario .exibirEdicao();");
+												if (func.administrador == 1) {
+													$("#administrador").prop("checked","true")
+												} else {
+													$("#administrador").prop("unchecked")
+												}
+												$("input[name=ativo][value=" + func.ativo + "]").prop('checked', 'true');
+											}
+										})
 
 								},
 								error : function(err) {

@@ -36,8 +36,7 @@ public class LoginServlet extends HttpServlet {
     	usuario.setSenha(request.getParameter("senha"));
     	func.setEmail(request.getParameter("email"));
     	func.setSenha(request.getParameter("senha"));
-
-    	 	
+    	
     	try{
     		LoginService service = new LoginService(request);
     		HttpSession sessao = request.getSession(true);
@@ -54,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 				sessao.setAttribute("cod", func.getCodfuncionario());
 				sessao.setAttribute("funcionario", "1");
 				sessao.setAttribute("log", "4");
-				sessao.setAttribute("admRest", "1");
+				sessao.setAttribute("admRest", func.getAdministrador());
     		} else{
     			response.getOutputStream().print(true);
     		}

@@ -24,7 +24,7 @@ $(document).ready(function() {
 		}
 	});
 	HM.funcionario = new Object();
-	HM.funcionario .funcValida = function(tp){
+	HM.funcionario.funcValida = function(tp){
 		var newData = new Object();
 		var codfuncionario = $("#codfuncionario").val();
 		var nome = $('#txtnome').val();
