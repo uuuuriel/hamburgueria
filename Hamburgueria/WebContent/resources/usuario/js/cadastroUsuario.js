@@ -15,8 +15,8 @@ $(document).ready(function(){
 		//var filtroTelefone = new RegExp('^[1-9]{2}\-[2-9][0-9]{7,8}$');
 		//var filtroNome = /^[a-z]{1,45}$/i;
 		var filtroEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-		email = $("#email").val();
-			
+		var email = $("#email").val();
+		console.log("oi1");
 		if(($("#nome").val() == "") || ($("#cpf").val() == "") || ($("#rg").val() == "")
 				|| ($("#data_nascimento").val() == "") ||($("#telefone").val() == "")
 				|| ($("#cep").val() == "") 
@@ -46,10 +46,10 @@ $(document).ready(function(){
 					bootbox.alert("Senhas não conferem");
 					return false;
 				}
-			}else{
-				return true;
 			}
+			return true;
 		}
+		console.log("oi2");
 	};
 	
 	HM.usuario.cadastrar = function(){
@@ -77,7 +77,11 @@ $(document).ready(function(){
 				data:HM.usuario.getValor(),
 				success : function(data) {
 					bootbox.alert(data);
-					loadUrl('usuarios');
+					if(HM.sessao('funcionario') != 1){
+						loadUrl('index');
+					}else{
+						loadUrl('usuarios');
+					}
 				},
 				error : function(error) {
 					bootbox.alert(error.responseText);
