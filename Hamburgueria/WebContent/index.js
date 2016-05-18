@@ -40,7 +40,7 @@ $(document).ready(function(){
 	loadUrl = function(path) {
 		var href = mapHref["/"+path];
 		if(path == "index"){
-			window.location.assign("index.html");
+			window.location.assign("index");
 		}else{
 			$("#conteudo").load(href);
 		}
@@ -81,7 +81,17 @@ $(document).ready(function(){
 	$('#conteudoIndex').load('resources/ofertadia.html');
 	$('#sugestaoCritica').load('resources/sugestaocritica.html');
 	
-	function editar(){
-		HM.sessao('cod');
+	HM.editar = function(){
+		var cod = HM.sessao('cod');
+		if(HM.sessao('funcionario')!=1){
+			$("#conteudo").append('<script type="text/javascript" src="resources/usuario/js/serviceUsuario.js"></script>'
+					+ '<script type="text/javascript" src="resources/usuario/js/gerenciaUsuario.js"></script>');
+			HM.usuario.edit(cod);
+			
+		}else{
+			$("#conteudo").append('<script type="text/javascript" src="resources/funcionario/js/serviceFunc.js"></script>'
+					+'<script type="text/javascript" src="resources/funcionario/js/gerenciaFuncionario.js"></script>');
+			HM.funcionario.editarFuncionario(cod);
+		}
 	}
 });
