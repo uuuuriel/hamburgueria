@@ -28,7 +28,7 @@ public class DestroiSessao extends HttpServlet {
     	HttpSession session = request.getSession(false);
     	session.invalidate();
     		
-    	response.sendRedirect(context + "/index.html");
+    	response.sendRedirect(context + "/index");
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

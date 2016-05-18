@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -50,13 +53,15 @@ public class JDBCPedidoDAO implements PedidoDAO {
 		String comando = "insert into pedido (estagio_pedido_codestagio_pedido, cliente_codcliente,"
 				+ "taxas_codtaxas, data) VALUES (?,?,?,?)";
 		PreparedStatement p;
-		Date d = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date today = Calendar.getInstance().getTime();        
+		String reportDate = df.format(today);
 		try {
 			p = this.conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
 			p.setInt(1, 1);
 			p.setInt(2, pedido.getCodcliente());
 			p.setInt(3, pedido.getCodtaxa());
-			p.setDate(4, new java.sql.Date(d.getTime()));
+			p.setString(4, reportDate);
 			p.execute();
 			try (ResultSet generatedKeys = p.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {

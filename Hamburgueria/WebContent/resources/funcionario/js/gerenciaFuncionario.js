@@ -5,10 +5,8 @@ $(document).ready(
 			HM.funcionario.exibirFuncionarios(undefined, busca);
 		};
 
-		HM.funcionario.exibirFuncionarios = function(listFunc,
-			busca) {
-			HM.funcionario
-			.exibir({
+		HM.funcionario.exibirFuncionarios = function(listFunc,busca) {
+			HM.funcionario.exibir({
 				busca : busca,
 				success : function(listFunc) {
 					var html;
@@ -83,6 +81,7 @@ $(document).ready(
 								+ "</option>";
 							}
 							$("#txtcidade").append(html);
+							console.log(html + " - "+ data + " - " +dat + " - ");
 							HM.funcionario.popular({
 								data : cod,
 								success : function(func) {
@@ -108,7 +107,7 @@ $(document).ready(
 												$("#cep").val(func.cep);
 												$("#txtcomplemento").val(func.complemento);
 												$("#codfuncionario").val(func.cod);
-												$("#buttonConfirmar").attr("onclick","HM.funcionario .exibirEdicao();");
+												$("#buttonConfirmar").attr("onclick","HM.funcionario.exibirEdicao();");
 												if (func.administrador == 1) {
 													$("#administrador").prop("checked","true")
 												} else {

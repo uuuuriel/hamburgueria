@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
     			response.getOutputStream().print(true);
     		}
     	}catch(Exception e){
-    		response.sendRedirect(context + "/index.html");
+    		response.sendRedirect(context + "/index");
     	}
     }
     

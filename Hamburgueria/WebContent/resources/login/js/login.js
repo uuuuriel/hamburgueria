@@ -17,6 +17,11 @@ HM.login = function() {
         }           
     });
 };
+function enter(evt){
+	if( evt.keyCode==13 ) {
+    	HM.login();
+    }
+ }
 HM.logout = function(){
 	var toma = 'destroi';
 	$.ajax({
