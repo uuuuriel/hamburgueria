@@ -1,7 +1,6 @@
 $(document).ready(
 		function() {
 			loadCarregarFunction(".carregar-func");
-			HM.funcionario = new Object();
 			HM.funcionario = {
 				exibir : function(cfg) {
 					var busca = cfg.busca;

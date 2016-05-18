@@ -3,9 +3,11 @@ $(document).ready(function() {
 	$("#nmbrrg").mask("9.999.999");
 	$("#nmbrfone").mask("(99)9999-9999");
 	$("#cep").mask("99999-999");
-	$("#nmbrdatanascimento").datepicker();
-	HM.cidade
-	.listar({
+	$("#nmbrdatanascimento").datepicker({
+		dateFormat: "dd/mm/yy"
+	});
+
+	HM.cidade.listar({
 		async : false,
 		success : function(data) {
 			var html = "";
@@ -23,7 +25,6 @@ $(document).ready(function() {
 			console.log(err);
 		}
 	});
-	HM.funcionario = new Object();
 	HM.funcionario.funcValida = function(tp){
 		var newData = new Object();
 		var codfuncionario = $("#codfuncionario").val();
@@ -83,11 +84,11 @@ $(document).ready(function() {
 			bootbox.alert("Todos os campos são obrigatórios.");
 			return false;
 		} else {
-			newData.nomeFuncionario = nome;
+			newData.nome= nome;
 			newData.cpf = cpf;
 			newData.rg = rg;
-			newData.dataNascimento = dataNascimento;
-			newData.fone = fone;
+			newData.data_nascimento = fromBD(dataNascimento);
+			newData.telefone = fone;
 			newData.email = email;
 			newData.senha = pass;
 			newData.funcao = funcao;

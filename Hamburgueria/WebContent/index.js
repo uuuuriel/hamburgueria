@@ -87,11 +87,69 @@ $(document).ready(function(){
 			$("#conteudo").append('<script type="text/javascript" src="resources/usuario/js/serviceUsuario.js"></script>'
 					+ '<script type="text/javascript" src="resources/usuario/js/gerenciaUsuario.js"></script>');
 			HM.usuario.edit(cod);
-			
 		}else{
-			$("#conteudo").append('<script type="text/javascript" src="resources/funcionario/js/serviceFunc.js"></script>'
-					+'<script type="text/javascript" src="resources/funcionario/js/gerenciaFuncionario.js"></script>');
-			HM.funcionario.editarFuncionario(cod);
+			$("#conteudo").append('<script type="text/javascript" src="resources/funcionario/js/serviceFunc.js"></script>');
+			$.ajax({
+				url : "resources/funcionario/cadastroFuncionario.html",
+				async : false,
+				success : function(dat) {
+					$("#conteudo").html(dat);
+					HM.cidade.listar({
+						async : false,
+						success : function(data) {
+							var html = "";
+							for (var i = 0; i < data.length; i++) {
+								html += "<option value='"+ data[i].cod+ "'>"
+								+ data[i].cidade + "</option>";
+							}
+							$("#txtcidade").append(html);
+							HM.funcionario.popular({
+								data : cod,
+								success : function(func) {
+										HM.bairro.listar({
+											data:func.cidade,
+											success:function(data){
+												html="";
+												for (var i = 0; i < data.length; i++) {
+													html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
+												}
+												$("#bairro").append(html);
+												$('#txtnome').val(func.nome);
+												$('#nmbrcpf').val(func.cpf);
+												$("#nmbrrg").val(func.rg);
+												$("#nmbrdatanascimento").val(fromView(func.data_nascimento));
+												$("#nmbrfone").val(func.telefone);
+												$("#txtemail").val(func.email);
+												$("#txtfuncao").val(func.funcao);
+												$("#txtcidade").val(func.cidade);
+												$("#txtbairro").val(func.bairro);
+												$("#txtrua").val(func.rua);
+												$("#nmbrcasa").val(func.numero);
+												$("#cep").val(func.cep);
+												$("#txtcomplemento").val(func.complemento);
+												$("#codfuncionario").val(func.cod);
+												$("#buttonConfirmar").attr("onclick","HM.funcionario.exibirEdicao();");
+												if (func.administrador == 1) {
+													$("#administrador").prop("checked","true")
+												} else {
+													$("#administrador").prop("unchecked")
+												}
+												$("input[name=ativo][value=" + func.ativo + "]").prop('checked', 'true');
+											}
+										})
+									},
+								error : function(err) {
+									console.log(err);
+									bootbox.alert("Erro ao Editar Funcionario.");
+								}
+							});
+						}
+					});
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			})
 		}
 	}
 });

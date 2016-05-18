@@ -1,5 +1,4 @@
-$(document).ready(
-	function() {
+$(document).ready(function() {
 		HM.funcionario.buscar = function() {
 			var busca = $("#buscarInput").val();
 			HM.funcionario.exibirFuncionarios(undefined, busca);
@@ -81,7 +80,6 @@ $(document).ready(
 								+ "</option>";
 							}
 							$("#txtcidade").append(html);
-							console.log(html + " - "+ data + " - " +dat + " - ");
 							HM.funcionario.popular({
 								data : cod,
 								success : function(func) {
@@ -96,7 +94,7 @@ $(document).ready(
 												$('#txtnome').val(func.nome);
 												$('#nmbrcpf').val(func.cpf);
 												$("#nmbrrg").val(func.rg);
-												$("#nmbrdatanascimento").val(func.data_nascimento);
+												$("#nmbrdatanascimento").val(formView(func.data_nascimento));
 												$("#nmbrfone").val(func.fone);
 												$("#txtemail").val(func.email);
 												$("#txtfuncao").val(func.funcao);
