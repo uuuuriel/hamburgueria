@@ -11,7 +11,7 @@ HM.login = function() {
 	 				$(".loginInvalido").html("Email e senha não conferem.");
 	 			}).delay(2000).fadeOut(2000);
         	}else{
-        		window.location.href="index.html";
+        		window.location.href="index";
         	}
         	
         }           

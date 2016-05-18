@@ -80,4 +80,8 @@ $(document).ready(function(){
 	
 	$('#conteudoIndex').load('resources/ofertadia.html');
 	$('#sugestaoCritica').load('resources/sugestaocritica.html');
+	
+	function editar(){
+		HM.sessao('cod');
+	}
 });

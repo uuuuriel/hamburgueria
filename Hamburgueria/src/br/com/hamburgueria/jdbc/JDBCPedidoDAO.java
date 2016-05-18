@@ -377,7 +377,8 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	public List<ListaPedidoVO> pedidosUsuario(int cod) throws HamburgueriaException{
 		String comando = "SELECT p.* FROM pedido p " 
 				+ "inner join pedido_produto pp on pp.pedido_codpedido = p.codpedido "
-				+ "WHERE pp.estagio_pedido = '1' AND p.cancelado is null AND p.cliente_codcliente ="+cod;
+				+ "WHERE pp.estagio_pedido = '1' AND p.cancelado is null AND p.cliente_codcliente ="+cod
+				+ " GROUP BY p.codpedido";
 		List<ListaPedidoVO> list = new ArrayList<ListaPedidoVO>();
 		ListaPedidoVO ped = null;
 		try {
