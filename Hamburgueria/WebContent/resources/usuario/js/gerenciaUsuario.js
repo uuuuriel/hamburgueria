@@ -76,6 +76,8 @@ $(document).ready(function(){
 												$(this).val(resp[this.id]);
 											}
 										});
+										console.log(resp.data_nascimento);
+										$("#data_nascimento").val(fromView(resp.data_nascimento));
 										$("#ativosn").show();
 										$("input[name=ativo][value=" + resp.ativo + "]").prop('checked', 'true');
 									},error:function(err){console.log(err.responseText());}

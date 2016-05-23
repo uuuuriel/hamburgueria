@@ -9,7 +9,9 @@ $(document).ready(function(){
 	$("#cep").mask("99999-999");
 	$("#data_nascimento").mask("99/99/9999");
 	$("#numero").mask("99999");
-	$("#data_nascimento").datepicker();
+	$("#data_nascimento").datepicker({
+		dateFormat: "dd/mm/yy"
+	});
 	
 	HM.usuario.valida = function(acao){
 		//var filtroTelefone = new RegExp('^[1-9]{2}\-[2-9][0-9]{7,8}$');
@@ -95,7 +97,6 @@ $(document).ready(function(){
 		$("#rg").unmask();
 		$("#telefone").unmask();
 		$("#cep").unmask();
-		$("#data_nascimento").unmask();
 		var newUsuario = new Object();
 		$("form div input, form div select").each(function(){
 			if(this.name != "ativo"){
@@ -104,6 +105,7 @@ $(document).ready(function(){
 				newUsuario['ativo']=$('input[name="ativo"]:checked').val();
 			}
 		});
+		newUsuario['data_nascimento'] = fromBD($("#data_nascimento").val());
 		console.log(newUsuario);
 		return newUsuario;
 	};
