@@ -68,8 +68,10 @@ public class FuncionarioService {
 			Connection conexao = conec.abrirConexao();
 			FuncionarioDAO jdbcFuncionario = new JDBCFuncionarioDAO(conexao);
 			ValidaFuncionario valida = new ValidaFuncionario();
-			Crip crip = new Crip();
-			func.setSenha(crip.cripto(func.getSenha()));
+			if(func.getSenha() != ""){
+				Crip crip = new Crip();
+				func.setSenha(crip.cripto(func.getSenha()));
+			}
 			valida.funcionario(func);
 			jdbcFuncionario.atualizar(func);
 		}finally{

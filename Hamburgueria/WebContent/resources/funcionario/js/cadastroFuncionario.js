@@ -64,8 +64,6 @@ $(document).ready(function() {
 					bootbox.alert("Senhas não conferem.");
 					return false;
 				}
-				bootbox.alert("Campo senha obrigatório.");
-				return false;
 			}
 		}
 		if (tp == "new") {
@@ -99,6 +97,7 @@ $(document).ready(function() {
 			newData.complemento = complemento;
 			newData.administrador = administrador;
 			newData.cep = cep;
+			newData.cod = codfuncionario;
 			newData.codfuncionario = codfuncionario;
 			newData.ativo = $("#ativo").val();
 			return newData;
@@ -110,23 +109,28 @@ $(document).ready(function() {
 		var clean = crs.replace(/[^\d]+/g, '');
 		return clean;
 	}
-	HM.funcionario .exibirEdicao = function() {
-		var newData = HM.funcionario .funcValida("att");
-		HM.funcionario 
-		.editar({
-			data:newData,
-			success : function(succ) {
-				bootbox.alert(succ);
-				loadUrl("funcionario");
-			},
-			error : function(err) {
-				console.log(err);
-				bootbox.alert("Erro ao editar funcionário:"	+ err);
-			}
-		});
+	HM.funcionario.exibirEdicao = function() {
+		var newData = HM.funcionario.funcValida("att");
+		console.log(newData);
+		if(newData){
+			HM.funcionario.editar({
+				data:newData,
+				success : function(succ) {
+					bootbox.alert(succ);
+					loadUrl("funcionario");
+				},
+				error : function(err) {
+					console.log(err);
+					bootbox.alert("Erro ao editar funcionário:"	+ err);
+				}
+			});
+		}else{
+			bootbox.alert("favor preencher todos os campos.")
+		}
 	}
-	HM.funcionario .cadastrar = function() {
-		var newData = HM.funcionario .funcValida("new");
+	HM.funcionario.cadastrar = function() {
+		var newData = HM.funcionario.funcValida("new");
+		console.log(newData);
 		HM.funcionario .adicionar({
 			data: newData,
 			success : function(data) {

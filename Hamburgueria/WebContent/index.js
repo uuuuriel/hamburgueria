@@ -113,7 +113,7 @@ $(document).ready(function(){
 												for (var i = 0; i < data.length; i++) {
 													html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
 												}
-												$("#bairro").append(html);
+												$("#txtbairro").append(html);
 												$('#txtnome').val(func.nome);
 												$('#nmbrcpf').val(func.cpf);
 												$("#nmbrrg").val(func.rg);
@@ -122,13 +122,13 @@ $(document).ready(function(){
 												$("#txtemail").val(func.email);
 												$("#txtfuncao").val(func.funcao);
 												$("#txtcidade").val(func.cidade);
-												$("#txtbairro").val(func.bairro);
 												$("#txtrua").val(func.rua);
 												$("#nmbrcasa").val(func.numero);
 												$("#cep").val(func.cep);
 												$("#txtcomplemento").val(func.complemento);
 												$("#codfuncionario").val(func.cod);
 												$("#buttonConfirmar").attr("onclick","HM.funcionario.exibirEdicao();");
+												$("#txtbairro").val(func.bairro);
 												if (func.administrador == 1) {
 													$("#administrador").prop("checked","true")
 												} else {

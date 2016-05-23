@@ -3,7 +3,7 @@ package br.com.hamburgueria.objs;
 import java.util.Date;
 
 public class Cliente {
-	
+
 	private int cod;
 	private String nome;
 	private Date data_nascimento;
