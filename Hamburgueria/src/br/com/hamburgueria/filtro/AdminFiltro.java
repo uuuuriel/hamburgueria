@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class AdminFiltro {
+public class AdminFiltro implements Filter{
 
 	    public AdminFiltro() {
 	        // TODO Auto-generated constructor stub

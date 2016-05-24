@@ -52,22 +52,6 @@
   </filter>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/funcionario/cadastroFuncionario.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/funcionario/gerenciaFuncionario.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/produto/formularioProduto.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/produto/gerenciaProduto.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>SessaoFiltro</filter-name>
     <url-pattern>/resources/usuario/gerenciaUsuario.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
@@ -76,19 +60,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/taxa/formularioTaxa.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/taxa/gerenciaTaxa.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>SessaoFiltro</filter-name>
     <url-pattern>/resources/pedidos/acompanharPedidoUsuario.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>SessaoFiltro</filter-name>
-    <url-pattern>/resources/pedidos/administrarPedido.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>SessaoFiltro</filter-name>
@@ -115,65 +87,69 @@
     <url-pattern>/resources/usuario/gerenciaUsuario.html</url-pattern>
   </filter-mapping>
   <filter>
-    <filter-name>UsuarioFiltro</filter-name>
-    <filter-class>br.com.hamburgueria.filtro.UsuarioFiltro</filter-class>
+    <filter-name>AdminFiltro</filter-name>
+    <filter-class>br.com.hamburgueria.filtro.AdminFiltro</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>AdminFiltro</filter-name>
     <url-pattern>/resources/funcionario/cadastroFuncionario.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>AdminFiltro</filter-name>
     <url-pattern>/resources/funcionario/gerenciaFuncionario.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>AdminFiltro</filter-name>
     <url-pattern>/resources/produto/formularioProduto.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>AdminFiltro</filter-name>
+    <url-pattern>/resources/produto/formularioProduto.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AdminFiltro</filter-name>
     <url-pattern>/resources/produto/gerenciaProduto.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>AdminFiltro</filter-name>
     <url-pattern>/resources/taxa/formularioTaxa.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
-    <url-pattern>/resources/taxa/gerenciaTaxa.html</url-pattern>
+    <filter-name>AdminFiltro</filter-name>
+    <url-pattern>/resources/taxa/gerenciaProduto.html</url-pattern>
   </filter-mapping>
+  <filter>
+    <filter-name>FuncionarioFiltro</filter-name>
+    <filter-class>br.com.hamburgueria.filtro.FuncionarioFiltro</filter-class>
+  </filter>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>FuncionarioFiltro</filter-name>
     <url-pattern>/resources/usuario/gerenciaUsuario.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
-    <url-pattern>/resources/pedidos/acompanharPedidoUsuario.html</url-pattern>
+    <filter-name>FuncionarioFiltro</filter-name>
+    <url-pattern>/resources/vendas/controleVendas.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
-    <url-pattern>/resources/pedidos/entregaPedido.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>FuncionarioFiltro</filter-name>
     <url-pattern>/resources/pedidos/administrarPedido.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>FuncionarioFiltro</filter-name>
+    <url-pattern>/resources/pedidos/entregaPedido.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>FuncionarioFiltro</filter-name>
     <url-pattern>/resources/pedidos/pedidoPronto.html</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
+    <filter-name>FuncionarioFiltro</filter-name>
     <url-pattern>/resources/pedidos/producaoPedido.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>UsuarioFiltro</filter-name>
-    <url-pattern>/resources/vendas/controleVendas.html</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>Redireciona</filter-name>
     <filter-class>br.com.hamburgueria.filtro.Redireciona</filter-class>
-  </filter>
+  </filter>	
   <filter-mapping>
     <filter-name>Redireciona</filter-name>
     <url-pattern>/delivery</url-pattern>
