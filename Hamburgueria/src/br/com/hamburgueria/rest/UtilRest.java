@@ -45,21 +45,4 @@ public class UtilRest {
 			return variSessao;
 		}
 	}
-	
-	public void validaSessao(String parametro) throws PermissaoException{
-		if(parametro.equals("admRest")){
-			if(getSessao("admRest").equals("0")){
-				throw new PermissaoException();
-			};
-		}else if(parametro.equals("log")){
-			if(!getSessao("log").equals("4")){
-				System.out.println(getSessao("log"));
-				throw new PermissaoException();
-			};
-		}else if(parametro.equals("funcionario")){
-			if(Integer.parseInt(getSessao("funcionario")) != 1){
-				throw new PermissaoException();
-			};
-		}
-	}
 }

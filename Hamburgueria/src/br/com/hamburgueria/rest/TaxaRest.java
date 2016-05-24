@@ -71,7 +71,6 @@ public class TaxaRest extends UtilRest{
 	@Path("/atualizar")
 	@Consumes("application/*")
 	public Response atualizar(String taxa) throws PermissaoException{
-		validaSessao("admRest");
 		try{
 			Taxa taxas = new ObjectMapper().readValue(taxa, Taxa.class);
 			TaxaService service = new TaxaService();

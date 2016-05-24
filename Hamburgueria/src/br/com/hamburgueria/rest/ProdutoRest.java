@@ -29,7 +29,6 @@ public class ProdutoRest extends UtilRest {
 	@Path("/adicionar")
 	@Consumes("application/*")
 	public Response adicionar(String produto) throws PermissaoException {
-		validaSessao("funcionario");
 		try {
 			Produto prod = new ObjectMapper().readValue(produto,
 					Produto.class);
@@ -80,7 +79,6 @@ public class ProdutoRest extends UtilRest {
 	@Path("/deletar/{id}")
 	@Consumes("application/*")
 	public Response deletar(@PathParam("id") int id) throws PermissaoException {
-		validaSessao("funcionario");
 		try{
 			ProdutoService service = new ProdutoService();
 			service.deletar(id);			
@@ -108,7 +106,6 @@ public class ProdutoRest extends UtilRest {
 	@Path("/editar")
 	@Consumes("application/*")
 	public Response editar(String produto) throws PermissaoException{
-		validaSessao("funcionario");
 		try{
 			Produto prod = new ObjectMapper().readValue(produto, Produto.class);
 			ProdutoService service = new ProdutoService();

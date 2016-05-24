@@ -63,11 +63,13 @@ $(document).ready(function(){
 	
 	function restricao(){
 		if(HM.sessao('administrador') == 1 && HM.sessao('nome') != null){
-			$(".funcionario").show();
-			$(".usuario").show();
-		}else if(HM.sessao('administrador') != 1 && HM.sessao('nome') != ""){
-			$(".usuario").show();
+			$(".administrador").show();
 		}
+		if(HM.sessao('funcionario') == 1 && HM.sessao('nome') != null){
+			$(".funcionario").show();
+		}if(HM.sessao('nome') != "" && HM.sessao('nome') != null){
+			$(".usuario").show();
+		} 
 		if(HM.sessao('nome') != null && HM.sessao('nome') != ""){
 			$(".logins").hide();
 			$("#logout").show();

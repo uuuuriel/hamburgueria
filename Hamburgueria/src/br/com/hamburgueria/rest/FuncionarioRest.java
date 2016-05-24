@@ -29,7 +29,6 @@ public class FuncionarioRest extends UtilRest {
 	@Path("/addFuncionario")
 	@Consumes("application/*")
 	public Response addFuncionario(String funcionarioParam) throws PermissaoException {
-		validaSessao("admRest");
 		try {
 			Funcionario funcionario = new ObjectMapper().readValue(funcionarioParam,
 					Funcionario.class);
@@ -46,7 +45,6 @@ public class FuncionarioRest extends UtilRest {
 	@Path("buscarFuncionariosPorNome/{nome}")
 	@Produces({MediaType.APPLICATION_JSON })
 	public Response buscarFuncionariosPorNome(@PathParam("nome") String nome) throws PermissaoException {
-		validaSessao("admRest");
 		try {
 			FuncionarioService service = new FuncionarioService();
 			if(nome.equals("null")){
@@ -65,7 +63,6 @@ public class FuncionarioRest extends UtilRest {
 	@Path("/deletarFuncionario/{id}")
 	@Consumes("application/*")
 	public Response deletarFuncionario(@PathParam("id") int id) throws PermissaoException {
-		validaSessao("admRest");
 		try{
 			FuncionarioService funcionarioService = new FuncionarioService();
 			funcionarioService.deletarFuncionario(id);			
@@ -80,7 +77,6 @@ public class FuncionarioRest extends UtilRest {
 	@Path("/buscarFuncionarioPeloId/{id}")
 	@Produces({ MediaType.APPLICATION_JSON})
 	public Response buscarFuncionarioPeloId(@PathParam("id")int id) throws PermissaoException{
-		validaSessao("admRest");
 		try{
 			FuncionarioService funcionarioService = new FuncionarioService();
 			return this.buildResponse(funcionarioService.buscarFuncionarioPorId(id));
@@ -94,7 +90,6 @@ public class FuncionarioRest extends UtilRest {
 	@Path("/editarFuncionario")
 	@Consumes("application/*")
 	public Response editarFuncionario(String funcionarioParam) throws PermissaoException{
-		validaSessao("admRest");
 		try{
 			Funcionario funcionario = new ObjectMapper().readValue(funcionarioParam, Funcionario.class);
 			FuncionarioService service = new FuncionarioService();

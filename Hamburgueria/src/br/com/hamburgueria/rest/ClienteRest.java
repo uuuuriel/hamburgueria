@@ -65,7 +65,6 @@ public class ClienteRest extends UtilRest {
 	@Path("/deletarUsuario/{id}")
 	@Consumes("application/*")
 	public Response deletarUsuario(@PathParam("id") int id) throws PermissaoException {
-		validaSessao("admRest");
 		try{
 			ClienteService service = new ClienteService();
 			service.deletarUsuario(id);			
@@ -99,7 +98,6 @@ public class ClienteRest extends UtilRest {
 	@Path("/editarUsuario")
 	@Consumes("application/*")
 	public Response editarUsuario(String usuarioParam) throws PermissaoException{
-		validaSessao("log");
 		try{
 			Cliente user = new ObjectMapper().readValue(usuarioParam, Cliente.class);
 			ClienteService service = new ClienteService();
