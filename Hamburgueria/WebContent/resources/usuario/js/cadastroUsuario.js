@@ -13,12 +13,32 @@ $(document).ready(function(){
 		dateFormat: "dd/mm/yy"
 	});
 	
+	$("#telefone").blur(function(){
+		var fone = $("#telefone");
+		fone.unmask();
+		console.log(fone.value);
+		HM.usuario.validaFone({
+			data:fone.value,
+			success:function(data){
+				console.log(data);
+//				if(data){
+//					fone.val(" ");
+//					fone.css({'border':'red'});
+//				}else{
+//					alert("oi");
+//				}
+			},
+			error:function(err){
+				console.log(err.responseText);
+			}
+		})
+	})
+	
 	HM.usuario.valida = function(acao){
 		//var filtroTelefone = new RegExp('^[1-9]{2}\-[2-9][0-9]{7,8}$');
 		//var filtroNome = /^[a-z]{1,45}$/i;
 		var filtroEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 		var email = $("#email").val();
-		console.log("oi1");
 		if(($("#nome").val() == "") || ($("#cpf").val() == "") || ($("#rg").val() == "")
 				|| ($("#data_nascimento").val() == "") ||($("#telefone").val() == "")
 				|| ($("#cep").val() == "") 
@@ -51,7 +71,6 @@ $(document).ready(function(){
 			}
 			return true;
 		}
-		console.log("oi2");
 	};
 	
 	HM.usuario.cadastrar = function(){

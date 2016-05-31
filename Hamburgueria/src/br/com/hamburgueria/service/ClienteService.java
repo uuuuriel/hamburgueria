@@ -80,6 +80,7 @@ public class ClienteService {
 			conec.fecharConexao();
 		}
 	}
+	
 	public boolean validaFone(double numero)throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try{
@@ -92,5 +93,4 @@ public class ClienteService {
 			conec.fecharConexao();
 		}		
 	}
-
 }

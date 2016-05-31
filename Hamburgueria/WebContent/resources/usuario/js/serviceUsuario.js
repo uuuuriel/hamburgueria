@@ -90,6 +90,22 @@ $(document).ready(
 							}
 						}
 					});
+				},
+				validaFone : function(cfg){
+					HM.ajax.get({
+						url:"rest/UsuarioRest/validaFone",
+						data: JSON.stringify(cfg.data),
+						success:function(succ){
+							if(cfg && cfg.succ){
+								cfg.success(succ);
+							}
+						},
+						error:function(err){
+							if(cfg && cfg.err){
+								cfg.error(err);
+							}
+						}
+					})
 				}
 			};
 		});
