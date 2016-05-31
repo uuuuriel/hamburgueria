@@ -29,7 +29,6 @@ public class ClienteRest extends UtilRest {
 		try {
 			Cliente user = new ObjectMapper().readValue(UsuarioParam,Cliente.class);
 			ClienteService service = new ClienteService();
-			System.out.println(user.getAtivo());
 			service.adicionarUsuario(user);
 			return this.buildResponse("Usuário cadastrado com sucesso.");
 		} catch (HamburgueriaException e) {
@@ -114,11 +113,11 @@ public class ClienteRest extends UtilRest {
 	
 	@GET
 	@Path("/validaFone/{numero}")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response validaFone(@PathParam("numero")long numero){
 		try{
 			ClienteService service = new ClienteService();
-			return this.buildResponse(service.validaFone(numero));
+			return this.buildResponse(service.validaFone(numero, 0));
 		}catch(Exception e){
 			return this.buildErrorResponse(e.getMessage());
 		}

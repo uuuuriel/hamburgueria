@@ -240,8 +240,11 @@ public class JDBCClienteDAO implements ClienteDAO {
 	}
 
 	@Override
-	public boolean validaFone(double numero) throws HamburgueriaException {
-		String comando = "SELECT telefone, codcliente FROM cliente WHERE telefone ="+numero; 
+	public boolean validaFone(double numero, int cod) throws HamburgueriaException {
+		String comando = "SELECT telefone, codcliente FROM cliente WHERE telefone ="+numero;
+		if(cod != 0){
+			comando += " AND codcliente ="+cod;
+		}
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);

@@ -22,6 +22,6 @@ public interface ClienteDAO {
 
 	public ClienteNovo inserirPreCadastro(ClienteNovo user) throws HamburgueriaException;
 	
-	public boolean validaFone(double numero) throws HamburgueriaException;
+	public boolean validaFone(double numero, int cod) throws HamburgueriaException;
 
 }

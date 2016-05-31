@@ -14,25 +14,24 @@ $(document).ready(function(){
 	});
 	
 	$("#telefone").blur(function(){
-		$("#telefone").unmask();
-		var fone = $("#telefone").val();
-		$("#telefone").mask("(99)9999-9999");
-		console.log(fone);
-		HM.usuario.validaFone({
-			data:fone,
-			success:function(data){
-				console.log(data);
-				if(!data){
-					$("#telefone").val("");
-					$("#telefone").css({'border':'red'});
-				}else{
-					alert("oi");
+		if($("#cod").val() == "" || $("#cod").val() == null){
+			$("#telefone").unmask();
+			var fone = $("#telefone").val();
+			$("#telefone").mask("(99)9999-9999");
+			HM.usuario.validaFone({
+				data:fone,
+				success:function(data){
+					if(data){
+						bootbox.alert("Por favor, insira outro telefone, já existe um cadastro com o mesmo número.")
+						$("#telefone").val("");
+						$("#telefone").focus();
+					}
+				},
+				error:function(err){
+					console.log(err.responseText);
 				}
-			},
-			error:function(err){
-				console.log(err.responseText);
-			}
-		})
+			})
+		}
 	})
 	
 	HM.usuario.valida = function(acao){

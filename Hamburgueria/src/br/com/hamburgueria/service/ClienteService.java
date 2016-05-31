@@ -46,7 +46,11 @@ public class ClienteService {
 			user.setSenha(crip.cripto(user.getSenha()));
 			ValidaUsuario valida = new ValidaUsuario();
 			valida.usuario(user);
-			jdbcUsuario.inserir(user);
+			if(!validaFone(user.getTelefone(), user.getCod())){
+				jdbcUsuario.atualizar(user);
+			}else{
+				throw new HamburgueriaException("Telefone já existente!");
+			}
 		} finally {
 			conec.fecharConexao();
 		}
@@ -75,18 +79,22 @@ public class ClienteService {
 			user.setSenha(crip.cripto(user.getSenha()));
 			ValidaUsuario valida = new ValidaUsuario();
 			valida.usuario(user);
-			jdbcUsuario.atualizar(user);
+			if(!validaFone(user.getTelefone(), user.getCod())){
+				jdbcUsuario.atualizar(user);
+			}else{
+				throw new HamburgueriaException("Telefone já existente!");
+			}
 		} finally {
 			conec.fecharConexao();
 		}
 	}
 	
-	public boolean validaFone(double numero)throws HamburgueriaException{
+	public boolean validaFone(double numero, int cod)throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
 			ClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
-			return jdbcCliente.validaFone(numero);
+			return jdbcCliente.validaFone(numero, cod);
 		}catch(Exception e){
 			throw new HamburgueriaException("Erro ao exibir pedidos.");
 		}finally{

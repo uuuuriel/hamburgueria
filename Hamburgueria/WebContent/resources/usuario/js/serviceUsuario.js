@@ -96,12 +96,12 @@ $(document).ready(
 					HM.ajax.get({
 						url:"rest/UsuarioRest/validaFone/"+numero,
 						success:function(succ){
-							if(cfg && cfg.succ){
+							if(cfg && cfg.success){
 								cfg.success(succ);
 							}
 						},
 						error:function(err){
-							if(cfg && cfg.err){
+							if(cfg && cfg.error){
 								cfg.error(err);
 							}
 						}
