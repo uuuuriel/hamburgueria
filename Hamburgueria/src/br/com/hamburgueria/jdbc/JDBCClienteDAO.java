@@ -245,7 +245,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 		try {
 			java.sql.Statement stmt = conexao.createStatement();
 			ResultSet rs = stmt.executeQuery(comando);
-			return rs.next();
+			return rs.next() ? true : false;
 		} catch(SQLException e){
 			throw new HamburgueriaException();
 		}

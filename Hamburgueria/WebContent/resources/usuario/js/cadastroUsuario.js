@@ -22,12 +22,12 @@ $(document).ready(function(){
 			data:fone,
 			success:function(data){
 				console.log(data);
-//				if(data){
-//					$("#telefone).val(" ");
-//					$("#telefone).css({'border':'red'});
-//				}else{
-//					alert("oi");
-//				}
+				if(!data){
+					$("#telefone").val("");
+					$("#telefone").css({'border':'red'});
+				}else{
+					alert("oi");
+				}
 			},
 			error:function(err){
 				console.log(err.responseText);
