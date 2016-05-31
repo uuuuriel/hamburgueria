@@ -14,16 +14,17 @@ $(document).ready(function(){
 	});
 	
 	$("#telefone").blur(function(){
-		var fone = $("#telefone");
-		fone.unmask();
-		console.log(fone.value);
+		$("#telefone").unmask();
+		var fone = $("#telefone").val();
+		$("#telefone").mask("(99)9999-9999");
+		console.log(fone);
 		HM.usuario.validaFone({
-			data:fone.value,
+			data:fone,
 			success:function(data){
 				console.log(data);
 //				if(data){
-//					fone.val(" ");
-//					fone.css({'border':'red'});
+//					$("#telefone).val(" ");
+//					$("#telefone).css({'border':'red'});
 //				}else{
 //					alert("oi");
 //				}

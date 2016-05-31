@@ -92,9 +92,9 @@ $(document).ready(
 					});
 				},
 				validaFone : function(cfg){
+					var numero = cfg.data;
 					HM.ajax.get({
-						url:"rest/UsuarioRest/validaFone",
-						data: JSON.stringify(cfg.data),
+						url:"rest/UsuarioRest/validaFone/"+numero,
 						success:function(succ){
 							if(cfg && cfg.succ){
 								cfg.success(succ);

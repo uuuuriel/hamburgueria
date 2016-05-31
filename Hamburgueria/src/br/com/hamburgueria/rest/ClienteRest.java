@@ -113,15 +113,13 @@ public class ClienteRest extends UtilRest {
 	}
 	
 	@GET
-	@Path("/validaFone")
-	@Produces({ MediaType.APPLICATION_JSON})
-	public Response validaFone(@PathParam("numero")long numero) throws HamburgueriaException{
+	@Path("/validaFone/{numero}")
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Response validaFone(@PathParam("numero")long numero){
 		try{
 			ClienteService service = new ClienteService();
-			System.out.println(numero);
 			return this.buildResponse(service.validaFone(numero));
 		}catch(Exception e){
-			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
