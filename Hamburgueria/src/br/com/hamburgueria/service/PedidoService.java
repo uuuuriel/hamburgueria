@@ -29,15 +29,7 @@ import br.com.hamburgueria.objs.Pedido;
 import br.com.hamburgueria.validacoes.ValidaPedido;
 
 public class PedidoService {
-	
-	/*public void ajustarFinalizar(AjustaFinalizarPedido[] ped) throws HamburgueriaException{
-		try{
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}*/
-	
+
 	public void finalizarPedido (String array, Pedido ped) throws HamburgueriaException{
 		Conexao conec = new Conexao();
 		try {
@@ -251,4 +243,5 @@ public class PedidoService {
 			conec.fecharConexao();
 		}
 	}
+	
 }

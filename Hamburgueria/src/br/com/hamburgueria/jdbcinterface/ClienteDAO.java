@@ -21,5 +21,7 @@ public interface ClienteDAO {
 	public boolean buscarEmail(Cliente user)  throws HamburgueriaException;
 
 	public ClienteNovo inserirPreCadastro(ClienteNovo user) throws HamburgueriaException;
+	
+	public boolean validaFone(double numero) throws HamburgueriaException;
 
 }

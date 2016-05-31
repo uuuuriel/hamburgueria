@@ -8,7 +8,9 @@ import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
+import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
+import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.objs.Cliente;
 import br.com.hamburgueria.validacoes.ValidaUsuario;
 
@@ -77,6 +79,18 @@ public class ClienteService {
 		} finally {
 			conec.fecharConexao();
 		}
+	}
+	public boolean validaFone(double numero)throws HamburgueriaException{
+		Conexao conec = new Conexao();
+		try{
+			Connection conexao = conec.abrirConexao();
+			ClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
+			return jdbcCliente.validaFone(numero);
+		}catch(Exception e){
+			throw new HamburgueriaException("Erro ao exibir pedidos.");
+		}finally{
+			conec.fecharConexao();
+		}		
 	}
 
 }

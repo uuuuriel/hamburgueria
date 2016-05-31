@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.hamburgueria.exception.CalculaValorException;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.objs.Cliente;
@@ -235,6 +236,18 @@ public class JDBCClienteDAO implements ClienteDAO {
 			return true;
 		}else{
 			return false;
+		}
+	}
+
+	@Override
+	public boolean validaFone(double numero) throws HamburgueriaException {
+		String comando = "SELECT telefone, codcliente FROM cliente WHERE telefone ="+numero; 
+		try {
+			java.sql.Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			return rs.next();
+		} catch(SQLException e){
+			throw new HamburgueriaException();
 		}
 	}
 	
