@@ -116,7 +116,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 	public Cliente inserir(Cliente user) throws HamburgueriaException{
 		String comando = "insert into cliente (nomecliente, data_nascimento, rg, cpf, cidade"
 				+ ", bairro, rua, numero, complemento, cep, telefone, data_cadastro, email"
-				+ ", senha) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ ", senha, ativo) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement p;
 		Date d = new Date();
 		try {
@@ -135,6 +135,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 			p.setDate(12, new java.sql.Date( d.getTime()));
 			p.setString(13, user.getEmail());
 			p.setString(14, user.getSenha());
+			p.setInt(15, 1);
 			p.execute();
 			try (ResultSet generatedKeys = p.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
@@ -242,8 +243,8 @@ public class JDBCClienteDAO implements ClienteDAO {
 	@Override
 	public boolean validaFone(double numero, int cod) throws HamburgueriaException {
 		String comando = "SELECT telefone, codcliente FROM cliente WHERE telefone ="+numero;
-		if(cod != 0){
-			comando += " AND codcliente ="+cod;
+		if(cod != 0 ){
+			comando += " AND codcliente !="+cod;
 		}
 		try {
 			java.sql.Statement stmt = conexao.createStatement();

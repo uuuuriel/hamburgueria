@@ -17,7 +17,7 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.err) {
+							if (cfg && cfg.error) {
 								cfg.error(err);
 							}
 						}
@@ -33,7 +33,7 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.err) {
+							if (cfg && cfg.error) {
 								cfg.error(err);
 							}
 						}
@@ -69,7 +69,7 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.err) {
+							if (cfg && cfg.error) {
 								cfg.error(err);
 							}
 						}
@@ -85,7 +85,7 @@ $(document).ready(
 							}
 						},
 						error : function(err) {
-							if (cfg && cfg.err) {
+							if (cfg && cfg.error) {
 								cfg.error(err);
 							}
 						}

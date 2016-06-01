@@ -46,8 +46,8 @@ public class ClienteService {
 			user.setSenha(crip.cripto(user.getSenha()));
 			ValidaUsuario valida = new ValidaUsuario();
 			valida.usuario(user);
-			if(!validaFone(user.getTelefone(), user.getCod())){
-				jdbcUsuario.atualizar(user);
+			if(!validaFone(user.getTelefone(), 0)){
+				jdbcUsuario.inserir(user);
 			}else{
 				throw new HamburgueriaException("Telefone já existente!");
 			}

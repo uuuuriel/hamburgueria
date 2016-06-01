@@ -21,7 +21,6 @@ import br.com.hamburgueria.jdbc.JDBCTaxaDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
 import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.jdbcinterface.TaxaDAO;
-import br.com.hamburgueria.objs.AjustaFinalizarPedido;
 import br.com.hamburgueria.objs.ClienteNovo;
 import br.com.hamburgueria.objs.ListaPedidoVO;
 import br.com.hamburgueria.objs.ListaVO;
@@ -80,6 +79,10 @@ public class PedidoService {
 			Connection conexao = conec.abrirConexao();
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			ClienteDAO jdbcUsuario = new JDBCClienteDAO(conexao);
+			ClienteService serviceCliente = new ClienteService();
+			if(serviceCliente.validaFone(user.getTelefone(), 0)){
+				throw new HamburgueriaException("Telefone já cadastrado.");
+			}
 			user = jdbcUsuario.inserirPreCadastro(user); 
 			Pedido ped = new Pedido();
 			ped.setCodcliente(user.getCodCliente());

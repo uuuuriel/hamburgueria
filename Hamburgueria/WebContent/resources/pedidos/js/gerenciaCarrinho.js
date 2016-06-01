@@ -116,7 +116,25 @@ $(document).ready(function(){
 				bootbox.alert(err.responseText);
 			}
 		});
-	};	
+	};
+	
+	HM.usuario.valida = function(){
+		if($("#cod").val() == "" || $("#cod").val() == null){
+			var fone = $("#telefone").val();
+			HM.usuario.validaFone({
+				data:fone,
+				success:function(data){
+					if(data){
+						bootbox.alert("Por favor, insira outro telefone, já existe um cadastro com o mesmo número.")
+						$("#telefone").val("");
+					}
+				},
+				error:function(err){
+					bootbox.alert(err.responseText);
+				}
+			})
+		}
+	}
 	
 	HM.produto.somaTudo = function(vlr){
 		var total = 0;
@@ -278,7 +296,7 @@ $(document).ready(function(){
 														});
 														
 														bootbox.dialog({
-															message: '<div class="form-group"><input class="form-control tags" id="telefone"  placeholder="Telefone"/></div>'
+															message: '<div class="form-group"><input class="form-control tags" id="telefone" onfocusout="HM.usuario.valida()"  placeholder="Telefone"/></div>'
 																		+'<div class="form-group"><input type="text" id="nome" class="disableds colorBlack form-control" placeholder="Nome"/></div>'
 																		+"<div class='form-group'><select id='cidade' name='cidade' class='disableds form-control' onchange='HM.cidade.change()'></select></div>"
 																		+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
