@@ -32,8 +32,7 @@ public class JDBCBairrosDAO implements BairroDAO {
 				listBairro.add(bairro);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return listBairro;
 		

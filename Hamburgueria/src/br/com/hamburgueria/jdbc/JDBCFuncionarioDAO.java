@@ -50,7 +50,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				listFunc.add(func);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}
 		return listFunc;
@@ -64,7 +63,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p = this.conexao.prepareStatement(comando);
 			p.executeUpdate(comando);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}
 		return true;
@@ -107,7 +105,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}
 		return true;
@@ -141,7 +138,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			p.setInt(17, func.getAtivo());
 			p.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}
 		return true;
@@ -175,7 +171,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 				func.setAtivo(rs.getInt("ativo"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}
 		return func;
@@ -197,7 +192,6 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException();
 		}
 		if(retun){

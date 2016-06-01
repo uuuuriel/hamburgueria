@@ -53,8 +53,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 				list.add(user);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return list;
 	}
@@ -69,8 +68,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 			p.setInt(1, user.getAtivo());
 			p.executeUpdate(comando);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 	}
 
@@ -107,8 +105,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 			};
 			p.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 	}
 
@@ -147,8 +144,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 	        }
 			return user;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 	}
 	
@@ -179,8 +175,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 	        }
 			return user;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 	}
 
@@ -210,8 +205,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 				user.setAtivo(rs.getInt("ativo"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return user;
 	}
@@ -230,8 +224,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 				}				
 			}			
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		if(retun){
 			return true;
@@ -251,7 +244,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			return rs.next() ? true : false;
 		} catch(SQLException e){
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 	}
 	

@@ -86,7 +86,7 @@ public class PedidoRest extends UtilRest{
 			Pedido ped = new ObjectMapper().readValue(pedido,Pedido.class);
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedidoService = new PedidoService();
-			ped.setCodcliente((int)sessao.getAttribute("cod"));
+			ped.setCodcliente(Integer.parseInt((String)sessao.getAttribute("cod")));
 			pedidoService.finalizarPedido((String)sessao.getAttribute("produto"), ped);
 			sessao.setAttribute("produto", null);
 		}catch(Exception e){
@@ -103,7 +103,7 @@ public class PedidoRest extends UtilRest{
 		try{
 			Pedido ped = new ObjectMapper().readValue(pedido,Pedido.class);
 			HttpSession sessao = req.getSession(false);
-			ped.setCodfunc((int)sessao.getAttribute("cod"));
+			ped.setCodfunc(Integer.parseInt((String)sessao.getAttribute("cod")));
 			PedidoService pedidoService = new PedidoService();
 			pedidoService.finalizarPedidoFuncionario((String)sessao.getAttribute("produto"), ped);
 			sessao.setAttribute("produto", null);	
@@ -122,7 +122,7 @@ public class PedidoRest extends UtilRest{
 			ClienteNovo user = new ObjectMapper().readValue(usuario,ClienteNovo.class);
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
-			user.setCodfunc((int)sessao.getAttribute("cod"));
+			user.setCodfunc(Integer.parseInt((String)sessao.getAttribute("cod")));
 			pedido.finalizarPedidoFuncionarioNovo((String)sessao.getAttribute("produto"), user);
 			sessao.setAttribute("produto", null);	
 			return this.buildResponse("Pedido finalizado com sucesso.");

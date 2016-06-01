@@ -35,7 +35,6 @@ public class JDBCCidadesDAO implements CidadeDAO {
 				listCidade.add(cidade);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException();
 		}
 		return listCidade;

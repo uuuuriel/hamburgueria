@@ -139,6 +139,11 @@ $(document).ready(function(){
 	HM.produto.somaTudo = function(vlr){
 		var total = 0;
 		$(".somaTudo").each(function(){
+			if($(this).val() < 0){
+				bootbox.alert("Não é premitido valor negativo");
+				$(this).val("0");
+				return false;
+			}
 			total = parseFloat(total) + ($(this).val() * parseFloat($(this).attr("valor")));
 		})
 		var valor = 0;

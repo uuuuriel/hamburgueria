@@ -44,7 +44,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			p.setInt(2, produto);
 			p.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}
 	}
@@ -71,8 +70,8 @@ public class JDBCPedidoDAO implements PedidoDAO {
 	                throw new SQLException("Erro ao criar pedido. ID failed.");
 	            }
 	        }
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}catch(SQLException e){
+			throw new HamburgueriaException(e.getMessage());
 		}
 		return pedido;
 	}
@@ -84,8 +83,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			return rs.next() ? rs.getFloat("valor") : 0;
 		} catch(SQLException e){
-			e.printStackTrace();
-			throw new CalculaValorException();
+			throw new CalculaValorException(e.getMessage());
 		}
 	}
 	
@@ -134,8 +132,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				list.add(produt);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e.getMessage());
 		}
 		return list;
 	}
@@ -151,7 +148,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			p.setInt(2, ped.getCodfunc());
 			p.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}	
 	}
@@ -191,7 +187,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				list.add(ped);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException(e.getMessage());
 		}
 		
@@ -224,7 +219,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				list.add(ped);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new EstagioProdutoException(e.getMessage());
 		}
 		
@@ -240,7 +234,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			p = this.conexao.prepareStatement(comando);
 			p.executeUpdate(comando);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new EstagioPedidoException(e.getMessage());
 		}
 	}
@@ -255,7 +248,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			p.setString(2, cancelado);
 			p.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new CancelarPedidoException(e);
 		}
 	}
@@ -272,7 +264,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			return rs.next() ? true : false;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new VerificaPedidoFinalizadoException(e.getMessage());
 		}
 	}
@@ -284,7 +275,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			p = this.conexao.prepareStatement(comando);
 			p.executeUpdate(comando);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new finalizaPedidoAllException(e.getMessage());
 		}
 	}
@@ -298,7 +288,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			ResultSet rs = stmt.executeQuery(comando);
 			return rs.next() ? false : true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new CancelarPedidoException(e.getMessage());
 		}
 
@@ -330,7 +319,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				list.add(ped);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new ListarPedidoEntregaException(e.getMessage());
 		}
 		
@@ -368,7 +356,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 			}
 			return list;
 		}catch(SQLException e){
-			e.printStackTrace();
 			throw new RelatorioVendaException(e.getMessage());
 		}
 	}

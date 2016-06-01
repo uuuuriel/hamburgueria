@@ -39,8 +39,7 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 				list.add(duv);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new HamburgueriaException();
+			throw new HamburgueriaException(e);
 		}
 		return list;
 	}
@@ -60,7 +59,6 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 			p.setInt(4, duv.getTelefone());
 			p.execute();			
 		} catch (Exception e) {
-			e.printStackTrace();
 			return false;
 		}
 		return true;

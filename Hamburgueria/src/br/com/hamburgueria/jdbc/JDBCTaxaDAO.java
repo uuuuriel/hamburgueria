@@ -32,7 +32,6 @@ public class JDBCTaxaDAO implements TaxaDAO {
 			}
 			return taxa;			
 		}catch(SQLException e){
-			e.printStackTrace();
 			throw new HamburgueriaException(e);
 		}
 	}
@@ -52,7 +51,6 @@ public class JDBCTaxaDAO implements TaxaDAO {
 			}
 			return taxa;			
 		}catch(SQLException e){
-			e.printStackTrace();
 			throw new HamburgueriaException(e);
 		}
 	}
@@ -77,7 +75,6 @@ public class JDBCTaxaDAO implements TaxaDAO {
 				list.add(taxa);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException();
 		}
 		return list;
@@ -92,7 +89,6 @@ public class JDBCTaxaDAO implements TaxaDAO {
 			p.setDouble(1, taxa.getValor());
 			p.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new HamburgueriaException();
 		}
 		return true;
