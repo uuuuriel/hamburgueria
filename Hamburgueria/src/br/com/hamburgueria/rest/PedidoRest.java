@@ -1,7 +1,6 @@
 package br.com.hamburgueria.rest;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

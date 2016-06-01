@@ -2,15 +2,10 @@ package br.com.hamburgueria.rest;
 
 import java.io.StringWriter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.codehaus.jackson.map.ObjectMapper;
-
-import br.com.hamburgueria.exception.PermissaoException;
 
 public class UtilRest {
 	public Response buildResponse(Object result) {
@@ -29,20 +24,5 @@ public class UtilRest {
 		rb = rb.entity(str);
 		rb = rb.type("text/plain");
 		return rb.build();
-	}
-	
-	@Context
-	private HttpServletRequest req;
-	
-	private String getSessao(String parametro){
-		HttpSession sessao = req.getSession(false);
-		String variSessao = "";
-		try{
-			variSessao = (String)sessao.getAttribute(parametro);
-		}catch(Exception e){ 
-			variSessao = Integer.toString((int)sessao.getAttribute(parametro));
-		}finally{
-			return variSessao;
-		}
 	}
 }

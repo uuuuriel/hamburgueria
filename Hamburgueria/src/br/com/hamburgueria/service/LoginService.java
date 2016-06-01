@@ -33,7 +33,6 @@ public class LoginService {
 			user.setSenha(crip.cripto(user.getSenha()));
 			return jdbcUsuario.buscarEmail(user);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return false;
 		} finally {
 			conec.fecharConexao();
@@ -48,7 +47,6 @@ public class LoginService {
 			func.setSenha(crip.cripto(func.getSenha()));
 			return jdbcFuncionario.buscarEmail(func);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return false;
 		} finally {
 			conec.fecharConexao();

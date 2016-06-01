@@ -51,7 +51,6 @@ public class FuncionarioRest extends UtilRest {
 				nome = "";
 			}
 			return this.buildResponse(service.buscarFuncionarioPorNome(nome));
-
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

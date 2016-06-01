@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.PermissaoException;
 import br.com.hamburgueria.objs.Cliente;
 import br.com.hamburgueria.service.ClienteService;
@@ -31,9 +30,6 @@ public class ClienteRest extends UtilRest {
 			ClienteService service = new ClienteService();
 			service.adicionarUsuario(user);
 			return this.buildResponse("Usuário cadastrado com sucesso.");
-		} catch (HamburgueriaException e) {
-			e.printStackTrace();
-			return this.buildErrorResponse(e.getMessage());
 		}catch (Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -50,9 +46,6 @@ public class ClienteRest extends UtilRest {
 				nome = "";
 			}
 			return this.buildResponse(service.buscarUsuarioPorNome(nome));
-		} catch (HamburgueriaException e) {
-			e.printStackTrace();
-			return this.buildErrorResponse(e.getMessage());
 		} catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -68,9 +61,6 @@ public class ClienteRest extends UtilRest {
 			ClienteService service = new ClienteService();
 			service.deletarUsuario(id);			
 			return this.buildResponse("Usuário deletado com sucesso!");
-		}catch(HamburgueriaException e){
-			e.printStackTrace();
-			return this.buildErrorResponse(e.getMessage());
 		} catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -84,9 +74,6 @@ public class ClienteRest extends UtilRest {
 		try{
 			ClienteService service = new ClienteService();
 			return this.buildResponse(service.buscarUsuarioPorId(id));
-		}catch(HamburgueriaException e){
-			e.printStackTrace();
-			return this.buildErrorResponse(e.getMessage());
 		} catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -102,9 +89,6 @@ public class ClienteRest extends UtilRest {
 			ClienteService service = new ClienteService();
 			service.atualizarUsuario(user);			
 			return this.buildResponse("Usuário editado com sucesso.");
-		}catch(HamburgueriaException e){
-			e.printStackTrace();
-			return this.buildErrorResponse(e.getMessage());
 		}catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

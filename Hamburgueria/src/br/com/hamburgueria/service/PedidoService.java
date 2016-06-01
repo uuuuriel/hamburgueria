@@ -160,7 +160,6 @@ public class PedidoService {
 			jdbcPedido.cancelarPedido(cod, cancelado);
 			return true;
 		}catch(Exception e){
-			e.printStackTrace();
 			throw new CancelarPedidoException();
 		}finally{
 			conec.fecharConexao();
@@ -200,7 +199,6 @@ public class PedidoService {
 			}
 			return listaPedido;
 		}catch(ListarPedidoEntregaException e){
-			e.printStackTrace();
 			throw new ListarPedidoEntregaException();
 		}finally{
 			conec.fecharConexao();
@@ -240,7 +238,6 @@ public class PedidoService {
 			PedidoDAO jdbcPedido = new JDBCPedidoDAO(conexao);
 			return jdbcPedido.pedidosUsuario(cod);
 		}catch(Exception e){
-			e.printStackTrace();
 			throw new HamburgueriaException("Erro ao exibir pedidos.");
 		}finally{
 			conec.fecharConexao();

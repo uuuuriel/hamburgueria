@@ -1,7 +1,5 @@
 package br.com.hamburgueria.rest;
 
-import java.io.IOException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,7 +11,6 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.objs.Duvida;
 import br.com.hamburgueria.service.DuvidaService;
 
@@ -32,10 +29,8 @@ public class DuvidaRest extends UtilRest {
 			DuvidaService service = new DuvidaService();
 			service.adicionar(duv);
 			return buildResponse("Obrigado pela sua opinão, precisamos de mais pessoas como você!");
-		} catch (HamburgueriaException | IOException e) {
-			e.printStackTrace();
-			return this.buildErrorResponse(e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
@@ -50,10 +45,8 @@ public class DuvidaRest extends UtilRest {
 				nome = "";
 			}
 			return this.buildResponse(service.buscarNome(nome));
-		} catch (HamburgueriaException e) {
-			e.printStackTrace();
-			return this.buildErrorResponse(e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
 		}
 	}
