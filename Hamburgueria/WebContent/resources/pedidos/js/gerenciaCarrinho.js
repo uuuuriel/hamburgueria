@@ -201,7 +201,7 @@ $(document).ready(function(){
 								+ "Retirada balcão <input type='radio'  id='entrega' name='entrega' value='2' checked onclick='HM.produto.exibeValor()'/><br/>"
 								+ "Entrega delivery <input type='radio' valor='"+entrega+"' value='0' id='entrega1' name='entrega' onclick='HM.produto.esconde()'/>",
 								title: "Pedidos<hr>",
-								size: 'small',
+								size: 'medium',
 								onEscape: function() {},
 								buttons: {
 									success: {
