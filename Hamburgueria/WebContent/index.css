@@ -5,7 +5,12 @@ body{
 	background-size: 100%;
 	color: #fff;
 }
-
+.ui-datepicker-year{
+	color:#000 !important;
+}
+.ui-datepicker-month{
+	color:#000 !important;
+}
 body a{
 	cursor:pointer;
 }

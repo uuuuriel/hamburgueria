@@ -4,7 +4,10 @@ $(document).ready(function() {
 	$("#nmbrfone").mask("(99)9999-9999");
 	$("#cep").mask("99999-999");
 	$("#nmbrdatanascimento").datepicker({
-		dateFormat: "dd/mm/yy"
+		dateFormat: "dd/mm/yy",
+		changeMonth: true,
+	    changeYear: true,
+	    yearRange: '1950:2013'
 	});
 
 	HM.cidade.listar({
@@ -111,7 +114,6 @@ $(document).ready(function() {
 	}
 	HM.funcionario.exibirEdicao = function() {
 		var newData = HM.funcionario.funcValida("att");
-		console.log(newData);
 		if(newData){
 			HM.funcionario.editar({
 				data:newData,
@@ -120,7 +122,6 @@ $(document).ready(function() {
 					loadUrl("funcionario");
 				},
 				error : function(err) {
-					console.log(err);
 					bootbox.alert("Erro ao editar funcionário:"	+ err);
 				}
 			});
@@ -130,7 +131,6 @@ $(document).ready(function() {
 	}
 	HM.funcionario.cadastrar = function() {
 		var newData = HM.funcionario.funcValida("new");
-		console.log(newData);
 		HM.funcionario .adicionar({
 			data: newData,
 			success : function(data) {

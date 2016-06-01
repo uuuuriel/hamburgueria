@@ -10,7 +10,10 @@ $(document).ready(function(){
 	$("#data_nascimento").mask("99/99/9999");
 	$("#numero").mask("99999");
 	$("#data_nascimento").datepicker({
-		dateFormat: "dd/mm/yy"
+		dateFormat: "dd/mm/yy",
+		changeMonth: true,
+	    changeYear: true,
+	    yearRange: '1950:2013'
 	});
 	
 	$("#telefone").blur(function(){
