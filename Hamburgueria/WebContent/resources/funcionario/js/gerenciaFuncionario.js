@@ -9,7 +9,6 @@ $(document).ready(function() {
 				busca : busca,
 				success : function(listFunc) {
 					var html;
-					console.log(listFunc);
 					for (var i = 0; i < listFunc.length; i++) {
 						html += "<tr><td>"
 						+ listFunc[i]['codfuncionario']
