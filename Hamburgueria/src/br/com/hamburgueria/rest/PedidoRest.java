@@ -261,7 +261,7 @@ public class PedidoRest extends UtilRest{
 		try{
 			PedidoService pedido = new PedidoService();
 			HttpSession sessao = req.getSession(false);
-			return this.buildResponse(pedido.pedidosUsuario((int) sessao.getAttribute("cod")));
+			return this.buildResponse(pedido.pedidosUsuario(Integer.parseInt((String) sessao.getAttribute("cod"))));
 		}catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

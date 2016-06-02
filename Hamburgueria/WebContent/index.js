@@ -128,7 +128,7 @@ $(document).ready(function(){
 												$("#nmbrcasa").val(func.numero);
 												$("#cep").val(func.cep);
 												$("#txtcomplemento").val(func.complemento);
-												$("#codfuncionario").val(func.cod);
+												$("#codfuncionario").val(cod);
 												$("#buttonConfirmar").attr("onclick","HM.funcionario.exibirEdicao();");
 												$("#txtbairro").val(func.bairro);
 												if (func.administrador == 1) {

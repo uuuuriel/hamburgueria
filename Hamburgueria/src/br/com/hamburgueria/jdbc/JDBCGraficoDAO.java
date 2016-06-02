@@ -22,7 +22,7 @@ public class JDBCGraficoDAO implements GraficoDAO{
 	
 	public List<GraficoVendaVO> venda(Date dataini, Date datafim) throws HamburgueriaException{
 		String comando = "SELECT sum(pedido.total) as total, pedido.data FROM pedido"
-				+ " WHERE (data between '"+dataini+"' AND '"+datafim+"') GROUP BY data;";
+				+ " WHERE (data between '"+dataini+"' AND '"+datafim+"') GROUP BY date_format(data, '%Y-%m-%d')";
 		List<GraficoVendaVO> lista = new ArrayList();
 		GraficoVendaVO grafico = null;
 		try {

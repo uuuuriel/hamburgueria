@@ -47,6 +47,7 @@ public class TaxaRest extends UtilRest{
 	public Response entrega() {
 		try {
 			TaxaService service = new TaxaService();
+			System.out.println(service.entrega());
 			return this.buildResponse(service.entrega());
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();

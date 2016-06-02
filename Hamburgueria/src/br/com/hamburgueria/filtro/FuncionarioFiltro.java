@@ -40,12 +40,12 @@ public class FuncionarioFiltro implements Filter {
 		
 		try{
 			HttpSession session = ((HttpServletRequest) request).getSession(false);
-			String adm = "";
+			int adm = 0;
 			if(session != null){
-				adm = (String) session.getAttribute("funcionario");
+				adm = Integer.parseInt((String) session.getAttribute("funcionario"));
 			}
 			
-			if(adm.equals("0")){
+			if(adm == 0){
 				((HttpServletResponse) response).sendRedirect(context + "/error.html");
 			}else{
 				chain.doFilter(request, response);

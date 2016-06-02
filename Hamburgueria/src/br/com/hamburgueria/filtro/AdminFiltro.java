@@ -34,7 +34,7 @@ public class AdminFiltro implements Filter{
 				HttpSession session = ((HttpServletRequest) request).getSession(false);
 				int adm = 0;
 				if(session != null){
-					adm = (int) session.getAttribute("administrador");
+					adm = Integer.parseInt((String) session.getAttribute("administrador"));
 				}
 				
 				if(adm == 0){

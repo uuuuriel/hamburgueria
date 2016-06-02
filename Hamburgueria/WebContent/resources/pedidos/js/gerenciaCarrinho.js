@@ -148,7 +148,7 @@ $(document).ready(function(){
 		})
 		var valor = 0;
 		$("#retiradaBalcao").text(total.toFixed(2));
-		$("#teleEntrega").text((total+ $('#entrega1').attr("valor")).toFixed(2));
+		$("#teleEntrega").text(total+ parseFloat($('#entrega1').attr("valor")));
 	}
 	
 	HM.produto.finalizarPedido = function(){
@@ -204,7 +204,7 @@ $(document).ready(function(){
 							bootbox.dialog({
 								message: "<div>" +msg+" </div>"
 								+ "Retirada balcão <input type='radio'  id='entrega' name='entrega' value='2' checked onclick='HM.produto.exibeValor()'/><br/>"
-								+ "Entrega delivery <input type='radio' valor='"+entrega+"' value='0' id='entrega1' name='entrega' onclick='HM.produto.esconde()'/>",
+								+ "Entrega delivery <input type='radio' valor='"+entrega.valor+"' value='0' id='entrega1' name='entrega' onclick='HM.produto.esconde()'/>",
 								title: "Pedidos<hr>",
 								size: 'medium',
 								onEscape: function() {},
