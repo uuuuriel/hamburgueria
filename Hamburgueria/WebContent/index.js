@@ -96,6 +96,7 @@ $(document).ready(function(){
 				async : false,
 				success : function(dat) {
 					$("#conteudo").html(dat);
+					$("#escondido").hide();
 					HM.cidade.listar({
 						async : false,
 						success : function(data) {

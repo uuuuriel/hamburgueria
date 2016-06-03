@@ -92,10 +92,6 @@
   </filter>
   <filter-mapping>
     <filter-name>AdminFiltro</filter-name>
-    <url-pattern>/resources/funcionario/cadastroFuncionario.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>AdminFiltro</filter-name>
     <url-pattern>/resources/funcionario/gerenciaFuncionario.html</url-pattern>
   </filter-mapping>
   <filter-mapping>

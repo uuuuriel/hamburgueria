@@ -119,7 +119,11 @@ $(document).ready(function() {
 				data:newData,
 				success : function(succ) {
 					bootbox.alert(succ);
-					loadUrl("funcionario");
+					if(HM.sessao('adm') == 1){
+						loadUrl("funcionario");
+					}else{
+						loadUrl("index");
+					}
 				},
 				error : function(err) {
 					bootbox.alert("Erro ao editar funcionário:"	+ err);
