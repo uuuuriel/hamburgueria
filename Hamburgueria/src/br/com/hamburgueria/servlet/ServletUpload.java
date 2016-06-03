@@ -62,7 +62,7 @@ public class ServletUpload extends HttpServlet {
 
 	private void inserirImagemDiretorio(FileItem item, String nome)
 			throws IOException {
-		String caminho = "H:/hamburgueria/Hamburgueria/WebContent/resources/uploads/";
+		String caminho = "C:/Users/uriel_augusto/Hamburgueria/Hamburgueria/WebContent/resources/uploads/";
 		File diretorio = new File(caminho);
 		if (!diretorio.exists()) {
 			diretorio.mkdir();

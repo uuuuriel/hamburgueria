@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	$("#valor").mask('000.000.000.000.000,00', {reverse: true});
-	HM.produto = new Object();
 	HM.produto.valida = function(){
 		if(($("#nome").val() == "") || ($("#descricao").val() == "") 
 		|| ($("#valor").val() == "")){

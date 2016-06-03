@@ -34,7 +34,7 @@ public class ImagemServlet extends HttpServlet {
 
         response.setContentType("image/jpg");  
         OutputStream out = response.getOutputStream();  
-        String image = "H:/hamburgueria/Hamburgueria/WebContent/resources/uploads/"+text;
+        String image = "C:/Users/uriel_augusto/Hamburgueria/Hamburgueria/WebContent/resources/uploads/"+text;
         BufferedInputStream in = new BufferedInputStream(new FileInputStream(image));
         int b;
         while( (b = in.read()) != -1) {
