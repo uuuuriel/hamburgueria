@@ -28,7 +28,7 @@ $(document).ready(function(){
 		HM.taxa.atualizar({
 			data: JSON.stringify({'cod': cod , 'valor': $("#valor"+cod).val()}),
 			success:function(succ){
-				console.log(succ);
+				bootbox.alert(succ);
 			},
 			error:function(err){
 				console.log(err);
