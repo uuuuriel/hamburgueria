@@ -120,7 +120,9 @@ $(document).ready(function(){
 	
 	HM.usuario.valida = function(){
 		if($("#cod").val() == "" || $("#cod").val() == null){
+			$("#telefone").unmask();
 			var fone = $("#telefone").val();
+			$("#telefone").mask("(99)9999-9999");
 			HM.usuario.validaFone({
 				data:fone,
 				success:function(data){
