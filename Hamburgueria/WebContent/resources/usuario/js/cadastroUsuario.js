@@ -18,22 +18,31 @@ $(document).ready(function(){
 	
 	$("#telefone").blur(function(){
 		if($("#cod").val() == "" || $("#cod").val() == null){
-			$("#telefone").unmask();
-			var fone = $("#telefone").val();
-			$("#telefone").mask("(99)9999-9999");
-			HM.usuario.validaFone({
-				data:fone,
-				success:function(data){
-					if(data){
-						bootbox.alert("Por favor, insira outro telefone, já existe um cadastro com o mesmo número.")
-						$("#telefone").val("");
-						$("#telefone").focus();
-					}
-				},
-				error:function(err){
-					bootbox.alert(err.responseText);
+			if($("#telefone").val() != ""){
+				$("#telefone").unmask();
+				var size = $("#telefone").val();
+				var fone = $("#telefone").val();
+				$("#telefone").mask("(99)9999-9999");
+				if(size.length == 12){
+					HM.usuario.validaFone({
+						data:fone,
+						success:function(data){
+							if(data){
+								bootbox.alert("Por favor, insira outro telefone, já existe um cadastro com o mesmo número.")
+								$("#telefone").val("");
+								$("#telefone").focus();
+							}
+						},
+						error:function(err){
+							bootbox.alert(err.responseText);
+						}
+					})
+				}else{
+					$("#telefone").val("");
+					$("#telefone").focus();
+					bootbox.alert("Número de telefone deve conter 12 digitos.");
 				}
-			})
+			}
 		}
 	})
 	

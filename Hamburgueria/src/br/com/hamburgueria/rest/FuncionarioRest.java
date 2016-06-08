@@ -65,7 +65,7 @@ public class FuncionarioRest extends UtilRest {
 		try{
 			FuncionarioService funcionarioService = new FuncionarioService();
 			funcionarioService.deletarFuncionario(id);			
-			return this.buildResponse("Funcionário deletado com sucesso!");
+			return this.buildResponse("Funcionário está inativo a partir de agora!");
 		}catch(HamburgueriaException e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

@@ -3,7 +3,7 @@ $(document).ready(function() {
 			var busca = $("#buscarInput").val();
 			HM.funcionario.exibirFuncionarios(undefined, busca);
 		};
-
+		
 		HM.funcionario.exibirFuncionarios = function(listFunc,busca) {
 			HM.funcionario.exibir({
 				busca : busca,
@@ -43,7 +43,7 @@ $(document).ready(function() {
 			bootbox
 			.confirm({
 				size : 'small',
-				message : "Deseja deletar o funcionário?",
+				message : "Deseja deixar o funcionário inativo?",
 				callback : function(cb) {
 					if (cb == true) {
 						HM.funcionario.deletar({

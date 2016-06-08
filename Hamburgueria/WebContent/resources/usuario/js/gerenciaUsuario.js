@@ -68,6 +68,9 @@ $(document).ready(function(){
 										for (var i = 0; i < data.length; i++) {
 											html += "<option value='"+ data[i].codBairro+ "'>"+ data[i].bairro+ "</option>";
 										}
+										if(HM.sessao('funcionario') == 1){
+											$("#ativosn").show();
+										}
 										$("#bairro").append(html);
 										$("#titleChange").text("Editar usuário");
 										$("#cadastrarUsuario").attr('onclick', "HM.usuario.edit();");
@@ -76,9 +79,7 @@ $(document).ready(function(){
 												$(this).val(resp[this.id]);
 											}
 										});
-										console.log(resp.data_nascimento);
 										$("#data_nascimento").val(fromView(resp.data_nascimento));
-										$("#ativosn").show();
 										$("input[name=ativo][value=" + resp.ativo + "]").prop('checked', 'true');
 									},error:function(err){console.log(err.responseText());}
 								})

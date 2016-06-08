@@ -77,7 +77,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 		boolean editSenha = false;
 		String comando = "UPDATE cliente SET nomecliente=?, data_nascimento=?, rg=?, cpf=?,"
 				+ "cidade=?, bairro=?, rua=?, numero=?, complemento=?, cep=?, telefone=?, email=?, ativo=?";
-		if (!user.getSenha().equals("")) {
+		if (user.getSenha().equals("")) {
 			comando += " WHERE codcliente = ";
 		} else {
 			editSenha = true;

@@ -74,7 +74,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO {
 		String comando = "UPDATE funcionario SET nomefuncionario=?, cpf=?, rg=?, data_nascimento=?,"
 				+ "fone=?, email=?, funcao=?, cidade=?, bairro=?, numero=?, rua=?, complemento=?,"
 				+ "administrador=?, cep=?, ativo=?";
-		if (func.getSenha() == null || func.getSenha().isEmpty() || func.getSenha() != "") {
+		if (func.getSenha() == null || func.getSenha().isEmpty() || func.getSenha() == "") {
 			comando += " WHERE codfuncionario = ";
 		} else {
 			editSenha = true;

@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	HM.sugescri = new Object();
+	$("#telefone").mask("(99)9999-9999");
 	HM.sugescri = {
 		adicionar : function(cfg) {
 			var newData = cfg.data;
