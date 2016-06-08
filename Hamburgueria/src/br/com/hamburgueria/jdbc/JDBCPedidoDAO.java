@@ -160,7 +160,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				+ " inner join estagio_pedido ep on ep.codestagio_pedido = p.estagio_pedido_codestagio_pedido"
 				+ " inner join cliente cl on cl.codcliente = p.cliente_codcliente";
 		if (!dataini.equals("")) {
-			comando += " where (data between '" + dataini + "' and '" + datafim + "')"
+			comando += " where (data >= '" + dataini + "' and data <='" + datafim + "')"
 					+ " and (pr.nomeproduto like '%" + busca + "%' or pr.descricao like '%" + busca + "%'"
 					+ " or cl.nomecliente like '%"+ busca +"%') AND p.estagio_pedido_codestagio_pedido = 5";
 					if (codcliente != 0) {
@@ -333,7 +333,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
 				+ "on pp.pedido_codpedido = p.codpedido "
 				+ "inner join historico_funcionario hf on hf.pedido_codpedido = p.codpedido "
 				+ " inner join funcionario f on f.codfuncionario = hf.funcionario_codfuncionario"
-				+ "  WHERE (data between '"+dataini+" 00:00:00' AND '"+datafim+" 23:59:00')";
+				+ "  WHERE (data >= '"+dataini+" 00:00:00' AND data <='"+datafim+" 23:59:00')";
 				if(busca != ""){
 					comando += " AND c.nomecliente LIKE '"+busca+"%'";
 				}

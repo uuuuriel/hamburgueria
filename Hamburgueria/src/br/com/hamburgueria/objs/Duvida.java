@@ -6,7 +6,7 @@ public class Duvida {
 	private String mensagem;
 	private String nome;
 	private String email;
-	private int telefone;
+	private double telefone;
 	public int getCod() {
 		return cod;
 	}
@@ -31,10 +31,10 @@ public class Duvida {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getTelefone() {
+	public double getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(double telefone) {
 		this.telefone = telefone;
 	}
 }

@@ -34,7 +34,7 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 				duv.setCod(rs.getInt("codsugestao_criticas"));
 				duv.setNome(rs.getString("nome"));
 				duv.setMensagem(rs.getString("mensagem"));
-				duv.setTelefone(rs.getInt("telefone"));
+				duv.setTelefone(rs.getDouble("telefone"));
 				duv.setEmail(rs.getString("email"));
 				list.add(duv);
 			}
@@ -56,7 +56,7 @@ public class JDBCDuvidaDAO implements DuvidaDAO {
 			p.setString(1, duv.getMensagem());
 			p.setString(2, duv.getNome());
 			p.setString(3, duv.getEmail());
-			p.setInt(4, duv.getTelefone());
+			p.setDouble(4, duv.getTelefone());
 			p.execute();			
 		} catch (Exception e) {
 			return false;

@@ -181,6 +181,9 @@ $(document).ready(function(){
 				});
 			}
 		}
+		HM.usuario.maskcep = function(){
+			$("#cep").mask("99999-999");
+		}
 		var groupedData = [];
 		var arr = [];
 		var x = 0;
@@ -317,7 +320,7 @@ $(document).ready(function(){
 																		+'<div class="form-group"><select class="disableds form-control" id="bairro" name="bairro"></select></div>'
 																		+'<div class="form-group"><input class="disableds form-control" id="rua" placeholder="Rua"/></div>'
 																		+'<div class="form-group"><input class="disableds col-sm-4 colorBlack" id="numero" placeholder="Nº"/> '
-																		+'<input class="disableds col-sm-8 colorBlack" id="cep" placeholder="CEP"/></div>'
+																		+'<input class="disableds col-sm-8 colorBlack" id="cep" onfocusin="HM.usuario.maskcep();" placeholder="CEP"/></div>'
 																		+'<input type="hidden" id="cod" />',
 															title: "Formulário de Entrega<hr>",
 															size: 'small',

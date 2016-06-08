@@ -55,12 +55,12 @@ public class ClienteRest extends UtilRest {
 	
 	@PUT
 	@Path("/deletarUsuario/{id}")
-	@Consumes("application/*")
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response deletarUsuario(@PathParam("id") int id) throws PermissaoException {
 		try{
 			ClienteService service = new ClienteService();
 			service.deletarUsuario(id);			
-			return this.buildResponse("Usuário deletado com sucesso!");
+			return this.buildResponse("Usuário desativado!");
 		} catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

@@ -25,7 +25,7 @@ $(document).ready(
 				},
 				deletar : function(cfg) {
 					var cod = cfg.cod;
-					HM.ajax.DELETE({
+					HM.ajax.put({
 						url : "rest/UsuarioRest/deletarUsuario/" + cod,
 						success : function(cod) {
 							if (cfg && cfg.success) {

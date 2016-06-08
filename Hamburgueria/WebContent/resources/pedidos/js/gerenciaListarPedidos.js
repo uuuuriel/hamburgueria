@@ -5,14 +5,15 @@ $(document).ready(function(){
 	$("#dataini").datepicker({
 		dateFormat: 'dd/mm/yy'
 	});
-	$("#dataini").datepicker('setDate', new Date());
-	$("#datafim").datepicker('setDate', new Date());
+//	$("#dataini").datepicker('setDate', new Date());
+//	$("#datafim").datepicker('setDate', new Date());
 	HM.pedidos.listarPedidos = function(){
 		HM.pedidos.exibir({
 			dataini: $("#dataini").val(),
 			datafim: $("#datafim").val(),
 			busca: $("#search").val(),
 			success:function(data){
+				console.log(data);
 				var html = "";
 				if(data){
 					var total = 0;

@@ -144,7 +144,7 @@ public class PedidoRest extends UtilRest{
 				busca = "";
 			}
 			HttpSession sessao = req.getSession(false);
-			return this.buildResponse(pedido.listarPedidos(busca, dataini, datafim, (String)sessao.getAttribute("administrador") != "1" ? Integer.parseInt((String) sessao.getAttribute("cod")) : 0));
+			return this.buildResponse(pedido.listarPedidos(busca, dataini, datafim, Integer.parseInt((String)sessao.getAttribute("admRest")) != 1 ? Integer.parseInt((String) sessao.getAttribute("cod")) : 0));
 
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();

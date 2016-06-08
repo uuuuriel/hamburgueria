@@ -2,7 +2,7 @@ $(document).ready(function(){
 	HM.usuario.delet = function(cod) {
 		bootbox.confirm({
 			size : 'small',
-			message : "Deseja deletar o Usuário?",
+			message : "Deseja desativar o Usuário?",
 			callback : function(result) {
 				if(result){
 					HM.usuario.deletar({
@@ -12,8 +12,7 @@ $(document).ready(function(){
 							HM.usuario.listarTodos();
 						},
 						error : function(err) {
-							console.log(err);
-							bootbox.alert('Erro ao deletar Usuário');
+							bootbox.alert('Erro ao desativar Usuário');
 						}
 					});
 				}

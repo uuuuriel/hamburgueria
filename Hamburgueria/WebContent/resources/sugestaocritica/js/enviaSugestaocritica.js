@@ -7,6 +7,7 @@ $(document).ready(function(){
 			bootbox.alert("Escreva alguma mensagem.");
 			return false;
 		}else{
+			$("#telefone").unmask();
 			HM.sugescri.adicionar({
 				data:{'email':$("#email").val(), 'nome':$("#nome").val(),
 					'telefone':$("#telefone").val(), 'mensagem':$("#mensagem").val()},

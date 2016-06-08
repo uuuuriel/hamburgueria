@@ -66,7 +66,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setInt(1, user.getAtivo());
-			p.executeUpdate(comando);
+			p.executeUpdate();
 		} catch (SQLException e) {
 			throw new HamburgueriaException(e);
 		}
