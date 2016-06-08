@@ -150,10 +150,10 @@ $(document).ready(function(){
 			}
 			total = parseFloat(total) + ($(this).val() * parseFloat($(this).attr("valor")));
 		})
-		if(total < valorMinimo.valor){
-			bootbox.alert("Valor mínimo de compra é de R$ "+valorMinimo.valor);
-			return false;
-		}
+//		if(total < valorMinimo.valor){
+//			bootbox.alert("Valor mínimo de compra é de R$ "+valorMinimo.valor);
+//			return false;
+//		}
 		var valor = 0;
 		$("#retiradaBalcao").text(total.toFixed(2));
 		$("#teleEntrega").text(total+ parseFloat($('#entrega1').attr("valor")));

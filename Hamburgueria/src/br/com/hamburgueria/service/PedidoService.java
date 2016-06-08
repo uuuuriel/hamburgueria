@@ -45,9 +45,9 @@ public class PedidoService {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
 			TaxaService taxa = new TaxaService();
-			if(total < taxa.valorMinimo().getValor()){
-				throw new HamburgueriaException("Total deve ser maior que valor mínimo de compra.");
-			}
+//			if(total < taxa.valorMinimo().getValor()){
+//				throw new HamburgueriaException("Total deve ser maior que valor mínimo de compra.");
+//			}
 			jdbcPedido.setValorTotalPedido(ped.getCodpedido(), total);
 		}finally{
 			conec.fecharConexao();
@@ -71,9 +71,9 @@ public class PedidoService {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
 			TaxaService taxa = new TaxaService();
-			if(total < taxa.valorMinimo().getValor()){
-				throw new HamburgueriaException("Total deve ser maior que valor mínimo de compra.");
-			}
+//			if(total < taxa.valorMinimo().getValor()){
+//				throw new HamburgueriaException("Total deve ser maior que valor mínimo de compra.");
+//			}
 			jdbcPedido.setValorTotalPedido(ped.getCodpedido(), total);
 		}finally{
 			conec.fecharConexao();
@@ -108,9 +108,9 @@ public class PedidoService {
 				 jdbcPedido.finalizarPedido(Integer.parseInt(quebra[i]), ped.getCodpedido());
 			}
 			TaxaService taxa = new TaxaService();
-			if(total < taxa.valorMinimo().getValor()){
-				throw new HamburgueriaException("Total deve ser maior que valor mínimo de compra.");
-			}
+//			if(total < taxa.valorMinimo().getValor()){
+//				throw new HamburgueriaException("Total deve ser maior que valor mínimo de compra.");
+//			}
 			jdbcPedido.setValorTotalPedido(ped.getCodpedido(), total);
 		}finally{
 			conec.fecharConexao();
