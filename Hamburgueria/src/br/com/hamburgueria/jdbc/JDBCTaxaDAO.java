@@ -19,7 +19,7 @@ public class JDBCTaxaDAO implements TaxaDAO {
 	
 	@Override
 	public Taxa taxaEntrega() throws HamburgueriaException{
-		String comando = "SELECT * FROM taxas WHERE codtaxas = 1";
+		String comando = "SELECT * FROM taxas WHERE codtaxas = 0";
 		try{
 			Taxa taxa = new Taxa();
 			java.sql.Statement stmt = conexao.createStatement();

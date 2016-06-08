@@ -61,7 +61,7 @@ public class TaxaRest extends UtilRest{
 	public Response valorMinimo() {
 		try {
 			TaxaService service = new TaxaService();
-			return this.buildResponse(service.entrega());
+			return this.buildResponse(service.valorMinimo());
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

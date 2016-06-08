@@ -138,6 +138,10 @@ $(document).ready(function(){
 	
 	HM.produto.somaTudo = function(vlr){
 		var total = 0;
+		HM.taxa.valorMinimo({
+			success:function(valorMinimo){},
+			error:function(err){}
+		})
 		$(".somaTudo").each(function(){
 			if($(this).val() < 0){
 				bootbox.alert("Não é premitido valor negativo");
@@ -146,6 +150,10 @@ $(document).ready(function(){
 			}
 			total = parseFloat(total) + ($(this).val() * parseFloat($(this).attr("valor")));
 		})
+		if(total < valorMinimo.valor){
+			bootbox.alert("Valor mínimo de compra é de R$ "+valorMinimo.valor);
+			return false;
+		}
 		var valor = 0;
 		$("#retiradaBalcao").text(total.toFixed(2));
 		$("#teleEntrega").text(total+ parseFloat($('#entrega1').attr("valor")));
