@@ -165,8 +165,9 @@ $(document).ready(function(){
 			total = parseFloat(total) + ($(this).val() * parseFloat($(this).attr("valor")));
 		})
 		if(total < valorTaxa){
+			$(".bootbox.modal.fade").fadeOut(1000);
+			$(".modal-backdrop").fadeOut(1000);
 			bootbox.alert("Valor mínimo de compra é de R$ "+valorTaxa);
-			console.log($(this).parent().parent().parent());
 		}
 		var valor = 0;
 		$("#retiradaBalcao").text(total.toFixed(2));
@@ -386,6 +387,7 @@ $(document).ready(function(){
 										label: "Fechar",
 										className: "btn-danger",
 										callback: function() {
+											console.log($(this));
 											$(this).fadeOut(1000);
 										}
 									}	
