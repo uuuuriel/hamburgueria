@@ -120,28 +120,40 @@ $(document).ready(function(){
 	
 	HM.usuario.valida = function(){
 		if($("#cod").val() == "" || $("#cod").val() == null){
-			$("#telefone").unmask();
-			var fone = $("#telefone").val();
-			$("#telefone").mask("(99)9999-9999");
-			HM.usuario.validaFone({
-				data:fone,
-				success:function(data){
-					if(data){
-						bootbox.alert("Por favor, insira outro telefone, já existe um cadastro com o mesmo número.")
-						$("#telefone").val("");
-					}
-				},
-				error:function(err){
-					bootbox.alert(err.responseText);
+			if($("#telefone").val() != ""){
+				$("#telefone").unmask();
+				var size = $("#telefone").val();
+				$("#telefone").mask("(99)9999-9999");
+				if(size.length == 12){
+					HM.usuario.validaFone({
+						data:size,
+						success:function(data){
+							if(data){
+								bootbox.alert("Por favor, insira outro telefone, já existe um cadastro com o mesmo número.")
+								$("#telefone").val("");
+								$("#telefone").focus();
+							}
+						},
+						error:function(err){
+							bootbox.alert(err.responseText);
+						}
+					})
+				}else{
+					$("#telefone").val("");
+					$("#telefone").focus();
+					bootbox.alert("Número de telefone deve conter 12 digitos.");
 				}
-			})
+			}
 		}
 	}
 	
 	HM.produto.somaTudo = function(vlr){
 		var total = 0;
+		var valorTaxa;
 		HM.taxa.valorMinimo({
-			success:function(valorMinimo){},
+			success:function(valorMinimo){
+				valorTaxa = valorMinimo.valor;
+			},
 			error:function(err){}
 		})
 		$(".somaTudo").each(function(){
@@ -152,10 +164,10 @@ $(document).ready(function(){
 			}
 			total = parseFloat(total) + ($(this).val() * parseFloat($(this).attr("valor")));
 		})
-//		if(total < valorMinimo.valor){
-//			bootbox.alert("Valor mínimo de compra é de R$ "+valorMinimo.valor);
-//			return false;
-//		}
+		if(total < valorTaxa){
+			bootbox.alert("Valor mínimo de compra é de R$ "+valorTaxa);
+			console.log($(this).parent().parent().parent());
+		}
 		var valor = 0;
 		$("#retiradaBalcao").text(total.toFixed(2));
 		$("#teleEntrega").text(total+ parseFloat($('#entrega1').attr("valor")));
