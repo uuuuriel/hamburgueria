@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import br.com.hamburgueria.auxilia.Permissao;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.CancelarPedidoException;
 import br.com.hamburgueria.exception.EstagioPedidoException;
@@ -13,6 +14,7 @@ import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.exception.ListaPedidoException;
 import br.com.hamburgueria.exception.ListarPedidoEntregaException;
 import br.com.hamburgueria.exception.PedidoEntregueException;
+import br.com.hamburgueria.exception.PermissaoException;
 import br.com.hamburgueria.exception.RelatorioVendaException;
 import br.com.hamburgueria.exception.ValueZException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
@@ -29,7 +31,9 @@ import br.com.hamburgueria.validacoes.ValidaPedido;
 
 public class PedidoService {
 
-	public void finalizarPedido (String array, Pedido ped) throws HamburgueriaException{
+	public void finalizarPedido (String array, Pedido ped, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("log", codi);
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -54,7 +58,9 @@ public class PedidoService {
 		}
 	}
 
-	public void finalizarPedidoFuncionario(String array, Pedido ped) throws HamburgueriaException{
+	public void finalizarPedidoFuncionario(String array, Pedido ped, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -81,7 +87,9 @@ public class PedidoService {
 		
 	} 
 	
-	public void finalizarPedidoFuncionarioNovo(String array, ClienteNovo user) throws HamburgueriaException{
+	public void finalizarPedidoFuncionarioNovo(String array, ClienteNovo user, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -117,7 +125,7 @@ public class PedidoService {
 		}
 	}
 	
-	public List<ListaPedidoVO> listarPedidos(String busca, Date dataini, Date datafim, int cod) throws ListaPedidoException{
+	public List<ListaPedidoVO> listarPedidos(String busca, Date dataini, Date datafim, int cod) throws ListaPedidoException, PermissaoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -130,7 +138,9 @@ public class PedidoService {
 		}
 	}
 	
-	public void atualizarEstagioPedido(int estagio, int codpe, int codpr) throws EstagioPedidoException{
+	public void atualizarEstagioPedido(int estagio, int codpe, int codpr, int codi) throws EstagioPedidoException, PermissaoException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -151,7 +161,9 @@ public class PedidoService {
 		}
 	}
 	
-	public List<ListaPedidoVO> listarProdutosEstagio(int cod) throws ListaPedidoException{
+	public List<ListaPedidoVO> listarProdutosEstagio(int cod, int codi) throws ListaPedidoException, PermissaoException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("log", codi);
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -164,7 +176,9 @@ public class PedidoService {
 		}
 	}
 	
-	public boolean cancelarPedido(int cod, String cancelado) throws CancelarPedidoException{
+	public boolean cancelarPedido(int cod, String cancelado, int codi) throws CancelarPedidoException, PermissaoException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("log", codi);
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -217,7 +231,9 @@ public class PedidoService {
 		}
 	}
 	
-	public void pedidoEntregue(int cod) throws PedidoEntregueException{
+	public void pedidoEntregue(int cod, int codi) throws PedidoEntregueException, PermissaoException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("log", codi);
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -230,7 +246,9 @@ public class PedidoService {
 		}
 	}
 	
-	public List<ListaPedidoVO> relatorioVenda(Date dataini, Date datafim, String busca) throws RelatorioVendaException{
+	public List<ListaPedidoVO> relatorioVenda(Date dataini, Date datafim, String busca, int codi) throws RelatorioVendaException, PermissaoException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -243,7 +261,9 @@ public class PedidoService {
 		}
 	}
 	
-	public List<ListaPedidoVO> pedidosUsuario(int cod) throws HamburgueriaException{
+	public List<ListaPedidoVO> pedidosUsuario(int cod, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("log", codi);
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();

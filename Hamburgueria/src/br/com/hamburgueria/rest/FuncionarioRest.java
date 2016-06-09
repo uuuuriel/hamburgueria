@@ -2,6 +2,8 @@ package br.com.hamburgueria.rest;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -23,6 +26,9 @@ import br.com.hamburgueria.service.FuncionarioService;
 @Path("funcionarioRest")
 public class FuncionarioRest extends UtilRest {
 	
+	@Context
+	private HttpServletRequest req;
+	
 	public FuncionarioRest() {
 	}
 	@POST
@@ -33,7 +39,8 @@ public class FuncionarioRest extends UtilRest {
 			Funcionario funcionario = new ObjectMapper().readValue(funcionarioParam,
 					Funcionario.class);
 			FuncionarioService service = new FuncionarioService();
-			service.adicionarFuncionario(funcionario);
+			HttpSession sessao = req.getSession(false);
+			service.adicionarFuncionario(funcionario, Integer.parseInt((String)sessao.getAttribute("admRest")));
 			return this.buildResponse("Funcionário cadastrado com sucesso.");
 		} catch (HamburgueriaException | IOException e) {
 			e.printStackTrace();
@@ -50,7 +57,8 @@ public class FuncionarioRest extends UtilRest {
 			if(nome.equals("null")){
 				nome = "";
 			}
-			return this.buildResponse(service.buscarFuncionarioPorNome(nome));
+			HttpSession sessao = req.getSession(false);
+			return this.buildResponse(service.buscarFuncionarioPorNome(nome, Integer.parseInt((String)sessao.getAttribute("funcionario"))));
 		} catch (HamburgueriaException e) {
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -64,7 +72,8 @@ public class FuncionarioRest extends UtilRest {
 	public Response deletarFuncionario(@PathParam("id") int id) throws PermissaoException {
 		try{
 			FuncionarioService funcionarioService = new FuncionarioService();
-			funcionarioService.deletarFuncionario(id);			
+			HttpSession sessao = req.getSession(false);
+			funcionarioService.deletarFuncionario(id,  Integer.parseInt((String)sessao.getAttribute("admRest")));			
 			return this.buildResponse("Funcionário está inativo a partir de agora!");
 		}catch(HamburgueriaException e){
 			e.printStackTrace();
@@ -78,7 +87,8 @@ public class FuncionarioRest extends UtilRest {
 	public Response buscarFuncionarioPeloId(@PathParam("id")int id) throws PermissaoException{
 		try{
 			FuncionarioService funcionarioService = new FuncionarioService();
-			return this.buildResponse(funcionarioService.buscarFuncionarioPorId(id));
+			HttpSession sessao = req.getSession(false);
+			return this.buildResponse(funcionarioService.buscarFuncionarioPorId(id,  Integer.parseInt((String)sessao.getAttribute("funcionario"))));
 		}catch(HamburgueriaException e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -92,7 +102,8 @@ public class FuncionarioRest extends UtilRest {
 		try{
 			Funcionario funcionario = new ObjectMapper().readValue(funcionarioParam, Funcionario.class);
 			FuncionarioService service = new FuncionarioService();
-			service.atualizarFuncionario(funcionario);			
+			HttpSession sessao = req.getSession(false);
+			service.atualizarFuncionario(funcionario, Integer.parseInt((String)sessao.getAttribute("funcionario")));			
 			return this.buildResponse("Funcionário editado com sucesso.");
 		}catch(HamburgueriaException | IOException e){
 			e.printStackTrace();

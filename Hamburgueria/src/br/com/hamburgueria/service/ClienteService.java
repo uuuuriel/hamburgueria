@@ -4,13 +4,11 @@ import java.sql.Connection;
 import java.util.List;
 
 import br.com.hamburgueria.auxilia.Crip;
+import br.com.hamburgueria.auxilia.Permissao;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
-import br.com.hamburgueria.exception.NoResultException;
 import br.com.hamburgueria.jdbc.JDBCClienteDAO;
-import br.com.hamburgueria.jdbc.JDBCPedidoDAO;
 import br.com.hamburgueria.jdbcinterface.ClienteDAO;
-import br.com.hamburgueria.jdbcinterface.PedidoDAO;
 import br.com.hamburgueria.objs.Cliente;
 import br.com.hamburgueria.validacoes.ValidaUsuario;
 
@@ -56,7 +54,9 @@ public class ClienteService {
 		}
 	}
 
-	public void deletarUsuario(int id) throws HamburgueriaException {
+	public void deletarUsuario(int id, int codi) throws HamburgueriaException {
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try {
 			Cliente user = new Cliente();
@@ -70,7 +70,9 @@ public class ClienteService {
 		}
 	}
 
-	public void atualizarUsuario(Cliente user) throws HamburgueriaException {
+	public void atualizarUsuario(Cliente user, int codi) throws HamburgueriaException {
+		Permissao perm = new Permissao();
+		perm.checkPermission("log", codi);
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();

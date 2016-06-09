@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import br.com.hamburgueria.auxilia.Crip;
+import br.com.hamburgueria.auxilia.Permissao;
 import br.com.hamburgueria.bd.conexao.Conexao;
 import br.com.hamburgueria.exception.HamburgueriaException;
 import br.com.hamburgueria.jdbc.JDBCFuncionarioDAO;
@@ -13,7 +14,9 @@ import br.com.hamburgueria.validacoes.ValidaFuncionario;
 
 public class FuncionarioService {
 
-	public Funcionario buscarFuncionarioPorId(int id) throws HamburgueriaException{
+	public Funcionario buscarFuncionarioPorId(int id, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try {			
 			Connection conexao = conec.abrirConexao();
@@ -24,7 +27,9 @@ public class FuncionarioService {
 		}
 	}
 	
-	public List<Funcionario> buscarFuncionarioPorNome(String nome) throws HamburgueriaException{
+	public List<Funcionario> buscarFuncionarioPorNome(String nome, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -35,7 +40,9 @@ public class FuncionarioService {
 		}
 	}
 	
-	public void adicionarFuncionario(Funcionario func) throws HamburgueriaException{
+	public void adicionarFuncionario(Funcionario func, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("adm", codi);
 		Conexao conec = new Conexao();
 		try {
 			Connection conexao = conec.abrirConexao();
@@ -51,7 +58,9 @@ public class FuncionarioService {
 		}
 	}
 	
-	public void deletarFuncionario(int id) throws HamburgueriaException{
+	public void deletarFuncionario(int id, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("adm", codi);
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
@@ -62,7 +71,9 @@ public class FuncionarioService {
 		}
 	}
 	
-	public void atualizarFuncionario(Funcionario func) throws HamburgueriaException{
+	public void atualizarFuncionario(Funcionario func, int codi) throws HamburgueriaException{
+		Permissao perm = new Permissao();
+		perm.checkPermission("func", codi);
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();

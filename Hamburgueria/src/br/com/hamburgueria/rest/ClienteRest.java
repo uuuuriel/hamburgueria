@@ -1,5 +1,7 @@
 package br.com.hamburgueria.rest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -7,6 +9,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,6 +21,9 @@ import br.com.hamburgueria.service.ClienteService;
 
 @Path("UsuarioRest")
 public class ClienteRest extends UtilRest {
+	
+	@Context
+	private HttpServletRequest req;
 	
 	public ClienteRest() {
 	}
@@ -59,7 +65,8 @@ public class ClienteRest extends UtilRest {
 	public Response deletarUsuario(@PathParam("id") int id) throws PermissaoException {
 		try{
 			ClienteService service = new ClienteService();
-			service.deletarUsuario(id);			
+			HttpSession sessao = req.getSession(false);
+			service.deletarUsuario(id, Integer.parseInt((String)sessao.getAttribute("funcionario")));			
 			return this.buildResponse("Usuário desativado!");
 		} catch(Exception e){
 			e.printStackTrace();
@@ -87,7 +94,8 @@ public class ClienteRest extends UtilRest {
 		try{
 			Cliente user = new ObjectMapper().readValue(usuarioParam, Cliente.class);
 			ClienteService service = new ClienteService();
-			service.atualizarUsuario(user);			
+			HttpSession sessao = req.getSession(false);
+			service.atualizarUsuario(user, Integer.parseInt((String)sessao.getAttribute("log")));			
 			return this.buildResponse("Usuário editado com sucesso.");
 		}catch(Exception e){
 			e.printStackTrace();

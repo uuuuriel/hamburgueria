@@ -86,7 +86,7 @@ public class PedidoRest extends UtilRest{
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedidoService = new PedidoService();
 			ped.setCodcliente(Integer.parseInt((String)sessao.getAttribute("cod")));
-			pedidoService.finalizarPedido((String)sessao.getAttribute("produto"), ped);
+			pedidoService.finalizarPedido((String)sessao.getAttribute("produto"), ped, Integer.parseInt((String)sessao.getAttribute("log")));
 			sessao.setAttribute("produto", null);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -104,7 +104,7 @@ public class PedidoRest extends UtilRest{
 			HttpSession sessao = req.getSession(false);
 			ped.setCodfunc(Integer.parseInt((String)sessao.getAttribute("cod")));
 			PedidoService pedidoService = new PedidoService();
-			pedidoService.finalizarPedidoFuncionario((String)sessao.getAttribute("produto"), ped);
+			pedidoService.finalizarPedidoFuncionario((String)sessao.getAttribute("produto"), ped, Integer.parseInt((String)sessao.getAttribute("funcionario")));
 			sessao.setAttribute("produto", null);	
 			return this.buildResponse("Pedido finalizado com sucesso.");
 		}catch(Exception e){
@@ -122,7 +122,7 @@ public class PedidoRest extends UtilRest{
 			HttpSession sessao = req.getSession(false);
 			PedidoService pedido = new PedidoService();
 			user.setCodfunc(Integer.parseInt((String)sessao.getAttribute("cod")));
-			pedido.finalizarPedidoFuncionarioNovo((String)sessao.getAttribute("produto"), user);
+			pedido.finalizarPedidoFuncionarioNovo((String)sessao.getAttribute("produto"), user, Integer.parseInt((String)sessao.getAttribute("funcionario")));
 			sessao.setAttribute("produto", null);	
 			return this.buildResponse("Pedido finalizado com sucesso.");
 		}catch(Exception e){
@@ -159,7 +159,8 @@ public class PedidoRest extends UtilRest{
 			, @PathParam("codpr") int codpr) throws PermissaoException {
 		try{
 			PedidoService pedido = new PedidoService();
-			pedido.atualizarEstagioPedido(estagio, codpe, codpr);
+			HttpSession sessao = req.getSession(false);
+			pedido.atualizarEstagioPedido(estagio, codpe, codpr, Integer.parseInt((String)sessao.getAttribute("funcionario")));
 			return this.buildResponse("Pedido está no próximo estágio.");
 		}catch(Exception e){
 			e.printStackTrace();
