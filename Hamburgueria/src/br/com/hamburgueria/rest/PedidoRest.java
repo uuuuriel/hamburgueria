@@ -202,7 +202,8 @@ public class PedidoRest extends UtilRest{
 	public Response listarPedidoEstagio(@PathParam("cod")int cod) throws PermissaoException{
 		try{
 			PedidoService pedido = new PedidoService();
-			return this.buildResponse(pedido.listarProdutosEstagio(cod));
+			HttpSession sessao = req.getSession(false);
+			return this.buildResponse(pedido.listarProdutosEstagio(cod, Integer.parseInt((String)sessao.getAttribute("funcionario"))));
 		}catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -229,7 +230,8 @@ public class PedidoRest extends UtilRest{
 	public Response pedidoEntrega(@PathParam("cod")int cod){
 		try{
 			PedidoService pedido = new PedidoService();
-			pedido.pedidoEntregue(cod);
+			HttpSession sessao = req.getSession(false);
+			pedido.pedidoEntregue(cod, Integer.parseInt((String)sessao.getAttribute("funcionario")));
 			return this.buildResponse("Pedido entregue.");
 		}catch(Exception e){
 			e.printStackTrace();
@@ -248,7 +250,8 @@ public class PedidoRest extends UtilRest{
 				busca = "";
 			}
 			PedidoService pedido = new PedidoService();
-			return this.buildResponse(pedido.relatorioVenda(dataini, datafim, busca));
+			HttpSession sessao = req.getSession(false);
+			return this.buildResponse(pedido.relatorioVenda(dataini, datafim, busca, Integer.parseInt((String)sessao.getAttribute("funcionario"))));
 		}catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());
@@ -262,7 +265,7 @@ public class PedidoRest extends UtilRest{
 		try{
 			PedidoService pedido = new PedidoService();
 			HttpSession sessao = req.getSession(false);
-			return this.buildResponse(pedido.pedidosUsuario(Integer.parseInt((String) sessao.getAttribute("cod"))));
+			return this.buildResponse(pedido.pedidosUsuario(Integer.parseInt((String) sessao.getAttribute("cod")), Integer.parseInt((String)sessao.getAttribute("log"))));
 		}catch(Exception e){
 			e.printStackTrace();
 			return this.buildErrorResponse(e.getMessage());

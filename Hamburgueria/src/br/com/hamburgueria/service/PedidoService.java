@@ -176,9 +176,7 @@ public class PedidoService {
 		}
 	}
 	
-	public boolean cancelarPedido(int cod, String cancelado, int codi) throws CancelarPedidoException, PermissaoException{
-		Permissao perm = new Permissao();
-		perm.checkPermission("log", codi);
+	public boolean cancelarPedido(int cod, String cancelado) throws CancelarPedidoException, PermissaoException{
 		Conexao conec = new Conexao();
 		try{
 			Connection conexao = conec.abrirConexao();
