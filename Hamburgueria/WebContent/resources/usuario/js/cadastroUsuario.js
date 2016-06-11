@@ -23,7 +23,7 @@ $(document).ready(function(){
 				var size = $("#telefone").val();
 				var fone = $("#telefone").val();
 				$("#telefone").mask("(99)9999-9999");
-				if(size.length == 12){
+				if(size.length == 10){
 					HM.usuario.validaFone({
 						data:fone,
 						success:function(data){
@@ -40,7 +40,7 @@ $(document).ready(function(){
 				}else{
 					$("#telefone").val("");
 					$("#telefone").focus();
-					bootbox.alert("Número de telefone deve conter 12 digitos.");
+					bootbox.alert("Número de telefone deve conter 10 digitos.");
 				}
 			}
 		}

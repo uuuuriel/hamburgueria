@@ -90,6 +90,7 @@ $(document).ready(function(){
 			},
 			error:function(err){
 				console.log(err);
+				bootbox.alert("Erro ao finalizar pedido. Tente novamente com um endereço válido.");
 			}
 		});
 	}
@@ -121,10 +122,8 @@ $(document).ready(function(){
 	HM.usuario.valida = function(){
 		if($("#cod").val() == "" || $("#cod").val() == null){
 			if($("#telefone").val() != ""){
-				$("#telefone").unmask();
 				var size = $("#telefone").val();
-				$("#telefone").mask("(99)9999-9999");
-				if(size.length == 12){
+				if(size.length == 10){
 					HM.usuario.validaFone({
 						data:size,
 						success:function(data){
@@ -141,7 +140,7 @@ $(document).ready(function(){
 				}else{
 					$("#telefone").val("");
 					$("#telefone").focus();
-					bootbox.alert("Número de telefone deve conter 12 digitos.");
+					bootbox.alert("Número de telefone deve conter 10 digitos.");
 				}
 			}
 		}
@@ -323,6 +322,7 @@ $(document).ready(function(){
 															},
 															error : function(error) {
 																console.log(error);
+																bootbox.alert(error.responseText);
 															}
 														});
 														
@@ -379,6 +379,7 @@ $(document).ready(function(){
 												},
 												error:function(err){
 													console.log(err);
+													bootbox.alert(err.responseText);
 												}
 											})
 										}
@@ -387,7 +388,6 @@ $(document).ready(function(){
 										label: "Fechar",
 										className: "btn-danger",
 										callback: function() {
-											console.log($(this));
 											$(this).fadeOut(1000);
 										}
 									}	
